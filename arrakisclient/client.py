@@ -1,0 +1,125 @@
+import asyncio
+from typing import Awaitable, Callable, Iterable, Iterator, Optional, Type, TypeVar, Union
+
+from arrakisclient.aio import (
+    AsyncArrakisClient,
+    CheckResponse,
+    ExpandResponse,
+    ReadResponse,
+    TuplesetFilter,
+)
+from arrakisclient.types.namespace import ArrakisNamespace
+from arrakisclient.types.tuple import ArrakisUser, ArrakisUserID, ObjectAndRelation, Tuple
+from arrakisclient.types.zookie import Zookie
+
+U = TypeVar("U")
+
+
+def _aio_run(coro: Awaitable[U]) -> U:
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(coro)
+
+
+T = TypeVar("T")
+
+
+class ArrakisClient(object):
+    """Python client for communicating with the authorization service."""
+
+    class WriteOperation(AsyncArrakisClient.AsyncWriteOperation):
+        def __init__(self, client: AsyncArrakisClient, preconditions: Iterable[Tuple]):
+            super().__init__(client, preconditions)
+
+        def __enter__(self) -> AsyncArrakisClient.AsyncWriteOperation:
+            assert self._response_proto is None, "cannot re-enter previously executed write op"
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback) -> bool:
+            return _aio_run(super().__aexit__(exc_type, exc_value, traceback))
+
+    class TenantManagementClient:
+        def __init__(self, delegate: AsyncArrakisClient.AsyncTenantManagementClient):
+            self._delegate = delegate
+
+        def write_namespace_config(self, config: str) -> Zookie:
+            return _aio_run(self._delegate.write_namespace_config(config))
+
+    def __init__(
+        self,
+        endpoint: str,
+        *namespace_types: Type[ArrakisNamespace],
+        tls_cert: bytes = None,
+        access_token: str = None,
+    ):
+        self._delegate = AsyncArrakisClient(
+            endpoint, *namespace_types, tls_cert=tls_cert, access_token=access_token
+        )
+        self._management = self.TenantManagementClient(self._delegate.management)
+
+    def filter(
+        self,
+        *,
+        object_id_func: Callable[[T], ObjectAndRelation],
+        items: Union[Iterator[T], Iterable[T]],
+        user: ArrakisUser,
+        revision_func: Callable[[T], Optional[Zookie]] = lambda x: None,
+    ) -> Iterator[T]:
+        yield from self.filter_with_user_func(
+            object_id_func=object_id_func,
+            items=items,
+            user_func=lambda x: user,
+            revision_func=revision_func,
+        )
+
+    def filter_with_user_func(
+        self,
+        *,
+        object_id_func: Callable[[T], ObjectAndRelation],
+        items: Union[Iterator[T], Iterable[T]],
+        user_func: Callable[[T], ArrakisUser],
+        revision_func: Callable[[T], Optional[Zookie]] = lambda x: None,
+    ) -> Iterator[T]:
+        response_iter = self._delegate.filter_with_user_func(
+            object_id_func=object_id_func,
+            items=items,
+            user_func=user_func,
+            revision_func=revision_func,
+        )
+
+        loop = asyncio.new_event_loop()
+
+        try:
+            while True:
+                yield loop.run_until_complete(response_iter.__anext__())
+        except StopAsyncIteration:
+            return
+
+    def check(
+        self,
+        onr: ObjectAndRelation,
+        user: ArrakisUser,
+        at_revision: Optional[Zookie] = None,
+    ) -> CheckResponse:
+        return _aio_run(self._delegate.check(onr, user, at_revision))
+
+    def content_change_check(self, onr: ObjectAndRelation, user: ArrakisUserID) -> CheckResponse:
+        return _aio_run(self._delegate.content_change_check(onr, user))
+
+    def read(
+        self, *tupleset_filters: TuplesetFilter, at_revision: Optional[Zookie]
+    ) -> ReadResponse:
+        return _aio_run(self._delegate.read(*tupleset_filters, at_revision=at_revision))
+
+    def expand(
+        self, onr: ObjectAndRelation, at_revision: Optional[Zookie] = None
+    ) -> ExpandResponse:
+        return _aio_run(self._delegate.expand(onr, at_revision))
+
+    @property
+    def management(self) -> "ArrakisClient.TenantManagementClient":
+        """Returns a client that can be used to perform tenant management operations such as
+        updating a namespace."""
+        return self._management
+
+    def batch_write(self, preconditions: Iterable[Tuple] = []) -> WriteOperation:
+        return ArrakisClient.WriteOperation(self._delegate, preconditions)
