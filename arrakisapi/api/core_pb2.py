@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/petricorp/code/arrakisapi',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x19\x61rrakisapi/api/core.proto\"U\n\rRelationTuple\x12/\n\x13object_and_relation\x18\x01 \x01(\x0b\x32\x12.ObjectAndRelation\x12\x13\n\x04user\x18\x02 \x01(\x0b\x32\x05.User\"K\n\x11ObjectAndRelation\x12\x11\n\tnamespace\x18\x01 \x01(\t\x12\x11\n\tobject_id\x18\x02 \x01(\t\x12\x10\n\x08relation\x18\x03 \x01(\t\"N\n\x04User\x12\x11\n\x07user_id\x18\x01 \x01(\x04H\x00\x12%\n\x07userset\x18\x02 \x01(\x0b\x32\x12.ObjectAndRelationH\x00\x42\x0c\n\nuser_oneof\"\x17\n\x06Zookie\x12\r\n\x05token\x18\x01 \x01(\t\"\xa4\x01\n\x13RelationTupleUpdate\x12\x31\n\toperation\x18\x01 \x01(\x0e\x32\x1e.RelationTupleUpdate.Operation\x12\x1d\n\x05tuple\x18\x02 \x01(\x0b\x32\x0e.RelationTuple\";\n\tOperation\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x43REATE\x10\x01\x12\t\n\x05TOUCH\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x03\"\xa2\x01\n\x15RelationTupleTreeNode\x12\x31\n\x11intermediate_node\x18\x01 \x01(\x0b\x32\x14.SetOperationUsersetH\x00\x12#\n\tleaf_node\x18\x02 \x01(\x0b\x32\x0e.DirectUsersetH\x00\x12$\n\x08\x65xpanded\x18\x03 \x01(\x0b\x32\x12.ObjectAndRelationB\x0b\n\tnode_type\"\xbb\x01\n\x13SetOperationUserset\x12\x31\n\toperation\x18\x01 \x01(\x0e\x32\x1e.SetOperationUserset.Operation\x12+\n\x0b\x63hild_nodes\x18\x02 \x03(\x0b\x32\x16.RelationTupleTreeNode\"D\n\tOperation\x12\x0b\n\x07INVALID\x10\x00\x12\t\n\x05UNION\x10\x01\x12\x10\n\x0cINTERSECTION\x10\x02\x12\r\n\tEXCLUSION\x10\x03\"%\n\rDirectUserset\x12\x14\n\x05users\x18\x01 \x03(\x0b\x32\x05.UserB&Z$github.com/petricorp/code/arrakisapib\x06proto3'
+  serialized_pb=b'\n\x19\x61rrakisapi/api/core.proto\"U\n\rRelationTuple\x12/\n\x13object_and_relation\x18\x01 \x01(\x0b\x32\x12.ObjectAndRelation\x12\x13\n\x04user\x18\x02 \x01(\x0b\x32\x05.User\"K\n\x11ObjectAndRelation\x12\x11\n\tnamespace\x18\x01 \x01(\t\x12\x11\n\tobject_id\x18\x02 \x01(\t\x12\x10\n\x08relation\x18\x03 \x01(\t\";\n\x04User\x12%\n\x07userset\x18\x02 \x01(\x0b\x32\x12.ObjectAndRelationH\x00\x42\x0c\n\nuser_oneof\"\x17\n\x06Zookie\x12\r\n\x05token\x18\x01 \x01(\t\"\xa4\x01\n\x13RelationTupleUpdate\x12\x31\n\toperation\x18\x01 \x01(\x0e\x32\x1e.RelationTupleUpdate.Operation\x12\x1d\n\x05tuple\x18\x02 \x01(\x0b\x32\x0e.RelationTuple\";\n\tOperation\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x43REATE\x10\x01\x12\t\n\x05TOUCH\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x03\"\xa2\x01\n\x15RelationTupleTreeNode\x12\x31\n\x11intermediate_node\x18\x01 \x01(\x0b\x32\x14.SetOperationUsersetH\x00\x12#\n\tleaf_node\x18\x02 \x01(\x0b\x32\x0e.DirectUsersetH\x00\x12$\n\x08\x65xpanded\x18\x03 \x01(\x0b\x32\x12.ObjectAndRelationB\x0b\n\tnode_type\"\xbb\x01\n\x13SetOperationUserset\x12\x31\n\toperation\x18\x01 \x01(\x0e\x32\x1e.SetOperationUserset.Operation\x12+\n\x0b\x63hild_nodes\x18\x02 \x03(\x0b\x32\x16.RelationTupleTreeNode\"D\n\tOperation\x12\x0b\n\x07INVALID\x10\x00\x12\t\n\x05UNION\x10\x01\x12\x10\n\x0cINTERSECTION\x10\x02\x12\r\n\tEXCLUSION\x10\x03\"%\n\rDirectUserset\x12\x14\n\x05users\x18\x01 \x03(\x0b\x32\x05.UserB&Z$github.com/petricorp/code/arrakisapib\x06proto3'
 )
 
 
@@ -54,8 +54,8 @@ _RELATIONTUPLEUPDATE_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=404,
-  serialized_end=463,
+  serialized_start=385,
+  serialized_end=444,
 )
 _sym_db.RegisterEnumDescriptor(_RELATIONTUPLEUPDATE_OPERATION)
 
@@ -89,8 +89,8 @@ _SETOPERATIONUSERSET_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=750,
-  serialized_end=818,
+  serialized_start=731,
+  serialized_end=799,
 )
 _sym_db.RegisterEnumDescriptor(_SETOPERATIONUSERSET_OPERATION)
 
@@ -189,14 +189,7 @@ _USER = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='User.user_id', index=0,
-      number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='userset', full_name='User.userset', index=1,
+      name='userset', full_name='User.userset', index=0,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -220,7 +213,7 @@ _USER = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=193,
-  serialized_end=271,
+  serialized_end=252,
 )
 
 
@@ -251,8 +244,8 @@ _ZOOKIE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=273,
-  serialized_end=296,
+  serialized_start=254,
+  serialized_end=277,
 )
 
 
@@ -291,8 +284,8 @@ _RELATIONTUPLEUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=299,
-  serialized_end=463,
+  serialized_start=280,
+  serialized_end=444,
 )
 
 
@@ -342,8 +335,8 @@ _RELATIONTUPLETREENODE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=466,
-  serialized_end=628,
+  serialized_start=447,
+  serialized_end=609,
 )
 
 
@@ -382,8 +375,8 @@ _SETOPERATIONUSERSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=631,
-  serialized_end=818,
+  serialized_start=612,
+  serialized_end=799,
 )
 
 
@@ -414,16 +407,13 @@ _DIRECTUSERSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=820,
-  serialized_end=857,
+  serialized_start=801,
+  serialized_end=838,
 )
 
 _RELATIONTUPLE.fields_by_name['object_and_relation'].message_type = _OBJECTANDRELATION
 _RELATIONTUPLE.fields_by_name['user'].message_type = _USER
 _USER.fields_by_name['userset'].message_type = _OBJECTANDRELATION
-_USER.oneofs_by_name['user_oneof'].fields.append(
-  _USER.fields_by_name['user_id'])
-_USER.fields_by_name['user_id'].containing_oneof = _USER.oneofs_by_name['user_oneof']
 _USER.oneofs_by_name['user_oneof'].fields.append(
   _USER.fields_by_name['userset'])
 _USER.fields_by_name['userset'].containing_oneof = _USER.oneofs_by_name['user_oneof']

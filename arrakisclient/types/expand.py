@@ -4,7 +4,7 @@ from typing import Dict, Iterable, Optional, Type
 import arrakisapi.api.core_pb2 as core_proto
 
 from arrakisclient.types.namespace import ArrakisNamespace
-from arrakisclient.types.tuple import ArrakisUser, ArrakisUserID, ObjectAndRelation
+from arrakisclient.types.tuple import ArrakisUser, ObjectAndRelation
 
 
 class ExpandOperation(IntEnum):
@@ -129,9 +129,4 @@ def _leaf_to_iterable(
     leaf: core_proto.DirectUserset, ns_map: Dict[str, Type[ArrakisNamespace]]
 ) -> Iterable[ArrakisUser]:
     for user in leaf.users:
-        if user.HasField("user_id"):
-            yield ArrakisUserID(user.user_id)
-        elif user.HasField("userset"):
-            yield ObjectAndRelation.from_proto(user.userset, ns_map).as_userset()
-        else:
-            raise NotImplementedError()
+        yield ObjectAndRelation.from_proto(user.userset, ns_map).as_userset()

@@ -9,7 +9,7 @@ from arrakisclient.aio import (
     TuplesetFilter,
 )
 from arrakisclient.types.namespace import ArrakisNamespace
-from arrakisclient.types.tuple import ArrakisUser, ArrakisUserID, ObjectAndRelation, Tuple
+from arrakisclient.types.tuple import ArrakisUser, ObjectAndRelation, Tuple
 from arrakisclient.types.zookie import Zookie
 
 U = TypeVar("U")
@@ -24,7 +24,7 @@ T = TypeVar("T")
 
 
 class ArrakisClient(object):
-    """Python client for communicating with the authorization service."""
+    """Synchronous Python client for communicating with Authzed."""
 
     class WriteOperation(AsyncArrakisClient.AsyncWriteOperation):
         def __init__(self, client: AsyncArrakisClient, preconditions: Iterable[Tuple]):
@@ -102,7 +102,7 @@ class ArrakisClient(object):
     ) -> CheckResponse:
         return _aio_run(self._delegate.check(onr, user, at_revision))
 
-    def content_change_check(self, onr: ObjectAndRelation, user: ArrakisUserID) -> CheckResponse:
+    def content_change_check(self, onr: ObjectAndRelation, user: ArrakisUser) -> CheckResponse:
         return _aio_run(self._delegate.content_change_check(onr, user))
 
     def read(

@@ -1,5 +1,6 @@
 import pytest
-from arrakisapi.validation import validate_namespace_name, validate_relation_name
+from arrakisapi.validation import (validate_namespace_name,
+                                   validate_relation_name)
 
 
 @pytest.mark.parametrize(
@@ -21,6 +22,12 @@ from arrakisapi.validation import validate_namespace_name, validate_relation_nam
         ("foo1/bar1/baz1", False),
         ("f" * 3, False),
         ("f" * 4, True),
+        ("\u0394" * 4, False),
+        ("\n" * 4, False),
+        ("_" * 4, False),
+        ("-" * 4, False),
+        ("/" * 4, False),
+        ("\\" * 4, False),
         ("f" * 64, True),
         ("f" * 65, False),
         (f"{'f' * 63}/{'f' * 63}", True),
@@ -52,6 +59,12 @@ def test_validate_namespace_name(namespace_name, is_valid):
         ("foo/bar/baz", False),
         ("f" * 3, False),
         ("f" * 4, True),
+        ("\u0394" * 4, False),
+        ("\n" * 4, False),
+        ("_" * 4, False),
+        ("-" * 4, False),
+        ("/" * 4, False),
+        ("\\" * 4, False),
         ("f" * 64, True),
         (f"{'f' * 63}/{'f' * 63}", False),
         (f"{'f' * 64}/{'f' * 64}", False),

@@ -19,44 +19,40 @@ from arrakisclient.types.errors import RequestException, wrap_client_exception_a
 from arrakisclient.types.expand import ExpandTree
 from arrakisclient.types.namespace import ArrakisNamespace, Relation
 from arrakisclient.types.parsers import parse_namespace_config
-from arrakisclient.types.tuple import ArrakisUser, ArrakisUserID, ObjectAndRelation, Tuple
+from arrakisclient.types.tuple import ArrakisUser, ObjectAndRelation, Tuple
 from arrakisclient.types.zookie import Zookie
 
 
 class TuplesetFilter(object):
-    """ TuplesetFilter defines a filter for reading tuples. """
+    """TuplesetFilter defines a filter for reading tuples using the ArrakisClient.read() method.
+    All filters are optional except for the namespace."""
 
     def __init__(
         self,
         namespace: str,
         object_id: Optional[str] = None,
         relation: Optional[str] = None,
-        user_id: Optional[ArrakisUserID] = None,
         userset: Optional[ObjectAndRelation] = None,
     ):
         self.namespace = namespace
         self.object_id = object_id
         self.relation = relation
-        self.user_id = user_id
         self.userset = userset
 
     @classmethod
     def for_relation(cls, namespace: Type[ArrakisNamespace], relation: Relation):
         return TuplesetFilter(namespace.__namespace__, relation=relation.relation_name)
 
-    def with_object_id(self, object_id: str):
+    def with_object_id(self, object_id: str) -> "TuplesetFilter":
         return self._clone(object_id=object_id)
 
-    def with_relation(self, relation: str):
+    def with_relation(self, relation: str) -> "TuplesetFilter":
         return self._clone(relation=relation)
 
-    def with_user_id(self, user_id: ArrakisUserID):
-        return self._clone(user_id=user_id)
-
-    def with_userset(self, userset: ObjectAndRelation):
+    def with_userset(self, userset: ObjectAndRelation) -> "TuplesetFilter":
         return self._clone(userset=userset)
 
-    def as_proto(self):
+    def as_proto(self) -> acl_proto.RelationTupleFilter:
         filters = []
         if self.object_id:
             filters.append(acl_proto.RelationTupleFilter.OBJECT_ID)
@@ -64,12 +60,7 @@ class TuplesetFilter(object):
         if self.relation:
             filters.append(acl_proto.RelationTupleFilter.RELATION)
 
-        if self.user_id:
-            assert self.userset is None
-            filters.append(acl_proto.RelationTupleFilter.USER_ID)
-
         if self.userset:
-            assert self.user_id is None
             filters.append(acl_proto.RelationTupleFilter.USERSET)
 
         return acl_proto.RelationTupleFilter(
@@ -77,23 +68,22 @@ class TuplesetFilter(object):
             filters=filters,
             object_id=self.object_id or None,
             relation=self.relation or None,
-            user_id=str(self.user_id.user_id) if self.user_id else None,
             userset=self.userset.as_proto() if self.userset else None,
         )
 
-    def _clone(self, object_id=None, relation=None, user_id=None, userset=None):
+    def _clone(self, object_id=None, relation=None, user_id=None, userset=None) -> "TuplesetFilter":
         return TuplesetFilter(
             self.namespace,
             object_id=object_id or self.object_id,
             relation=relation or self.relation,
-            user_id=user_id or self.user_id,
             userset=userset or self.userset,
         )
 
 
 class CheckResponse(object):
-    """Response object for a call to ArrakisClient.check(). Implements __bool__ so the caller can
-    use it directly in conditionals.
+    """CheckResponse object for a call to ArrakisClient.check() or
+    ArrakisClient.content_change_check(). Implements __bool__ so that the response object can be
+    used as a truthy or falsy value directly, indicating relation membership.
     """
 
     def __init__(self, check_response: acl_proto.CheckResponse):
@@ -157,7 +147,7 @@ T = TypeVar("T")
 
 
 class AsyncArrakisClient(object):
-    """Python client for communicating with the authorization service."""
+    """Asynchronous (asyncio) Python client for communicating with Authzed."""
 
     class AsyncWriteOperation(object):
         """ Async ContextManager which is used to send a batch of mutations to the server. """
@@ -341,7 +331,7 @@ class AsyncArrakisClient(object):
 
     @wrap_client_exception_async
     async def content_change_check(
-        self, onr: ObjectAndRelation, user: ArrakisUserID
+        self, onr: ObjectAndRelation, user: ArrakisUser
     ) -> CheckResponse:
         """Check that the specified user has the specified relation at a revision which encompasses
         all changes up through at least the current time."""
