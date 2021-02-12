@@ -1,0 +1,5 @@
+# generated protobufs
+*pb2.py -diff linguist-generated=true
+*pb2.pyi -diff linguist-generated=true
+*pb2_grpc.py -diff linguist-generated=true
+*pb2_grpc.pyi -diff linguist-generated=true

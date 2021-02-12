@@ -6,7 +6,7 @@ The Python client library for Authzed.
 
 ### QuickStart
 
-A complete version of this example can be found in this repository at `examples/basic.py`
+A complete version of this example can be found in this repository at [`examples/basic.py`](examples/basic.py)
 
 In Python, we have support for declaring ORM-like models which allow you to easily interact with
 the data in your tenant. Here we define some models for `User` and `Document` which match the

@@ -13,7 +13,7 @@ from arrakisclient.test_util import (
     mock_async_contextmanager,
 )
 from arrakisclient.types.namespace import ArrakisNamespace, Relation
-from arrakisclient.types.tuple import ArrakisUserID, ArrakisUserset, ObjectAndRelation
+from arrakisclient.types.tuple import ArrakisUserset, ObjectAndRelation
 
 
 class _TestNS(ArrakisNamespace):
@@ -22,6 +22,12 @@ class _TestNS(ArrakisNamespace):
     bar1 = Relation(relation_name="bar1")
     bar2 = Relation(relation_name="bar2")
     auser = Relation(relation_name="auser")
+
+    ellipsis = Relation(relation_name="...")
+
+
+class _User(ArrakisNamespace):
+    __namespace__ = "test/user"
 
     ellipsis = Relation(relation_name="...")
 
@@ -38,7 +44,7 @@ def namespace_stub() -> AsyncTestNamespaceStub:
 
 @pytest.fixture
 def client(acl_stub, namespace_stub) -> AsyncArrakisClient:
-    client = AsyncArrakisClient("fakefakefake", _TestNS)
+    client = AsyncArrakisClient("fakefakefake", _TestNS, _User)
     client.acl_stub = mock_async_contextmanager(acl_stub)
     client.namespace_stub = mock_async_contextmanager(namespace_stub)
     return client
@@ -46,7 +52,7 @@ def client(acl_stub, namespace_stub) -> AsyncArrakisClient:
 
 @pytest.fixture
 def sync_client(acl_stub, namespace_stub) -> ArrakisClient:
-    client = ArrakisClient("fakefakefake", _TestNS)
+    client = ArrakisClient("fakefakefake", _TestNS, _User)
     client._delegate.acl_stub = mock_async_contextmanager(acl_stub)
     client._delegate.namespace_stub = mock_async_contextmanager(namespace_stub)
     return client
@@ -189,7 +195,11 @@ async def test_read(client: AsyncArrakisClient, acl_stub: AsyncMock):
                                 relation="bar1",
                                 object_id="baz",
                             ),
-                            user=core_proto.User(user_id=1234),
+                            user=core_proto.User(
+                                userset=core_proto.ObjectAndRelation(
+                                    namespace="test/user", relation="...", object_id="1234"
+                                )
+                            ),
                         )
                     ]
                 ),
@@ -218,7 +228,7 @@ async def test_read(client: AsyncArrakisClient, acl_stub: AsyncMock):
     result = await client.read(TuplesetFilter("test/namespace"), at_revision=None)
     tuples = list(result.tuples)
     assert tuples == [
-        _TestNS("baz").bar1(ArrakisUserID(1234)),
+        _TestNS("baz").bar1(ArrakisUserset.from_onr(ObjectAndRelation(_User("1234"), "..."))),
         _TestNS("baz2").bar2(
             ArrakisUserset.from_onr(ObjectAndRelation(_TestNS("hithere"), "auser"))
         ),
@@ -237,7 +247,11 @@ def test_read_sync(sync_client: ArrakisClient, acl_stub: AsyncMock):
                                 relation="bar1",
                                 object_id="baz",
                             ),
-                            user=core_proto.User(user_id=1234),
+                            user=core_proto.User(
+                                userset=core_proto.ObjectAndRelation(
+                                    namespace="test/user", relation="...", object_id="1234"
+                                )
+                            ),
                         )
                     ]
                 ),
@@ -266,7 +280,7 @@ def test_read_sync(sync_client: ArrakisClient, acl_stub: AsyncMock):
     result = sync_client.read(TuplesetFilter("test/namespace"), at_revision=None)
     tuples = list(result.tuples)
     assert tuples == [
-        _TestNS("baz").bar1(ArrakisUserID(1234)),
+        _TestNS("baz").bar1(ArrakisUserset.from_onr(ObjectAndRelation(_User("1234"), "..."))),
         _TestNS("baz2").bar2(
             ArrakisUserset.from_onr(ObjectAndRelation(_TestNS("hithere"), "auser"))
         ),

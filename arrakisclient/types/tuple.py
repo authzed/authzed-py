@@ -1,38 +1,10 @@
 from copy import copy
-from typing import TYPE_CHECKING, Dict, Type, Union
+from typing import TYPE_CHECKING, Dict, Type
 
 import arrakisapi.api.core_pb2 as core_proto
 
 if TYPE_CHECKING:
     from arrakisclient.types.namespace import ArrakisNamespace
-
-
-class ArrakisUserID(object):
-    """ Represents a single real user id in the authorization service. """
-
-    def __init__(self, user_id: int):
-        self._user_id = user_id
-
-    def __repr__(self) -> str:
-        return f"{self._user_id}"
-
-    @property
-    def user_id(self) -> int:
-        return self._user_id
-
-    @classmethod
-    def from_proto(cls, pb: core_proto.User):
-        assert pb.user_id
-        return ArrakisUserID(pb.user_id)
-
-    def as_proto(self) -> core_proto.User:
-        return core_proto.User(user_id=self._user_id)
-
-    def __eq__(self, other: "ArrakisUserID") -> bool:
-        return self._user_id == other._user_id
-
-    def __hash__(self):
-        return hash(repr(self))
 
 
 class ObjectAndRelation(object):
@@ -43,10 +15,8 @@ class ObjectAndRelation(object):
         self._relation_name = relation_name
         self._this = False
 
-    def __call__(self, userset: Union[ArrakisUserID, "ObjectAndRelation"]) -> "Tuple":
-        if isinstance(userset, ObjectAndRelation):
-            userset = ArrakisUserset.from_onr(userset)
-        return Tuple(self, userset)
+    def __call__(self, userset: "ObjectAndRelation") -> "Tuple":
+        return Tuple(self, ArrakisUserset.from_onr(userset))
 
     def __repr__(self) -> str:
         return f"{self._obj}#{self._relation_name}"
@@ -106,7 +76,7 @@ class ArrakisUserset(ObjectAndRelation):
         return cls(onr._obj, onr._relation_name)
 
 
-ArrakisUser = Union[ArrakisUserID, ArrakisUserset]
+ArrakisUser = ArrakisUserset
 
 
 class Tuple(object):
@@ -120,10 +90,8 @@ class Tuple(object):
     def from_proto(
         cls, tuple_proto: core_proto.RelationTuple, ns_map: Dict[str, Type["ArrakisNamespace"]]
     ) -> "Tuple":
-        user = (
-            ArrakisUserset.from_proto(tuple_proto.user.userset, ns_map)
-            if not tuple_proto.user.user_id
-            else ArrakisUserID.from_proto(tuple_proto.user)
+        user = ArrakisUserset.from_onr(
+            ObjectAndRelation.from_proto(tuple_proto.user.userset, ns_map)
         )
         return Tuple(ObjectAndRelation.from_proto(tuple_proto.object_and_relation, ns_map), user)
 
@@ -140,3 +108,11 @@ class Tuple(object):
 
     def __hash__(self):
         return hash(repr(self))
+
+    @property
+    def onr(self) -> ObjectAndRelation:
+        return self._onr
+
+    @property
+    def user(self) -> ArrakisUser:
+        return self._user

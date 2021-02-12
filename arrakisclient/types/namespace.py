@@ -3,7 +3,7 @@ from typing import List, Optional, Type, Union
 
 from arrakisapi.validation import validate_namespace_name, validate_relation_name
 
-from arrakisclient.types.tuple import ArrakisUserID, ArrakisUserset, ObjectAndRelation, Tuple
+from arrakisclient.types.tuple import ArrakisUserset, ObjectAndRelation, Tuple
 
 
 class Self(object):
@@ -18,7 +18,6 @@ class Relation(ObjectAndRelation):
         self,
         *relates_to_types: Union[
             Type["ArrakisNamespace"],
-            Type[ArrakisUserID],
             Type[ArrakisUserset],
             Type[Self],
         ],
@@ -29,7 +28,7 @@ class Relation(ObjectAndRelation):
         self._parent_class_name = None
         self._attr_key = relation_name
 
-    def __call__(self, userset: Union[ArrakisUserID, ObjectAndRelation]) -> Tuple:
+    def __call__(self, userset: ObjectAndRelation) -> Tuple:
         raise RuntimeError("Cannot call an unbound relation")
 
     def __repr__(self) -> str:
@@ -88,6 +87,10 @@ class _ArrakisNamespaceMeta(type):
         attrs["__relations__"] = relations
 
         return super().__new__(cls, name, bases, attrs)
+
+    @property
+    def namespace(cls) -> str:
+        return cls.__namespace__
 
 
 class ArrakisNamespace(object, metaclass=_ArrakisNamespaceMeta):
