@@ -228,12 +228,13 @@ class AsyncArrakisClient(object):
 
     def __init__(
         self,
-        endpoint: str,
         *namespace_types: Type[ArrakisNamespace],
+        endpoint: str = "grpc.authzed.com:443",
+        insecure: bool = False,
         tls_cert: bytes = None,
         access_token: str = None,
     ):
-        if tls_cert is None:
+        if insecure:
             credentials = grpc.local_channel_credentials(grpc.LocalConnectionType.LOCAL_TCP)
         else:
             credentials = grpc.ssl_channel_credentials(root_certificates=tls_cert)

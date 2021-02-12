@@ -52,7 +52,7 @@ Now that we have our models, let's instantiate a client that will use them:
 from arrakisclient.client import ArrakisClient
 
 token = "t_your_token_here_1234567deadbeef"
-client = ArrakisClient("grpc.authzed.com:443", User, Document, access_token=token)
+client = ArrakisClient(User, Document, access_token=token)
 ```
 
 And now we can use our ORM-like models to mutate the data in the tenant:

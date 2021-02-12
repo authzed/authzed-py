@@ -44,7 +44,7 @@ def namespace_stub() -> AsyncTestNamespaceStub:
 
 @pytest.fixture
 def client(acl_stub, namespace_stub) -> AsyncArrakisClient:
-    client = AsyncArrakisClient("fakefakefake", _TestNS, _User)
+    client = AsyncArrakisClient(_TestNS, _User, endpoint="fakefakefake")
     client.acl_stub = mock_async_contextmanager(acl_stub)
     client.namespace_stub = mock_async_contextmanager(namespace_stub)
     return client
@@ -52,7 +52,7 @@ def client(acl_stub, namespace_stub) -> AsyncArrakisClient:
 
 @pytest.fixture
 def sync_client(acl_stub, namespace_stub) -> ArrakisClient:
-    client = ArrakisClient("fakefakefake", _TestNS, _User)
+    client = ArrakisClient(_TestNS, _User, endpoint="fakefakefake")
     client._delegate.acl_stub = mock_async_contextmanager(acl_stub)
     client._delegate.namespace_stub = mock_async_contextmanager(namespace_stub)
     return client

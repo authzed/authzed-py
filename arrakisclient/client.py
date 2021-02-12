@@ -46,13 +46,18 @@ class ArrakisClient(object):
 
     def __init__(
         self,
-        endpoint: str,
         *namespace_types: Type[ArrakisNamespace],
+        endpoint: str = "grpc.authzed.com:443",
+        insecure: bool = False,
         tls_cert: bytes = None,
         access_token: str = None,
     ):
         self._delegate = AsyncArrakisClient(
-            endpoint, *namespace_types, tls_cert=tls_cert, access_token=access_token
+            *namespace_types,
+            endpoint=endpoint,
+            insecure=insecure,
+            tls_cert=tls_cert,
+            access_token=access_token,
         )
         self._management = self.TenantManagementClient(self._delegate.management)
 
