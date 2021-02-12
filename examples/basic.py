@@ -34,7 +34,7 @@ class Document(ArrakisNamespace):
 
 
 token = "t_your_token_here_1234567deadbeef"
-client = ArrakisClient("grpc.authzed.com:443", User, Document, access_token=token)
+client = ArrakisClient(User, Document, access_token=token)
 
 # Create some object references
 a_doc = Document("doc1")
