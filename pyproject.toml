@@ -3,10 +3,11 @@ packages = [
     { include = "arrakisapi" },
     { include = "arrakisclient" },
 ]
-authors = ["Petricorp <j@petricorp.io>"]
-description = "Client library for the Arrakis service."
-name = "arrakisclient"
+authors = ["Petricorp <support@petricorp.io>"]
+description = "Client library for the Authzed service."
+name = "authzed"
 version = "0.2.0"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 grpcio = "1.34.0"
