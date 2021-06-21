@@ -1,7 +1,8 @@
 from typing import Dict
 
-import arrakisapi.api.namespace_pb2 as ns_proto
 import google.protobuf.text_format
+
+import authzed.api.v0.namespace_pb2 as ns_proto
 
 
 class NamespaceConfigParseException(Exception):

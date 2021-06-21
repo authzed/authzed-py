@@ -1,5 +1,5 @@
 import asyncio
-from typing import Awaitable, Callable, Iterable, Iterator, Optional, Type, TypeVar, Union
+from typing import Awaitable, Callable, Iterable, Iterator, List, Optional, Type, TypeVar, Union
 
 from arrakisclient.aio import (
     AsyncArrakisClient,
@@ -41,8 +41,8 @@ class ArrakisClient(object):
         def __init__(self, delegate: AsyncArrakisClient.AsyncTenantManagementClient):
             self._delegate = delegate
 
-        def write_namespace_config(self, config: str) -> Zookie:
-            return _aio_run(self._delegate.write_namespace_config(config))
+        def write_namespace_configs(self, configs: List[str]) -> Zookie:
+            return _aio_run(self._delegate.write_namespace_configs(configs))
 
     def __init__(
         self,

@@ -1,8 +1,7 @@
 from enum import IntEnum
 from typing import Dict, Iterable, Optional, Type
 
-import arrakisapi.api.core_pb2 as core_proto
-
+import authzed.api.v0.core_pb2 as core_proto
 from arrakisclient.types.namespace import ArrakisNamespace
 from arrakisclient.types.tuple import ArrakisUser, ObjectAndRelation
 

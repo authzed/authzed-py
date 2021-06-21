@@ -2,19 +2,19 @@ import asyncio
 import logging
 from dataclasses import dataclass
 from itertools import islice
-from typing import AsyncIterator, Callable, Dict, Iterable, Iterator, Optional
+from typing import AsyncIterator, Callable, Dict, Iterable, Iterator, List, Optional
 from typing import Tuple as TupleType
 from typing import Type, TypeVar, Union
 
-import arrakisapi.api.acl_service_pb2 as acl_proto
-import arrakisapi.api.acl_service_pb2_grpc as acl_grpc_proto
-import arrakisapi.api.core_pb2 as core_proto
-import arrakisapi.api.namespace_service_pb2 as ns_service_proto
-import arrakisapi.api.namespace_service_pb2_grpc as ns_grpc_proto
 import grpc
 import grpc.aio
 from async_generator import asynccontextmanager
 
+import authzed.api.v0.acl_service_pb2 as acl_proto
+import authzed.api.v0.acl_service_pb2_grpc as acl_grpc_proto
+import authzed.api.v0.core_pb2 as core_proto
+import authzed.api.v0.namespace_service_pb2 as ns_service_proto
+import authzed.api.v0.namespace_service_pb2_grpc as ns_grpc_proto
 from arrakisclient.types.errors import RequestException, wrap_client_exception_async
 from arrakisclient.types.expand import ExpandTree
 from arrakisclient.types.namespace import ArrakisNamespace, Relation
@@ -91,7 +91,7 @@ class CheckResponse(object):
 
     @property
     def is_member(self) -> bool:
-        return self._check_response_proto.is_member
+        return self._check_response_proto.membership == acl_proto.CheckResponse.Membership.MEMBER
 
     def __bool__(self) -> bool:
         return self.is_member
@@ -144,6 +144,22 @@ class ReadResponse(object):
 
 
 T = TypeVar("T")
+
+
+def build_grpc_credentials(
+    *, insecure: bool, tls_cert: Optional[bytes], access_token: Optional[str]
+):
+    """ Builds the GRPC credentials for a combination of the TLS cert, access token and insecure. """
+    if insecure:
+        credentials = grpc.local_channel_credentials(grpc.LocalConnectionType.LOCAL_TCP)
+    else:
+        credentials = grpc.ssl_channel_credentials(root_certificates=tls_cert)
+
+    if access_token is not None:
+        call_credentials = grpc.access_token_call_credentials(access_token)
+        credentials = grpc.composite_channel_credentials(credentials, call_credentials)
+
+    return credentials
 
 
 class AsyncArrakisClient(object):
@@ -218,11 +234,13 @@ class AsyncArrakisClient(object):
             self._client = client
 
         @wrap_client_exception_async
-        async def write_namespace_config(self, config: str) -> Zookie:
+        async def write_namespace_configs(self, configs: List[str]) -> Zookie:
+            assert len(configs), "Missing namespace config"
+
             async with self._client.namespace_stub() as ns_stub:
-                namespace_definition = parse_namespace_config(config)
+                namespace_definitions = [parse_namespace_config(config) for config in configs]
                 written: ns_service_proto.WriteConfigResponse = await ns_stub.WriteConfig(
-                    ns_service_proto.WriteConfigRequest(config=namespace_definition)
+                    ns_service_proto.WriteConfigRequest(configs=namespace_definitions)
                 )
                 return Zookie(written.revision)
 
@@ -231,17 +249,12 @@ class AsyncArrakisClient(object):
         *namespace_types: Type[ArrakisNamespace],
         endpoint: str = "grpc.authzed.com:443",
         insecure: bool = False,
-        tls_cert: bytes = None,
-        access_token: str = None,
+        tls_cert: Optional[bytes] = None,
+        access_token: Optional[str] = None,
     ):
-        if insecure:
-            credentials = grpc.local_channel_credentials(grpc.LocalConnectionType.LOCAL_TCP)
-        else:
-            credentials = grpc.ssl_channel_credentials(root_certificates=tls_cert)
-
-        if access_token is not None:
-            call_credentials = grpc.access_token_call_credentials(access_token)
-            credentials = grpc.composite_channel_credentials(credentials, call_credentials)
+        credentials = build_grpc_credentials(
+            insecure=insecure, tls_cert=tls_cert, access_token=access_token
+        )
 
         self._endpoint = endpoint
         self._credentials = credentials
@@ -255,6 +268,7 @@ class AsyncArrakisClient(object):
         items: Union[Iterator[T], Iterable[T]],
         user: ArrakisUser,
         revision_func: Callable[[T], Optional[Zookie]] = lambda x: None,
+        use_content_change_check: bool = False,
     ) -> AsyncIterator[T]:
         """Takes an iterable, and functions which transform that iterable into checkable objects,
         and returns a filtered iterable which contains only the objects for which the user has the
@@ -264,6 +278,7 @@ class AsyncArrakisClient(object):
             items=items,
             user_func=lambda x: user,
             revision_func=revision_func,
+            use_content_change_check=use_content_change_check,
         ):
             yield item
 
@@ -274,6 +289,7 @@ class AsyncArrakisClient(object):
         items: Union[Iterator[T], Iterable[T]],
         user_func: Callable[[T], ArrakisUser],
         revision_func: Callable[[T], Optional[Zookie]] = lambda x: None,
+        use_content_change_check: bool = False,
     ) -> AsyncIterator[T]:
         """Takes an iterable, and functions which transform that iterable into checkable objects,
         and return a filtered iterable which contains only the objects for which the user (as
@@ -282,6 +298,14 @@ class AsyncArrakisClient(object):
         loop = asyncio.get_event_loop()
 
         def request_func(item: T) -> "TupleType[T, asyncio.Task[CheckResponse]]":
+            if use_content_change_check:
+                return (
+                    item,
+                    loop.create_task(
+                        self.content_change_check(object_id_func(item), user_func(item))
+                    ),
+                )
+
             return (
                 item,
                 loop.create_task(

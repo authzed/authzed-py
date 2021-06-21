@@ -1,11 +1,11 @@
 import asyncio
 
-import arrakisapi.api.acl_service_pb2 as acl_proto
-import arrakisapi.api.core_pb2 as core_proto
-import arrakisapi.api.namespace_service_pb2 as ns_proto
 import pytest
 from mock import AsyncMock
 
+import authzed.api.v0.acl_service_pb2 as acl_proto
+import authzed.api.v0.core_pb2 as core_proto
+import authzed.api.v0.namespace_service_pb2 as ns_proto
 from arrakisclient.client import ArrakisClient, AsyncArrakisClient, TuplesetFilter
 from arrakisclient.test_util import (
     AsyncTestACLStub,
@@ -62,7 +62,9 @@ def sync_client(acl_stub, namespace_stub) -> ArrakisClient:
 async def test_check(client: AsyncArrakisClient, acl_stub: AsyncMock):
     acl_stub.Check = AsyncMock(
         return_value=acl_proto.CheckResponse(
-            is_member=False, revision=core_proto.Zookie(token="123")
+            is_member=False,
+            revision=core_proto.Zookie(token="123"),
+            membership=acl_proto.CheckResponse.Membership.NOT_MEMBER,
         )
     )
     result = await client.check(
@@ -76,7 +78,9 @@ async def test_check(client: AsyncArrakisClient, acl_stub: AsyncMock):
 def test_check_sync(sync_client: ArrakisClient, acl_stub: AsyncTestACLStub):
     acl_stub.Check = AsyncMock(
         return_value=acl_proto.CheckResponse(
-            is_member=False, revision=core_proto.Zookie(token="123")
+            is_member=False,
+            revision=core_proto.Zookie(token="123"),
+            membership=acl_proto.CheckResponse.Membership.NOT_MEMBER,
         )
     )
     result = sync_client.check(
@@ -91,7 +95,9 @@ def test_check_sync(sync_client: ArrakisClient, acl_stub: AsyncTestACLStub):
 async def test_filter(client: AsyncArrakisClient, acl_stub: AsyncMock):
     acl_stub.Check = AsyncMock(
         return_value=acl_proto.CheckResponse(
-            is_member=True, revision=core_proto.Zookie(token="123")
+            is_member=True,
+            revision=core_proto.Zookie(token="123"),
+            membership=acl_proto.CheckResponse.Membership.MEMBER,
         )
     )
 
@@ -115,8 +121,16 @@ async def wait_on_second_call(request: acl_proto.CheckRequest):
     if request.test_userset.object_id == "another item":
         await asyncio.sleep(0.1)
     if request.test_userset.object_id == "filter me":
-        return acl_proto.CheckResponse(is_member=False, revision=core_proto.Zookie(token="123"))
-    return acl_proto.CheckResponse(is_member=True, revision=core_proto.Zookie(token="123"))
+        return acl_proto.CheckResponse(
+            is_member=False,
+            revision=core_proto.Zookie(token="123"),
+            membership=acl_proto.CheckResponse.Membership.NOT_MEMBER,
+        )
+    return acl_proto.CheckResponse(
+        is_member=True,
+        revision=core_proto.Zookie(token="123"),
+        membership=acl_proto.CheckResponse.Membership.MEMBER,
+    )
 
 
 def test_filter_sync(sync_client: ArrakisClient, acl_stub: AsyncMock):
@@ -167,7 +181,7 @@ async def test_write_namespace(client: AsyncArrakisClient, namespace_stub: Async
         return_value=ns_proto.WriteConfigResponse(revision=core_proto.Zookie(token="123"))
     )
 
-    written = await client.management.write_namespace_config('name: "sharewith/resource"')
+    written = await client.management.write_namespace_configs(['name: "sharewith/resource"'])
 
     assert written.token == "123"
 
@@ -177,7 +191,7 @@ def test_write_namespace_sync(sync_client: ArrakisClient, namespace_stub: AsyncM
         return_value=ns_proto.WriteConfigResponse(revision=core_proto.Zookie(token="123"))
     )
 
-    written = sync_client.management.write_namespace_config('name: "sharewith/resource"')
+    written = sync_client.management.write_namespace_configs(['name: "sharewith/resource"'])
 
     assert written.token == "123"
 

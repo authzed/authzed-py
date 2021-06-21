@@ -1,12 +1,12 @@
 from asyncio import Future
 from typing import AsyncContextManager, AsyncIterator, Callable, Iterable, TypeVar
 
-import arrakisapi.api.acl_service_pb2 as acl_proto
-import arrakisapi.api.core_pb2 as core_proto
-import arrakisapi.api.namespace_service_pb2 as ns_proto
 from async_generator import asynccontextmanager
 from typing_extensions import Protocol
 
+import authzed.api.v0.acl_service_pb2 as acl_proto
+import authzed.api.v0.core_pb2 as core_proto
+import authzed.api.v0.namespace_service_pb2 as ns_proto
 from arrakisclient.types.tuple import ArrakisUser, ObjectAndRelation
 
 
