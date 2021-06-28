@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!authzed/api/v1alpha1/schema.proto\x12\x14\x61uthzed.api.v1alpha1\x1a\x17validate/validate.proto\"\x9b\x01\n\x11ReadSchemaRequest\x12\x85\x01\n\x17object_definition_names\x18\x01 \x03(\tBM\xfa\x42J\x92\x01G\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x15objectDefinitionNames\"C\n\x12ReadSchemaResponse\x12-\n\x12object_definitions\x18\x01 \x03(\tR\x11objectDefinitions\"\xdf\x01\n\x12WriteSchemaRequest\x12\x88\x01\n\x1bimplicit_permissions_system\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x19implicitPermissionsSystem\x12>\n\x12object_definitions\x18\x02 \x03(\tB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x11objectDefinitions\"\x15\n\x13WriteSchemaResponse2\xd8\x01\n\rSchemaService\x12\x61\n\nReadSchema\x12\'.authzed.api.v1alpha1.ReadSchemaRequest\x1a(.authzed.api.v1alpha1.ReadSchemaResponse\"\x00\x12\x64\n\x0bWriteSchema\x12(.authzed.api.v1alpha1.WriteSchemaRequest\x1a).authzed.api.v1alpha1.WriteSchemaResponse\"\x00\x42:Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1b\x06proto3'
+  serialized_pb=b'\n!authzed/api/v1alpha1/schema.proto\x12\x14\x61uthzed.api.v1alpha1\x1a\x17validate/validate.proto\"\x9b\x01\n\x11ReadSchemaRequest\x12\x85\x01\n\x17object_definition_names\x18\x01 \x03(\tBM\xfa\x42J\x92\x01G\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x15objectDefinitionNames\"C\n\x12ReadSchemaResponse\x12-\n\x12object_definitions\x18\x01 \x03(\tR\x11objectDefinitions\"T\n\x12WriteSchemaRequest\x12>\n\x12object_definitions\x18\x02 \x03(\tB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x11objectDefinitions\"\x15\n\x13WriteSchemaResponse2\xd8\x01\n\rSchemaService\x12\x61\n\nReadSchema\x12\'.authzed.api.v1alpha1.ReadSchemaRequest\x1a(.authzed.api.v1alpha1.ReadSchemaResponse\"\x00\x12\x64\n\x0bWriteSchema\x12(.authzed.api.v1alpha1.WriteSchemaRequest\x1a).authzed.api.v1alpha1.WriteSchemaResponse\"\x00\x42:Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
@@ -100,14 +100,7 @@ _WRITESCHEMAREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='implicit_permissions_system', full_name='authzed.api.v1alpha1.WriteSchemaRequest.implicit_permissions_system', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='implicitPermissionsSystem', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='object_definitions', full_name='authzed.api.v1alpha1.WriteSchemaRequest.object_definitions', index=1,
+      name='object_definitions', full_name='authzed.api.v1alpha1.WriteSchemaRequest.object_definitions', index=0,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -125,8 +118,8 @@ _WRITESCHEMAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=312,
-  serialized_end=535,
+  serialized_start=311,
+  serialized_end=395,
 )
 
 
@@ -150,8 +143,8 @@ _WRITESCHEMARESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=537,
-  serialized_end=558,
+  serialized_start=397,
+  serialized_end=418,
 )
 
 DESCRIPTOR.message_types_by_name['ReadSchemaRequest'] = _READSCHEMAREQUEST
@@ -191,7 +184,6 @@ _sym_db.RegisterMessage(WriteSchemaResponse)
 
 DESCRIPTOR._options = None
 _READSCHEMAREQUEST.fields_by_name['object_definition_names']._options = None
-_WRITESCHEMAREQUEST.fields_by_name['implicit_permissions_system']._options = None
 _WRITESCHEMAREQUEST.fields_by_name['object_definitions']._options = None
 
 _SCHEMASERVICE = _descriptor.ServiceDescriptor(
@@ -201,8 +193,8 @@ _SCHEMASERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=561,
-  serialized_end=777,
+  serialized_start=421,
+  serialized_end=637,
   methods=[
   _descriptor.MethodDescriptor(
     name='ReadSchema',
