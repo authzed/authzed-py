@@ -1,7 +1,7 @@
 from copy import copy
 from typing import TYPE_CHECKING, Dict, Type
 
-import arrakisapi.api.core_pb2 as core_proto
+import authzed.api.v0.core_pb2 as core_proto
 
 if TYPE_CHECKING:
     from arrakisclient.types.namespace import ArrakisNamespace

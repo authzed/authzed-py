@@ -1,4 +1,4 @@
-import arrakisapi.api.core_pb2 as core_proto
+import authzed.api.v0.core_pb2 as core_proto
 
 
 class Zookie(object):
@@ -18,3 +18,12 @@ class Zookie(object):
     @classmethod
     def from_token(cls, token: str) -> "Zookie":
         return cls(core_proto.Zookie(token=token))
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+
+        if not isinstance(other, Zookie):
+            return False
+
+        return self.token == other.token

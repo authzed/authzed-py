@@ -1,8 +1,8 @@
 from typing import List, Set
 
-import arrakisapi.api.core_pb2 as core_proto
 import pytest
 
+import authzed.api.v0.core_pb2 as core_proto
 from arrakisclient.test_util import exclusion_proto, intersection_proto, leaf_proto, union_proto
 from arrakisclient.types.expand import ExpandTree, _leaf_to_iterable
 from arrakisclient.types.namespace import ArrakisNamespace, Relation, Self

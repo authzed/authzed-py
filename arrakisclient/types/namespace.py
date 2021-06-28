@@ -1,9 +1,8 @@
 import copy
 from typing import List, Optional, Type, Union
 
-from arrakisapi.validation import validate_namespace_name, validate_relation_name
-
 from arrakisclient.types.tuple import ArrakisUserset, ObjectAndRelation, Tuple
+from arrakisclient.validation import validate_namespace_name, validate_relation_name
 
 
 class Self(object):
