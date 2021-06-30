@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1e\x61uthzed/api/v0/developer.proto\x12\x0e\x61uthzed.api.v0\x1a\x19\x61uthzed/api/v0/core.proto\x1a\x1e\x61uthzed/api/v0/namespace.proto\"\xb6\x01\n\x0cShareRequest\x12+\n\x11namespace_configs\x18\x01 \x03(\tR\x10namespaceConfigs\x12\'\n\x0frelation_tuples\x18\x02 \x01(\tR\x0erelationTuples\x12\'\n\x0fvalidation_yaml\x18\x03 \x01(\tR\x0evalidationYaml\x12\'\n\x0f\x61ssertions_yaml\x18\x04 \x01(\tR\x0e\x61ssertionsYaml\"8\n\rShareResponse\x12\'\n\x0fshare_reference\x18\x01 \x01(\tR\x0eshareReference\"=\n\x12LookupShareRequest\x12\'\n\x0fshare_reference\x18\x01 \x01(\tR\x0eshareReference\"\xd9\x02\n\x13LookupShareResponse\x12H\n\x06status\x18\x01 \x01(\x0e\x32\x30.authzed.api.v0.LookupShareResponse.LookupStatusR\x06status\x12+\n\x11namespace_configs\x18\x02 \x03(\tR\x10namespaceConfigs\x12\'\n\x0frelation_tuples\x18\x03 \x01(\tR\x0erelationTuples\x12\'\n\x0fvalidation_yaml\x18\x04 \x01(\tR\x0evalidationYaml\x12\'\n\x0f\x61ssertions_yaml\x18\x05 \x01(\tR\x0e\x61ssertionsYaml\"P\n\x0cLookupStatus\x12\x15\n\x11UNKNOWN_REFERENCE\x10\x00\x12\x14\n\x10\x46\x41ILED_TO_LOOKUP\x10\x01\x12\x13\n\x0fVALID_REFERENCE\x10\x02\"B\n\x10NamespaceContext\x12\x16\n\x06handle\x18\x01 \x01(\tR\x06handle\x12\x16\n\x06\x63onfig\x18\x02 \x01(\tR\x06\x63onfig\"\x89\x01\n\x0eRequestContext\x12@\n\nnamespaces\x18\x01 \x03(\x0b\x32 .authzed.api.v0.NamespaceContextR\nnamespaces\x12\x35\n\x06tuples\x18\x02 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x06tuples\"\xa4\x01\n\x14NamespaceInformation\x12\x16\n\x06handle\x18\x01 \x01(\tR\x06handle\x12;\n\x06parsed\x18\x02 \x01(\x0b\x32#.authzed.api.v0.NamespaceDefinitionR\x06parsed\x12\x37\n\x06\x65rrors\x18\x03 \x03(\x0b\x32\x1f.authzed.api.v0.ValidationErrorR\x06\x65rrors\"\x8e\x01\n\x10\x45\x64itCheckRequest\x12\x38\n\x07\x63ontext\x18\x01 \x01(\x0b\x32\x1e.authzed.api.v0.RequestContextR\x07\x63ontext\x12@\n\x0c\x63heck_tuples\x18\x02 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x0b\x63heckTuples\"\x9a\x01\n\x0f\x45\x64itCheckResult\x12\x33\n\x05tuple\x18\x01 \x01(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x05tuple\x12\x1b\n\tis_member\x18\x02 \x01(\x08R\x08isMember\x12\x35\n\x05\x65rror\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v0.ValidationErrorR\x05\x65rror\"\xfc\x01\n\x11\x45\x64itCheckResponse\x12S\n\x12\x63ontext_namespaces\x18\x01 \x03(\x0b\x32$.authzed.api.v0.NamespaceInformationR\x11\x63ontextNamespaces\x12L\n\x11\x61\x64\x64itional_errors\x18\x02 \x03(\x0b\x32\x1f.authzed.api.v0.ValidationErrorR\x10\x61\x64\x64itionalErrors\x12\x44\n\rcheck_results\x18\x03 \x03(\x0b\x32\x1f.authzed.api.v0.EditCheckResultR\x0c\x63heckResults\"\xd3\x01\n\x0fValidateRequest\x12\x38\n\x07\x63ontext\x18\x01 \x01(\x0b\x32\x1e.authzed.api.v0.RequestContextR\x07\x63ontext\x12\'\n\x0fvalidation_yaml\x18\x03 \x01(\tR\x0evalidationYaml\x12\x34\n\x16update_validation_yaml\x18\x04 \x01(\x08R\x14updateValidationYaml\x12\'\n\x0f\x61ssertions_yaml\x18\x05 \x01(\tR\x0e\x61ssertionsYaml\"\xf4\x04\n\x0fValidationError\x12\x18\n\x07message\x18\x01 \x01(\tR\x07message\x12\x12\n\x04line\x18\x02 \x01(\rR\x04line\x12\x16\n\x06\x63olumn\x18\x03 \x01(\rR\x06\x63olumn\x12>\n\x06source\x18\x04 \x01(\x0e\x32&.authzed.api.v0.ValidationError.SourceR\x06source\x12=\n\x04kind\x18\x05 \x01(\x0e\x32).authzed.api.v0.ValidationError.ErrorKindR\x04kind\x12\x12\n\x04path\x18\x06 \x03(\tR\x04path\x12\x1a\n\x08metadata\x18\x07 \x01(\tR\x08metadata\"}\n\x06Source\x12\x12\n\x0eUNKNOWN_SOURCE\x10\x00\x12\x14\n\x10NAMESPACE_CONFIG\x10\x01\x12\x14\n\x10VALIDATION_TUPLE\x10\x02\x12\x13\n\x0fVALIDATION_YAML\x10\x03\x12\x0f\n\x0b\x43HECK_WATCH\x10\x04\x12\r\n\tASSERTION\x10\x05\"\xec\x01\n\tErrorKind\x12\x10\n\x0cUNKNOWN_KIND\x10\x00\x12\x0f\n\x0bPARSE_ERROR\x10\x01\x12\x1a\n\x16NAMESPACE_CONFIG_ISSUE\x10\x02\x12\x13\n\x0f\x44UPLICATE_TUPLE\x10\x03\x12\x1a\n\x16MISSING_EXPECTED_TUPLE\x10\x04\x12\x15\n\x11\x45XTRA_TUPLE_FOUND\x10\x05\x12\x15\n\x11UNKNOWN_NAMESPACE\x10\x06\x12\x14\n\x10UNKNOWN_RELATION\x10\x07\x12\x15\n\x11MAXIMUM_RECURSION\x10\x08\x12\x14\n\x10\x41SSERTION_FAILED\x10\t\"\xed\x01\n\x10ValidateResponse\x12S\n\x12\x63ontext_namespaces\x18\x01 \x03(\x0b\x32$.authzed.api.v0.NamespaceInformationR\x11\x63ontextNamespaces\x12L\n\x11validation_errors\x18\x02 \x03(\x0b\x32\x1f.authzed.api.v0.ValidationErrorR\x10validationErrors\x12\x36\n\x17updated_validation_yaml\x18\x03 \x01(\tR\x15updatedValidationYaml2\xda\x02\n\x10\x44\x65veloperService\x12R\n\tEditCheck\x12 .authzed.api.v0.EditCheckRequest\x1a!.authzed.api.v0.EditCheckResponse\"\x00\x12O\n\x08Validate\x12\x1f.authzed.api.v0.ValidateRequest\x1a .authzed.api.v0.ValidateResponse\"\x00\x12\x46\n\x05Share\x12\x1c.authzed.api.v0.ShareRequest\x1a\x1d.authzed.api.v0.ShareResponse\"\x00\x12Y\n\x0cLookupShared\x12\".authzed.api.v0.LookupShareRequest\x1a#.authzed.api.v0.LookupShareResponse\"\x00\x42\x34Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
+  serialized_pb=b'\n\x1e\x61uthzed/api/v0/developer.proto\x12\x0e\x61uthzed.api.v0\x1a\x19\x61uthzed/api/v0/core.proto\x1a\x1e\x61uthzed/api/v0/namespace.proto\"C\n\x14UpgradeSchemaRequest\x12+\n\x11namespace_configs\x18\x01 \x03(\tR\x10namespaceConfigs\"v\n\x15UpgradeSchemaResponse\x12\x34\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1e.authzed.api.v0.DeveloperErrorR\x05\x65rror\x12\'\n\x0fupgraded_schema\x18\x02 \x01(\tR\x0eupgradedSchema\"\xa7\x01\n\x0cShareRequest\x12\x16\n\x06schema\x18\x01 \x01(\tR\x06schema\x12-\n\x12relationships_yaml\x18\x02 \x01(\tR\x11relationshipsYaml\x12\'\n\x0fvalidation_yaml\x18\x03 \x01(\tR\x0evalidationYaml\x12\'\n\x0f\x61ssertions_yaml\x18\x04 \x01(\tR\x0e\x61ssertionsYaml\"8\n\rShareResponse\x12\'\n\x0fshare_reference\x18\x01 \x01(\tR\x0eshareReference\"=\n\x12LookupShareRequest\x12\'\n\x0fshare_reference\x18\x01 \x01(\tR\x0eshareReference\"\xe2\x02\n\x13LookupShareResponse\x12H\n\x06status\x18\x01 \x01(\x0e\x32\x30.authzed.api.v0.LookupShareResponse.LookupStatusR\x06status\x12\x16\n\x06schema\x18\x02 \x01(\tR\x06schema\x12-\n\x12relationships_yaml\x18\x03 \x01(\tR\x11relationshipsYaml\x12\'\n\x0fvalidation_yaml\x18\x04 \x01(\tR\x0evalidationYaml\x12\'\n\x0f\x61ssertions_yaml\x18\x05 \x01(\tR\x0e\x61ssertionsYaml\"h\n\x0cLookupStatus\x12\x15\n\x11UNKNOWN_REFERENCE\x10\x00\x12\x14\n\x10\x46\x41ILED_TO_LOOKUP\x10\x01\x12\x13\n\x0fVALID_REFERENCE\x10\x02\x12\x16\n\x12UPGRADED_REFERENCE\x10\x03\"m\n\x0eRequestContext\x12\x16\n\x06schema\x18\x01 \x01(\tR\x06schema\x12\x43\n\rrelationships\x18\x02 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\rrelationships\"\x9c\x01\n\x10\x45\x64itCheckRequest\x12\x38\n\x07\x63ontext\x18\x01 \x01(\x0b\x32\x1e.authzed.api.v0.RequestContextR\x07\x63ontext\x12N\n\x13\x63heck_relationships\x18\x02 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x12\x63heckRelationships\"\xa7\x01\n\x0f\x45\x64itCheckResult\x12\x41\n\x0crelationship\x18\x01 \x01(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x0crelationship\x12\x1b\n\tis_member\x18\x02 \x01(\x08R\x08isMember\x12\x34\n\x05\x65rror\x18\x03 \x01(\x0b\x32\x1e.authzed.api.v0.DeveloperErrorR\x05\x65rror\"\xa0\x01\n\x11\x45\x64itCheckResponse\x12\x45\n\x0erequest_errors\x18\x01 \x03(\x0b\x32\x1e.authzed.api.v0.DeveloperErrorR\rrequestErrors\x12\x44\n\rcheck_results\x18\x02 \x03(\x0b\x32\x1f.authzed.api.v0.EditCheckResultR\x0c\x63heckResults\"\xd3\x01\n\x0fValidateRequest\x12\x38\n\x07\x63ontext\x18\x01 \x01(\x0b\x32\x1e.authzed.api.v0.RequestContextR\x07\x63ontext\x12\'\n\x0fvalidation_yaml\x18\x03 \x01(\tR\x0evalidationYaml\x12\x34\n\x16update_validation_yaml\x18\x04 \x01(\x08R\x14updateValidationYaml\x12\'\n\x0f\x61ssertions_yaml\x18\x05 \x01(\tR\x0e\x61ssertionsYaml\"\xde\x01\n\x10ValidateResponse\x12\x45\n\x0erequest_errors\x18\x01 \x03(\x0b\x32\x1e.authzed.api.v0.DeveloperErrorR\rrequestErrors\x12K\n\x11validation_errors\x18\x02 \x03(\x0b\x32\x1e.authzed.api.v0.DeveloperErrorR\x10validationErrors\x12\x36\n\x17updated_validation_yaml\x18\x03 \x01(\tR\x15updatedValidationYaml\"\xee\x04\n\x0e\x44\x65veloperError\x12\x18\n\x07message\x18\x01 \x01(\tR\x07message\x12\x12\n\x04line\x18\x02 \x01(\rR\x04line\x12\x16\n\x06\x63olumn\x18\x03 \x01(\rR\x06\x63olumn\x12=\n\x06source\x18\x04 \x01(\x0e\x32%.authzed.api.v0.DeveloperError.SourceR\x06source\x12<\n\x04kind\x18\x05 \x01(\x0e\x32(.authzed.api.v0.DeveloperError.ErrorKindR\x04kind\x12\x12\n\x04path\x18\x06 \x03(\tR\x04path\x12\x18\n\x07\x63ontext\x18\x07 \x01(\tR\x07\x63ontext\"o\n\x06Source\x12\x12\n\x0eUNKNOWN_SOURCE\x10\x00\x12\n\n\x06SCHEMA\x10\x01\x12\x10\n\x0cRELATIONSHIP\x10\x02\x12\x13\n\x0fVALIDATION_YAML\x10\x03\x12\x0f\n\x0b\x43HECK_WATCH\x10\x04\x12\r\n\tASSERTION\x10\x05\"\xf9\x01\n\tErrorKind\x12\x10\n\x0cUNKNOWN_KIND\x10\x00\x12\x0f\n\x0bPARSE_ERROR\x10\x01\x12\x10\n\x0cSCHEMA_ISSUE\x10\x02\x12\x1a\n\x16\x44UPLICATE_RELATIONSHIP\x10\x03\x12!\n\x1dMISSING_EXPECTED_RELATIONSHIP\x10\x04\x12\x1c\n\x18\x45XTRA_RELATIONSHIP_FOUND\x10\x05\x12\x17\n\x13UNKNOWN_OBJECT_TYPE\x10\x06\x12\x14\n\x10UNKNOWN_RELATION\x10\x07\x12\x15\n\x11MAXIMUM_RECURSION\x10\x08\x12\x14\n\x10\x41SSERTION_FAILED\x10\t2\xba\x03\n\x10\x44\x65veloperService\x12R\n\tEditCheck\x12 .authzed.api.v0.EditCheckRequest\x1a!.authzed.api.v0.EditCheckResponse\"\x00\x12O\n\x08Validate\x12\x1f.authzed.api.v0.ValidateRequest\x1a .authzed.api.v0.ValidateResponse\"\x00\x12\x46\n\x05Share\x12\x1c.authzed.api.v0.ShareRequest\x1a\x1d.authzed.api.v0.ShareResponse\"\x00\x12Y\n\x0cLookupShared\x12\".authzed.api.v0.LookupShareRequest\x1a#.authzed.api.v0.LookupShareResponse\"\x00\x12^\n\rUpgradeSchema\x12$.authzed.api.v0.UpgradeSchemaRequest\x1a%.authzed.api.v0.UpgradeSchemaResponse\"\x00\x42\x34Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
   ,
   dependencies=[authzed_dot_api_dot_v0_dot_core__pb2.DESCRIPTOR,authzed_dot_api_dot_v0_dot_namespace__pb2.DESCRIPTOR,])
 
@@ -49,17 +49,22 @@ _LOOKUPSHARERESPONSE_LOOKUPSTATUS = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='UPGRADED_REFERENCE', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=681,
-  serialized_end=761,
+  serialized_start=840,
+  serialized_end=944,
 )
 _sym_db.RegisterEnumDescriptor(_LOOKUPSHARERESPONSE_LOOKUPSTATUS)
 
-_VALIDATIONERROR_SOURCE = _descriptor.EnumDescriptor(
+_DEVELOPERERROR_SOURCE = _descriptor.EnumDescriptor(
   name='Source',
-  full_name='authzed.api.v0.ValidationError.Source',
+  full_name='authzed.api.v0.DeveloperError.Source',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -70,12 +75,12 @@ _VALIDATIONERROR_SOURCE = _descriptor.EnumDescriptor(
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='NAMESPACE_CONFIG', index=1, number=1,
+      name='SCHEMA', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='VALIDATION_TUPLE', index=2, number=2,
+      name='RELATIONSHIP', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -97,14 +102,14 @@ _VALIDATIONERROR_SOURCE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2174,
-  serialized_end=2299,
+  serialized_start=2248,
+  serialized_end=2359,
 )
-_sym_db.RegisterEnumDescriptor(_VALIDATIONERROR_SOURCE)
+_sym_db.RegisterEnumDescriptor(_DEVELOPERERROR_SOURCE)
 
-_VALIDATIONERROR_ERRORKIND = _descriptor.EnumDescriptor(
+_DEVELOPERERROR_ERRORKIND = _descriptor.EnumDescriptor(
   name='ErrorKind',
-  full_name='authzed.api.v0.ValidationError.ErrorKind',
+  full_name='authzed.api.v0.DeveloperError.ErrorKind',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -120,27 +125,27 @@ _VALIDATIONERROR_ERRORKIND = _descriptor.EnumDescriptor(
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='NAMESPACE_CONFIG_ISSUE', index=2, number=2,
+      name='SCHEMA_ISSUE', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='DUPLICATE_TUPLE', index=3, number=3,
+      name='DUPLICATE_RELATIONSHIP', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='MISSING_EXPECTED_TUPLE', index=4, number=4,
+      name='MISSING_EXPECTED_RELATIONSHIP', index=4, number=4,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='EXTRA_TUPLE_FOUND', index=5, number=5,
+      name='EXTRA_RELATIONSHIP_FOUND', index=5, number=5,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='UNKNOWN_NAMESPACE', index=6, number=6,
+      name='UNKNOWN_OBJECT_TYPE', index=6, number=6,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -162,10 +167,81 @@ _VALIDATIONERROR_ERRORKIND = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2302,
-  serialized_end=2538,
+  serialized_start=2362,
+  serialized_end=2611,
 )
-_sym_db.RegisterEnumDescriptor(_VALIDATIONERROR_ERRORKIND)
+_sym_db.RegisterEnumDescriptor(_DEVELOPERERROR_ERRORKIND)
+
+
+_UPGRADESCHEMAREQUEST = _descriptor.Descriptor(
+  name='UpgradeSchemaRequest',
+  full_name='authzed.api.v0.UpgradeSchemaRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='namespace_configs', full_name='authzed.api.v0.UpgradeSchemaRequest.namespace_configs', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='namespaceConfigs', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=109,
+  serialized_end=176,
+)
+
+
+_UPGRADESCHEMARESPONSE = _descriptor.Descriptor(
+  name='UpgradeSchemaResponse',
+  full_name='authzed.api.v0.UpgradeSchemaResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='error', full_name='authzed.api.v0.UpgradeSchemaResponse.error', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='error', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='upgraded_schema', full_name='authzed.api.v0.UpgradeSchemaResponse.upgraded_schema', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='upgradedSchema', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=178,
+  serialized_end=296,
+)
 
 
 _SHAREREQUEST = _descriptor.Descriptor(
@@ -177,19 +253,19 @@ _SHAREREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='namespace_configs', full_name='authzed.api.v0.ShareRequest.namespace_configs', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
+      name='schema', full_name='authzed.api.v0.ShareRequest.schema', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='namespaceConfigs', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='schema', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='relation_tuples', full_name='authzed.api.v0.ShareRequest.relation_tuples', index=1,
+      name='relationships_yaml', full_name='authzed.api.v0.ShareRequest.relationships_yaml', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='relationTuples', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='relationshipsYaml', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='validation_yaml', full_name='authzed.api.v0.ShareRequest.validation_yaml', index=2,
       number=3, type=9, cpp_type=9, label=1,
@@ -216,8 +292,8 @@ _SHAREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=110,
-  serialized_end=292,
+  serialized_start=299,
+  serialized_end=466,
 )
 
 
@@ -248,8 +324,8 @@ _SHARERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=294,
-  serialized_end=350,
+  serialized_start=468,
+  serialized_end=524,
 )
 
 
@@ -280,8 +356,8 @@ _LOOKUPSHAREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=352,
-  serialized_end=413,
+  serialized_start=526,
+  serialized_end=587,
 )
 
 
@@ -301,19 +377,19 @@ _LOOKUPSHARERESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, json_name='status', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='namespace_configs', full_name='authzed.api.v0.LookupShareResponse.namespace_configs', index=1,
-      number=2, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
+      name='schema', full_name='authzed.api.v0.LookupShareResponse.schema', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='namespaceConfigs', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='schema', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='relation_tuples', full_name='authzed.api.v0.LookupShareResponse.relation_tuples', index=2,
+      name='relationships_yaml', full_name='authzed.api.v0.LookupShareResponse.relationships_yaml', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='relationTuples', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='relationshipsYaml', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='validation_yaml', full_name='authzed.api.v0.LookupShareResponse.validation_yaml', index=3,
       number=4, type=9, cpp_type=9, label=1,
@@ -341,47 +417,8 @@ _LOOKUPSHARERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=416,
-  serialized_end=761,
-)
-
-
-_NAMESPACECONTEXT = _descriptor.Descriptor(
-  name='NamespaceContext',
-  full_name='authzed.api.v0.NamespaceContext',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='handle', full_name='authzed.api.v0.NamespaceContext.handle', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='handle', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='config', full_name='authzed.api.v0.NamespaceContext.config', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='config', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=763,
-  serialized_end=829,
+  serialized_start=590,
+  serialized_end=944,
 )
 
 
@@ -394,65 +431,19 @@ _REQUESTCONTEXT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='namespaces', full_name='authzed.api.v0.RequestContext.namespaces', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='namespaces', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='tuples', full_name='authzed.api.v0.RequestContext.tuples', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='tuples', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=832,
-  serialized_end=969,
-)
-
-
-_NAMESPACEINFORMATION = _descriptor.Descriptor(
-  name='NamespaceInformation',
-  full_name='authzed.api.v0.NamespaceInformation',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='handle', full_name='authzed.api.v0.NamespaceInformation.handle', index=0,
+      name='schema', full_name='authzed.api.v0.RequestContext.schema', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='handle', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='schema', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='parsed', full_name='authzed.api.v0.NamespaceInformation.parsed', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='parsed', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='errors', full_name='authzed.api.v0.NamespaceInformation.errors', index=2,
-      number=3, type=11, cpp_type=10, label=3,
+      name='relationships', full_name='authzed.api.v0.RequestContext.relationships', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='errors', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='relationships', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -465,8 +456,8 @@ _NAMESPACEINFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=972,
-  serialized_end=1136,
+  serialized_start=946,
+  serialized_end=1055,
 )
 
 
@@ -486,12 +477,12 @@ _EDITCHECKREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, json_name='context', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='check_tuples', full_name='authzed.api.v0.EditCheckRequest.check_tuples', index=1,
+      name='check_relationships', full_name='authzed.api.v0.EditCheckRequest.check_relationships', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='checkTuples', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='checkRelationships', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -504,8 +495,8 @@ _EDITCHECKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1139,
-  serialized_end=1281,
+  serialized_start=1058,
+  serialized_end=1214,
 )
 
 
@@ -518,12 +509,12 @@ _EDITCHECKRESULT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='tuple', full_name='authzed.api.v0.EditCheckResult.tuple', index=0,
+      name='relationship', full_name='authzed.api.v0.EditCheckResult.relationship', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='tuple', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='relationship', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='is_member', full_name='authzed.api.v0.EditCheckResult.is_member', index=1,
       number=2, type=8, cpp_type=7, label=1,
@@ -550,8 +541,8 @@ _EDITCHECKRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1284,
-  serialized_end=1438,
+  serialized_start=1217,
+  serialized_end=1384,
 )
 
 
@@ -564,22 +555,15 @@ _EDITCHECKRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='context_namespaces', full_name='authzed.api.v0.EditCheckResponse.context_namespaces', index=0,
+      name='request_errors', full_name='authzed.api.v0.EditCheckResponse.request_errors', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='contextNamespaces', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='requestErrors', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='additional_errors', full_name='authzed.api.v0.EditCheckResponse.additional_errors', index=1,
+      name='check_results', full_name='authzed.api.v0.EditCheckResponse.check_results', index=1,
       number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='additionalErrors', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='check_results', full_name='authzed.api.v0.EditCheckResponse.check_results', index=2,
-      number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -596,8 +580,8 @@ _EDITCHECKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1441,
-  serialized_end=1693,
+  serialized_start=1387,
+  serialized_end=1547,
 )
 
 
@@ -649,84 +633,8 @@ _VALIDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1696,
-  serialized_end=1907,
-)
-
-
-_VALIDATIONERROR = _descriptor.Descriptor(
-  name='ValidationError',
-  full_name='authzed.api.v0.ValidationError',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='message', full_name='authzed.api.v0.ValidationError.message', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='message', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='line', full_name='authzed.api.v0.ValidationError.line', index=1,
-      number=2, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='line', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='column', full_name='authzed.api.v0.ValidationError.column', index=2,
-      number=3, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='column', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='source', full_name='authzed.api.v0.ValidationError.source', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='source', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='kind', full_name='authzed.api.v0.ValidationError.kind', index=4,
-      number=5, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='kind', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='path', full_name='authzed.api.v0.ValidationError.path', index=5,
-      number=6, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='path', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='metadata', full_name='authzed.api.v0.ValidationError.metadata', index=6,
-      number=7, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='metadata', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _VALIDATIONERROR_SOURCE,
-    _VALIDATIONERROR_ERRORKIND,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1910,
-  serialized_end=2538,
+  serialized_start=1550,
+  serialized_end=1761,
 )
 
 
@@ -739,12 +647,12 @@ _VALIDATERESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='context_namespaces', full_name='authzed.api.v0.ValidateResponse.context_namespaces', index=0,
+      name='request_errors', full_name='authzed.api.v0.ValidateResponse.request_errors', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='contextNamespaces', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, json_name='requestErrors', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='validation_errors', full_name='authzed.api.v0.ValidateResponse.validation_errors', index=1,
       number=2, type=11, cpp_type=10, label=3,
@@ -771,44 +679,131 @@ _VALIDATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2541,
-  serialized_end=2778,
+  serialized_start=1764,
+  serialized_end=1986,
 )
 
+
+_DEVELOPERERROR = _descriptor.Descriptor(
+  name='DeveloperError',
+  full_name='authzed.api.v0.DeveloperError',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='message', full_name='authzed.api.v0.DeveloperError.message', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='message', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='line', full_name='authzed.api.v0.DeveloperError.line', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='line', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='column', full_name='authzed.api.v0.DeveloperError.column', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='column', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='authzed.api.v0.DeveloperError.source', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='source', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='kind', full_name='authzed.api.v0.DeveloperError.kind', index=4,
+      number=5, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='kind', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='path', full_name='authzed.api.v0.DeveloperError.path', index=5,
+      number=6, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='path', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='context', full_name='authzed.api.v0.DeveloperError.context', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='context', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _DEVELOPERERROR_SOURCE,
+    _DEVELOPERERROR_ERRORKIND,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1989,
+  serialized_end=2611,
+)
+
+_UPGRADESCHEMARESPONSE.fields_by_name['error'].message_type = _DEVELOPERERROR
 _LOOKUPSHARERESPONSE.fields_by_name['status'].enum_type = _LOOKUPSHARERESPONSE_LOOKUPSTATUS
 _LOOKUPSHARERESPONSE_LOOKUPSTATUS.containing_type = _LOOKUPSHARERESPONSE
-_REQUESTCONTEXT.fields_by_name['namespaces'].message_type = _NAMESPACECONTEXT
-_REQUESTCONTEXT.fields_by_name['tuples'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONTUPLE
-_NAMESPACEINFORMATION.fields_by_name['parsed'].message_type = authzed_dot_api_dot_v0_dot_namespace__pb2._NAMESPACEDEFINITION
-_NAMESPACEINFORMATION.fields_by_name['errors'].message_type = _VALIDATIONERROR
+_REQUESTCONTEXT.fields_by_name['relationships'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONTUPLE
 _EDITCHECKREQUEST.fields_by_name['context'].message_type = _REQUESTCONTEXT
-_EDITCHECKREQUEST.fields_by_name['check_tuples'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONTUPLE
-_EDITCHECKRESULT.fields_by_name['tuple'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONTUPLE
-_EDITCHECKRESULT.fields_by_name['error'].message_type = _VALIDATIONERROR
-_EDITCHECKRESPONSE.fields_by_name['context_namespaces'].message_type = _NAMESPACEINFORMATION
-_EDITCHECKRESPONSE.fields_by_name['additional_errors'].message_type = _VALIDATIONERROR
+_EDITCHECKREQUEST.fields_by_name['check_relationships'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONTUPLE
+_EDITCHECKRESULT.fields_by_name['relationship'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONTUPLE
+_EDITCHECKRESULT.fields_by_name['error'].message_type = _DEVELOPERERROR
+_EDITCHECKRESPONSE.fields_by_name['request_errors'].message_type = _DEVELOPERERROR
 _EDITCHECKRESPONSE.fields_by_name['check_results'].message_type = _EDITCHECKRESULT
 _VALIDATEREQUEST.fields_by_name['context'].message_type = _REQUESTCONTEXT
-_VALIDATIONERROR.fields_by_name['source'].enum_type = _VALIDATIONERROR_SOURCE
-_VALIDATIONERROR.fields_by_name['kind'].enum_type = _VALIDATIONERROR_ERRORKIND
-_VALIDATIONERROR_SOURCE.containing_type = _VALIDATIONERROR
-_VALIDATIONERROR_ERRORKIND.containing_type = _VALIDATIONERROR
-_VALIDATERESPONSE.fields_by_name['context_namespaces'].message_type = _NAMESPACEINFORMATION
-_VALIDATERESPONSE.fields_by_name['validation_errors'].message_type = _VALIDATIONERROR
+_VALIDATERESPONSE.fields_by_name['request_errors'].message_type = _DEVELOPERERROR
+_VALIDATERESPONSE.fields_by_name['validation_errors'].message_type = _DEVELOPERERROR
+_DEVELOPERERROR.fields_by_name['source'].enum_type = _DEVELOPERERROR_SOURCE
+_DEVELOPERERROR.fields_by_name['kind'].enum_type = _DEVELOPERERROR_ERRORKIND
+_DEVELOPERERROR_SOURCE.containing_type = _DEVELOPERERROR
+_DEVELOPERERROR_ERRORKIND.containing_type = _DEVELOPERERROR
+DESCRIPTOR.message_types_by_name['UpgradeSchemaRequest'] = _UPGRADESCHEMAREQUEST
+DESCRIPTOR.message_types_by_name['UpgradeSchemaResponse'] = _UPGRADESCHEMARESPONSE
 DESCRIPTOR.message_types_by_name['ShareRequest'] = _SHAREREQUEST
 DESCRIPTOR.message_types_by_name['ShareResponse'] = _SHARERESPONSE
 DESCRIPTOR.message_types_by_name['LookupShareRequest'] = _LOOKUPSHAREREQUEST
 DESCRIPTOR.message_types_by_name['LookupShareResponse'] = _LOOKUPSHARERESPONSE
-DESCRIPTOR.message_types_by_name['NamespaceContext'] = _NAMESPACECONTEXT
 DESCRIPTOR.message_types_by_name['RequestContext'] = _REQUESTCONTEXT
-DESCRIPTOR.message_types_by_name['NamespaceInformation'] = _NAMESPACEINFORMATION
 DESCRIPTOR.message_types_by_name['EditCheckRequest'] = _EDITCHECKREQUEST
 DESCRIPTOR.message_types_by_name['EditCheckResult'] = _EDITCHECKRESULT
 DESCRIPTOR.message_types_by_name['EditCheckResponse'] = _EDITCHECKRESPONSE
 DESCRIPTOR.message_types_by_name['ValidateRequest'] = _VALIDATEREQUEST
-DESCRIPTOR.message_types_by_name['ValidationError'] = _VALIDATIONERROR
 DESCRIPTOR.message_types_by_name['ValidateResponse'] = _VALIDATERESPONSE
+DESCRIPTOR.message_types_by_name['DeveloperError'] = _DEVELOPERERROR
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+UpgradeSchemaRequest = _reflection.GeneratedProtocolMessageType('UpgradeSchemaRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPGRADESCHEMAREQUEST,
+  '__module__' : 'authzed.api.v0.developer_pb2'
+  # @@protoc_insertion_point(class_scope:authzed.api.v0.UpgradeSchemaRequest)
+  })
+_sym_db.RegisterMessage(UpgradeSchemaRequest)
+
+UpgradeSchemaResponse = _reflection.GeneratedProtocolMessageType('UpgradeSchemaResponse', (_message.Message,), {
+  'DESCRIPTOR' : _UPGRADESCHEMARESPONSE,
+  '__module__' : 'authzed.api.v0.developer_pb2'
+  # @@protoc_insertion_point(class_scope:authzed.api.v0.UpgradeSchemaResponse)
+  })
+_sym_db.RegisterMessage(UpgradeSchemaResponse)
 
 ShareRequest = _reflection.GeneratedProtocolMessageType('ShareRequest', (_message.Message,), {
   'DESCRIPTOR' : _SHAREREQUEST,
@@ -838,26 +833,12 @@ LookupShareResponse = _reflection.GeneratedProtocolMessageType('LookupShareRespo
   })
 _sym_db.RegisterMessage(LookupShareResponse)
 
-NamespaceContext = _reflection.GeneratedProtocolMessageType('NamespaceContext', (_message.Message,), {
-  'DESCRIPTOR' : _NAMESPACECONTEXT,
-  '__module__' : 'authzed.api.v0.developer_pb2'
-  # @@protoc_insertion_point(class_scope:authzed.api.v0.NamespaceContext)
-  })
-_sym_db.RegisterMessage(NamespaceContext)
-
 RequestContext = _reflection.GeneratedProtocolMessageType('RequestContext', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTCONTEXT,
   '__module__' : 'authzed.api.v0.developer_pb2'
   # @@protoc_insertion_point(class_scope:authzed.api.v0.RequestContext)
   })
 _sym_db.RegisterMessage(RequestContext)
-
-NamespaceInformation = _reflection.GeneratedProtocolMessageType('NamespaceInformation', (_message.Message,), {
-  'DESCRIPTOR' : _NAMESPACEINFORMATION,
-  '__module__' : 'authzed.api.v0.developer_pb2'
-  # @@protoc_insertion_point(class_scope:authzed.api.v0.NamespaceInformation)
-  })
-_sym_db.RegisterMessage(NamespaceInformation)
 
 EditCheckRequest = _reflection.GeneratedProtocolMessageType('EditCheckRequest', (_message.Message,), {
   'DESCRIPTOR' : _EDITCHECKREQUEST,
@@ -887,19 +868,19 @@ ValidateRequest = _reflection.GeneratedProtocolMessageType('ValidateRequest', (_
   })
 _sym_db.RegisterMessage(ValidateRequest)
 
-ValidationError = _reflection.GeneratedProtocolMessageType('ValidationError', (_message.Message,), {
-  'DESCRIPTOR' : _VALIDATIONERROR,
-  '__module__' : 'authzed.api.v0.developer_pb2'
-  # @@protoc_insertion_point(class_scope:authzed.api.v0.ValidationError)
-  })
-_sym_db.RegisterMessage(ValidationError)
-
 ValidateResponse = _reflection.GeneratedProtocolMessageType('ValidateResponse', (_message.Message,), {
   'DESCRIPTOR' : _VALIDATERESPONSE,
   '__module__' : 'authzed.api.v0.developer_pb2'
   # @@protoc_insertion_point(class_scope:authzed.api.v0.ValidateResponse)
   })
 _sym_db.RegisterMessage(ValidateResponse)
+
+DeveloperError = _reflection.GeneratedProtocolMessageType('DeveloperError', (_message.Message,), {
+  'DESCRIPTOR' : _DEVELOPERERROR,
+  '__module__' : 'authzed.api.v0.developer_pb2'
+  # @@protoc_insertion_point(class_scope:authzed.api.v0.DeveloperError)
+  })
+_sym_db.RegisterMessage(DeveloperError)
 
 
 DESCRIPTOR._options = None
@@ -911,8 +892,8 @@ _DEVELOPERSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2781,
-  serialized_end=3127,
+  serialized_start=2614,
+  serialized_end=3056,
   methods=[
   _descriptor.MethodDescriptor(
     name='EditCheck',
@@ -951,6 +932,16 @@ _DEVELOPERSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_LOOKUPSHAREREQUEST,
     output_type=_LOOKUPSHARERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='UpgradeSchema',
+    full_name='authzed.api.v0.DeveloperService.UpgradeSchema',
+    index=4,
+    containing_service=None,
+    input_type=_UPGRADESCHEMAREQUEST,
+    output_type=_UPGRADESCHEMARESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
