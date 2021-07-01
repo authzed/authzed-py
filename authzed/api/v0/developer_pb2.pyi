@@ -6,10 +6,6 @@ from authzed.api.v0.core_pb2 import (
     RelationTuple as authzed___api___v0___core_pb2___RelationTuple,
 )
 
-from authzed.api.v0.namespace_pb2 import (
-    NamespaceDefinition as authzed___api___v0___namespace_pb2___NamespaceDefinition,
-)
-
 from google.protobuf.descriptor import (
     Descriptor as google___protobuf___descriptor___Descriptor,
     EnumDescriptor as google___protobuf___descriptor___EnumDescriptor,
@@ -50,21 +46,48 @@ builtin___int = int
 
 DESCRIPTOR: google___protobuf___descriptor___FileDescriptor = ...
 
-class ShareRequest(google___protobuf___message___Message):
+class UpgradeSchemaRequest(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     namespace_configs: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text] = ...
-    relation_tuples: typing___Text = ...
+
+    def __init__(self,
+        *,
+        namespace_configs : typing___Optional[typing___Iterable[typing___Text]] = None,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"namespace_configs",b"namespace_configs"]) -> None: ...
+type___UpgradeSchemaRequest = UpgradeSchemaRequest
+
+class UpgradeSchemaResponse(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    upgraded_schema: typing___Text = ...
+
+    @property
+    def error(self) -> type___DeveloperError: ...
+
+    def __init__(self,
+        *,
+        error : typing___Optional[type___DeveloperError] = None,
+        upgraded_schema : typing___Optional[typing___Text] = None,
+        ) -> None: ...
+    def HasField(self, field_name: typing_extensions___Literal[u"error",b"error"]) -> builtin___bool: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"error",b"error",u"upgraded_schema",b"upgraded_schema"]) -> None: ...
+type___UpgradeSchemaResponse = UpgradeSchemaResponse
+
+class ShareRequest(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    schema: typing___Text = ...
+    relationships_yaml: typing___Text = ...
     validation_yaml: typing___Text = ...
     assertions_yaml: typing___Text = ...
 
     def __init__(self,
         *,
-        namespace_configs : typing___Optional[typing___Iterable[typing___Text]] = None,
-        relation_tuples : typing___Optional[typing___Text] = None,
+        schema : typing___Optional[typing___Text] = None,
+        relationships_yaml : typing___Optional[typing___Text] = None,
         validation_yaml : typing___Optional[typing___Text] = None,
         assertions_yaml : typing___Optional[typing___Text] = None,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"assertions_yaml",b"assertions_yaml",u"namespace_configs",b"namespace_configs",u"relation_tuples",b"relation_tuples",u"validation_yaml",b"validation_yaml"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"assertions_yaml",b"assertions_yaml",u"relationships_yaml",b"relationships_yaml",u"schema",b"schema",u"validation_yaml",b"validation_yaml"]) -> None: ...
 type___ShareRequest = ShareRequest
 
 class ShareResponse(google___protobuf___message___Message):
@@ -99,76 +122,43 @@ class LookupShareResponse(google___protobuf___message___Message):
         UNKNOWN_REFERENCE = typing___cast(LookupShareResponse.LookupStatusValue, 0)
         FAILED_TO_LOOKUP = typing___cast(LookupShareResponse.LookupStatusValue, 1)
         VALID_REFERENCE = typing___cast(LookupShareResponse.LookupStatusValue, 2)
+        UPGRADED_REFERENCE = typing___cast(LookupShareResponse.LookupStatusValue, 3)
     UNKNOWN_REFERENCE = typing___cast(LookupShareResponse.LookupStatusValue, 0)
     FAILED_TO_LOOKUP = typing___cast(LookupShareResponse.LookupStatusValue, 1)
     VALID_REFERENCE = typing___cast(LookupShareResponse.LookupStatusValue, 2)
+    UPGRADED_REFERENCE = typing___cast(LookupShareResponse.LookupStatusValue, 3)
 
     status: type___LookupShareResponse.LookupStatusValue = ...
-    namespace_configs: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text] = ...
-    relation_tuples: typing___Text = ...
+    schema: typing___Text = ...
+    relationships_yaml: typing___Text = ...
     validation_yaml: typing___Text = ...
     assertions_yaml: typing___Text = ...
 
     def __init__(self,
         *,
         status : typing___Optional[type___LookupShareResponse.LookupStatusValue] = None,
-        namespace_configs : typing___Optional[typing___Iterable[typing___Text]] = None,
-        relation_tuples : typing___Optional[typing___Text] = None,
+        schema : typing___Optional[typing___Text] = None,
+        relationships_yaml : typing___Optional[typing___Text] = None,
         validation_yaml : typing___Optional[typing___Text] = None,
         assertions_yaml : typing___Optional[typing___Text] = None,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"assertions_yaml",b"assertions_yaml",u"namespace_configs",b"namespace_configs",u"relation_tuples",b"relation_tuples",u"status",b"status",u"validation_yaml",b"validation_yaml"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"assertions_yaml",b"assertions_yaml",u"relationships_yaml",b"relationships_yaml",u"schema",b"schema",u"status",b"status",u"validation_yaml",b"validation_yaml"]) -> None: ...
 type___LookupShareResponse = LookupShareResponse
-
-class NamespaceContext(google___protobuf___message___Message):
-    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
-    handle: typing___Text = ...
-    config: typing___Text = ...
-
-    def __init__(self,
-        *,
-        handle : typing___Optional[typing___Text] = None,
-        config : typing___Optional[typing___Text] = None,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"config",b"config",u"handle",b"handle"]) -> None: ...
-type___NamespaceContext = NamespaceContext
 
 class RequestContext(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    schema: typing___Text = ...
 
     @property
-    def namespaces(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___NamespaceContext]: ...
-
-    @property
-    def tuples(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[authzed___api___v0___core_pb2___RelationTuple]: ...
+    def relationships(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[authzed___api___v0___core_pb2___RelationTuple]: ...
 
     def __init__(self,
         *,
-        namespaces : typing___Optional[typing___Iterable[type___NamespaceContext]] = None,
-        tuples : typing___Optional[typing___Iterable[authzed___api___v0___core_pb2___RelationTuple]] = None,
+        schema : typing___Optional[typing___Text] = None,
+        relationships : typing___Optional[typing___Iterable[authzed___api___v0___core_pb2___RelationTuple]] = None,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"namespaces",b"namespaces",u"tuples",b"tuples"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"relationships",b"relationships",u"schema",b"schema"]) -> None: ...
 type___RequestContext = RequestContext
-
-class NamespaceInformation(google___protobuf___message___Message):
-    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
-    handle: typing___Text = ...
-
-    @property
-    def parsed(self) -> authzed___api___v0___namespace_pb2___NamespaceDefinition: ...
-
-    @property
-    def errors(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___ValidationError]: ...
-
-    def __init__(self,
-        *,
-        handle : typing___Optional[typing___Text] = None,
-        parsed : typing___Optional[authzed___api___v0___namespace_pb2___NamespaceDefinition] = None,
-        errors : typing___Optional[typing___Iterable[type___ValidationError]] = None,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions___Literal[u"parsed",b"parsed"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"errors",b"errors",u"handle",b"handle",u"parsed",b"parsed"]) -> None: ...
-type___NamespaceInformation = NamespaceInformation
 
 class EditCheckRequest(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
@@ -177,15 +167,15 @@ class EditCheckRequest(google___protobuf___message___Message):
     def context(self) -> type___RequestContext: ...
 
     @property
-    def check_tuples(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[authzed___api___v0___core_pb2___RelationTuple]: ...
+    def check_relationships(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[authzed___api___v0___core_pb2___RelationTuple]: ...
 
     def __init__(self,
         *,
         context : typing___Optional[type___RequestContext] = None,
-        check_tuples : typing___Optional[typing___Iterable[authzed___api___v0___core_pb2___RelationTuple]] = None,
+        check_relationships : typing___Optional[typing___Iterable[authzed___api___v0___core_pb2___RelationTuple]] = None,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions___Literal[u"context",b"context"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"check_tuples",b"check_tuples",u"context",b"context"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"check_relationships",b"check_relationships",u"context",b"context"]) -> None: ...
 type___EditCheckRequest = EditCheckRequest
 
 class EditCheckResult(google___protobuf___message___Message):
@@ -193,40 +183,36 @@ class EditCheckResult(google___protobuf___message___Message):
     is_member: builtin___bool = ...
 
     @property
-    def tuple(self) -> authzed___api___v0___core_pb2___RelationTuple: ...
+    def relationship(self) -> authzed___api___v0___core_pb2___RelationTuple: ...
 
     @property
-    def error(self) -> type___ValidationError: ...
+    def error(self) -> type___DeveloperError: ...
 
     def __init__(self,
         *,
-        tuple : typing___Optional[authzed___api___v0___core_pb2___RelationTuple] = None,
+        relationship : typing___Optional[authzed___api___v0___core_pb2___RelationTuple] = None,
         is_member : typing___Optional[builtin___bool] = None,
-        error : typing___Optional[type___ValidationError] = None,
+        error : typing___Optional[type___DeveloperError] = None,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions___Literal[u"error",b"error",u"tuple",b"tuple"]) -> builtin___bool: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"error",b"error",u"is_member",b"is_member",u"tuple",b"tuple"]) -> None: ...
+    def HasField(self, field_name: typing_extensions___Literal[u"error",b"error",u"relationship",b"relationship"]) -> builtin___bool: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"error",b"error",u"is_member",b"is_member",u"relationship",b"relationship"]) -> None: ...
 type___EditCheckResult = EditCheckResult
 
 class EditCheckResponse(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
 
     @property
-    def context_namespaces(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___NamespaceInformation]: ...
-
-    @property
-    def additional_errors(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___ValidationError]: ...
+    def request_errors(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___DeveloperError]: ...
 
     @property
     def check_results(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___EditCheckResult]: ...
 
     def __init__(self,
         *,
-        context_namespaces : typing___Optional[typing___Iterable[type___NamespaceInformation]] = None,
-        additional_errors : typing___Optional[typing___Iterable[type___ValidationError]] = None,
+        request_errors : typing___Optional[typing___Iterable[type___DeveloperError]] = None,
         check_results : typing___Optional[typing___Iterable[type___EditCheckResult]] = None,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"additional_errors",b"additional_errors",u"check_results",b"check_results",u"context_namespaces",b"context_namespaces"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"check_results",b"check_results",u"request_errors",b"request_errors"]) -> None: ...
 type___EditCheckResponse = EditCheckResponse
 
 class ValidateRequest(google___protobuf___message___Message):
@@ -249,88 +235,88 @@ class ValidateRequest(google___protobuf___message___Message):
     def ClearField(self, field_name: typing_extensions___Literal[u"assertions_yaml",b"assertions_yaml",u"context",b"context",u"update_validation_yaml",b"update_validation_yaml",u"validation_yaml",b"validation_yaml"]) -> None: ...
 type___ValidateRequest = ValidateRequest
 
-class ValidationError(google___protobuf___message___Message):
+class ValidateResponse(google___protobuf___message___Message):
+    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
+    updated_validation_yaml: typing___Text = ...
+
+    @property
+    def request_errors(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___DeveloperError]: ...
+
+    @property
+    def validation_errors(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___DeveloperError]: ...
+
+    def __init__(self,
+        *,
+        request_errors : typing___Optional[typing___Iterable[type___DeveloperError]] = None,
+        validation_errors : typing___Optional[typing___Iterable[type___DeveloperError]] = None,
+        updated_validation_yaml : typing___Optional[typing___Text] = None,
+        ) -> None: ...
+    def ClearField(self, field_name: typing_extensions___Literal[u"request_errors",b"request_errors",u"updated_validation_yaml",b"updated_validation_yaml",u"validation_errors",b"validation_errors"]) -> None: ...
+type___ValidateResponse = ValidateResponse
+
+class DeveloperError(google___protobuf___message___Message):
     DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
     SourceValue = typing___NewType('SourceValue', builtin___int)
     type___SourceValue = SourceValue
     Source: _Source
-    class _Source(google___protobuf___internal___enum_type_wrapper____EnumTypeWrapper[ValidationError.SourceValue]):
+    class _Source(google___protobuf___internal___enum_type_wrapper____EnumTypeWrapper[DeveloperError.SourceValue]):
         DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
-        UNKNOWN_SOURCE = typing___cast(ValidationError.SourceValue, 0)
-        NAMESPACE_CONFIG = typing___cast(ValidationError.SourceValue, 1)
-        VALIDATION_TUPLE = typing___cast(ValidationError.SourceValue, 2)
-        VALIDATION_YAML = typing___cast(ValidationError.SourceValue, 3)
-        CHECK_WATCH = typing___cast(ValidationError.SourceValue, 4)
-        ASSERTION = typing___cast(ValidationError.SourceValue, 5)
-    UNKNOWN_SOURCE = typing___cast(ValidationError.SourceValue, 0)
-    NAMESPACE_CONFIG = typing___cast(ValidationError.SourceValue, 1)
-    VALIDATION_TUPLE = typing___cast(ValidationError.SourceValue, 2)
-    VALIDATION_YAML = typing___cast(ValidationError.SourceValue, 3)
-    CHECK_WATCH = typing___cast(ValidationError.SourceValue, 4)
-    ASSERTION = typing___cast(ValidationError.SourceValue, 5)
+        UNKNOWN_SOURCE = typing___cast(DeveloperError.SourceValue, 0)
+        SCHEMA = typing___cast(DeveloperError.SourceValue, 1)
+        RELATIONSHIP = typing___cast(DeveloperError.SourceValue, 2)
+        VALIDATION_YAML = typing___cast(DeveloperError.SourceValue, 3)
+        CHECK_WATCH = typing___cast(DeveloperError.SourceValue, 4)
+        ASSERTION = typing___cast(DeveloperError.SourceValue, 5)
+    UNKNOWN_SOURCE = typing___cast(DeveloperError.SourceValue, 0)
+    SCHEMA = typing___cast(DeveloperError.SourceValue, 1)
+    RELATIONSHIP = typing___cast(DeveloperError.SourceValue, 2)
+    VALIDATION_YAML = typing___cast(DeveloperError.SourceValue, 3)
+    CHECK_WATCH = typing___cast(DeveloperError.SourceValue, 4)
+    ASSERTION = typing___cast(DeveloperError.SourceValue, 5)
 
     ErrorKindValue = typing___NewType('ErrorKindValue', builtin___int)
     type___ErrorKindValue = ErrorKindValue
     ErrorKind: _ErrorKind
-    class _ErrorKind(google___protobuf___internal___enum_type_wrapper____EnumTypeWrapper[ValidationError.ErrorKindValue]):
+    class _ErrorKind(google___protobuf___internal___enum_type_wrapper____EnumTypeWrapper[DeveloperError.ErrorKindValue]):
         DESCRIPTOR: google___protobuf___descriptor___EnumDescriptor = ...
-        UNKNOWN_KIND = typing___cast(ValidationError.ErrorKindValue, 0)
-        PARSE_ERROR = typing___cast(ValidationError.ErrorKindValue, 1)
-        NAMESPACE_CONFIG_ISSUE = typing___cast(ValidationError.ErrorKindValue, 2)
-        DUPLICATE_TUPLE = typing___cast(ValidationError.ErrorKindValue, 3)
-        MISSING_EXPECTED_TUPLE = typing___cast(ValidationError.ErrorKindValue, 4)
-        EXTRA_TUPLE_FOUND = typing___cast(ValidationError.ErrorKindValue, 5)
-        UNKNOWN_NAMESPACE = typing___cast(ValidationError.ErrorKindValue, 6)
-        UNKNOWN_RELATION = typing___cast(ValidationError.ErrorKindValue, 7)
-        MAXIMUM_RECURSION = typing___cast(ValidationError.ErrorKindValue, 8)
-        ASSERTION_FAILED = typing___cast(ValidationError.ErrorKindValue, 9)
-    UNKNOWN_KIND = typing___cast(ValidationError.ErrorKindValue, 0)
-    PARSE_ERROR = typing___cast(ValidationError.ErrorKindValue, 1)
-    NAMESPACE_CONFIG_ISSUE = typing___cast(ValidationError.ErrorKindValue, 2)
-    DUPLICATE_TUPLE = typing___cast(ValidationError.ErrorKindValue, 3)
-    MISSING_EXPECTED_TUPLE = typing___cast(ValidationError.ErrorKindValue, 4)
-    EXTRA_TUPLE_FOUND = typing___cast(ValidationError.ErrorKindValue, 5)
-    UNKNOWN_NAMESPACE = typing___cast(ValidationError.ErrorKindValue, 6)
-    UNKNOWN_RELATION = typing___cast(ValidationError.ErrorKindValue, 7)
-    MAXIMUM_RECURSION = typing___cast(ValidationError.ErrorKindValue, 8)
-    ASSERTION_FAILED = typing___cast(ValidationError.ErrorKindValue, 9)
+        UNKNOWN_KIND = typing___cast(DeveloperError.ErrorKindValue, 0)
+        PARSE_ERROR = typing___cast(DeveloperError.ErrorKindValue, 1)
+        SCHEMA_ISSUE = typing___cast(DeveloperError.ErrorKindValue, 2)
+        DUPLICATE_RELATIONSHIP = typing___cast(DeveloperError.ErrorKindValue, 3)
+        MISSING_EXPECTED_RELATIONSHIP = typing___cast(DeveloperError.ErrorKindValue, 4)
+        EXTRA_RELATIONSHIP_FOUND = typing___cast(DeveloperError.ErrorKindValue, 5)
+        UNKNOWN_OBJECT_TYPE = typing___cast(DeveloperError.ErrorKindValue, 6)
+        UNKNOWN_RELATION = typing___cast(DeveloperError.ErrorKindValue, 7)
+        MAXIMUM_RECURSION = typing___cast(DeveloperError.ErrorKindValue, 8)
+        ASSERTION_FAILED = typing___cast(DeveloperError.ErrorKindValue, 9)
+    UNKNOWN_KIND = typing___cast(DeveloperError.ErrorKindValue, 0)
+    PARSE_ERROR = typing___cast(DeveloperError.ErrorKindValue, 1)
+    SCHEMA_ISSUE = typing___cast(DeveloperError.ErrorKindValue, 2)
+    DUPLICATE_RELATIONSHIP = typing___cast(DeveloperError.ErrorKindValue, 3)
+    MISSING_EXPECTED_RELATIONSHIP = typing___cast(DeveloperError.ErrorKindValue, 4)
+    EXTRA_RELATIONSHIP_FOUND = typing___cast(DeveloperError.ErrorKindValue, 5)
+    UNKNOWN_OBJECT_TYPE = typing___cast(DeveloperError.ErrorKindValue, 6)
+    UNKNOWN_RELATION = typing___cast(DeveloperError.ErrorKindValue, 7)
+    MAXIMUM_RECURSION = typing___cast(DeveloperError.ErrorKindValue, 8)
+    ASSERTION_FAILED = typing___cast(DeveloperError.ErrorKindValue, 9)
 
     message: typing___Text = ...
     line: builtin___int = ...
     column: builtin___int = ...
-    source: type___ValidationError.SourceValue = ...
-    kind: type___ValidationError.ErrorKindValue = ...
+    source: type___DeveloperError.SourceValue = ...
+    kind: type___DeveloperError.ErrorKindValue = ...
     path: google___protobuf___internal___containers___RepeatedScalarFieldContainer[typing___Text] = ...
-    metadata: typing___Text = ...
+    context: typing___Text = ...
 
     def __init__(self,
         *,
         message : typing___Optional[typing___Text] = None,
         line : typing___Optional[builtin___int] = None,
         column : typing___Optional[builtin___int] = None,
-        source : typing___Optional[type___ValidationError.SourceValue] = None,
-        kind : typing___Optional[type___ValidationError.ErrorKindValue] = None,
+        source : typing___Optional[type___DeveloperError.SourceValue] = None,
+        kind : typing___Optional[type___DeveloperError.ErrorKindValue] = None,
         path : typing___Optional[typing___Iterable[typing___Text]] = None,
-        metadata : typing___Optional[typing___Text] = None,
+        context : typing___Optional[typing___Text] = None,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"column",b"column",u"kind",b"kind",u"line",b"line",u"message",b"message",u"metadata",b"metadata",u"path",b"path",u"source",b"source"]) -> None: ...
-type___ValidationError = ValidationError
-
-class ValidateResponse(google___protobuf___message___Message):
-    DESCRIPTOR: google___protobuf___descriptor___Descriptor = ...
-    updated_validation_yaml: typing___Text = ...
-
-    @property
-    def context_namespaces(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___NamespaceInformation]: ...
-
-    @property
-    def validation_errors(self) -> google___protobuf___internal___containers___RepeatedCompositeFieldContainer[type___ValidationError]: ...
-
-    def __init__(self,
-        *,
-        context_namespaces : typing___Optional[typing___Iterable[type___NamespaceInformation]] = None,
-        validation_errors : typing___Optional[typing___Iterable[type___ValidationError]] = None,
-        updated_validation_yaml : typing___Optional[typing___Text] = None,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions___Literal[u"context_namespaces",b"context_namespaces",u"updated_validation_yaml",b"updated_validation_yaml",u"validation_errors",b"validation_errors"]) -> None: ...
-type___ValidateResponse = ValidateResponse
+    def ClearField(self, field_name: typing_extensions___Literal[u"column",b"column",u"context",b"context",u"kind",b"kind",u"line",b"line",u"message",b"message",u"path",b"path",u"source",b"source"]) -> None: ...
+type___DeveloperError = DeveloperError

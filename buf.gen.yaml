@@ -1,4 +1,4 @@
-#!/usr/bin/env -S buf generate buf.build/authzed/api:3444bd6f843d49928d6a1226965d88b7 --template
+#!/usr/bin/env -S buf generate buf.build/authzed/api:bf9b8ca524394d9689e6a5697fba9e9b --template
 version: "v1beta1"
 plugins:
 - name: "python"
