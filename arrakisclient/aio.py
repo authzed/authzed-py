@@ -329,6 +329,10 @@ class AsyncArrakisClient(object):
                     # (e.g. check of a relationship with a cycle)
                     if re.code() == grpc.StatusCode.INVALID_ARGUMENT:
                         logging.exception("Invalid check request")
+                        continue
+
+                    # Otherwise, raise as an error.
+                    raise
 
             more_items = len(batch) == batch_size
 
