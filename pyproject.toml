@@ -3,6 +3,7 @@ packages = [
     { include = "arrakisclient" },
     { include = "authzed" },
     { include = "validate" },
+    { include = "grpcutil" },
 ]
 authors = ["Petricorp <support@petricorp.io>"]
 description = "Client library for the Authzed service."
