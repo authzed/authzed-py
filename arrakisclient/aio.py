@@ -120,6 +120,21 @@ class ExpandResponse(object):
         )
 
 
+@dataclass
+class LookupResponse(object):
+    resolved_object_ids: Iterable[str]
+    next_page_reference: str
+    revision: Zookie
+
+    @classmethod
+    def from_proto(cls, pb: acl_proto.LookupResponse) -> "LookupResponse":
+        return LookupResponse(
+            pb.resolved_object_ids,
+            pb.next_page_reference,
+            Zookie.from_token(pb.revision.token),
+        )
+
+
 class ReadResponse(object):
     def __init__(
         self, read_response: acl_proto.ReadResponse, ns_map: Dict[str, Type[ArrakisNamespace]]
@@ -388,6 +403,32 @@ class AsyncArrakisClient(object):
                 )
             )
             return ExpandResponse.from_proto(raw_response, self._ns_map)
+
+    @wrap_client_exception_async
+    async def lookup(
+        self,
+        namespace: str,
+        relation: str,
+        user: ArrakisUser,
+        at_revision: Optional[Zookie] = None,
+        page_ref: Optional[str] = None,
+        limit: Optional[int] = None,
+    ) -> LookupResponse:
+        async with self.acl_stub() as acl_stub:
+            zookie_proto = at_revision and at_revision.zookie_proto
+            raw_response = await acl_stub.Lookup(
+                acl_proto.LookupRequest(
+                    object_relation=core_proto.RelationReference(
+                        namespace=namespace,
+                        relation=relation,
+                    ),
+                    user=user.as_proto().userset,
+                    at_revision=zookie_proto,
+                    page_reference=page_ref or "",
+                    limit=limit or 0,
+                )
+            )
+            return LookupResponse.from_proto(raw_response)
 
     @wrap_client_exception_async
     async def read(

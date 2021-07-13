@@ -5,6 +5,7 @@ from arrakisclient.aio import (
     AsyncArrakisClient,
     CheckResponse,
     ExpandResponse,
+    LookupResponse,
     ReadResponse,
     TuplesetFilter,
 )
@@ -119,6 +120,19 @@ class ArrakisClient(object):
         self, onr: ObjectAndRelation, at_revision: Optional[Zookie] = None
     ) -> ExpandResponse:
         return _aio_run(self._delegate.expand(onr, at_revision))
+
+    def lookup(
+        self,
+        namespace: str,
+        relation: str,
+        user: ArrakisUser,
+        at_revision: Optional[Zookie] = None,
+        page_ref: Optional[str] = None,
+        limit: Optional[int] = None,
+    ) -> LookupResponse:
+        return _aio_run(
+            self._delegate.lookup(namespace, relation, user, at_revision, page_ref, limit)
+        )
 
     @property
     def management(self) -> "ArrakisClient.TenantManagementClient":
