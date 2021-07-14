@@ -28,19 +28,6 @@ from authzed.api.v0.core_pb2 import (
     User,
     Zookie,
 )
-from authzed.api.v0.developer_pb2 import (
-    EditCheckRequest,
-    EditCheckResponse,
-    LookupShareRequest,
-    LookupShareResponse,
-    RequestContext,
-    ShareRequest,
-    ShareResponse,
-    UpgradeSchemaRequest,
-    UpgradeSchemaResponse,
-    ValidateRequest,
-    ValidateResponse,
-)
 from authzed.api.v0.developer_pb2_grpc import DeveloperServiceStub
 from authzed.api.v0.namespace_pb2 import (
     ComputedUserset,
@@ -59,7 +46,6 @@ from authzed.api.v0.namespace_service_pb2 import (
     WriteConfigResponse,
 )
 from authzed.api.v0.namespace_service_pb2_grpc import NamespaceServiceStub
-from authzed.api.v0.watch_service_pb2 import WatchRequest, WatchResponse
 from authzed.api.v0.watch_service_pb2_grpc import WatchServiceStub
 
 
@@ -114,24 +100,9 @@ __all__ = [
     "RelationTupleFilter",
     "WriteRequest",
     "WriteResponse",
-    # Developer Service
-    "EditCheckRequest",
-    "EditCheckResponse",
-    "LookupShareRequest",
-    "LookupShareResponse",
-    "RequestContext",
-    "ShareRequest",
-    "ShareResponse",
-    "UpgradeSchemaRequest",
-    "UpgradeSchemaResponse",
-    "ValidateRequest",
-    "ValidateResponse",
     # Namespace Service
     "ReadConfigRequest",
     "ReadConfigResponse",
     "WriteConfigRequest",
     "WriteConfigResponse",
-    # Watch Service
-    "WatchRequest",
-    "WatchResponse",
 ]
