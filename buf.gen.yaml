@@ -8,3 +8,5 @@ plugins:
   path: "grpc_python_plugin"
 - name: "mypy"
   out: "."
+- name: "mypy_grpc"
+  out: "."
