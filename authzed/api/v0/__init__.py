@@ -24,10 +24,11 @@ from authzed.api.v0.core_pb2 import (
     RelationReference,
     RelationTuple,
     RelationTupleTreeNode,
+    RelationTupleUpdate,
     SetOperationUserset,
-    User,
-    Zookie,
 )
+from authzed.api.v0.core_pb2 import User as CoreUser
+from authzed.api.v0.core_pb2 import Zookie
 from authzed.api.v0.developer_pb2_grpc import DeveloperServiceStub
 from authzed.api.v0.namespace_pb2 import (
     ComputedUserset,
@@ -67,16 +68,30 @@ class Client(ACLServiceStub, DeveloperServiceStub, NamespaceServiceStub, WatchSe
         WatchServiceStub.__init__(self, channel)
 
 
+def User(namespace: str, object_id: str) -> CoreUser:
+    """
+    User is a utility function for creating usersets.
+    """
+    return CoreUser(
+        userset=ObjectAndRelation(
+            namespace=namespace,
+            object_id=object_id,
+            relation="...",
+        )
+    )
+
+
 __all__ = [
     "Client",
+    "User",
     # Core
     "DirectUserset",
     "ObjectAndRelation",
     "RelationReference",
     "RelationTuple",
     "RelationTupleTreeNode",
+    "RelationTupleUpdate",
     "SetOperationUserset",
-    "User",
     "Zookie",
     # Namespace
     "ComputedUserset",

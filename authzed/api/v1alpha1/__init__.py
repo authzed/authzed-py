@@ -3,7 +3,12 @@ import asyncio
 import grpc
 import grpc.aio
 
-from authzed.api.v1alpha1.schema_pb2 import ReadSchemaRequest, ReadSchemaResponse
+from authzed.api.v1alpha1.schema_pb2 import (
+    ReadSchemaRequest,
+    ReadSchemaResponse,
+    WriteSchemaRequest,
+    WriteSchemaResponse,
+)
 from authzed.api.v1alpha1.schema_pb2_grpc import SchemaServiceStub
 
 
@@ -24,6 +29,9 @@ class Client(SchemaServiceStub):
 
 __all__ = [
     "Client",
+    # Schema Service
     "ReadSchemaRequest",
     "ReadSchemaResponse",
+    "WriteSchemaRequest",
+    "WriteSchemaResponse",
 ]
