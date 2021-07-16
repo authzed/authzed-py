@@ -8,7 +8,7 @@ packages = [
 authors = ["Authzed <support@authzed.com>"]
 description = "Client library for the Authzed service."
 name = "authzed"
-version = "0.3.0"
+version = "0.3.1"
 readme = "README.md"
 
 [tool.poetry.dependencies]
