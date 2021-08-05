@@ -8,19 +8,34 @@
 
 This repository houses the Python client library for Authzed.
 
-The library maintains various versions the Authzed gRPC APIs.
+[Authzed] is a database and service that stores, computes, and validates your application's permissions.
+
+Developers create a schema that models their permissions requirements and use a client library, such as this one, to apply the schema to the database, insert data into the database, and query the data to efficiently check permissions in their applications.
+
+Supported client API versions:
+- [v1alpha1](https://docs.authzed.com/reference/api#authzedapiv1alpha1)
+- [v0](https://docs.authzed.com/reference/api#authzedapiv0)
+- "arrakisclient" - a deprecated ORM for v0
+
 You can find more info on each API on the [Authzed API reference documentation].
 Additionally, Protobuf API documentation can be found on the [Buf Registry Authzed API repository].
 
-Supported API versions:
-- v1alpha1
-- v0
-- arrakisclient (v0 Legacy ORM)
-
+[Authzed]: https://authzed.com
 [Authzed API Reference documentation]: https://docs.authzed.com/reference/api
 [Buf Registry Authzed API repository]: https://buf.build/authzed/api/docs/main
 
-## Installation
+## Getting Started
+
+We highly recommend following the **[Protecting Your First App]** guide to learn the latest best practice to integrate an application with Authzed.
+
+If you're interested in examples of a specific version of the API, they can be found in their respective folders in the [examples directory].
+
+[Protecting Your First App]: https://docs.authzed.com/guides/first-app
+[examples directory]: /examples
+
+## Basic Usage
+
+### Installation
 
 This project is packaged as the wheel `authzed` on the [Python Package Index].
 
@@ -33,11 +48,37 @@ pip install authzed
 [Python Package Index]: https://pypi.org/project/authzed
 [pip]: https://pip.pypa.io
 
-## Examples
+### Initializing a client
 
-You can follow the [Protecting Your First App] guide to see the latest best practice for using Authzed client libraries.
+With the exception of [gRPC] utility functions found in `grpcutil`, everything required to connect and make API calls is located in a module respective to API version.
 
-If you're interested in examples of a specific version of the API, they can be found in their respective folders in the [examples directory].
+In order to successfully connect, you will have to provide a [Bearer Token] with your own API Token from the [Authzed dashboard] in place of `t_your_token_here_1234567deadbeef` in the following example:
 
-[Protecting Your First App]: https://docs.authzed.com/guides/first-app
-[examples directory]: /examples
+[grpc]: https://grpc.io
+[Bearer Token]: https://datatracker.ietf.org/doc/html/rfc6750#section-2.1
+[Authzed Dashboard]: https://app.authzed.com
+
+```py
+from authzed.api.v0 import Client
+from grpcutil import bearer_token_credentials
+
+client = Client("grpc.authzed.com:443", bearer_token_credentials("t_your_token_here_1234567deadbeef"))
+```
+
+### Performing an API call
+
+```py
+from authzed.api.v0 import CheckRequest, ObjectAndRelation, User
+
+
+emilia = User("blog/user", "emilia")
+read_first_post = ObjectAndRelation(
+    namespace="blog/post",
+    object_id="1",
+    relation="read",
+)
+
+# Is Emilia in the set of users that can read post #1?
+resp = client.Check(CheckRequest(user=emilia, test_userset=read_first_post))
+assert resp.is_member
+```
