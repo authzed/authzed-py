@@ -62,7 +62,10 @@ In order to successfully connect, you will have to provide a [Bearer Token] with
 from authzed.api.v0 import Client
 from grpcutil import bearer_token_credentials
 
-client = Client("grpc.authzed.com:443", bearer_token_credentials("t_your_token_here_1234567deadbeef"))
+client = Client(
+    "grpc.authzed.com:443",
+    bearer_token_credentials("t_your_token_here_1234567deadbeef"),
+)
 ```
 
 ### Performing an API call
