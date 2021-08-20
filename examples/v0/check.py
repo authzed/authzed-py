@@ -7,12 +7,12 @@ beatrice = User("blog/user", "beatrice")
 post_one_reader = ObjectAndRelation(
     namespace="blog/post",
     object_id="1",
-    relation="writer",
+    relation="reader",
 )
 post_one_writer = ObjectAndRelation(
     namespace="blog/post",
     object_id="1",
-    relation="reader",
+    relation="writer",
 )
 
 client = Client("grpc.authzed.com:443", bearer_token_credentials("mytoken"))
