@@ -1,12 +1,13 @@
-#!/usr/bin/env -S buf generate buf.build/authzed/api:b7e7cd9ac92b44638de0d01e03db6ec2 --template
-version: "v1beta1"
+#!/usr/bin/env -S buf generate buf.build/authzed/api:7a18d413329a4f4fb0c4237afb640e8e --template
+---
+version: "v1"
 plugins:
-- name: "python"
-  out: "."
-- name: "grpc-python"
-  out: "."
-  path: "grpc_python_plugin"
-- name: "mypy"
-  out: "."
-- name: "mypy_grpc"
-  out: "."
+  - name: "python"
+    out: "."
+  - name: "grpc-python"
+    out: "."
+    path: "grpc_python_plugin"
+  - name: "mypy"
+    out: "."
+  - name: "mypy_grpc"
+    out: "."

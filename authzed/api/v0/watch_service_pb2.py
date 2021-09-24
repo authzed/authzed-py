@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='authzed/api/v0/watch_service.proto',
   package='authzed.api.v0',
   syntax='proto3',
-  serialized_options=b'Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
+  serialized_options=b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"authzed/api/v0/watch_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\"\xbe\x01\n\x0cWatchRequest\x12o\n\nnamespaces\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x01\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nnamespaces\x12=\n\x0estart_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\rstartRevision\"\x89\x01\n\rWatchResponse\x12=\n\x07updates\x18\x01 \x03(\x0b\x32#.authzed.api.v0.RelationTupleUpdateR\x07updates\x12\x39\n\x0c\x65nd_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x0b\x65ndRevision2X\n\x0cWatchService\x12H\n\x05Watch\x12\x1c.authzed.api.v0.WatchRequest\x1a\x1d.authzed.api.v0.WatchResponse\"\x00\x30\x01\x42\x34Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
+  serialized_pb=b'\n\"authzed/api/v0/watch_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\"\xbe\x01\n\x0cWatchRequest\x12o\n\nnamespaces\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x01\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nnamespaces\x12=\n\x0estart_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\rstartRevision\"\x89\x01\n\rWatchResponse\x12=\n\x07updates\x18\x01 \x03(\x0b\x32#.authzed.api.v0.RelationTupleUpdateR\x07updates\x12\x39\n\x0c\x65nd_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x0b\x65ndRevision2X\n\x0cWatchService\x12H\n\x05Watch\x12\x1c.authzed.api.v0.WatchRequest\x1a\x1d.authzed.api.v0.WatchResponse\"\x00\x30\x01\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v0_dot_core__pb2.DESCRIPTOR,])
 

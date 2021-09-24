@@ -39,6 +39,11 @@ class DeveloperServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaResponse.FromString,
                 )
+        self.FormatSchema = channel.unary_unary(
+                '/authzed.api.v0.DeveloperService/FormatSchema',
+                request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaResponse.FromString,
+                )
 
 
 class DeveloperServiceServicer(object):
@@ -74,6 +79,12 @@ class DeveloperServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FormatSchema(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DeveloperServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +112,11 @@ def add_DeveloperServiceServicer_to_server(servicer, server):
                     servicer.UpgradeSchema,
                     request_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaResponse.SerializeToString,
+            ),
+            'FormatSchema': grpc.unary_unary_rpc_method_handler(
+                    servicer.FormatSchema,
+                    request_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -194,5 +210,22 @@ class DeveloperService(object):
         return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/UpgradeSchema',
             authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FormatSchema(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/FormatSchema',
+            authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaRequest.SerializeToString,
+            authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

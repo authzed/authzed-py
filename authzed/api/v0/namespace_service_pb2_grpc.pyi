@@ -16,6 +16,10 @@ class NamespaceServiceStub:
         global___WriteConfigRequest,
         global___WriteConfigResponse] = ...
 
+    DeleteConfigs:grpc.UnaryUnaryMultiCallable[
+        global___DeleteConfigsRequest,
+        global___DeleteConfigsResponse] = ...
+
 
 class NamespaceServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -29,6 +33,12 @@ class NamespaceServiceServicer(metaclass=abc.ABCMeta):
         request: global___WriteConfigRequest,
         context: grpc.ServicerContext,
     ) -> global___WriteConfigResponse: ...
+
+    @abc.abstractmethod
+    def DeleteConfigs(self,
+        request: global___DeleteConfigsRequest,
+        context: grpc.ServicerContext,
+    ) -> global___DeleteConfigsResponse: ...
 
 
 def add_NamespaceServiceServicer_to_server(servicer: NamespaceServiceServicer, server: grpc.Server) -> None: ...
