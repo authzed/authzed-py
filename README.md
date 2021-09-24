@@ -14,6 +14,7 @@ This repository houses the Python client library for Authzed.
 Developers create a schema that models their permissions requirements and use a client library, such as this one, to apply the schema to the database, insert data into the database, and query the data to efficiently check permissions in their applications.
 
 Supported client API versions:
+- [v1](https://docs.authzed.com/reference/api#authzedapiv1)
 - [v1alpha1](https://docs.authzed.com/reference/api#authzedapiv1alpha1)
 - [v0](https://docs.authzed.com/reference/api#authzedapiv0)
 - "arrakisclient" - a deprecated ORM for v0
@@ -63,8 +64,9 @@ In order to successfully connect, you will have to provide a [Bearer Token] with
 [Authzed Dashboard]: https://app.authzed.com
 
 ```py
-from authzed.api.v0 import Client
+from authzed.api.v1 import Client
 from grpcutil import bearer_token_credentials
+
 
 client = Client(
     "grpc.authzed.com:443",
@@ -75,17 +77,25 @@ client = Client(
 ### Performing an API call
 
 ```py
-from authzed.api.v0 import CheckRequest, ObjectAndRelation, User
-
-
-emilia = User("blog/user", "emilia")
-read_first_post = ObjectAndRelation(
-    namespace="blog/post",
-    object_id="1",
-    relation="read",
+from authzed.api.v1 import (
+    CheckPermissionRequest,
+    CheckPermissionResponse,
+    ObjectReference,
+    SubjectReference,
 )
 
+
+post_one = ObjectReference(object_type="blog/post", object_id="1")
+emilia = SubjectReference(object=ObjectReference(
+    object_type="blog/user",
+    object_id="emilia",
+))
+
 # Is Emilia in the set of users that can read post #1?
-resp = client.Check(CheckRequest(user=emilia, test_userset=read_first_post))
-assert resp.is_member
+resp = client.CheckPermission(CheckPermissionRequest(
+    resource=post_one,
+    permission="reader",
+    subject=emilia,
+))
+assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 ```
