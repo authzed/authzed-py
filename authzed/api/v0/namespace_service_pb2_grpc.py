@@ -24,6 +24,11 @@ class NamespaceServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.WriteConfigRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.WriteConfigResponse.FromString,
                 )
+        self.DeleteConfigs = channel.unary_unary(
+                '/authzed.api.v0.NamespaceService/DeleteConfigs',
+                request_serializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.DeleteConfigsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.DeleteConfigsResponse.FromString,
+                )
 
 
 class NamespaceServiceServicer(object):
@@ -41,6 +46,12 @@ class NamespaceServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DeleteConfigs(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_NamespaceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_NamespaceServiceServicer_to_server(servicer, server):
                     servicer.WriteConfig,
                     request_deserializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.WriteConfigRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.WriteConfigResponse.SerializeToString,
+            ),
+            'DeleteConfigs': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteConfigs,
+                    request_deserializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.DeleteConfigsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v0_dot_namespace__service__pb2.DeleteConfigsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +111,22 @@ class NamespaceService(object):
         return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.NamespaceService/WriteConfig',
             authzed_dot_api_dot_v0_dot_namespace__service__pb2.WriteConfigRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_namespace__service__pb2.WriteConfigResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteConfigs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.NamespaceService/DeleteConfigs',
+            authzed_dot_api_dot_v0_dot_namespace__service__pb2.DeleteConfigsRequest.SerializeToString,
+            authzed_dot_api_dot_v0_dot_namespace__service__pb2.DeleteConfigsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

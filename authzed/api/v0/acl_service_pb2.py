@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='authzed/api/v0/acl_service.proto',
   package='authzed.api.v0',
   syntax='proto3',
-  serialized_options=b'Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
+  serialized_options=b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n authzed/api/v0/acl_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\"\xe1\x03\n\x13RelationTupleFilter\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12G\n\tobject_id\x18\x02 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x08objectId\x12\x46\n\x08relation\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x08relation\x12;\n\x07userset\x18\x05 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationR\x07userset\x12S\n\x07\x66ilters\x18\x06 \x03(\x0e\x32*.authzed.api.v0.RelationTupleFilter.FilterB\r\xfa\x42\n\x92\x01\x07\"\x05\x82\x01\x02\x10\x01R\x07\x66ilters\"?\n\x06\x46ilter\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tOBJECT_ID\x10\x01\x12\x0c\n\x08RELATION\x10\x02\x12\x0b\n\x07USERSET\x10\x04\"\x9a\x01\n\x0bReadRequest\x12R\n\ttuplesets\x18\x01 \x03(\x0b\x32#.authzed.api.v0.RelationTupleFilterB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\ttuplesets\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\xca\x01\n\x0cReadResponse\x12\x43\n\ttuplesets\x18\x01 \x03(\x0b\x32%.authzed.api.v0.ReadResponse.TuplesetR\ttuplesets\x12\x32\n\x08revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\x1a\x41\n\x08Tupleset\x12\x35\n\x06tuples\x18\x01 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x06tuples\"\xb5\x01\n\x0cWriteRequest\x12W\n\x10write_conditions\x18\x01 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x0fwriteConditions\x12L\n\x07updates\x18\x02 \x03(\x0b\x32#.authzed.api.v0.RelationTupleUpdateB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x07updates\"C\n\rWriteResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\xcb\x01\n\x0c\x43heckRequest\x12N\n\x0ctest_userset\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0btestUserset\x12\x32\n\x04user\x18\x02 \x01(\x0b\x32\x14.authzed.api.v0.UserB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x04user\x12\x37\n\x0b\x61t_revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\x9f\x01\n\x19\x43ontentChangeCheckRequest\x12N\n\x0ctest_userset\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0btestUserset\x12\x32\n\x04user\x18\x02 \x01(\x0b\x32\x14.authzed.api.v0.UserB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x04user\"\xe1\x01\n\rCheckResponse\x12\x1b\n\tis_member\x18\x01 \x01(\x08R\x08isMember\x12\x32\n\x08revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\x12H\n\nmembership\x18\x03 \x01(\x0e\x32(.authzed.api.v0.CheckResponse.MembershipR\nmembership\"5\n\nMembership\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0e\n\nNOT_MEMBER\x10\x01\x12\n\n\x06MEMBER\x10\x02\"\x8f\x01\n\rExpandRequest\x12\x45\n\x07userset\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07userset\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\x88\x01\n\x0e\x45xpandResponse\x12\x42\n\ttree_node\x18\x01 \x01(\x0b\x32%.authzed.api.v0.RelationTupleTreeNodeR\x08treeNode\x12\x32\n\x08revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\x88\x02\n\rLookupRequest\x12J\n\x0fobject_relation\x18\x01 \x01(\x0b\x32!.authzed.api.v0.RelationReferenceR\x0eobjectRelation\x12\x35\n\x04user\x18\x02 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationR\x04user\x12\x37\n\x0b\x61t_revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\x12%\n\x0epage_reference\x18\x04 \x01(\tR\rpageReference\x12\x14\n\x05limit\x18\x05 \x01(\rR\x05limit\"\xa4\x01\n\x0eLookupResponse\x12.\n\x13resolved_object_ids\x18\x01 \x03(\tR\x11resolvedObjectIds\x12.\n\x13next_page_reference\x18\x02 \x01(\tR\x11nextPageReference\x12\x32\n\x08revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision2\xd9\x03\n\nACLService\x12\x43\n\x04Read\x12\x1b.authzed.api.v0.ReadRequest\x1a\x1c.authzed.api.v0.ReadResponse\"\x00\x12\x46\n\x05Write\x12\x1c.authzed.api.v0.WriteRequest\x1a\x1d.authzed.api.v0.WriteResponse\"\x00\x12\x46\n\x05\x43heck\x12\x1c.authzed.api.v0.CheckRequest\x1a\x1d.authzed.api.v0.CheckResponse\"\x00\x12`\n\x12\x43ontentChangeCheck\x12).authzed.api.v0.ContentChangeCheckRequest\x1a\x1d.authzed.api.v0.CheckResponse\"\x00\x12I\n\x06\x45xpand\x12\x1d.authzed.api.v0.ExpandRequest\x1a\x1e.authzed.api.v0.ExpandResponse\"\x00\x12I\n\x06Lookup\x12\x1d.authzed.api.v0.LookupRequest\x1a\x1e.authzed.api.v0.LookupResponse\"\x00\x42\x34Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
+  serialized_pb=b'\n authzed/api/v0/acl_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\"\xe7\x03\n\x13RelationTupleFilter\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12M\n\tobject_id\x18\x02 \x01(\tB0\xfa\x42-r+(\x80\x01\x32&^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})?$R\x08objectId\x12\x46\n\x08relation\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x08relation\x12;\n\x07userset\x18\x05 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationR\x07userset\x12S\n\x07\x66ilters\x18\x06 \x03(\x0e\x32*.authzed.api.v0.RelationTupleFilter.FilterB\r\xfa\x42\n\x92\x01\x07\"\x05\x82\x01\x02\x10\x01R\x07\x66ilters\"?\n\x06\x46ilter\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tOBJECT_ID\x10\x01\x12\x0c\n\x08RELATION\x10\x02\x12\x0b\n\x07USERSET\x10\x04\"\x9a\x01\n\x0bReadRequest\x12R\n\ttuplesets\x18\x01 \x03(\x0b\x32#.authzed.api.v0.RelationTupleFilterB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\ttuplesets\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\xca\x01\n\x0cReadResponse\x12\x43\n\ttuplesets\x18\x01 \x03(\x0b\x32%.authzed.api.v0.ReadResponse.TuplesetR\ttuplesets\x12\x32\n\x08revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\x1a\x41\n\x08Tupleset\x12\x35\n\x06tuples\x18\x01 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleR\x06tuples\"\xb5\x01\n\x0cWriteRequest\x12W\n\x10write_conditions\x18\x01 \x03(\x0b\x32\x1d.authzed.api.v0.RelationTupleB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x0fwriteConditions\x12L\n\x07updates\x18\x02 \x03(\x0b\x32#.authzed.api.v0.RelationTupleUpdateB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x07updates\"C\n\rWriteResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\xcb\x01\n\x0c\x43heckRequest\x12N\n\x0ctest_userset\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0btestUserset\x12\x32\n\x04user\x18\x02 \x01(\x0b\x32\x14.authzed.api.v0.UserB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x04user\x12\x37\n\x0b\x61t_revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\x9f\x01\n\x19\x43ontentChangeCheckRequest\x12N\n\x0ctest_userset\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0btestUserset\x12\x32\n\x04user\x18\x02 \x01(\x0b\x32\x14.authzed.api.v0.UserB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x04user\"\xe1\x01\n\rCheckResponse\x12\x1b\n\tis_member\x18\x01 \x01(\x08R\x08isMember\x12\x32\n\x08revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\x12H\n\nmembership\x18\x03 \x01(\x0e\x32(.authzed.api.v0.CheckResponse.MembershipR\nmembership\"5\n\nMembership\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0e\n\nNOT_MEMBER\x10\x01\x12\n\n\x06MEMBER\x10\x02\"\x8f\x01\n\rExpandRequest\x12\x45\n\x07userset\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07userset\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\x88\x01\n\x0e\x45xpandResponse\x12\x42\n\ttree_node\x18\x01 \x01(\x0b\x32%.authzed.api.v0.RelationTupleTreeNodeR\x08treeNode\x12\x32\n\x08revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\x88\x02\n\rLookupRequest\x12J\n\x0fobject_relation\x18\x01 \x01(\x0b\x32!.authzed.api.v0.RelationReferenceR\x0eobjectRelation\x12\x35\n\x04user\x18\x02 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationR\x04user\x12\x37\n\x0b\x61t_revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\x12%\n\x0epage_reference\x18\x04 \x01(\tR\rpageReference\x12\x14\n\x05limit\x18\x05 \x01(\rR\x05limit\"\xa4\x01\n\x0eLookupResponse\x12.\n\x13resolved_object_ids\x18\x01 \x03(\tR\x11resolvedObjectIds\x12.\n\x13next_page_reference\x18\x02 \x01(\tR\x11nextPageReference\x12\x32\n\x08revision\x18\x03 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision2\xd9\x03\n\nACLService\x12\x43\n\x04Read\x12\x1b.authzed.api.v0.ReadRequest\x1a\x1c.authzed.api.v0.ReadResponse\"\x00\x12\x46\n\x05Write\x12\x1c.authzed.api.v0.WriteRequest\x1a\x1d.authzed.api.v0.WriteResponse\"\x00\x12\x46\n\x05\x43heck\x12\x1c.authzed.api.v0.CheckRequest\x1a\x1d.authzed.api.v0.CheckResponse\"\x00\x12`\n\x12\x43ontentChangeCheck\x12).authzed.api.v0.ContentChangeCheckRequest\x1a\x1d.authzed.api.v0.CheckResponse\"\x00\x12I\n\x06\x45xpand\x12\x1d.authzed.api.v0.ExpandRequest\x1a\x1e.authzed.api.v0.ExpandResponse\"\x00\x12I\n\x06Lookup\x12\x1d.authzed.api.v0.LookupRequest\x1a\x1e.authzed.api.v0.LookupResponse\"\x00\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v0_dot_core__pb2.DESCRIPTOR,])
 
@@ -57,8 +57,8 @@ _RELATIONTUPLEFILTER_FILTER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=523,
-  serialized_end=586,
+  serialized_start=529,
+  serialized_end=592,
 )
 _sym_db.RegisterEnumDescriptor(_RELATIONTUPLEFILTER_FILTER)
 
@@ -87,8 +87,8 @@ _CHECKRESPONSE_MEMBERSHIP = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1744,
-  serialized_end=1797,
+  serialized_start=1750,
+  serialized_end=1803,
 )
 _sym_db.RegisterEnumDescriptor(_CHECKRESPONSE_MEMBERSHIP)
 
@@ -107,14 +107,14 @@ _RELATIONTUPLEFILTER = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='namespace', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='namespace', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='object_id', full_name='authzed.api.v0.RelationTupleFilter.object_id', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\372B\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$', json_name='objectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\372B-r+(\200\0012&^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})?$', json_name='objectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='relation', full_name='authzed.api.v0.RelationTupleFilter.relation', index=2,
       number=3, type=9, cpp_type=9, label=1,
@@ -150,7 +150,7 @@ _RELATIONTUPLEFILTER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=105,
-  serialized_end=586,
+  serialized_end=592,
 )
 
 
@@ -188,8 +188,8 @@ _READREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=589,
-  serialized_end=743,
+  serialized_start=595,
+  serialized_end=749,
 )
 
 
@@ -220,8 +220,8 @@ _READRESPONSE_TUPLESET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=883,
-  serialized_end=948,
+  serialized_start=889,
+  serialized_end=954,
 )
 
 _READRESPONSE = _descriptor.Descriptor(
@@ -258,8 +258,8 @@ _READRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=746,
-  serialized_end=948,
+  serialized_start=752,
+  serialized_end=954,
 )
 
 
@@ -297,8 +297,8 @@ _WRITEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=951,
-  serialized_end=1132,
+  serialized_start=957,
+  serialized_end=1138,
 )
 
 
@@ -329,8 +329,8 @@ _WRITERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1134,
-  serialized_end=1201,
+  serialized_start=1140,
+  serialized_end=1207,
 )
 
 
@@ -375,8 +375,8 @@ _CHECKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1204,
-  serialized_end=1407,
+  serialized_start=1210,
+  serialized_end=1413,
 )
 
 
@@ -414,8 +414,8 @@ _CONTENTCHANGECHECKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1410,
-  serialized_end=1569,
+  serialized_start=1416,
+  serialized_end=1575,
 )
 
 
@@ -461,8 +461,8 @@ _CHECKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1572,
-  serialized_end=1797,
+  serialized_start=1578,
+  serialized_end=1803,
 )
 
 
@@ -500,8 +500,8 @@ _EXPANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1800,
-  serialized_end=1943,
+  serialized_start=1806,
+  serialized_end=1949,
 )
 
 
@@ -539,8 +539,8 @@ _EXPANDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1946,
-  serialized_end=2082,
+  serialized_start=1952,
+  serialized_end=2088,
 )
 
 
@@ -599,8 +599,8 @@ _LOOKUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2085,
-  serialized_end=2349,
+  serialized_start=2091,
+  serialized_end=2355,
 )
 
 
@@ -645,8 +645,8 @@ _LOOKUPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2352,
-  serialized_end=2516,
+  serialized_start=2358,
+  serialized_end=2522,
 )
 
 _RELATIONTUPLEFILTER.fields_by_name['userset'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._OBJECTANDRELATION
@@ -805,8 +805,8 @@ _ACLSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2519,
-  serialized_end=2992,
+  serialized_start=2525,
+  serialized_end=2998,
   methods=[
   _descriptor.MethodDescriptor(
     name='Read',

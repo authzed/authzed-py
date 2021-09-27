@@ -28,6 +28,10 @@ class DeveloperServiceStub:
         global___UpgradeSchemaRequest,
         global___UpgradeSchemaResponse] = ...
 
+    FormatSchema:grpc.UnaryUnaryMultiCallable[
+        global___FormatSchemaRequest,
+        global___FormatSchemaResponse] = ...
+
 
 class DeveloperServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -59,6 +63,12 @@ class DeveloperServiceServicer(metaclass=abc.ABCMeta):
         request: global___UpgradeSchemaRequest,
         context: grpc.ServicerContext,
     ) -> global___UpgradeSchemaResponse: ...
+
+    @abc.abstractmethod
+    def FormatSchema(self,
+        request: global___FormatSchemaRequest,
+        context: grpc.ServicerContext,
+    ) -> global___FormatSchemaResponse: ...
 
 
 def add_DeveloperServiceServicer_to_server(servicer: DeveloperServiceServicer, server: grpc.Server) -> None: ...
