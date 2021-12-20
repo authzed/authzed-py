@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!authzed/api/v1alpha1/schema.proto\x12\x14\x61uthzed.api.v1alpha1\x1a\x17validate/validate.proto\"\x9d\x01\n\x11ReadSchemaRequest\x12\x87\x01\n\x18object_definitions_names\x18\x01 \x03(\tBM\xfa\x42J\x92\x01G\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x16objectDefinitionsNames\"C\n\x12ReadSchemaResponse\x12-\n\x12object_definitions\x18\x01 \x03(\tR\x11objectDefinitions\"7\n\x12WriteSchemaRequest\x12!\n\x06schema\x18\x01 \x01(\tB\t\xfa\x42\x06r\x04(\x80\x80\x10R\x06schema\"O\n\x13WriteSchemaResponse\x12\x38\n\x18object_definitions_names\x18\x01 \x03(\tR\x16objectDefinitionsNames2\xd8\x01\n\rSchemaService\x12\x61\n\nReadSchema\x12\'.authzed.api.v1alpha1.ReadSchemaRequest\x1a(.authzed.api.v1alpha1.ReadSchemaResponse\"\x00\x12\x64\n\x0bWriteSchema\x12(.authzed.api.v1alpha1.WriteSchemaRequest\x1a).authzed.api.v1alpha1.WriteSchemaResponse\"\x00\x42T\n\x18\x63om.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1b\x06proto3'
+  serialized_pb=b'\n!authzed/api/v1alpha1/schema.proto\x12\x14\x61uthzed.api.v1alpha1\x1a\x17validate/validate.proto\"\x9d\x01\n\x11ReadSchemaRequest\x12\x87\x01\n\x18object_definitions_names\x18\x01 \x03(\tBM\xfa\x42J\x92\x01G\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x16objectDefinitionsNames\"\x87\x01\n\x12ReadSchemaResponse\x12-\n\x12object_definitions\x18\x01 \x03(\tR\x11objectDefinitions\x12\x42\n\x1d\x63omputed_definitions_revision\x18\x02 \x01(\tR\x1b\x63omputedDefinitionsRevision\"\x94\x01\n\x12WriteSchemaRequest\x12!\n\x06schema\x18\x01 \x01(\tB\t\xfa\x42\x06r\x04(\x80\x80\x10R\x06schema\x12[\n*optional_definitions_revision_precondition\x18\x02 \x01(\tR\'optionalDefinitionsRevisionPrecondition\"\x93\x01\n\x13WriteSchemaResponse\x12\x38\n\x18object_definitions_names\x18\x01 \x03(\tR\x16objectDefinitionsNames\x12\x42\n\x1d\x63omputed_definitions_revision\x18\x02 \x01(\tR\x1b\x63omputedDefinitionsRevision2\xd8\x01\n\rSchemaService\x12\x61\n\nReadSchema\x12\'.authzed.api.v1alpha1.ReadSchemaRequest\x1a(.authzed.api.v1alpha1.ReadSchemaResponse\"\x00\x12\x64\n\x0bWriteSchema\x12(.authzed.api.v1alpha1.WriteSchemaRequest\x1a).authzed.api.v1alpha1.WriteSchemaResponse\"\x00\x42T\n\x18\x63om.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
@@ -74,6 +74,13 @@ _READSCHEMARESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, json_name='objectDefinitions', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='computed_definitions_revision', full_name='authzed.api.v1alpha1.ReadSchemaResponse.computed_definitions_revision', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='computedDefinitionsRevision', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -86,8 +93,8 @@ _READSCHEMARESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=244,
-  serialized_end=311,
+  serialized_start=245,
+  serialized_end=380,
 )
 
 
@@ -106,6 +113,13 @@ _WRITESCHEMAREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\372B\006r\004(\200\200\020', json_name='schema', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='optional_definitions_revision_precondition', full_name='authzed.api.v1alpha1.WriteSchemaRequest.optional_definitions_revision_precondition', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='optionalDefinitionsRevisionPrecondition', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -118,8 +132,8 @@ _WRITESCHEMAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=313,
-  serialized_end=368,
+  serialized_start=383,
+  serialized_end=531,
 )
 
 
@@ -138,6 +152,13 @@ _WRITESCHEMARESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, json_name='objectDefinitionsNames', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='computed_definitions_revision', full_name='authzed.api.v1alpha1.WriteSchemaResponse.computed_definitions_revision', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='computedDefinitionsRevision', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -150,8 +171,8 @@ _WRITESCHEMARESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=370,
-  serialized_end=449,
+  serialized_start=534,
+  serialized_end=681,
 )
 
 DESCRIPTOR.message_types_by_name['ReadSchemaRequest'] = _READSCHEMAREQUEST
@@ -200,8 +221,8 @@ _SCHEMASERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=452,
-  serialized_end=668,
+  serialized_start=684,
+  serialized_end=900,
   methods=[
   _descriptor.MethodDescriptor(
     name='ReadSchema',
