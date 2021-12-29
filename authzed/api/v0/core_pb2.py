@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x19\x61uthzed/api/v0/core.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\"\xa0\x01\n\rRelationTuple\x12[\n\x13object_and_relation\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x11objectAndRelation\x12\x32\n\x04user\x18\x02 \x01(\x0b\x32\x14.authzed.api.v0.UserB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x04user\"\x95\x02\n\x11ObjectAndRelation\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12J\n\tobject_id\x18\x02 \x01(\tB-\xfa\x42*r((\x80\x01\x32#^[a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127}$R\x08objectId\x12L\n\x08relation\x18\x03 \x01(\tB0\xfa\x42-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{2,62}[a-z0-9])$R\x08relation\"\xc9\x01\n\x11RelationReference\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12L\n\x08relation\x18\x03 \x01(\tB0\xfa\x42-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{2,62}[a-z0-9])$R\x08relation\"b\n\x04User\x12G\n\x07userset\x18\x02 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x07usersetB\x11\n\nuser_oneof\x12\x03\xf8\x42\x01\"\'\n\x06Zookie\x12\x1d\n\x05token\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02 \x01R\x05token\"\xe8\x01\n\x13RelationTupleUpdate\x12U\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v0.RelationTupleUpdate.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12=\n\x05tuple\x18\x02 \x01(\x0b\x32\x1d.authzed.api.v0.RelationTupleB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x05tuple\";\n\tOperation\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x43REATE\x10\x01\x12\t\n\x05TOUCH\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x03\"\xf5\x01\n\x15RelationTupleTreeNode\x12R\n\x11intermediate_node\x18\x01 \x01(\x0b\x32#.authzed.api.v0.SetOperationUsersetH\x00R\x10intermediateNode\x12<\n\tleaf_node\x18\x02 \x01(\x0b\x32\x1d.authzed.api.v0.DirectUsersetH\x00R\x08leafNode\x12=\n\x08\x65xpanded\x18\x03 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationR\x08\x65xpandedB\x0b\n\tnode_type\"\xf0\x01\n\x13SetOperationUserset\x12K\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v0.SetOperationUserset.OperationR\toperation\x12\x46\n\x0b\x63hild_nodes\x18\x02 \x03(\x0b\x32%.authzed.api.v0.RelationTupleTreeNodeR\nchildNodes\"D\n\tOperation\x12\x0b\n\x07INVALID\x10\x00\x12\t\n\x05UNION\x10\x01\x12\x10\n\x0cINTERSECTION\x10\x02\x12\r\n\tEXCLUSION\x10\x03\";\n\rDirectUserset\x12*\n\x05users\x18\x01 \x03(\x0b\x32\x14.authzed.api.v0.UserR\x05usersBH\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
+  serialized_pb=b'\n\x19\x61uthzed/api/v0/core.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\"\xa0\x01\n\rRelationTuple\x12[\n\x13object_and_relation\x18\x01 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x11objectAndRelation\x12\x32\n\x04user\x18\x02 \x01(\x0b\x32\x14.authzed.api.v0.UserB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x04user\"\x9a\x02\n\x11ObjectAndRelation\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12O\n\tobject_id\x18\x02 \x01(\tB2\xfa\x42/r-(\x80\x01\x32(^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*$R\x08objectId\x12L\n\x08relation\x18\x03 \x01(\tB0\xfa\x42-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{2,62}[a-z0-9])$R\x08relation\"\xc9\x01\n\x11RelationReference\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12L\n\x08relation\x18\x03 \x01(\tB0\xfa\x42-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{2,62}[a-z0-9])$R\x08relation\"b\n\x04User\x12G\n\x07userset\x18\x02 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x07usersetB\x11\n\nuser_oneof\x12\x03\xf8\x42\x01\"\'\n\x06Zookie\x12\x1d\n\x05token\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02 \x01R\x05token\"\xe8\x01\n\x13RelationTupleUpdate\x12U\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v0.RelationTupleUpdate.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12=\n\x05tuple\x18\x02 \x01(\x0b\x32\x1d.authzed.api.v0.RelationTupleB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x05tuple\";\n\tOperation\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x43REATE\x10\x01\x12\t\n\x05TOUCH\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x03\"\xf5\x01\n\x15RelationTupleTreeNode\x12R\n\x11intermediate_node\x18\x01 \x01(\x0b\x32#.authzed.api.v0.SetOperationUsersetH\x00R\x10intermediateNode\x12<\n\tleaf_node\x18\x02 \x01(\x0b\x32\x1d.authzed.api.v0.DirectUsersetH\x00R\x08leafNode\x12=\n\x08\x65xpanded\x18\x03 \x01(\x0b\x32!.authzed.api.v0.ObjectAndRelationR\x08\x65xpandedB\x0b\n\tnode_type\"\xf0\x01\n\x13SetOperationUserset\x12K\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v0.SetOperationUserset.OperationR\toperation\x12\x46\n\x0b\x63hild_nodes\x18\x02 \x03(\x0b\x32%.authzed.api.v0.RelationTupleTreeNodeR\nchildNodes\"D\n\tOperation\x12\x0b\n\x07INVALID\x10\x00\x12\t\n\x05UNION\x10\x01\x12\x10\n\x0cINTERSECTION\x10\x02\x12\r\n\tEXCLUSION\x10\x03\";\n\rDirectUserset\x12*\n\x05users\x18\x01 \x03(\x0b\x32\x14.authzed.api.v0.UserR\x05usersBH\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
@@ -56,8 +56,8 @@ _RELATIONTUPLEUPDATE_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1032,
-  serialized_end=1091,
+  serialized_start=1037,
+  serialized_end=1096,
 )
 _sym_db.RegisterEnumDescriptor(_RELATIONTUPLEUPDATE_OPERATION)
 
@@ -91,8 +91,8 @@ _SETOPERATIONUSERSET_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1514,
-  serialized_end=1582,
+  serialized_start=1519,
+  serialized_end=1587,
 )
 _sym_db.RegisterEnumDescriptor(_SETOPERATIONUSERSET_OPERATION)
 
@@ -157,7 +157,7 @@ _OBJECTANDRELATION = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\372B*r((\200\0012#^[a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127}$', json_name='objectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\372B/r-(\200\0012(^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*$', json_name='objectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='relation', full_name='authzed.api.v0.ObjectAndRelation.relation', index=2,
       number=3, type=9, cpp_type=9, label=1,
@@ -178,7 +178,7 @@ _OBJECTANDRELATION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=234,
-  serialized_end=511,
+  serialized_end=516,
 )
 
 
@@ -216,8 +216,8 @@ _RELATIONREFERENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=514,
-  serialized_end=715,
+  serialized_start=519,
+  serialized_end=720,
 )
 
 
@@ -253,8 +253,8 @@ _USER = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[], serialized_options=b'\370B\001'),
   ],
-  serialized_start=717,
-  serialized_end=815,
+  serialized_start=722,
+  serialized_end=820,
 )
 
 
@@ -285,8 +285,8 @@ _ZOOKIE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=817,
-  serialized_end=856,
+  serialized_start=822,
+  serialized_end=861,
 )
 
 
@@ -325,8 +325,8 @@ _RELATIONTUPLEUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=859,
-  serialized_end=1091,
+  serialized_start=864,
+  serialized_end=1096,
 )
 
 
@@ -376,8 +376,8 @@ _RELATIONTUPLETREENODE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1094,
-  serialized_end=1339,
+  serialized_start=1099,
+  serialized_end=1344,
 )
 
 
@@ -416,8 +416,8 @@ _SETOPERATIONUSERSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1342,
-  serialized_end=1582,
+  serialized_start=1347,
+  serialized_end=1587,
 )
 
 
@@ -448,8 +448,8 @@ _DIRECTUSERSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1584,
-  serialized_end=1643,
+  serialized_start=1589,
+  serialized_end=1648,
 )
 
 _RELATIONTUPLE.fields_by_name['object_and_relation'].message_type = _OBJECTANDRELATION

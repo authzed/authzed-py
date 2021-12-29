@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from validate import validate_pb2 as validate_dot_validate__pb2
 from authzed.api.v1 import core_pb2 as authzed_dot_api_dot_v1_dot_core__pb2
 
@@ -21,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\'authzed/api/v1/permission_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\x9c\x02\n\x0b\x43onsistency\x12\x34\n\x10minimize_latency\x18\x01 \x01(\x08\x42\x07\xfa\x42\x04j\x02\x08\x01H\x00R\x0fminimizeLatency\x12\x45\n\x11\x61t_least_as_fresh\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenH\x00R\x0e\x61tLeastAsFresh\x12\x46\n\x11\x61t_exact_snapshot\x18\x03 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenH\x00R\x0f\x61tExactSnapshot\x12\x34\n\x10\x66ully_consistent\x18\x04 \x01(\x08\x42\x07\xfa\x42\x04j\x02\x08\x01H\x00R\x0f\x66ullyConsistentB\x12\n\x0brequirement\x12\x03\xf8\x42\x01\"\x97\x03\n\x12RelationshipFilter\x12m\n\rresource_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x0cresourceType\x12\x62\n\x14optional_resource_id\x18\x02 \x01(\tB0\xfa\x42-r+(\x80\x01\x32&^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})?$R\x12optionalResourceId\x12W\n\x11optional_relation\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x10optionalRelation\x12U\n\x17optional_subject_filter\x18\x04 \x01(\x0b\x32\x1d.authzed.api.v1.SubjectFilterR\x15optionalSubjectFilter\"\x93\x03\n\rSubjectFilter\x12k\n\x0csubject_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x0bsubjectType\x12`\n\x13optional_subject_id\x18\x02 \x01(\tB0\xfa\x42-r+(\x80\x01\x32&^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})?$R\x11optionalSubjectId\x12Y\n\x11optional_relation\x18\x03 \x01(\x0b\x32,.authzed.api.v1.SubjectFilter.RelationFilterR\x10optionalRelation\x1aX\n\x0eRelationFilter\x12\x46\n\x08relation\x18\x01 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x08relation\"\xb8\x01\n\x18ReadRelationshipsRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12]\n\x13relationship_filter\x18\x02 \x01(\x0b\x32\".authzed.api.v1.RelationshipFilterB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x12relationshipFilter\"\x90\x01\n\x19ReadRelationshipsResponse\x12\x31\n\x07read_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x06readAt\x12@\n\x0crelationship\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v1.RelationshipR\x0crelationship\"\x84\x02\n\x0cPrecondition\x12N\n\toperation\x18\x01 \x01(\x0e\x32&.authzed.api.v1.Precondition.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12\x44\n\x06\x66ilter\x18\x02 \x01(\x0b\x32\".authzed.api.v1.RelationshipFilterB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x06\x66ilter\"^\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x1c\n\x18OPERATION_MUST_NOT_MATCH\x10\x01\x12\x18\n\x14OPERATION_MUST_MATCH\x10\x02\"\xcc\x01\n\x19WriteRelationshipsRequest\x12K\n\x07updates\x18\x01 \x03(\x0b\x32\".authzed.api.v1.RelationshipUpdateB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x07updates\x12\x62\n\x16optional_preconditions\x18\x02 \x03(\x0b\x32\x1c.authzed.api.v1.PreconditionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x15optionalPreconditions\"U\n\x1aWriteRelationshipsResponse\x12\x37\n\nwritten_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\twrittenAt\"\xdf\x01\n\x1a\x44\x65leteRelationshipsRequest\x12]\n\x13relationship_filter\x18\x01 \x01(\x0b\x32\".authzed.api.v1.RelationshipFilterB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x12relationshipFilter\x12\x62\n\x16optional_preconditions\x18\x02 \x03(\x0b\x32\x1c.authzed.api.v1.PreconditionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x15optionalPreconditions\"V\n\x1b\x44\x65leteRelationshipsResponse\x12\x37\n\ndeleted_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\tdeletedAt\"\xb0\x02\n\x16\x43heckPermissionRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12\x45\n\x08resource\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12J\n\npermission\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\npermission\x12\x44\n\x07subject\x18\x04 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\xa9\x02\n\x17\x43heckPermissionResponse\x12\x37\n\nchecked_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\tcheckedAt\x12^\n\x0epermissionship\x18\x02 \x01(\x0e\x32\x36.authzed.api.v1.CheckPermissionResponse.PermissionshipR\x0epermissionship\"u\n\x0ePermissionship\x12\x1e\n\x1aPERMISSIONSHIP_UNSPECIFIED\x10\x00\x12 \n\x1cPERMISSIONSHIP_NO_PERMISSION\x10\x01\x12!\n\x1dPERMISSIONSHIP_HAS_PERMISSION\x10\x02\"\xef\x01\n\x1b\x45xpandPermissionTreeRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12\x45\n\x08resource\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12J\n\npermission\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\npermission\"\xa2\x01\n\x1c\x45xpandPermissionTreeResponse\x12\x39\n\x0b\x65xpanded_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\nexpandedAt\x12G\n\ttree_root\x18\x02 \x01(\x0b\x32*.authzed.api.v1.PermissionRelationshipTreeR\x08treeRoot\"\xe2\x02\n\x16LookupResourcesRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12z\n\x14resource_object_type\x18\x02 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x12resourceObjectType\x12G\n\npermission\x18\x03 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\npermission\x12\x44\n\x07subject\x18\x04 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\x83\x01\n\x17LookupResourcesResponse\x12:\n\x0clooked_up_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\nlookedUpAt\x12,\n\x12resource_object_id\x18\x02 \x01(\tR\x10resourceObjectId2\xa6\x05\n\x12PermissionsService\x12l\n\x11ReadRelationships\x12(.authzed.api.v1.ReadRelationshipsRequest\x1a).authzed.api.v1.ReadRelationshipsResponse\"\x00\x30\x01\x12m\n\x12WriteRelationships\x12).authzed.api.v1.WriteRelationshipsRequest\x1a*.authzed.api.v1.WriteRelationshipsResponse\"\x00\x12p\n\x13\x44\x65leteRelationships\x12*.authzed.api.v1.DeleteRelationshipsRequest\x1a+.authzed.api.v1.DeleteRelationshipsResponse\"\x00\x12\x64\n\x0f\x43heckPermission\x12&.authzed.api.v1.CheckPermissionRequest\x1a\'.authzed.api.v1.CheckPermissionResponse\"\x00\x12s\n\x14\x45xpandPermissionTree\x12+.authzed.api.v1.ExpandPermissionTreeRequest\x1a,.authzed.api.v1.ExpandPermissionTreeResponse\"\x00\x12\x66\n\x0fLookupResources\x12&.authzed.api.v1.LookupResourcesRequest\x1a\'.authzed.api.v1.LookupResourcesResponse\"\x00\x30\x01\x42H\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3'
+  serialized_pb=b'\n\'authzed/api/v1/permission_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\x9c\x02\n\x0b\x43onsistency\x12\x34\n\x10minimize_latency\x18\x01 \x01(\x08\x42\x07\xfa\x42\x04j\x02\x08\x01H\x00R\x0fminimizeLatency\x12\x45\n\x11\x61t_least_as_fresh\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenH\x00R\x0e\x61tLeastAsFresh\x12\x46\n\x11\x61t_exact_snapshot\x18\x03 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenH\x00R\x0f\x61tExactSnapshot\x12\x34\n\x10\x66ully_consistent\x18\x04 \x01(\x08\x42\x07\xfa\x42\x04j\x02\x08\x01H\x00R\x0f\x66ullyConsistentB\x12\n\x0brequirement\x12\x03\xf8\x42\x01\"\x97\x03\n\x12RelationshipFilter\x12m\n\rresource_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x0cresourceType\x12\x62\n\x14optional_resource_id\x18\x02 \x01(\tB0\xfa\x42-r+(\x80\x01\x32&^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})?$R\x12optionalResourceId\x12W\n\x11optional_relation\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x10optionalRelation\x12U\n\x17optional_subject_filter\x18\x04 \x01(\x0b\x32\x1d.authzed.api.v1.SubjectFilterR\x15optionalSubjectFilter\"\x98\x03\n\rSubjectFilter\x12k\n\x0csubject_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x0bsubjectType\x12\x65\n\x13optional_subject_id\x18\x02 \x01(\tB5\xfa\x42\x32r0(\x80\x01\x32+^(([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*)?$R\x11optionalSubjectId\x12Y\n\x11optional_relation\x18\x03 \x01(\x0b\x32,.authzed.api.v1.SubjectFilter.RelationFilterR\x10optionalRelation\x1aX\n\x0eRelationFilter\x12\x46\n\x08relation\x18\x01 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x08relation\"\xb8\x01\n\x18ReadRelationshipsRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12]\n\x13relationship_filter\x18\x02 \x01(\x0b\x32\".authzed.api.v1.RelationshipFilterB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x12relationshipFilter\"\x90\x01\n\x19ReadRelationshipsResponse\x12\x31\n\x07read_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x06readAt\x12@\n\x0crelationship\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v1.RelationshipR\x0crelationship\"\x84\x02\n\x0cPrecondition\x12N\n\toperation\x18\x01 \x01(\x0e\x32&.authzed.api.v1.Precondition.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12\x44\n\x06\x66ilter\x18\x02 \x01(\x0b\x32\".authzed.api.v1.RelationshipFilterB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x06\x66ilter\"^\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x1c\n\x18OPERATION_MUST_NOT_MATCH\x10\x01\x12\x18\n\x14OPERATION_MUST_MATCH\x10\x02\"\xcc\x01\n\x19WriteRelationshipsRequest\x12K\n\x07updates\x18\x01 \x03(\x0b\x32\".authzed.api.v1.RelationshipUpdateB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x07updates\x12\x62\n\x16optional_preconditions\x18\x02 \x03(\x0b\x32\x1c.authzed.api.v1.PreconditionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x15optionalPreconditions\"U\n\x1aWriteRelationshipsResponse\x12\x37\n\nwritten_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\twrittenAt\"\xdf\x01\n\x1a\x44\x65leteRelationshipsRequest\x12]\n\x13relationship_filter\x18\x01 \x01(\x0b\x32\".authzed.api.v1.RelationshipFilterB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x12relationshipFilter\x12\x62\n\x16optional_preconditions\x18\x02 \x03(\x0b\x32\x1c.authzed.api.v1.PreconditionB\r\xfa\x42\n\x92\x01\x07\"\x05\x8a\x01\x02\x10\x01R\x15optionalPreconditions\"V\n\x1b\x44\x65leteRelationshipsResponse\x12\x37\n\ndeleted_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\tdeletedAt\"\xb0\x02\n\x16\x43heckPermissionRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12\x45\n\x08resource\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12J\n\npermission\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\npermission\x12\x44\n\x07subject\x18\x04 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\xa9\x02\n\x17\x43heckPermissionResponse\x12\x37\n\nchecked_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\tcheckedAt\x12^\n\x0epermissionship\x18\x02 \x01(\x0e\x32\x36.authzed.api.v1.CheckPermissionResponse.PermissionshipR\x0epermissionship\"u\n\x0ePermissionship\x12\x1e\n\x1aPERMISSIONSHIP_UNSPECIFIED\x10\x00\x12 \n\x1cPERMISSIONSHIP_NO_PERMISSION\x10\x01\x12!\n\x1dPERMISSIONSHIP_HAS_PERMISSION\x10\x02\"\xef\x01\n\x1b\x45xpandPermissionTreeRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12\x45\n\x08resource\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12J\n\npermission\x18\x03 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\npermission\"\xa2\x01\n\x1c\x45xpandPermissionTreeResponse\x12\x39\n\x0b\x65xpanded_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\nexpandedAt\x12G\n\ttree_root\x18\x02 \x01(\x0b\x32*.authzed.api.v1.PermissionRelationshipTreeR\x08treeRoot\"\xe2\x02\n\x16LookupResourcesRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12z\n\x14resource_object_type\x18\x02 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x12resourceObjectType\x12G\n\npermission\x18\x03 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\npermission\x12\x44\n\x07subject\x18\x04 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\x83\x01\n\x17LookupResourcesResponse\x12:\n\x0clooked_up_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\nlookedUpAt\x12,\n\x12resource_object_id\x18\x02 \x01(\tR\x10resourceObjectId2\xf7\x06\n\x12PermissionsService\x12\x8d\x01\n\x11ReadRelationships\x12(.authzed.api.v1.ReadRelationshipsRequest\x1a).authzed.api.v1.ReadRelationshipsResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/relationships/read:\x01*0\x01\x12\x8f\x01\n\x12WriteRelationships\x12).authzed.api.v1.WriteRelationshipsRequest\x1a*.authzed.api.v1.WriteRelationshipsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\"\x17/v1/relationships/write:\x01*\x12\x93\x01\n\x13\x44\x65leteRelationships\x12*.authzed.api.v1.DeleteRelationshipsRequest\x1a+.authzed.api.v1.DeleteRelationshipsResponse\"#\x82\xd3\xe4\x93\x02\x1d\"\x18/v1/relationships/delete:\x01*\x12\x84\x01\n\x0f\x43heckPermission\x12&.authzed.api.v1.CheckPermissionRequest\x1a\'.authzed.api.v1.CheckPermissionResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/permissions/check:\x01*\x12\x94\x01\n\x14\x45xpandPermissionTree\x12+.authzed.api.v1.ExpandPermissionTreeRequest\x1a,.authzed.api.v1.ExpandPermissionTreeResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/permissions/expand:\x01*\x12\x8a\x01\n\x0fLookupResources\x12&.authzed.api.v1.LookupResourcesRequest\x1a\'.authzed.api.v1.LookupResourcesResponse\"$\x82\xd3\xe4\x93\x02\x1e\"\x19/v1/permissions/resources:\x01*0\x01\x42H\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3'
   ,
-  dependencies=[validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v1_dot_core__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v1_dot_core__pb2.DESCRIPTOR,])
 
 
 
@@ -52,8 +53,8 @@ _PRECONDITION_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1715,
-  serialized_end=1809,
+  serialized_start=1750,
+  serialized_end=1844,
 )
 _sym_db.RegisterEnumDescriptor(_PRECONDITION_OPERATION)
 
@@ -82,8 +83,8 @@ _CHECKPERMISSIONRESPONSE_PERMISSIONSHIP = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2907,
-  serialized_end=3024,
+  serialized_start=2942,
+  serialized_end=3059,
 )
 _sym_db.RegisterEnumDescriptor(_CHECKPERMISSIONRESPONSE_PERMISSIONSHIP)
 
@@ -141,8 +142,8 @@ _CONSISTENCY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[], serialized_options=b'\370B\001'),
   ],
-  serialized_start=112,
-  serialized_end=396,
+  serialized_start=142,
+  serialized_end=426,
 )
 
 
@@ -194,8 +195,8 @@ _RELATIONSHIPFILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=399,
-  serialized_end=806,
+  serialized_start=429,
+  serialized_end=836,
 )
 
 
@@ -226,8 +227,8 @@ _SUBJECTFILTER_RELATIONFILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1124,
-  serialized_end=1212,
+  serialized_start=1159,
+  serialized_end=1247,
 )
 
 _SUBJECTFILTER = _descriptor.Descriptor(
@@ -251,7 +252,7 @@ _SUBJECTFILTER = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\372B-r+(\200\0012&^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})?$', json_name='optionalSubjectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\372B2r0(\200\0012+^(([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*)?$', json_name='optionalSubjectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='optional_relation', full_name='authzed.api.v1.SubjectFilter.optional_relation', index=2,
       number=3, type=11, cpp_type=10, label=1,
@@ -271,8 +272,8 @@ _SUBJECTFILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=809,
-  serialized_end=1212,
+  serialized_start=839,
+  serialized_end=1247,
 )
 
 
@@ -310,8 +311,8 @@ _READRELATIONSHIPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1215,
-  serialized_end=1399,
+  serialized_start=1250,
+  serialized_end=1434,
 )
 
 
@@ -349,8 +350,8 @@ _READRELATIONSHIPSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1402,
-  serialized_end=1546,
+  serialized_start=1437,
+  serialized_end=1581,
 )
 
 
@@ -389,8 +390,8 @@ _PRECONDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1549,
-  serialized_end=1809,
+  serialized_start=1584,
+  serialized_end=1844,
 )
 
 
@@ -428,8 +429,8 @@ _WRITERELATIONSHIPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1812,
-  serialized_end=2016,
+  serialized_start=1847,
+  serialized_end=2051,
 )
 
 
@@ -460,8 +461,8 @@ _WRITERELATIONSHIPSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2018,
-  serialized_end=2103,
+  serialized_start=2053,
+  serialized_end=2138,
 )
 
 
@@ -499,8 +500,8 @@ _DELETERELATIONSHIPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2106,
-  serialized_end=2329,
+  serialized_start=2141,
+  serialized_end=2364,
 )
 
 
@@ -531,8 +532,8 @@ _DELETERELATIONSHIPSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2331,
-  serialized_end=2417,
+  serialized_start=2366,
+  serialized_end=2452,
 )
 
 
@@ -584,8 +585,8 @@ _CHECKPERMISSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2420,
-  serialized_end=2724,
+  serialized_start=2455,
+  serialized_end=2759,
 )
 
 
@@ -624,8 +625,8 @@ _CHECKPERMISSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2727,
-  serialized_end=3024,
+  serialized_start=2762,
+  serialized_end=3059,
 )
 
 
@@ -670,8 +671,8 @@ _EXPANDPERMISSIONTREEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3027,
-  serialized_end=3266,
+  serialized_start=3062,
+  serialized_end=3301,
 )
 
 
@@ -709,8 +710,8 @@ _EXPANDPERMISSIONTREERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3269,
-  serialized_end=3431,
+  serialized_start=3304,
+  serialized_end=3466,
 )
 
 
@@ -762,8 +763,8 @@ _LOOKUPRESOURCESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3434,
-  serialized_end=3788,
+  serialized_start=3469,
+  serialized_end=3823,
 )
 
 
@@ -801,8 +802,8 @@ _LOOKUPRESOURCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3791,
-  serialized_end=3922,
+  serialized_start=3826,
+  serialized_end=3957,
 )
 
 _CONSISTENCY.fields_by_name['at_least_as_fresh'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._ZEDTOKEN
@@ -1020,8 +1021,8 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3925,
-  serialized_end=4603,
+  serialized_start=3960,
+  serialized_end=4847,
   methods=[
   _descriptor.MethodDescriptor(
     name='ReadRelationships',
@@ -1030,7 +1031,7 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_READRELATIONSHIPSREQUEST,
     output_type=_READRELATIONSHIPSRESPONSE,
-    serialized_options=None,
+    serialized_options=b'\202\323\344\223\002\033\"\026/v1/relationships/read:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1040,7 +1041,7 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_WRITERELATIONSHIPSREQUEST,
     output_type=_WRITERELATIONSHIPSRESPONSE,
-    serialized_options=None,
+    serialized_options=b'\202\323\344\223\002\034\"\027/v1/relationships/write:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1050,7 +1051,7 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_DELETERELATIONSHIPSREQUEST,
     output_type=_DELETERELATIONSHIPSRESPONSE,
-    serialized_options=None,
+    serialized_options=b'\202\323\344\223\002\035\"\030/v1/relationships/delete:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1060,7 +1061,7 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CHECKPERMISSIONREQUEST,
     output_type=_CHECKPERMISSIONRESPONSE,
-    serialized_options=None,
+    serialized_options=b'\202\323\344\223\002\032\"\025/v1/permissions/check:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1070,7 +1071,7 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_EXPANDPERMISSIONTREEREQUEST,
     output_type=_EXPANDPERMISSIONTREERESPONSE,
-    serialized_options=None,
+    serialized_options=b'\202\323\344\223\002\033\"\026/v1/permissions/expand:\001*',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1080,7 +1081,7 @@ _PERMISSIONSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_LOOKUPRESOURCESREQUEST,
     output_type=_LOOKUPRESOURCESRESPONSE,
-    serialized_options=None,
+    serialized_options=b'\202\323\344\223\002\036\"\031/v1/permissions/resources:\001*',
     create_key=_descriptor._internal_create_key,
   ),
 ])

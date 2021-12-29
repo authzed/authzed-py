@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1e\x61uthzed/api/v0/namespace.proto\x12\x0e\x61uthzed.api.v0\x1a\x19google/protobuf/any.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\"\xb8\x01\n\x08Metadata\x12\xab\x01\n\x10metadata_message\x18\x01 \x03(\x0b\x32\x14.google.protobuf.AnyBj\xfa\x42g\x92\x01\x64\x08\x01\"`\x8a\x01\x02\x10\x01\xa2\x01X\x08\x01\x12&type.googleapis.com/impl.v1.DocComment\x12,type.googleapis.com/impl.v1.RelationMetadataR\x0fmetadataMessage\"\xdf\x01\n\x13NamespaceDefinition\x12\\\n\x04name\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x04name\x12\x34\n\x08relation\x18\x02 \x03(\x0b\x32\x18.authzed.api.v0.RelationR\x08relation\x12\x34\n\x08metadata\x18\x03 \x01(\x0b\x32\x18.authzed.api.v0.MetadataR\x08metadata\"\x92\x02\n\x08Relation\x12;\n\x04name\x18\x01 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x04name\x12G\n\x0fuserset_rewrite\x18\x02 \x01(\x0b\x32\x1e.authzed.api.v0.UsersetRewriteR\x0eusersetRewrite\x12J\n\x10type_information\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v0.TypeInformationR\x0ftypeInformation\x12\x34\n\x08metadata\x18\x04 \x01(\x0b\x32\x18.authzed.api.v0.MetadataR\x08metadata\"n\n\x0fTypeInformation\x12[\n\x18\x61llowed_direct_relations\x18\x01 \x03(\x0b\x32!.authzed.api.v0.RelationReferenceR\x16\x61llowedDirectRelations\"\x80\x02\n\x0eUsersetRewrite\x12>\n\x05union\x18\x01 \x01(\x0b\x32\x1c.authzed.api.v0.SetOperationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x05union\x12L\n\x0cintersection\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v0.SetOperationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0cintersection\x12\x46\n\texclusion\x18\x03 \x01(\x0b\x32\x1c.authzed.api.v0.SetOperationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\texclusionB\x18\n\x11rewrite_operation\x12\x03\xf8\x42\x01\"\xc1\x03\n\x0cSetOperation\x12I\n\x05\x63hild\x18\x01 \x03(\x0b\x32\".authzed.api.v0.SetOperation.ChildB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x05\x63hild\x1a\xe5\x02\n\x05\x43hild\x12>\n\x05_this\x18\x01 \x01(\x0b\x32\'.authzed.api.v0.SetOperation.Child.ThisH\x00R\x04This\x12V\n\x10\x63omputed_userset\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v0.ComputedUsersetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0f\x63omputedUserset\x12T\n\x10tuple_to_userset\x18\x03 \x01(\x0b\x32\x1e.authzed.api.v0.TupleToUsersetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0etupleToUserset\x12S\n\x0fuserset_rewrite\x18\x04 \x01(\x0b\x32\x1e.authzed.api.v0.UsersetRewriteB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0eusersetRewrite\x1a\x06\n\x04ThisB\x11\n\nchild_type\x12\x03\xf8\x42\x01\"\x86\x02\n\x0eTupleToUserset\x12M\n\x08tupleset\x18\x01 \x01(\x0b\x32\'.authzed.api.v0.TupleToUserset.TuplesetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08tupleset\x12T\n\x10\x63omputed_userset\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v0.ComputedUsersetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0f\x63omputedUserset\x1aO\n\x08Tupleset\x12\x43\n\x08relation\x18\x01 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\"\xd6\x01\n\x0f\x43omputedUserset\x12H\n\x06object\x18\x01 \x01(\x0e\x32&.authzed.api.v0.ComputedUserset.ObjectB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\x06object\x12\x43\n\x08relation\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\"4\n\x06Object\x12\x10\n\x0cTUPLE_OBJECT\x10\x00\x12\x18\n\x14TUPLE_USERSET_OBJECT\x10\x01\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
+  serialized_pb=b'\n\x1e\x61uthzed/api/v0/namespace.proto\x12\x0e\x61uthzed.api.v0\x1a\x19google/protobuf/any.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\"\xb8\x01\n\x08Metadata\x12\xab\x01\n\x10metadata_message\x18\x01 \x03(\x0b\x32\x14.google.protobuf.AnyBj\xfa\x42g\x92\x01\x64\x08\x01\"`\x8a\x01\x02\x10\x01\xa2\x01X\x08\x01\x12&type.googleapis.com/impl.v1.DocComment\x12,type.googleapis.com/impl.v1.RelationMetadataR\x0fmetadataMessage\"\xdf\x01\n\x13NamespaceDefinition\x12\\\n\x04name\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x04name\x12\x34\n\x08relation\x18\x02 \x03(\x0b\x32\x18.authzed.api.v0.RelationR\x08relation\x12\x34\n\x08metadata\x18\x03 \x01(\x0b\x32\x18.authzed.api.v0.MetadataR\x08metadata\"\x92\x02\n\x08Relation\x12;\n\x04name\x18\x01 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x04name\x12G\n\x0fuserset_rewrite\x18\x02 \x01(\x0b\x32\x1e.authzed.api.v0.UsersetRewriteR\x0eusersetRewrite\x12J\n\x10type_information\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v0.TypeInformationR\x0ftypeInformation\x12\x34\n\x08metadata\x18\x04 \x01(\x0b\x32\x18.authzed.api.v0.MetadataR\x08metadata\"l\n\x0fTypeInformation\x12Y\n\x18\x61llowed_direct_relations\x18\x01 \x03(\x0b\x32\x1f.authzed.api.v0.AllowedRelationR\x16\x61llowedDirectRelations\"\xce\x02\n\x0f\x41llowedRelation\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12N\n\x08relation\x18\x03 \x01(\tB0\xfa\x42-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{2,62}[a-z0-9])$H\x00R\x08relation\x12Y\n\x0fpublic_wildcard\x18\x04 \x01(\x0b\x32..authzed.api.v0.AllowedRelation.PublicWildcardH\x00R\x0epublicWildcard\x1a\x10\n\x0ePublicWildcardB\x16\n\x14relation_or_wildcard\"\x80\x02\n\x0eUsersetRewrite\x12>\n\x05union\x18\x01 \x01(\x0b\x32\x1c.authzed.api.v0.SetOperationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x05union\x12L\n\x0cintersection\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v0.SetOperationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0cintersection\x12\x46\n\texclusion\x18\x03 \x01(\x0b\x32\x1c.authzed.api.v0.SetOperationB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\texclusionB\x18\n\x11rewrite_operation\x12\x03\xf8\x42\x01\"\xc1\x03\n\x0cSetOperation\x12I\n\x05\x63hild\x18\x01 \x03(\x0b\x32\".authzed.api.v0.SetOperation.ChildB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x05\x63hild\x1a\xe5\x02\n\x05\x43hild\x12>\n\x05_this\x18\x01 \x01(\x0b\x32\'.authzed.api.v0.SetOperation.Child.ThisH\x00R\x04This\x12V\n\x10\x63omputed_userset\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v0.ComputedUsersetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0f\x63omputedUserset\x12T\n\x10tuple_to_userset\x18\x03 \x01(\x0b\x32\x1e.authzed.api.v0.TupleToUsersetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0etupleToUserset\x12S\n\x0fuserset_rewrite\x18\x04 \x01(\x0b\x32\x1e.authzed.api.v0.UsersetRewriteB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01H\x00R\x0eusersetRewrite\x1a\x06\n\x04ThisB\x11\n\nchild_type\x12\x03\xf8\x42\x01\"\x86\x02\n\x0eTupleToUserset\x12M\n\x08tupleset\x18\x01 \x01(\x0b\x32\'.authzed.api.v0.TupleToUserset.TuplesetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08tupleset\x12T\n\x10\x63omputed_userset\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v0.ComputedUsersetB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0f\x63omputedUserset\x1aO\n\x08Tupleset\x12\x43\n\x08relation\x18\x01 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\"\xd6\x01\n\x0f\x43omputedUserset\x12H\n\x06object\x18\x01 \x01(\x0e\x32&.authzed.api.v0.ComputedUserset.ObjectB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\x06object\x12\x43\n\x08relation\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\"4\n\x06Object\x12\x10\n\x0cTUPLE_OBJECT\x10\x00\x12\x18\n\x14TUPLE_USERSET_OBJECT\x10\x01\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_any__pb2.DESCRIPTOR,validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v0_dot_core__pb2.DESCRIPTOR,])
 
@@ -48,8 +48,8 @@ _COMPUTEDUSERSET_OBJECT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2070,
-  serialized_end=2122,
+  serialized_start=2405,
+  serialized_end=2457,
 )
 _sym_db.RegisterEnumDescriptor(_COMPUTEDUSERSET_OBJECT)
 
@@ -213,7 +213,82 @@ _TYPEINFORMATION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=819,
-  serialized_end=929,
+  serialized_end=927,
+)
+
+
+_ALLOWEDRELATION_PUBLICWILDCARD = _descriptor.Descriptor(
+  name='PublicWildcard',
+  full_name='authzed.api.v0.AllowedRelation.PublicWildcard',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1224,
+  serialized_end=1240,
+)
+
+_ALLOWEDRELATION = _descriptor.Descriptor(
+  name='AllowedRelation',
+  full_name='authzed.api.v0.AllowedRelation',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='authzed.api.v0.AllowedRelation.namespace', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='namespace', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='relation', full_name='authzed.api.v0.AllowedRelation.relation', index=1,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\372B-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{2,62}[a-z0-9])$', json_name='relation', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='public_wildcard', full_name='authzed.api.v0.AllowedRelation.public_wildcard', index=2,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, json_name='publicWildcard', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_ALLOWEDRELATION_PUBLICWILDCARD, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='relation_or_wildcard', full_name='authzed.api.v0.AllowedRelation.relation_or_wildcard',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=930,
+  serialized_end=1264,
 )
 
 
@@ -263,8 +338,8 @@ _USERSETREWRITE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[], serialized_options=b'\370B\001'),
   ],
-  serialized_start=932,
-  serialized_end=1188,
+  serialized_start=1267,
+  serialized_end=1523,
 )
 
 
@@ -288,8 +363,8 @@ _SETOPERATION_CHILD_THIS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1615,
-  serialized_end=1621,
+  serialized_start=1950,
+  serialized_end=1956,
 )
 
 _SETOPERATION_CHILD = _descriptor.Descriptor(
@@ -345,8 +420,8 @@ _SETOPERATION_CHILD = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[], serialized_options=b'\370B\001'),
   ],
-  serialized_start=1283,
-  serialized_end=1640,
+  serialized_start=1618,
+  serialized_end=1975,
 )
 
 _SETOPERATION = _descriptor.Descriptor(
@@ -376,8 +451,8 @@ _SETOPERATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1191,
-  serialized_end=1640,
+  serialized_start=1526,
+  serialized_end=1975,
 )
 
 
@@ -408,8 +483,8 @@ _TUPLETOUSERSET_TUPLESET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1826,
-  serialized_end=1905,
+  serialized_start=2161,
+  serialized_end=2240,
 )
 
 _TUPLETOUSERSET = _descriptor.Descriptor(
@@ -446,8 +521,8 @@ _TUPLETOUSERSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1643,
-  serialized_end=1905,
+  serialized_start=1978,
+  serialized_end=2240,
 )
 
 
@@ -486,8 +561,8 @@ _COMPUTEDUSERSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1908,
-  serialized_end=2122,
+  serialized_start=2243,
+  serialized_end=2457,
 )
 
 _METADATA.fields_by_name['metadata_message'].message_type = google_dot_protobuf_dot_any__pb2._ANY
@@ -496,7 +571,15 @@ _NAMESPACEDEFINITION.fields_by_name['metadata'].message_type = _METADATA
 _RELATION.fields_by_name['userset_rewrite'].message_type = _USERSETREWRITE
 _RELATION.fields_by_name['type_information'].message_type = _TYPEINFORMATION
 _RELATION.fields_by_name['metadata'].message_type = _METADATA
-_TYPEINFORMATION.fields_by_name['allowed_direct_relations'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._RELATIONREFERENCE
+_TYPEINFORMATION.fields_by_name['allowed_direct_relations'].message_type = _ALLOWEDRELATION
+_ALLOWEDRELATION_PUBLICWILDCARD.containing_type = _ALLOWEDRELATION
+_ALLOWEDRELATION.fields_by_name['public_wildcard'].message_type = _ALLOWEDRELATION_PUBLICWILDCARD
+_ALLOWEDRELATION.oneofs_by_name['relation_or_wildcard'].fields.append(
+  _ALLOWEDRELATION.fields_by_name['relation'])
+_ALLOWEDRELATION.fields_by_name['relation'].containing_oneof = _ALLOWEDRELATION.oneofs_by_name['relation_or_wildcard']
+_ALLOWEDRELATION.oneofs_by_name['relation_or_wildcard'].fields.append(
+  _ALLOWEDRELATION.fields_by_name['public_wildcard'])
+_ALLOWEDRELATION.fields_by_name['public_wildcard'].containing_oneof = _ALLOWEDRELATION.oneofs_by_name['relation_or_wildcard']
 _USERSETREWRITE.fields_by_name['union'].message_type = _SETOPERATION
 _USERSETREWRITE.fields_by_name['intersection'].message_type = _SETOPERATION
 _USERSETREWRITE.fields_by_name['exclusion'].message_type = _SETOPERATION
@@ -537,6 +620,7 @@ DESCRIPTOR.message_types_by_name['Metadata'] = _METADATA
 DESCRIPTOR.message_types_by_name['NamespaceDefinition'] = _NAMESPACEDEFINITION
 DESCRIPTOR.message_types_by_name['Relation'] = _RELATION
 DESCRIPTOR.message_types_by_name['TypeInformation'] = _TYPEINFORMATION
+DESCRIPTOR.message_types_by_name['AllowedRelation'] = _ALLOWEDRELATION
 DESCRIPTOR.message_types_by_name['UsersetRewrite'] = _USERSETREWRITE
 DESCRIPTOR.message_types_by_name['SetOperation'] = _SETOPERATION
 DESCRIPTOR.message_types_by_name['TupleToUserset'] = _TUPLETOUSERSET
@@ -570,6 +654,21 @@ TypeInformation = _reflection.GeneratedProtocolMessageType('TypeInformation', (_
   # @@protoc_insertion_point(class_scope:authzed.api.v0.TypeInformation)
   })
 _sym_db.RegisterMessage(TypeInformation)
+
+AllowedRelation = _reflection.GeneratedProtocolMessageType('AllowedRelation', (_message.Message,), {
+
+  'PublicWildcard' : _reflection.GeneratedProtocolMessageType('PublicWildcard', (_message.Message,), {
+    'DESCRIPTOR' : _ALLOWEDRELATION_PUBLICWILDCARD,
+    '__module__' : 'authzed.api.v0.namespace_pb2'
+    # @@protoc_insertion_point(class_scope:authzed.api.v0.AllowedRelation.PublicWildcard)
+    })
+  ,
+  'DESCRIPTOR' : _ALLOWEDRELATION,
+  '__module__' : 'authzed.api.v0.namespace_pb2'
+  # @@protoc_insertion_point(class_scope:authzed.api.v0.AllowedRelation)
+  })
+_sym_db.RegisterMessage(AllowedRelation)
+_sym_db.RegisterMessage(AllowedRelation.PublicWildcard)
 
 UsersetRewrite = _reflection.GeneratedProtocolMessageType('UsersetRewrite', (_message.Message,), {
   'DESCRIPTOR' : _USERSETREWRITE,
@@ -628,6 +727,8 @@ DESCRIPTOR._options = None
 _METADATA.fields_by_name['metadata_message']._options = None
 _NAMESPACEDEFINITION.fields_by_name['name']._options = None
 _RELATION.fields_by_name['name']._options = None
+_ALLOWEDRELATION.fields_by_name['namespace']._options = None
+_ALLOWEDRELATION.fields_by_name['relation']._options = None
 _USERSETREWRITE.oneofs_by_name['rewrite_operation']._options = None
 _USERSETREWRITE.fields_by_name['union']._options = None
 _USERSETREWRITE.fields_by_name['intersection']._options = None

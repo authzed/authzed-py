@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x19\x61uthzed/api/v1/core.proto\x12\x0e\x61uthzed.api.v1\x1a\x17validate/validate.proto\"\xe0\x01\n\x0cRelationship\x12\x45\n\x08resource\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12\x43\n\x08relation\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\x12\x44\n\x07subject\x18\x03 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\xa4\x01\n\x10SubjectReference\x12\x37\n\x06object\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x06object\x12W\n\x11optional_relation\x18\x02 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x10optionalRelation\"\xc8\x01\n\x0fObjectReference\x12i\n\x0bobject_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nobjectType\x12J\n\tobject_id\x18\x02 \x01(\tB-\xfa\x42*r((\x80\x01\x32#^[a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127}$R\x08objectId\")\n\x08ZedToken\x12\x1d\n\x05token\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02 \x01R\x05token\"\x9f\x02\n\x12RelationshipUpdate\x12T\n\toperation\x18\x01 \x01(\x0e\x32,.authzed.api.v1.RelationshipUpdate.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12J\n\x0crelationship\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v1.RelationshipB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0crelationship\"g\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x14\n\x10OPERATION_CREATE\x10\x01\x12\x13\n\x0fOPERATION_TOUCH\x10\x02\x12\x14\n\x10OPERATION_DELETE\x10\x03\"\xa8\x02\n\x1aPermissionRelationshipTree\x12I\n\x0cintermediate\x18\x01 \x01(\x0b\x32#.authzed.api.v1.AlgebraicSubjectSetH\x00R\x0cintermediate\x12\x36\n\x04leaf\x18\x02 \x01(\x0b\x32 .authzed.api.v1.DirectSubjectSetH\x00R\x04leaf\x12H\n\x0f\x65xpanded_object\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x0e\x65xpandedObject\x12+\n\x11\x65xpanded_relation\x18\x04 \x01(\tR\x10\x65xpandedRelationB\x10\n\ttree_type\x12\x03\xf8\x42\x01\"\x9c\x02\n\x13\x41lgebraicSubjectSet\x12K\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v1.AlgebraicSubjectSet.OperationR\toperation\x12\x46\n\x08\x63hildren\x18\x02 \x03(\x0b\x32*.authzed.api.v1.PermissionRelationshipTreeR\x08\x63hildren\"p\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x13\n\x0fOPERATION_UNION\x10\x01\x12\x1a\n\x16OPERATION_INTERSECTION\x10\x02\x12\x17\n\x13OPERATION_EXCLUSION\x10\x03\"P\n\x10\x44irectSubjectSet\x12<\n\x08subjects\x18\x01 \x03(\x0b\x32 .authzed.api.v1.SubjectReferenceR\x08subjectsBH\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3'
+  serialized_pb=b'\n\x19\x61uthzed/api/v1/core.proto\x12\x0e\x61uthzed.api.v1\x1a\x17validate/validate.proto\"\xe0\x01\n\x0cRelationship\x12\x45\n\x08resource\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12\x43\n\x08relation\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\x12\x44\n\x07subject\x18\x03 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\xae\x01\n\x10SubjectReference\x12\x41\n\x06object\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x06object\x12W\n\x11optional_relation\x18\x02 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x10optionalRelation\"\xcd\x01\n\x0fObjectReference\x12i\n\x0bobject_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nobjectType\x12O\n\tobject_id\x18\x02 \x01(\tB2\xfa\x42/r-(\x80\x01\x32(^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*$R\x08objectId\")\n\x08ZedToken\x12\x1d\n\x05token\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02 \x01R\x05token\"\x9f\x02\n\x12RelationshipUpdate\x12T\n\toperation\x18\x01 \x01(\x0e\x32,.authzed.api.v1.RelationshipUpdate.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12J\n\x0crelationship\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v1.RelationshipB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0crelationship\"g\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x14\n\x10OPERATION_CREATE\x10\x01\x12\x13\n\x0fOPERATION_TOUCH\x10\x02\x12\x14\n\x10OPERATION_DELETE\x10\x03\"\xa8\x02\n\x1aPermissionRelationshipTree\x12I\n\x0cintermediate\x18\x01 \x01(\x0b\x32#.authzed.api.v1.AlgebraicSubjectSetH\x00R\x0cintermediate\x12\x36\n\x04leaf\x18\x02 \x01(\x0b\x32 .authzed.api.v1.DirectSubjectSetH\x00R\x04leaf\x12H\n\x0f\x65xpanded_object\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x0e\x65xpandedObject\x12+\n\x11\x65xpanded_relation\x18\x04 \x01(\tR\x10\x65xpandedRelationB\x10\n\ttree_type\x12\x03\xf8\x42\x01\"\x9c\x02\n\x13\x41lgebraicSubjectSet\x12K\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v1.AlgebraicSubjectSet.OperationR\toperation\x12\x46\n\x08\x63hildren\x18\x02 \x03(\x0b\x32*.authzed.api.v1.PermissionRelationshipTreeR\x08\x63hildren\"p\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x13\n\x0fOPERATION_UNION\x10\x01\x12\x1a\n\x16OPERATION_INTERSECTION\x10\x02\x12\x17\n\x13OPERATION_EXCLUSION\x10\x03\"P\n\x10\x44irectSubjectSet\x12<\n\x08subjects\x18\x01 \x03(\x0b\x32 .authzed.api.v1.SubjectReferenceR\x08subjectsBH\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
@@ -56,8 +56,8 @@ _RELATIONSHIPUPDATE_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=895,
-  serialized_end=998,
+  serialized_start=910,
+  serialized_end=1013,
 )
 _sym_db.RegisterEnumDescriptor(_RELATIONSHIPUPDATE_OPERATION)
 
@@ -91,8 +91,8 @@ _ALGEBRAICSUBJECTSET_OPERATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1472,
-  serialized_end=1584,
+  serialized_start=1487,
+  serialized_end=1599,
 )
 _sym_db.RegisterEnumDescriptor(_ALGEBRAICSUBJECTSET_OPERATION)
 
@@ -157,7 +157,7 @@ _SUBJECTREFERENCE = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='object', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\372B\005\212\001\002\020\001', json_name='object', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='optional_relation', full_name='authzed.api.v1.SubjectReference.optional_relation', index=1,
       number=2, type=9, cpp_type=9, label=1,
@@ -178,7 +178,7 @@ _SUBJECTREFERENCE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=298,
-  serialized_end=462,
+  serialized_end=472,
 )
 
 
@@ -203,7 +203,7 @@ _OBJECTREFERENCE = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\372B*r((\200\0012#^[a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127}$', json_name='objectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\372B/r-(\200\0012(^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*$', json_name='objectId', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -216,8 +216,8 @@ _OBJECTREFERENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=465,
-  serialized_end=665,
+  serialized_start=475,
+  serialized_end=680,
 )
 
 
@@ -248,8 +248,8 @@ _ZEDTOKEN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=667,
-  serialized_end=708,
+  serialized_start=682,
+  serialized_end=723,
 )
 
 
@@ -288,8 +288,8 @@ _RELATIONSHIPUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=711,
-  serialized_end=998,
+  serialized_start=726,
+  serialized_end=1013,
 )
 
 
@@ -346,8 +346,8 @@ _PERMISSIONRELATIONSHIPTREE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[], serialized_options=b'\370B\001'),
   ],
-  serialized_start=1001,
-  serialized_end=1297,
+  serialized_start=1016,
+  serialized_end=1312,
 )
 
 
@@ -386,8 +386,8 @@ _ALGEBRAICSUBJECTSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1300,
-  serialized_end=1584,
+  serialized_start=1315,
+  serialized_end=1599,
 )
 
 
@@ -418,8 +418,8 @@ _DIRECTSUBJECTSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1586,
-  serialized_end=1666,
+  serialized_start=1601,
+  serialized_end=1681,
 )
 
 _RELATIONSHIP.fields_by_name['resource'].message_type = _OBJECTREFERENCE
@@ -512,6 +512,7 @@ DESCRIPTOR._options = None
 _RELATIONSHIP.fields_by_name['resource']._options = None
 _RELATIONSHIP.fields_by_name['relation']._options = None
 _RELATIONSHIP.fields_by_name['subject']._options = None
+_SUBJECTREFERENCE.fields_by_name['object']._options = None
 _SUBJECTREFERENCE.fields_by_name['optional_relation']._options = None
 _OBJECTREFERENCE.fields_by_name['object_type']._options = None
 _OBJECTREFERENCE.fields_by_name['object_id']._options = None
