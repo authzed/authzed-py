@@ -3,6 +3,7 @@
 # source: authzed/api/v1/watch_service.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -16,103 +17,12 @@ from validate import validate_pb2 as validate_dot_validate__pb2
 from authzed.api.v1 import core_pb2 as authzed_dot_api_dot_v1_dot_core__pb2
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='authzed/api/v1/watch_service.proto',
-  package='authzed.api.v1',
-  syntax='proto3',
-  serialized_options=b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"authzed/api/v1/watch_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\xe2\x01\n\x0cWatchRequest\x12\x83\x01\n\x15optional_object_types\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x00\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x13optionalObjectTypes\x12L\n\x15optional_start_cursor\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x13optionalStartCursor\"\x90\x01\n\rWatchResponse\x12<\n\x07updates\x18\x01 \x03(\x0b\x32\".authzed.api.v1.RelationshipUpdateR\x07updates\x12\x41\n\x0f\x63hanges_through\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x0e\x63hangesThrough2l\n\x0cWatchService\x12\\\n\x05Watch\x12\x1c.authzed.api.v1.WatchRequest\x1a\x1d.authzed.api.v1.WatchResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\"\t/v1/watch:\x01*0\x01\x42H\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3'
-  ,
-  dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v1_dot_core__pb2.DESCRIPTOR,])
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"authzed/api/v1/watch_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\xe2\x01\n\x0cWatchRequest\x12\x83\x01\n\x15optional_object_types\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x00\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x13optionalObjectTypes\x12L\n\x15optional_start_cursor\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x13optionalStartCursor\"\x90\x01\n\rWatchResponse\x12<\n\x07updates\x18\x01 \x03(\x0b\x32\".authzed.api.v1.RelationshipUpdateR\x07updates\x12\x41\n\x0f\x63hanges_through\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x0e\x63hangesThrough2l\n\x0cWatchService\x12\\\n\x05Watch\x12\x1c.authzed.api.v1.WatchRequest\x1a\x1d.authzed.api.v1.WatchResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\"\t/v1/watch:\x01*0\x01\x42H\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3')
 
 
 
-
-_WATCHREQUEST = _descriptor.Descriptor(
-  name='WatchRequest',
-  full_name='authzed.api.v1.WatchRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='optional_object_types', full_name='authzed.api.v1.WatchRequest.optional_object_types', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372BL\222\001I\010\000\"ErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='optionalObjectTypes', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='optional_start_cursor', full_name='authzed.api.v1.WatchRequest.optional_start_cursor', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='optionalStartCursor', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=137,
-  serialized_end=363,
-)
-
-
-_WATCHRESPONSE = _descriptor.Descriptor(
-  name='WatchResponse',
-  full_name='authzed.api.v1.WatchResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='updates', full_name='authzed.api.v1.WatchResponse.updates', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='updates', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='changes_through', full_name='authzed.api.v1.WatchResponse.changes_through', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='changesThrough', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=366,
-  serialized_end=510,
-)
-
-_WATCHREQUEST.fields_by_name['optional_start_cursor'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._ZEDTOKEN
-_WATCHRESPONSE.fields_by_name['updates'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._RELATIONSHIPUPDATE
-_WATCHRESPONSE.fields_by_name['changes_through'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._ZEDTOKEN
-DESCRIPTOR.message_types_by_name['WatchRequest'] = _WATCHREQUEST
-DESCRIPTOR.message_types_by_name['WatchResponse'] = _WATCHRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_WATCHREQUEST = DESCRIPTOR.message_types_by_name['WatchRequest']
+_WATCHRESPONSE = DESCRIPTOR.message_types_by_name['WatchResponse']
 WatchRequest = _reflection.GeneratedProtocolMessageType('WatchRequest', (_message.Message,), {
   'DESCRIPTOR' : _WATCHREQUEST,
   '__module__' : 'authzed.api.v1.watch_service_pb2'
@@ -127,33 +37,19 @@ WatchResponse = _reflection.GeneratedProtocolMessageType('WatchResponse', (_mess
   })
 _sym_db.RegisterMessage(WatchResponse)
 
+_WATCHSERVICE = DESCRIPTOR.services_by_name['WatchService']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-_WATCHREQUEST.fields_by_name['optional_object_types']._options = None
-
-_WATCHSERVICE = _descriptor.ServiceDescriptor(
-  name='WatchService',
-  full_name='authzed.api.v1.WatchService',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=512,
-  serialized_end=620,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='Watch',
-    full_name='authzed.api.v1.WatchService.Watch',
-    index=0,
-    containing_service=None,
-    input_type=_WATCHREQUEST,
-    output_type=_WATCHRESPONSE,
-    serialized_options=b'\202\323\344\223\002\016\"\t/v1/watch:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_WATCHSERVICE)
-
-DESCRIPTOR.services_by_name['WatchService'] = _WATCHSERVICE
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
+  _WATCHREQUEST.fields_by_name['optional_object_types']._options = None
+  _WATCHREQUEST.fields_by_name['optional_object_types']._serialized_options = b'\372BL\222\001I\010\000\"ErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _WATCHSERVICE.methods_by_name['Watch']._options = None
+  _WATCHSERVICE.methods_by_name['Watch']._serialized_options = b'\202\323\344\223\002\016\"\t/v1/watch:\001*'
+  _WATCHREQUEST._serialized_start=137
+  _WATCHREQUEST._serialized_end=363
+  _WATCHRESPONSE._serialized_start=366
+  _WATCHRESPONSE._serialized_end=510
+  _WATCHSERVICE._serialized_start=512
+  _WATCHSERVICE._serialized_end=620
 # @@protoc_insertion_point(module_scope)
