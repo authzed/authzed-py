@@ -20,6 +20,8 @@ protobuf = "^3.14.0"
 protoc-gen-validate = "^0.4.1"
 python = "^3.6"
 typing-extensions = "^3.7.4"
+google_api = "^0.1.12"
+google-api-core = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
