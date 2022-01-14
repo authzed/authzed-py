@@ -3,6 +3,7 @@
 # source: authzed/api/v1/schema_service.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -15,138 +16,14 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='authzed/api/v1/schema_service.proto',
-  package='authzed.api.v1',
-  syntax='proto3',
-  serialized_options=b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#authzed/api/v1/schema_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"\x13\n\x11ReadSchemaRequest\"5\n\x12ReadSchemaResponse\x12\x1f\n\x0bschema_text\x18\x01 \x01(\tR\nschemaText\"7\n\x12WriteSchemaRequest\x12!\n\x06schema\x18\x01 \x01(\tB\t\xfa\x42\x06r\x04(\x80\x80\x10R\x06schema\"\x15\n\x13WriteSchemaResponse2\xf5\x01\n\rSchemaService\x12o\n\nReadSchema\x12!.authzed.api.v1.ReadSchemaRequest\x1a\".authzed.api.v1.ReadSchemaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/schema/read:\x01*\x12s\n\x0bWriteSchema\x12\".authzed.api.v1.WriteSchemaRequest\x1a#.authzed.api.v1.WriteSchemaResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/schema/write:\x01*BH\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3'
-  ,
-  dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,validate_dot_validate__pb2.DESCRIPTOR,])
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#authzed/api/v1/schema_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"\x13\n\x11ReadSchemaRequest\"5\n\x12ReadSchemaResponse\x12\x1f\n\x0bschema_text\x18\x01 \x01(\tR\nschemaText\"7\n\x12WriteSchemaRequest\x12!\n\x06schema\x18\x01 \x01(\tB\t\xfa\x42\x06r\x04(\x80\x80\x10R\x06schema\"\x15\n\x13WriteSchemaResponse2\xf5\x01\n\rSchemaService\x12o\n\nReadSchema\x12!.authzed.api.v1.ReadSchemaRequest\x1a\".authzed.api.v1.ReadSchemaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/schema/read:\x01*\x12s\n\x0bWriteSchema\x12\".authzed.api.v1.WriteSchemaRequest\x1a#.authzed.api.v1.WriteSchemaResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/schema/write:\x01*BH\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3')
 
 
 
-
-_READSCHEMAREQUEST = _descriptor.Descriptor(
-  name='ReadSchemaRequest',
-  full_name='authzed.api.v1.ReadSchemaRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=110,
-  serialized_end=129,
-)
-
-
-_READSCHEMARESPONSE = _descriptor.Descriptor(
-  name='ReadSchemaResponse',
-  full_name='authzed.api.v1.ReadSchemaResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='schema_text', full_name='authzed.api.v1.ReadSchemaResponse.schema_text', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='schemaText', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=131,
-  serialized_end=184,
-)
-
-
-_WRITESCHEMAREQUEST = _descriptor.Descriptor(
-  name='WriteSchemaRequest',
-  full_name='authzed.api.v1.WriteSchemaRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='schema', full_name='authzed.api.v1.WriteSchemaRequest.schema', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372B\006r\004(\200\200\020', json_name='schema', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=186,
-  serialized_end=241,
-)
-
-
-_WRITESCHEMARESPONSE = _descriptor.Descriptor(
-  name='WriteSchemaResponse',
-  full_name='authzed.api.v1.WriteSchemaResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=243,
-  serialized_end=264,
-)
-
-DESCRIPTOR.message_types_by_name['ReadSchemaRequest'] = _READSCHEMAREQUEST
-DESCRIPTOR.message_types_by_name['ReadSchemaResponse'] = _READSCHEMARESPONSE
-DESCRIPTOR.message_types_by_name['WriteSchemaRequest'] = _WRITESCHEMAREQUEST
-DESCRIPTOR.message_types_by_name['WriteSchemaResponse'] = _WRITESCHEMARESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_READSCHEMAREQUEST = DESCRIPTOR.message_types_by_name['ReadSchemaRequest']
+_READSCHEMARESPONSE = DESCRIPTOR.message_types_by_name['ReadSchemaResponse']
+_WRITESCHEMAREQUEST = DESCRIPTOR.message_types_by_name['WriteSchemaRequest']
+_WRITESCHEMARESPONSE = DESCRIPTOR.message_types_by_name['WriteSchemaResponse']
 ReadSchemaRequest = _reflection.GeneratedProtocolMessageType('ReadSchemaRequest', (_message.Message,), {
   'DESCRIPTOR' : _READSCHEMAREQUEST,
   '__module__' : 'authzed.api.v1.schema_service_pb2'
@@ -175,43 +52,25 @@ WriteSchemaResponse = _reflection.GeneratedProtocolMessageType('WriteSchemaRespo
   })
 _sym_db.RegisterMessage(WriteSchemaResponse)
 
+_SCHEMASERVICE = DESCRIPTOR.services_by_name['SchemaService']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-_WRITESCHEMAREQUEST.fields_by_name['schema']._options = None
-
-_SCHEMASERVICE = _descriptor.ServiceDescriptor(
-  name='SchemaService',
-  full_name='authzed.api.v1.SchemaService',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=267,
-  serialized_end=512,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='ReadSchema',
-    full_name='authzed.api.v1.SchemaService.ReadSchema',
-    index=0,
-    containing_service=None,
-    input_type=_READSCHEMAREQUEST,
-    output_type=_READSCHEMARESPONSE,
-    serialized_options=b'\202\323\344\223\002\024\"\017/v1/schema/read:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='WriteSchema',
-    full_name='authzed.api.v1.SchemaService.WriteSchema',
-    index=1,
-    containing_service=None,
-    input_type=_WRITESCHEMAREQUEST,
-    output_type=_WRITESCHEMARESPONSE,
-    serialized_options=b'\202\323\344\223\002\025\"\020/v1/schema/write:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_SCHEMASERVICE)
-
-DESCRIPTOR.services_by_name['SchemaService'] = _SCHEMASERVICE
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
+  _WRITESCHEMAREQUEST.fields_by_name['schema']._options = None
+  _WRITESCHEMAREQUEST.fields_by_name['schema']._serialized_options = b'\372B\006r\004(\200\200\020'
+  _SCHEMASERVICE.methods_by_name['ReadSchema']._options = None
+  _SCHEMASERVICE.methods_by_name['ReadSchema']._serialized_options = b'\202\323\344\223\002\024\"\017/v1/schema/read:\001*'
+  _SCHEMASERVICE.methods_by_name['WriteSchema']._options = None
+  _SCHEMASERVICE.methods_by_name['WriteSchema']._serialized_options = b'\202\323\344\223\002\025\"\020/v1/schema/write:\001*'
+  _READSCHEMAREQUEST._serialized_start=110
+  _READSCHEMAREQUEST._serialized_end=129
+  _READSCHEMARESPONSE._serialized_start=131
+  _READSCHEMARESPONSE._serialized_end=184
+  _WRITESCHEMAREQUEST._serialized_start=186
+  _WRITESCHEMAREQUEST._serialized_end=241
+  _WRITESCHEMARESPONSE._serialized_start=243
+  _WRITESCHEMARESPONSE._serialized_end=264
+  _SCHEMASERVICE._serialized_start=267
+  _SCHEMASERVICE._serialized_end=512
 # @@protoc_insertion_point(module_scope)

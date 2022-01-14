@@ -3,6 +3,7 @@
 # source: authzed/api/v1/openapi.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -14,20 +15,12 @@ _sym_db = _symbol_database.Default()
 from protoc_gen_openapiv2.options import annotations_pb2 as protoc__gen__openapiv2_dot_options_dot_annotations__pb2
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='authzed/api/v1/openapi.proto',
-  package='authzed.api.v1',
-  syntax='proto3',
-  serialized_options=b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1\222A\264\002\022\234\001\n\007Authzed\"D\n\rAuthzed, Inc.\022\036https://github.com/authzed/api\032\023support@authzed.com*F\n\022Apache 2.0 License\0220https://github.com/authzed/api/blob/main/LICENSE2\0031.0*\003\001\002\0042\020application/json:\020application/jsonZ#\n!\n\nApiKeyAuth\022\023\010\002\032\rAuthorization \002rE\n\033More about the Authzed API.\022&https://docs.authzed.com/reference/api',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1c\x61uthzed/api/v1/openapi.proto\x12\x0e\x61uthzed.api.v1\x1a.protoc-gen-openapiv2/options/annotations.protoB\x80\x03\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1\x92\x41\xb4\x02\x12\x9c\x01\n\x07\x41uthzed\"D\n\rAuthzed, Inc.\x12\x1ehttps://github.com/authzed/api\x1a\x13support@authzed.com*F\n\x12\x41pache 2.0 License\x12\x30https://github.com/authzed/api/blob/main/LICENSE2\x03\x31.0*\x03\x01\x02\x04\x32\x10\x61pplication/json:\x10\x61pplication/jsonZ#\n!\n\nApiKeyAuth\x12\x13\x08\x02\x1a\rAuthorization \x02rE\n\x1bMore about the Authzed API.\x12&https://docs.authzed.com/reference/apib\x06proto3'
-  ,
-  dependencies=[protoc__gen__openapiv2_dot_options_dot_annotations__pb2.DESCRIPTOR,])
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x61uthzed/api/v1/openapi.proto\x12\x0e\x61uthzed.api.v1\x1a.protoc-gen-openapiv2/options/annotations.protoB\x80\x03\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1\x92\x41\xb4\x02\x12\x9c\x01\n\x07\x41uthzed\"D\n\rAuthzed, Inc.\x12\x1ehttps://github.com/authzed/api\x1a\x13support@authzed.com*F\n\x12\x41pache 2.0 License\x12\x30https://github.com/authzed/api/blob/main/LICENSE2\x03\x31.0*\x03\x01\x02\x04\x32\x10\x61pplication/json:\x10\x61pplication/jsonZ#\n!\n\nApiKeyAuth\x12\x13\x08\x02\x1a\rAuthorization \x02rE\n\x1bMore about the Authzed API.\x12&https://docs.authzed.com/reference/apib\x06proto3')
 
 
 
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-
-DESCRIPTOR._options = None
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1\222A\264\002\022\234\001\n\007Authzed\"D\n\rAuthzed, Inc.\022\036https://github.com/authzed/api\032\023support@authzed.com*F\n\022Apache 2.0 License\0220https://github.com/authzed/api/blob/main/LICENSE2\0031.0*\003\001\002\0042\020application/json:\020application/jsonZ#\n!\n\nApiKeyAuth\022\023\010\002\032\rAuthorization \002rE\n\033More about the Authzed API.\022&https://docs.authzed.com/reference/api'
 # @@protoc_insertion_point(module_scope)

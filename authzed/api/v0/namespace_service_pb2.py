@@ -3,6 +3,7 @@
 # source: authzed/api/v0/namespace_service.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -16,245 +17,16 @@ from authzed.api.v0 import core_pb2 as authzed_dot_api_dot_v0_dot_core__pb2
 from authzed.api.v0 import namespace_pb2 as authzed_dot_api_dot_v0_dot_namespace__pb2
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='authzed/api/v0/namespace_service.proto',
-  package='authzed.api.v0',
-  syntax='proto3',
-  serialized_options=b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&authzed/api/v0/namespace_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\x1a\x1e\x61uthzed/api/v0/namespace.proto\"\xb4\x01\n\x11ReadConfigRequest\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\xa3\x01\n\x12ReadConfigResponse\x12\x1c\n\tnamespace\x18\x01 \x01(\tR\tnamespace\x12;\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.authzed.api.v0.NamespaceDefinitionR\x06\x63onfig\x12\x32\n\x08revision\x18\x04 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"d\n\x12WriteConfigRequest\x12N\n\x07\x63onfigs\x18\x02 \x03(\x0b\x32#.authzed.api.v0.NamespaceDefinitionB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x07\x63onfigs\"I\n\x13WriteConfigResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\x87\x01\n\x14\x44\x65leteConfigsRequest\x12o\n\nnamespaces\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x01\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nnamespaces\"K\n\x15\x44\x65leteConfigsResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision2\xa3\x02\n\x10NamespaceService\x12U\n\nReadConfig\x12!.authzed.api.v0.ReadConfigRequest\x1a\".authzed.api.v0.ReadConfigResponse\"\x00\x12X\n\x0bWriteConfig\x12\".authzed.api.v0.WriteConfigRequest\x1a#.authzed.api.v0.WriteConfigResponse\"\x00\x12^\n\rDeleteConfigs\x12$.authzed.api.v0.DeleteConfigsRequest\x1a%.authzed.api.v0.DeleteConfigsResponse\"\x00\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3'
-  ,
-  dependencies=[validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v0_dot_core__pb2.DESCRIPTOR,authzed_dot_api_dot_v0_dot_namespace__pb2.DESCRIPTOR,])
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&authzed/api/v0/namespace_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\x1a\x1e\x61uthzed/api/v0/namespace.proto\"\xb4\x01\n\x11ReadConfigRequest\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\xa3\x01\n\x12ReadConfigResponse\x12\x1c\n\tnamespace\x18\x01 \x01(\tR\tnamespace\x12;\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.authzed.api.v0.NamespaceDefinitionR\x06\x63onfig\x12\x32\n\x08revision\x18\x04 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"d\n\x12WriteConfigRequest\x12N\n\x07\x63onfigs\x18\x02 \x03(\x0b\x32#.authzed.api.v0.NamespaceDefinitionB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x07\x63onfigs\"I\n\x13WriteConfigResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\x87\x01\n\x14\x44\x65leteConfigsRequest\x12o\n\nnamespaces\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x01\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nnamespaces\"K\n\x15\x44\x65leteConfigsResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision2\xa3\x02\n\x10NamespaceService\x12U\n\nReadConfig\x12!.authzed.api.v0.ReadConfigRequest\x1a\".authzed.api.v0.ReadConfigResponse\"\x00\x12X\n\x0bWriteConfig\x12\".authzed.api.v0.WriteConfigRequest\x1a#.authzed.api.v0.WriteConfigResponse\"\x00\x12^\n\rDeleteConfigs\x12$.authzed.api.v0.DeleteConfigsRequest\x1a%.authzed.api.v0.DeleteConfigsResponse\"\x00\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3')
 
 
 
-
-_READCONFIGREQUEST = _descriptor.Descriptor(
-  name='ReadConfigRequest',
-  full_name='authzed.api.v0.ReadConfigRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='namespace', full_name='authzed.api.v0.ReadConfigRequest.namespace', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='namespace', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='at_revision', full_name='authzed.api.v0.ReadConfigRequest.at_revision', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='atRevision', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=143,
-  serialized_end=323,
-)
-
-
-_READCONFIGRESPONSE = _descriptor.Descriptor(
-  name='ReadConfigResponse',
-  full_name='authzed.api.v0.ReadConfigResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='namespace', full_name='authzed.api.v0.ReadConfigResponse.namespace', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='namespace', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='config', full_name='authzed.api.v0.ReadConfigResponse.config', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='config', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='revision', full_name='authzed.api.v0.ReadConfigResponse.revision', index=2,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='revision', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=326,
-  serialized_end=489,
-)
-
-
-_WRITECONFIGREQUEST = _descriptor.Descriptor(
-  name='WriteConfigRequest',
-  full_name='authzed.api.v0.WriteConfigRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='configs', full_name='authzed.api.v0.WriteConfigRequest.configs', index=0,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372B\014\222\001\t\010\001\"\005\212\001\002\020\001', json_name='configs', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=491,
-  serialized_end=591,
-)
-
-
-_WRITECONFIGRESPONSE = _descriptor.Descriptor(
-  name='WriteConfigResponse',
-  full_name='authzed.api.v0.WriteConfigResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='revision', full_name='authzed.api.v0.WriteConfigResponse.revision', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='revision', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=593,
-  serialized_end=666,
-)
-
-
-_DELETECONFIGSREQUEST = _descriptor.Descriptor(
-  name='DeleteConfigsRequest',
-  full_name='authzed.api.v0.DeleteConfigsRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='namespaces', full_name='authzed.api.v0.DeleteConfigsRequest.namespaces', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372BL\222\001I\010\001\"ErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='namespaces', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=669,
-  serialized_end=804,
-)
-
-
-_DELETECONFIGSRESPONSE = _descriptor.Descriptor(
-  name='DeleteConfigsResponse',
-  full_name='authzed.api.v0.DeleteConfigsResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='revision', full_name='authzed.api.v0.DeleteConfigsResponse.revision', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='revision', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=806,
-  serialized_end=881,
-)
-
-_READCONFIGREQUEST.fields_by_name['at_revision'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._ZOOKIE
-_READCONFIGRESPONSE.fields_by_name['config'].message_type = authzed_dot_api_dot_v0_dot_namespace__pb2._NAMESPACEDEFINITION
-_READCONFIGRESPONSE.fields_by_name['revision'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._ZOOKIE
-_WRITECONFIGREQUEST.fields_by_name['configs'].message_type = authzed_dot_api_dot_v0_dot_namespace__pb2._NAMESPACEDEFINITION
-_WRITECONFIGRESPONSE.fields_by_name['revision'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._ZOOKIE
-_DELETECONFIGSRESPONSE.fields_by_name['revision'].message_type = authzed_dot_api_dot_v0_dot_core__pb2._ZOOKIE
-DESCRIPTOR.message_types_by_name['ReadConfigRequest'] = _READCONFIGREQUEST
-DESCRIPTOR.message_types_by_name['ReadConfigResponse'] = _READCONFIGRESPONSE
-DESCRIPTOR.message_types_by_name['WriteConfigRequest'] = _WRITECONFIGREQUEST
-DESCRIPTOR.message_types_by_name['WriteConfigResponse'] = _WRITECONFIGRESPONSE
-DESCRIPTOR.message_types_by_name['DeleteConfigsRequest'] = _DELETECONFIGSREQUEST
-DESCRIPTOR.message_types_by_name['DeleteConfigsResponse'] = _DELETECONFIGSRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_READCONFIGREQUEST = DESCRIPTOR.message_types_by_name['ReadConfigRequest']
+_READCONFIGRESPONSE = DESCRIPTOR.message_types_by_name['ReadConfigResponse']
+_WRITECONFIGREQUEST = DESCRIPTOR.message_types_by_name['WriteConfigRequest']
+_WRITECONFIGRESPONSE = DESCRIPTOR.message_types_by_name['WriteConfigResponse']
+_DELETECONFIGSREQUEST = DESCRIPTOR.message_types_by_name['DeleteConfigsRequest']
+_DELETECONFIGSRESPONSE = DESCRIPTOR.message_types_by_name['DeleteConfigsResponse']
 ReadConfigRequest = _reflection.GeneratedProtocolMessageType('ReadConfigRequest', (_message.Message,), {
   'DESCRIPTOR' : _READCONFIGREQUEST,
   '__module__' : 'authzed.api.v0.namespace_service_pb2'
@@ -297,55 +69,29 @@ DeleteConfigsResponse = _reflection.GeneratedProtocolMessageType('DeleteConfigsR
   })
 _sym_db.RegisterMessage(DeleteConfigsResponse)
 
+_NAMESPACESERVICE = DESCRIPTOR.services_by_name['NamespaceService']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-_READCONFIGREQUEST.fields_by_name['namespace']._options = None
-_WRITECONFIGREQUEST.fields_by_name['configs']._options = None
-_DELETECONFIGSREQUEST.fields_by_name['namespaces']._options = None
-
-_NAMESPACESERVICE = _descriptor.ServiceDescriptor(
-  name='NamespaceService',
-  full_name='authzed.api.v0.NamespaceService',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=884,
-  serialized_end=1175,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='ReadConfig',
-    full_name='authzed.api.v0.NamespaceService.ReadConfig',
-    index=0,
-    containing_service=None,
-    input_type=_READCONFIGREQUEST,
-    output_type=_READCONFIGRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='WriteConfig',
-    full_name='authzed.api.v0.NamespaceService.WriteConfig',
-    index=1,
-    containing_service=None,
-    input_type=_WRITECONFIGREQUEST,
-    output_type=_WRITECONFIGRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='DeleteConfigs',
-    full_name='authzed.api.v0.NamespaceService.DeleteConfigs',
-    index=2,
-    containing_service=None,
-    input_type=_DELETECONFIGSREQUEST,
-    output_type=_DELETECONFIGSRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_NAMESPACESERVICE)
-
-DESCRIPTOR.services_by_name['NamespaceService'] = _NAMESPACESERVICE
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0'
+  _READCONFIGREQUEST.fields_by_name['namespace']._options = None
+  _READCONFIGREQUEST.fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _WRITECONFIGREQUEST.fields_by_name['configs']._options = None
+  _WRITECONFIGREQUEST.fields_by_name['configs']._serialized_options = b'\372B\014\222\001\t\010\001\"\005\212\001\002\020\001'
+  _DELETECONFIGSREQUEST.fields_by_name['namespaces']._options = None
+  _DELETECONFIGSREQUEST.fields_by_name['namespaces']._serialized_options = b'\372BL\222\001I\010\001\"ErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _READCONFIGREQUEST._serialized_start=143
+  _READCONFIGREQUEST._serialized_end=323
+  _READCONFIGRESPONSE._serialized_start=326
+  _READCONFIGRESPONSE._serialized_end=489
+  _WRITECONFIGREQUEST._serialized_start=491
+  _WRITECONFIGREQUEST._serialized_end=591
+  _WRITECONFIGRESPONSE._serialized_start=593
+  _WRITECONFIGRESPONSE._serialized_end=666
+  _DELETECONFIGSREQUEST._serialized_start=669
+  _DELETECONFIGSREQUEST._serialized_end=804
+  _DELETECONFIGSRESPONSE._serialized_start=806
+  _DELETECONFIGSRESPONSE._serialized_end=881
+  _NAMESPACESERVICE._serialized_start=884
+  _NAMESPACESERVICE._serialized_end=1175
 # @@protoc_insertion_point(module_scope)

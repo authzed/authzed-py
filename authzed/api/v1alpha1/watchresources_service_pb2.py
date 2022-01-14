@@ -3,6 +3,7 @@
 # source: authzed/api/v1alpha1/watchresources_service.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -16,213 +17,14 @@ from validate import validate_pb2 as validate_dot_validate__pb2
 from authzed.api.v1 import core_pb2 as authzed_dot_api_dot_v1_dot_core__pb2
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='authzed/api/v1alpha1/watchresources_service.proto',
-  package='authzed.api.v1alpha1',
-  syntax='proto3',
-  serialized_options=b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n1authzed/api/v1alpha1/watchresources_service.proto\x12\x14\x61uthzed.api.v1alpha1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\x96\x03\n\x15WatchResourcesRequest\x12z\n\x14resource_object_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x12resourceObjectType\x12G\n\npermission\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\npermission\x12.\n\x13subject_object_type\x18\x03 \x01(\tR\x11subjectObjectType\x12:\n\x19optional_subject_relation\x18\x04 \x01(\tR\x17optionalSubjectRelation\x12L\n\x15optional_start_cursor\x18\x05 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x13optionalStartCursor\"\x84\x03\n\x10PermissionUpdate\x12:\n\x07subject\x18\x01 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceR\x07subject\x12;\n\x08resource\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x08resource\x12\x1a\n\x08relation\x18\x03 \x01(\tR\x08relation\x12\x64\n\x12updated_permission\x18\x04 \x01(\x0e\x32\x35.authzed.api.v1alpha1.PermissionUpdate.PermissionshipR\x11updatedPermission\"u\n\x0ePermissionship\x12\x1e\n\x1aPERMISSIONSHIP_UNSPECIFIED\x10\x00\x12 \n\x1cPERMISSIONSHIP_NO_PERMISSION\x10\x01\x12!\n\x1dPERMISSIONSHIP_HAS_PERMISSION\x10\x02\"\x9d\x01\n\x16WatchResourcesResponse\x12@\n\x07updates\x18\x01 \x03(\x0b\x32&.authzed.api.v1alpha1.PermissionUpdateR\x07updates\x12\x41\n\x0f\x63hanges_through\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x0e\x63hangesThrough2\xa9\x01\n\x15WatchResourcesService\x12\x8f\x01\n\x0eWatchResources\x12+.authzed.api.v1alpha1.WatchResourcesRequest\x1a,.authzed.api.v1alpha1.WatchResourcesResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1alpha1/lookupwatch:\x01*0\x01\x42T\n\x18\x63om.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1b\x06proto3'
-  ,
-  dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,validate_dot_validate__pb2.DESCRIPTOR,authzed_dot_api_dot_v1_dot_core__pb2.DESCRIPTOR,])
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n1authzed/api/v1alpha1/watchresources_service.proto\x12\x14\x61uthzed.api.v1alpha1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\x96\x03\n\x15WatchResourcesRequest\x12z\n\x14resource_object_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x12resourceObjectType\x12G\n\npermission\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\npermission\x12.\n\x13subject_object_type\x18\x03 \x01(\tR\x11subjectObjectType\x12:\n\x19optional_subject_relation\x18\x04 \x01(\tR\x17optionalSubjectRelation\x12L\n\x15optional_start_cursor\x18\x05 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x13optionalStartCursor\"\x84\x03\n\x10PermissionUpdate\x12:\n\x07subject\x18\x01 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceR\x07subject\x12;\n\x08resource\x18\x02 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x08resource\x12\x1a\n\x08relation\x18\x03 \x01(\tR\x08relation\x12\x64\n\x12updated_permission\x18\x04 \x01(\x0e\x32\x35.authzed.api.v1alpha1.PermissionUpdate.PermissionshipR\x11updatedPermission\"u\n\x0ePermissionship\x12\x1e\n\x1aPERMISSIONSHIP_UNSPECIFIED\x10\x00\x12 \n\x1cPERMISSIONSHIP_NO_PERMISSION\x10\x01\x12!\n\x1dPERMISSIONSHIP_HAS_PERMISSION\x10\x02\"\x9d\x01\n\x16WatchResourcesResponse\x12@\n\x07updates\x18\x01 \x03(\x0b\x32&.authzed.api.v1alpha1.PermissionUpdateR\x07updates\x12\x41\n\x0f\x63hanges_through\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x0e\x63hangesThrough2\xa9\x01\n\x15WatchResourcesService\x12\x8f\x01\n\x0eWatchResources\x12+.authzed.api.v1alpha1.WatchResourcesRequest\x1a,.authzed.api.v1alpha1.WatchResourcesResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1alpha1/lookupwatch:\x01*0\x01\x42T\n\x18\x63om.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1b\x06proto3')
 
 
 
-_PERMISSIONUPDATE_PERMISSIONSHIP = _descriptor.EnumDescriptor(
-  name='Permissionship',
-  full_name='authzed.api.v1alpha1.PermissionUpdate.Permissionship',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='PERMISSIONSHIP_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PERMISSIONSHIP_NO_PERMISSION', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PERMISSIONSHIP_HAS_PERMISSION', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=838,
-  serialized_end=955,
-)
-_sym_db.RegisterEnumDescriptor(_PERMISSIONUPDATE_PERMISSIONSHIP)
-
-
-_WATCHRESOURCESREQUEST = _descriptor.Descriptor(
-  name='WatchResourcesRequest',
-  full_name='authzed.api.v1alpha1.WatchResourcesRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='resource_object_type', full_name='authzed.api.v1alpha1.WatchResourcesRequest.resource_object_type', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='resourceObjectType', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='permission', full_name='authzed.api.v1alpha1.WatchResourcesRequest.permission', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372B$r\"(@2\036^[a-z][a-z0-9_]{2,62}[a-z0-9]$', json_name='permission', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='subject_object_type', full_name='authzed.api.v1alpha1.WatchResourcesRequest.subject_object_type', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='subjectObjectType', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='optional_subject_relation', full_name='authzed.api.v1alpha1.WatchResourcesRequest.optional_subject_relation', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='optionalSubjectRelation', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='optional_start_cursor', full_name='authzed.api.v1alpha1.WatchResourcesRequest.optional_start_cursor', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='optionalStartCursor', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=158,
-  serialized_end=564,
-)
-
-
-_PERMISSIONUPDATE = _descriptor.Descriptor(
-  name='PermissionUpdate',
-  full_name='authzed.api.v1alpha1.PermissionUpdate',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='subject', full_name='authzed.api.v1alpha1.PermissionUpdate.subject', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='subject', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='resource', full_name='authzed.api.v1alpha1.PermissionUpdate.resource', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='resource', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='relation', full_name='authzed.api.v1alpha1.PermissionUpdate.relation', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='relation', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='updated_permission', full_name='authzed.api.v1alpha1.PermissionUpdate.updated_permission', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='updatedPermission', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _PERMISSIONUPDATE_PERMISSIONSHIP,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=567,
-  serialized_end=955,
-)
-
-
-_WATCHRESOURCESRESPONSE = _descriptor.Descriptor(
-  name='WatchResourcesResponse',
-  full_name='authzed.api.v1alpha1.WatchResourcesResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='updates', full_name='authzed.api.v1alpha1.WatchResourcesResponse.updates', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='updates', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='changes_through', full_name='authzed.api.v1alpha1.WatchResourcesResponse.changes_through', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, json_name='changesThrough', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=958,
-  serialized_end=1115,
-)
-
-_WATCHRESOURCESREQUEST.fields_by_name['optional_start_cursor'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._ZEDTOKEN
-_PERMISSIONUPDATE.fields_by_name['subject'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._SUBJECTREFERENCE
-_PERMISSIONUPDATE.fields_by_name['resource'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._OBJECTREFERENCE
-_PERMISSIONUPDATE.fields_by_name['updated_permission'].enum_type = _PERMISSIONUPDATE_PERMISSIONSHIP
-_PERMISSIONUPDATE_PERMISSIONSHIP.containing_type = _PERMISSIONUPDATE
-_WATCHRESOURCESRESPONSE.fields_by_name['updates'].message_type = _PERMISSIONUPDATE
-_WATCHRESOURCESRESPONSE.fields_by_name['changes_through'].message_type = authzed_dot_api_dot_v1_dot_core__pb2._ZEDTOKEN
-DESCRIPTOR.message_types_by_name['WatchResourcesRequest'] = _WATCHRESOURCESREQUEST
-DESCRIPTOR.message_types_by_name['PermissionUpdate'] = _PERMISSIONUPDATE
-DESCRIPTOR.message_types_by_name['WatchResourcesResponse'] = _WATCHRESOURCESRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_WATCHRESOURCESREQUEST = DESCRIPTOR.message_types_by_name['WatchResourcesRequest']
+_PERMISSIONUPDATE = DESCRIPTOR.message_types_by_name['PermissionUpdate']
+_WATCHRESOURCESRESPONSE = DESCRIPTOR.message_types_by_name['WatchResourcesResponse']
+_PERMISSIONUPDATE_PERMISSIONSHIP = _PERMISSIONUPDATE.enum_types_by_name['Permissionship']
 WatchResourcesRequest = _reflection.GeneratedProtocolMessageType('WatchResourcesRequest', (_message.Message,), {
   'DESCRIPTOR' : _WATCHRESOURCESREQUEST,
   '__module__' : 'authzed.api.v1alpha1.watchresources_service_pb2'
@@ -244,34 +46,25 @@ WatchResourcesResponse = _reflection.GeneratedProtocolMessageType('WatchResource
   })
 _sym_db.RegisterMessage(WatchResourcesResponse)
 
+_WATCHRESOURCESSERVICE = DESCRIPTOR.services_by_name['WatchResourcesService']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-_WATCHRESOURCESREQUEST.fields_by_name['resource_object_type']._options = None
-_WATCHRESOURCESREQUEST.fields_by_name['permission']._options = None
-
-_WATCHRESOURCESSERVICE = _descriptor.ServiceDescriptor(
-  name='WatchResourcesService',
-  full_name='authzed.api.v1alpha1.WatchResourcesService',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=1118,
-  serialized_end=1287,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='WatchResources',
-    full_name='authzed.api.v1alpha1.WatchResourcesService.WatchResources',
-    index=0,
-    containing_service=None,
-    input_type=_WATCHRESOURCESREQUEST,
-    output_type=_WATCHRESOURCESRESPONSE,
-    serialized_options=b'\202\323\344\223\002\032\"\025/v1alpha1/lookupwatch:\001*',
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_WATCHRESOURCESSERVICE)
-
-DESCRIPTOR.services_by_name['WatchResourcesService'] = _WATCHRESOURCESSERVICE
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1'
+  _WATCHRESOURCESREQUEST.fields_by_name['resource_object_type']._options = None
+  _WATCHRESOURCESREQUEST.fields_by_name['resource_object_type']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _WATCHRESOURCESREQUEST.fields_by_name['permission']._options = None
+  _WATCHRESOURCESREQUEST.fields_by_name['permission']._serialized_options = b'\372B$r\"(@2\036^[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _WATCHRESOURCESSERVICE.methods_by_name['WatchResources']._options = None
+  _WATCHRESOURCESSERVICE.methods_by_name['WatchResources']._serialized_options = b'\202\323\344\223\002\032\"\025/v1alpha1/lookupwatch:\001*'
+  _WATCHRESOURCESREQUEST._serialized_start=158
+  _WATCHRESOURCESREQUEST._serialized_end=564
+  _PERMISSIONUPDATE._serialized_start=567
+  _PERMISSIONUPDATE._serialized_end=955
+  _PERMISSIONUPDATE_PERMISSIONSHIP._serialized_start=838
+  _PERMISSIONUPDATE_PERMISSIONSHIP._serialized_end=955
+  _WATCHRESOURCESRESPONSE._serialized_start=958
+  _WATCHRESOURCESRESPONSE._serialized_end=1115
+  _WATCHRESOURCESSERVICE._serialized_start=1118
+  _WATCHRESOURCESSERVICE._serialized_end=1287
 # @@protoc_insertion_point(module_scope)
