@@ -45,7 +45,7 @@ jobs:
           find . -name "*.py" | grep -v "_pb2" | xargs isort --check --diff
 
   pytest:
-    name: "Unit Tests"
+    name: "Unit and Integration Tests"
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
@@ -68,6 +68,9 @@ jobs:
           pip install poetry
           poetry env info
           poetry install
+      - uses: "authzed/action-spicedb@v1"
+        with:
+          version: "latest"
       - name: "Pytest"
         run: |
           source ~/.cache/virtualenv/authzedpy/bin/activate
