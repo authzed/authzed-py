@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 from validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19\x61uthzed/api/v1/core.proto\x12\x0e\x61uthzed.api.v1\x1a\x17validate/validate.proto\"\xe0\x01\n\x0cRelationship\x12\x45\n\x08resource\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12\x43\n\x08relation\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{2,62}[a-z0-9]$R\x08relation\x12\x44\n\x07subject\x18\x03 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\xae\x01\n\x10SubjectReference\x12\x41\n\x06object\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x06object\x12W\n\x11optional_relation\x18\x02 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$R\x10optionalRelation\"\xcd\x01\n\x0fObjectReference\x12i\n\x0bobject_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nobjectType\x12O\n\tobject_id\x18\x02 \x01(\tB2\xfa\x42/r-(\x80\x01\x32(^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*$R\x08objectId\")\n\x08ZedToken\x12\x1d\n\x05token\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02 \x01R\x05token\"\x9f\x02\n\x12RelationshipUpdate\x12T\n\toperation\x18\x01 \x01(\x0e\x32,.authzed.api.v1.RelationshipUpdate.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12J\n\x0crelationship\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v1.RelationshipB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0crelationship\"g\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x14\n\x10OPERATION_CREATE\x10\x01\x12\x13\n\x0fOPERATION_TOUCH\x10\x02\x12\x14\n\x10OPERATION_DELETE\x10\x03\"\xa8\x02\n\x1aPermissionRelationshipTree\x12I\n\x0cintermediate\x18\x01 \x01(\x0b\x32#.authzed.api.v1.AlgebraicSubjectSetH\x00R\x0cintermediate\x12\x36\n\x04leaf\x18\x02 \x01(\x0b\x32 .authzed.api.v1.DirectSubjectSetH\x00R\x04leaf\x12H\n\x0f\x65xpanded_object\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x0e\x65xpandedObject\x12+\n\x11\x65xpanded_relation\x18\x04 \x01(\tR\x10\x65xpandedRelationB\x10\n\ttree_type\x12\x03\xf8\x42\x01\"\x9c\x02\n\x13\x41lgebraicSubjectSet\x12K\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v1.AlgebraicSubjectSet.OperationR\toperation\x12\x46\n\x08\x63hildren\x18\x02 \x03(\x0b\x32*.authzed.api.v1.PermissionRelationshipTreeR\x08\x63hildren\"p\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x13\n\x0fOPERATION_UNION\x10\x01\x12\x1a\n\x16OPERATION_INTERSECTION\x10\x02\x12\x17\n\x13OPERATION_EXCLUSION\x10\x03\"P\n\x10\x44irectSubjectSet\x12<\n\x08subjects\x18\x01 \x03(\x0b\x32 .authzed.api.v1.SubjectReferenceR\x08subjectsBH\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19\x61uthzed/api/v1/core.proto\x12\x0e\x61uthzed.api.v1\x1a\x17validate/validate.proto\"\xe0\x01\n\x0cRelationship\x12\x45\n\x08resource\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x08resource\x12\x43\n\x08relation\x18\x02 \x01(\tB\'\xfa\x42$r\"(@2\x1e^[a-z][a-z0-9_]{1,62}[a-z0-9]$R\x08relation\x12\x44\n\x07subject\x18\x03 \x01(\x0b\x32 .authzed.api.v1.SubjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x07subject\"\xae\x01\n\x10SubjectReference\x12\x41\n\x06object\x18\x01 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x06object\x12W\n\x11optional_relation\x18\x02 \x01(\tB*\xfa\x42\'r%(@2!^([a-z][a-z0-9_]{1,62}[a-z0-9])?$R\x10optionalRelation\"\xcf\x01\n\x0fObjectReference\x12i\n\x0bobject_type\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$R\nobjectType\x12Q\n\tobject_id\x18\x02 \x01(\tB4\xfa\x42\x31r/(\x80\x01\x32*^(([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*)$R\x08objectId\")\n\x08ZedToken\x12\x1d\n\x05token\x18\x01 \x01(\tB\x07\xfa\x42\x04r\x02 \x01R\x05token\"\x9f\x02\n\x12RelationshipUpdate\x12T\n\toperation\x18\x01 \x01(\x0e\x32,.authzed.api.v1.RelationshipUpdate.OperationB\x08\xfa\x42\x05\x82\x01\x02\x10\x01R\toperation\x12J\n\x0crelationship\x18\x02 \x01(\x0b\x32\x1c.authzed.api.v1.RelationshipB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x0crelationship\"g\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x14\n\x10OPERATION_CREATE\x10\x01\x12\x13\n\x0fOPERATION_TOUCH\x10\x02\x12\x14\n\x10OPERATION_DELETE\x10\x03\"\xa8\x02\n\x1aPermissionRelationshipTree\x12I\n\x0cintermediate\x18\x01 \x01(\x0b\x32#.authzed.api.v1.AlgebraicSubjectSetH\x00R\x0cintermediate\x12\x36\n\x04leaf\x18\x02 \x01(\x0b\x32 .authzed.api.v1.DirectSubjectSetH\x00R\x04leaf\x12H\n\x0f\x65xpanded_object\x18\x03 \x01(\x0b\x32\x1f.authzed.api.v1.ObjectReferenceR\x0e\x65xpandedObject\x12+\n\x11\x65xpanded_relation\x18\x04 \x01(\tR\x10\x65xpandedRelationB\x10\n\ttree_type\x12\x03\xf8\x42\x01\"\x9c\x02\n\x13\x41lgebraicSubjectSet\x12K\n\toperation\x18\x01 \x01(\x0e\x32-.authzed.api.v1.AlgebraicSubjectSet.OperationR\toperation\x12\x46\n\x08\x63hildren\x18\x02 \x03(\x0b\x32*.authzed.api.v1.PermissionRelationshipTreeR\x08\x63hildren\"p\n\tOperation\x12\x19\n\x15OPERATION_UNSPECIFIED\x10\x00\x12\x13\n\x0fOPERATION_UNION\x10\x01\x12\x1a\n\x16OPERATION_INTERSECTION\x10\x02\x12\x17\n\x13OPERATION_EXCLUSION\x10\x03\"P\n\x10\x44irectSubjectSet\x12<\n\x08subjects\x18\x01 \x03(\x0b\x32 .authzed.api.v1.SubjectReferenceR\x08subjectsBH\n\x12\x63om.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3')
 
 
 
@@ -92,17 +92,17 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RELATIONSHIP.fields_by_name['resource']._options = None
   _RELATIONSHIP.fields_by_name['resource']._serialized_options = b'\372B\005\212\001\002\020\001'
   _RELATIONSHIP.fields_by_name['relation']._options = None
-  _RELATIONSHIP.fields_by_name['relation']._serialized_options = b'\372B$r\"(@2\036^[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _RELATIONSHIP.fields_by_name['relation']._serialized_options = b'\372B$r\"(@2\036^[a-z][a-z0-9_]{1,62}[a-z0-9]$'
   _RELATIONSHIP.fields_by_name['subject']._options = None
   _RELATIONSHIP.fields_by_name['subject']._serialized_options = b'\372B\005\212\001\002\020\001'
   _SUBJECTREFERENCE.fields_by_name['object']._options = None
   _SUBJECTREFERENCE.fields_by_name['object']._serialized_options = b'\372B\005\212\001\002\020\001'
   _SUBJECTREFERENCE.fields_by_name['optional_relation']._options = None
-  _SUBJECTREFERENCE.fields_by_name['optional_relation']._serialized_options = b'\372B\'r%(@2!^([a-z][a-z0-9_]{2,62}[a-z0-9])?$'
+  _SUBJECTREFERENCE.fields_by_name['optional_relation']._serialized_options = b'\372B\'r%(@2!^([a-z][a-z0-9_]{1,62}[a-z0-9])?$'
   _OBJECTREFERENCE.fields_by_name['object_type']._options = None
-  _OBJECTREFERENCE.fields_by_name['object_type']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,61}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _OBJECTREFERENCE.fields_by_name['object_type']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
   _OBJECTREFERENCE.fields_by_name['object_id']._options = None
-  _OBJECTREFERENCE.fields_by_name['object_id']._serialized_options = b'\372B/r-(\200\0012(^([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*$'
+  _OBJECTREFERENCE.fields_by_name['object_id']._serialized_options = b'\372B1r/(\200\0012*^(([a-zA-Z0-9_][a-zA-Z0-9/_-]{0,127})|\\*)$'
   _ZEDTOKEN.fields_by_name['token']._options = None
   _ZEDTOKEN.fields_by_name['token']._serialized_options = b'\372B\004r\002 \001'
   _RELATIONSHIPUPDATE.fields_by_name['operation']._options = None
@@ -116,19 +116,19 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SUBJECTREFERENCE._serialized_start=298
   _SUBJECTREFERENCE._serialized_end=472
   _OBJECTREFERENCE._serialized_start=475
-  _OBJECTREFERENCE._serialized_end=680
-  _ZEDTOKEN._serialized_start=682
-  _ZEDTOKEN._serialized_end=723
-  _RELATIONSHIPUPDATE._serialized_start=726
-  _RELATIONSHIPUPDATE._serialized_end=1013
-  _RELATIONSHIPUPDATE_OPERATION._serialized_start=910
-  _RELATIONSHIPUPDATE_OPERATION._serialized_end=1013
-  _PERMISSIONRELATIONSHIPTREE._serialized_start=1016
-  _PERMISSIONRELATIONSHIPTREE._serialized_end=1312
-  _ALGEBRAICSUBJECTSET._serialized_start=1315
-  _ALGEBRAICSUBJECTSET._serialized_end=1599
-  _ALGEBRAICSUBJECTSET_OPERATION._serialized_start=1487
-  _ALGEBRAICSUBJECTSET_OPERATION._serialized_end=1599
-  _DIRECTSUBJECTSET._serialized_start=1601
-  _DIRECTSUBJECTSET._serialized_end=1681
+  _OBJECTREFERENCE._serialized_end=682
+  _ZEDTOKEN._serialized_start=684
+  _ZEDTOKEN._serialized_end=725
+  _RELATIONSHIPUPDATE._serialized_start=728
+  _RELATIONSHIPUPDATE._serialized_end=1015
+  _RELATIONSHIPUPDATE_OPERATION._serialized_start=912
+  _RELATIONSHIPUPDATE_OPERATION._serialized_end=1015
+  _PERMISSIONRELATIONSHIPTREE._serialized_start=1018
+  _PERMISSIONRELATIONSHIPTREE._serialized_end=1314
+  _ALGEBRAICSUBJECTSET._serialized_start=1317
+  _ALGEBRAICSUBJECTSET._serialized_end=1601
+  _ALGEBRAICSUBJECTSET_OPERATION._serialized_start=1489
+  _ALGEBRAICSUBJECTSET_OPERATION._serialized_end=1601
+  _DIRECTSUBJECTSET._serialized_start=1603
+  _DIRECTSUBJECTSET._serialized_end=1683
 # @@protoc_insertion_point(module_scope)
