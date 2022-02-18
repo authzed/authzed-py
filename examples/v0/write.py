@@ -1,3 +1,4 @@
+""" v0 API is deprecated """
 from authzed.api.v0 import (
     Client,
     ObjectAndRelation,

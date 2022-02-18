@@ -1,3 +1,4 @@
+""" v0 API is deprecated """
 from authzed.api.v0 import CheckRequest, Client, ObjectAndRelation, User
 from grpcutil import bearer_token_credentials
 

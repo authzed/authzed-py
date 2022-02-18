@@ -1,3 +1,5 @@
+""" v0 API is deprecated """
+
 import asyncio
 
 import grpc
@@ -52,7 +54,7 @@ from authzed.api.v0.watch_service_pb2_grpc import WatchServiceStub
 
 class Client(ACLServiceStub, DeveloperServiceStub, NamespaceServiceStub, WatchServiceStub):
     """
-    v0 Authzed gRPC API client.
+    v0 API is deprecated.
     """
 
     def __init__(self, target, credentials, options=None, compression=None):

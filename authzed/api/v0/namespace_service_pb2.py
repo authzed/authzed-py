@@ -17,7 +17,7 @@ from authzed.api.v0 import core_pb2 as authzed_dot_api_dot_v0_dot_core__pb2
 from authzed.api.v0 import namespace_pb2 as authzed_dot_api_dot_v0_dot_namespace__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&authzed/api/v0/namespace_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\x1a\x1e\x61uthzed/api/v0/namespace.proto\"\xb4\x01\n\x11ReadConfigRequest\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\tnamespace\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision\"\xa3\x01\n\x12ReadConfigResponse\x12\x1c\n\tnamespace\x18\x01 \x01(\tR\tnamespace\x12;\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.authzed.api.v0.NamespaceDefinitionR\x06\x63onfig\x12\x32\n\x08revision\x18\x04 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"d\n\x12WriteConfigRequest\x12N\n\x07\x63onfigs\x18\x02 \x03(\x0b\x32#.authzed.api.v0.NamespaceDefinitionB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x07\x63onfigs\"I\n\x13WriteConfigResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision\"\x87\x01\n\x14\x44\x65leteConfigsRequest\x12o\n\nnamespaces\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x01\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$R\nnamespaces\"K\n\x15\x44\x65leteConfigsResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision2\xa3\x02\n\x10NamespaceService\x12U\n\nReadConfig\x12!.authzed.api.v0.ReadConfigRequest\x1a\".authzed.api.v0.ReadConfigResponse\"\x00\x12X\n\x0bWriteConfig\x12\".authzed.api.v0.WriteConfigRequest\x1a#.authzed.api.v0.WriteConfigResponse\"\x00\x12^\n\rDeleteConfigs\x12$.authzed.api.v0.DeleteConfigsRequest\x1a%.authzed.api.v0.DeleteConfigsResponse\"\x00\x42H\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&authzed/api/v0/namespace_service.proto\x12\x0e\x61uthzed.api.v0\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v0/core.proto\x1a\x1e\x61uthzed/api/v0/namespace.proto\"\xb8\x01\n\x11ReadConfigRequest\x12\x66\n\tnamespace\x18\x01 \x01(\tBH\xfa\x42\x45rC(\x80\x01\x32>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$R\tnamespace\x12\x37\n\x0b\x61t_revision\x18\x02 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\natRevision:\x02\x18\x01\"\xa7\x01\n\x12ReadConfigResponse\x12\x1c\n\tnamespace\x18\x01 \x01(\tR\tnamespace\x12;\n\x06\x63onfig\x18\x02 \x01(\x0b\x32#.authzed.api.v0.NamespaceDefinitionR\x06\x63onfig\x12\x32\n\x08revision\x18\x04 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision:\x02\x18\x01\"h\n\x12WriteConfigRequest\x12N\n\x07\x63onfigs\x18\x02 \x03(\x0b\x32#.authzed.api.v0.NamespaceDefinitionB\x0f\xfa\x42\x0c\x92\x01\t\x08\x01\"\x05\x8a\x01\x02\x10\x01R\x07\x63onfigs:\x02\x18\x01\"M\n\x13WriteConfigResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision:\x02\x18\x01\"\x8b\x01\n\x14\x44\x65leteConfigsRequest\x12o\n\nnamespaces\x18\x01 \x03(\tBO\xfa\x42L\x92\x01I\x08\x01\"ErC(\x80\x01\x32>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$R\nnamespaces:\x02\x18\x01\"O\n\x15\x44\x65leteConfigsResponse\x12\x32\n\x08revision\x18\x01 \x01(\x0b\x32\x16.authzed.api.v0.ZookieR\x08revision:\x02\x18\x01\x32\xb1\x02\n\x10NamespaceService\x12X\n\nReadConfig\x12!.authzed.api.v0.ReadConfigRequest\x1a\".authzed.api.v0.ReadConfigResponse\"\x03\x88\x02\x01\x12[\n\x0bWriteConfig\x12\".authzed.api.v0.WriteConfigRequest\x1a#.authzed.api.v0.WriteConfigResponse\"\x03\x88\x02\x01\x12\x61\n\rDeleteConfigs\x12$.authzed.api.v0.DeleteConfigsRequest\x1a%.authzed.api.v0.DeleteConfigsResponse\"\x03\x88\x02\x01\x1a\x03\x88\x02\x01\x42K\n\x12\x63om.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0\xb8\x01\x01\x62\x06proto3')
 
 
 
@@ -73,25 +73,45 @@ _NAMESPACESERVICE = DESCRIPTOR.services_by_name['NamespaceService']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0'
+  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0\270\001\001'
   _READCONFIGREQUEST.fields_by_name['namespace']._options = None
-  _READCONFIGREQUEST.fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _READCONFIGREQUEST.fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _READCONFIGREQUEST._options = None
+  _READCONFIGREQUEST._serialized_options = b'\030\001'
+  _READCONFIGRESPONSE._options = None
+  _READCONFIGRESPONSE._serialized_options = b'\030\001'
   _WRITECONFIGREQUEST.fields_by_name['configs']._options = None
   _WRITECONFIGREQUEST.fields_by_name['configs']._serialized_options = b'\372B\014\222\001\t\010\001\"\005\212\001\002\020\001'
+  _WRITECONFIGREQUEST._options = None
+  _WRITECONFIGREQUEST._serialized_options = b'\030\001'
+  _WRITECONFIGRESPONSE._options = None
+  _WRITECONFIGRESPONSE._serialized_options = b'\030\001'
   _DELETECONFIGSREQUEST.fields_by_name['namespaces']._options = None
-  _DELETECONFIGSREQUEST.fields_by_name['namespaces']._serialized_options = b'\372BL\222\001I\010\001\"ErC(\200\0012>^([a-z][a-z0-9_]{2,62}[a-z0-9]/)?[a-z][a-z0-9_]{2,62}[a-z0-9]$'
+  _DELETECONFIGSREQUEST.fields_by_name['namespaces']._serialized_options = b'\372BL\222\001I\010\001\"ErC(\200\0012>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _DELETECONFIGSREQUEST._options = None
+  _DELETECONFIGSREQUEST._serialized_options = b'\030\001'
+  _DELETECONFIGSRESPONSE._options = None
+  _DELETECONFIGSRESPONSE._serialized_options = b'\030\001'
+  _NAMESPACESERVICE._options = None
+  _NAMESPACESERVICE._serialized_options = b'\210\002\001'
+  _NAMESPACESERVICE.methods_by_name['ReadConfig']._options = None
+  _NAMESPACESERVICE.methods_by_name['ReadConfig']._serialized_options = b'\210\002\001'
+  _NAMESPACESERVICE.methods_by_name['WriteConfig']._options = None
+  _NAMESPACESERVICE.methods_by_name['WriteConfig']._serialized_options = b'\210\002\001'
+  _NAMESPACESERVICE.methods_by_name['DeleteConfigs']._options = None
+  _NAMESPACESERVICE.methods_by_name['DeleteConfigs']._serialized_options = b'\210\002\001'
   _READCONFIGREQUEST._serialized_start=143
-  _READCONFIGREQUEST._serialized_end=323
-  _READCONFIGRESPONSE._serialized_start=326
-  _READCONFIGRESPONSE._serialized_end=489
-  _WRITECONFIGREQUEST._serialized_start=491
-  _WRITECONFIGREQUEST._serialized_end=591
-  _WRITECONFIGRESPONSE._serialized_start=593
-  _WRITECONFIGRESPONSE._serialized_end=666
-  _DELETECONFIGSREQUEST._serialized_start=669
-  _DELETECONFIGSREQUEST._serialized_end=804
-  _DELETECONFIGSRESPONSE._serialized_start=806
-  _DELETECONFIGSRESPONSE._serialized_end=881
-  _NAMESPACESERVICE._serialized_start=884
-  _NAMESPACESERVICE._serialized_end=1175
+  _READCONFIGREQUEST._serialized_end=327
+  _READCONFIGRESPONSE._serialized_start=330
+  _READCONFIGRESPONSE._serialized_end=497
+  _WRITECONFIGREQUEST._serialized_start=499
+  _WRITECONFIGREQUEST._serialized_end=603
+  _WRITECONFIGRESPONSE._serialized_start=605
+  _WRITECONFIGRESPONSE._serialized_end=682
+  _DELETECONFIGSREQUEST._serialized_start=685
+  _DELETECONFIGSREQUEST._serialized_end=824
+  _DELETECONFIGSRESPONSE._serialized_start=826
+  _DELETECONFIGSRESPONSE._serialized_end=905
+  _NAMESPACESERVICE._serialized_start=908
+  _NAMESPACESERVICE._serialized_end=1213
 # @@protoc_insertion_point(module_scope)
