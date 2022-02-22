@@ -58,11 +58,12 @@ class Client(ACLServiceStub, DeveloperServiceStub, NamespaceServiceStub, WatchSe
     """
 
     def __init__(self, target, credentials, options=None, compression=None):
-        channelfn = (
-            grpc.aio.secure_channel
-            if asyncio.get_event_loop().is_running()
-            else grpc.secure_channel
-        )
+        try:
+            asyncio.get_running_loop()
+            channelfn = grpc.aio.secure_channel
+        except RuntimeError:
+            channelfn = grpc.secure_channel
+
         channel = channelfn(target, credentials, options, compression)
         ACLServiceStub.__init__(self, channel)
         DeveloperServiceStub.__init__(self, channel)

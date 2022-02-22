@@ -17,7 +17,7 @@ U = TypeVar("U")
 
 
 def _aio_run(coro: Awaitable[U]) -> U:
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     return loop.run_until_complete(coro)
 
 

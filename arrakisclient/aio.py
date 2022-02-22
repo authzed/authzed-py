@@ -310,7 +310,7 @@ class AsyncArrakisClient(object):
         and return a filtered iterable which contains only the objects for which the user (as
         computed by the user_func argument) has the specified relation."""
 
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
 
         def request_func(item: T) -> "TupleType[T, asyncio.Task[CheckResponse]]":
             if use_content_change_check:
