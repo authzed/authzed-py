@@ -8,7 +8,7 @@ packages = [
   {include = "grpcutil"},
 ]
 readme = "README.md"
-version = "0.4.2"
+version = "0.5.0"
 
 [tool.poetry.dependencies]
 async_generator = "^1.10"
