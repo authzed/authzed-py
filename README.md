@@ -16,8 +16,6 @@ Developers create a schema that models their permissions requirements and use a 
 Supported client API versions:
 - [v1](https://docs.authzed.com/reference/api#authzedapiv1)
 - [v1alpha1](https://docs.authzed.com/reference/api#authzedapiv1alpha1)
-- "v0" - deprecated
-- "arrakisclient" - a deprecated ORM for v0
 
 You can find more info on each API on the [Authzed API reference documentation].
 Additionally, Protobuf API documentation can be found on the [Buf Registry Authzed API repository].
