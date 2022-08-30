@@ -6,8 +6,8 @@ from authzed.api.v1 import permission_service_pb2 as authzed_dot_api_dot_v1_dot_
 
 
 class PermissionsServiceStub(object):
-    """PermissionsService is used to perform permissions and relationship
-    operations.
+    """PermissionsService implements a set of RPCs that perform operations on
+    relationships and permissions.
     """
 
     def __init__(self, channel):
@@ -46,11 +46,16 @@ class PermissionsServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesResponse.FromString,
                 )
+        self.LookupSubjects = channel.unary_stream(
+                '/authzed.api.v1.PermissionsService/LookupSubjects',
+                request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.FromString,
+                )
 
 
 class PermissionsServiceServicer(object):
-    """PermissionsService is used to perform permissions and relationship
-    operations.
+    """PermissionsService implements a set of RPCs that perform operations on
+    relationships and permissions.
     """
 
     def ReadRelationships(self, request, context):
@@ -62,42 +67,52 @@ class PermissionsServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def WriteRelationships(self, request, context):
-        """WriteRelationships writes and/or deletes a set of specified relationships,
-        with an optional set of precondition relationships that must exist before
-        the operation can commit.
+        """WriteRelationships atomically writes and/or deletes a set of specified
+        relationships. An optional set of preconditions can be provided that must
+        be satisfied for the operation to commit.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteRelationships(self, request, context):
-        """DeleteRelationships deletes relationships matching one or more filters, in
-        bulk.
+        """DeleteRelationships atomically bulk deletes all relationships matching the
+        provided filter. If no relationships match, none will be deleted and the
+        operation will succeed. An optional set of preconditions can be provided that must
+        be satisfied for the operation to commit.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CheckPermission(self, request, context):
-        """CheckPermission checks whether a subject has a particular permission or is
-        a member of a particular relation, on a given resource.
+        """CheckPermission determines for a given resource whether a subject computes
+        to having a permission or is a direct member of a particular relation.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ExpandPermissionTree(self, request, context):
-        """ExpandPermissionTree expands the relationships reachable from a particular
-        permission or relation of a given resource.
+        """ExpandPermissionTree reveals the graph structure for a resource's
+        permission or relation. This RPC does not recurse infinitely deep and may
+        require multiple calls to fully unnest a deeply nested graph.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def LookupResources(self, request, context):
-        """LookupResources returns the IDs of all resources on which the specified
-        subject has permission or on which the specified subject is a member of the
-        relation.
+        """LookupResources returns all the resources of a given type that a subject
+        can access whether via a computed permission or relation membership.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LookupSubjects(self, request, context):
+        """LookupSubjects returns all the subjects of a given type that
+        have access whether via a computed permission or relation membership.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -136,6 +151,11 @@ def add_PermissionsServiceServicer_to_server(servicer, server):
                     request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesResponse.SerializeToString,
             ),
+            'LookupSubjects': grpc.unary_stream_rpc_method_handler(
+                    servicer.LookupSubjects,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.v1.PermissionsService', rpc_method_handlers)
@@ -144,8 +164,8 @@ def add_PermissionsServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class PermissionsService(object):
-    """PermissionsService is used to perform permissions and relationship
-    operations.
+    """PermissionsService implements a set of RPCs that perform operations on
+    relationships and permissions.
     """
 
     @staticmethod
@@ -247,5 +267,22 @@ class PermissionsService(object):
         return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/LookupResources',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def LookupSubjects(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/LookupSubjects',
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

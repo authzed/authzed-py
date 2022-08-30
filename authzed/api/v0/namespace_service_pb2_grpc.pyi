@@ -3,42 +3,42 @@
 isort:skip_file
 """
 import abc
+import authzed.api.v0.namespace_service_pb2
 import grpc
 
-from .namespace_service_pb2 import *
 class NamespaceServiceStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    ReadConfig:grpc.UnaryUnaryMultiCallable[
-        global___ReadConfigRequest,
-        global___ReadConfigResponse] = ...
+    ReadConfig: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.namespace_service_pb2.ReadConfigRequest,
+        authzed.api.v0.namespace_service_pb2.ReadConfigResponse]
 
-    WriteConfig:grpc.UnaryUnaryMultiCallable[
-        global___WriteConfigRequest,
-        global___WriteConfigResponse] = ...
+    WriteConfig: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.namespace_service_pb2.WriteConfigRequest,
+        authzed.api.v0.namespace_service_pb2.WriteConfigResponse]
 
-    DeleteConfigs:grpc.UnaryUnaryMultiCallable[
-        global___DeleteConfigsRequest,
-        global___DeleteConfigsResponse] = ...
+    DeleteConfigs: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.namespace_service_pb2.DeleteConfigsRequest,
+        authzed.api.v0.namespace_service_pb2.DeleteConfigsResponse]
 
 
 class NamespaceServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def ReadConfig(self,
-        request: global___ReadConfigRequest,
+        request: authzed.api.v0.namespace_service_pb2.ReadConfigRequest,
         context: grpc.ServicerContext,
-    ) -> global___ReadConfigResponse: ...
+    ) -> authzed.api.v0.namespace_service_pb2.ReadConfigResponse: ...
 
     @abc.abstractmethod
     def WriteConfig(self,
-        request: global___WriteConfigRequest,
+        request: authzed.api.v0.namespace_service_pb2.WriteConfigRequest,
         context: grpc.ServicerContext,
-    ) -> global___WriteConfigResponse: ...
+    ) -> authzed.api.v0.namespace_service_pb2.WriteConfigResponse: ...
 
     @abc.abstractmethod
     def DeleteConfigs(self,
-        request: global___DeleteConfigsRequest,
+        request: authzed.api.v0.namespace_service_pb2.DeleteConfigsRequest,
         context: grpc.ServicerContext,
-    ) -> global___DeleteConfigsResponse: ...
+    ) -> authzed.api.v0.namespace_service_pb2.DeleteConfigsResponse: ...
 
 
 def add_NamespaceServiceServicer_to_server(servicer: NamespaceServiceServicer, server: grpc.Server) -> None: ...

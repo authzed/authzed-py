@@ -3,23 +3,23 @@
 isort:skip_file
 """
 import abc
+import authzed.api.v1.watch_service_pb2
 import grpc
 import typing
 
-from .watch_service_pb2 import *
 class WatchServiceStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    Watch:grpc.UnaryStreamMultiCallable[
-        global___WatchRequest,
-        global___WatchResponse] = ...
+    Watch: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1.watch_service_pb2.WatchRequest,
+        authzed.api.v1.watch_service_pb2.WatchResponse]
 
 
 class WatchServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def Watch(self,
-        request: global___WatchRequest,
+        request: authzed.api.v1.watch_service_pb2.WatchRequest,
         context: grpc.ServicerContext,
-    ) -> typing.Iterator[global___WatchResponse]: ...
+    ) -> typing.Iterator[authzed.api.v1.watch_service_pb2.WatchResponse]: ...
 
 
 def add_WatchServiceServicer_to_server(servicer: WatchServiceServicer, server: grpc.Server) -> None: ...

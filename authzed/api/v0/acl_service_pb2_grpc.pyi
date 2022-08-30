@@ -3,72 +3,72 @@
 isort:skip_file
 """
 import abc
+import authzed.api.v0.acl_service_pb2
 import grpc
 
-from .acl_service_pb2 import *
 class ACLServiceStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    Read:grpc.UnaryUnaryMultiCallable[
-        global___ReadRequest,
-        global___ReadResponse] = ...
+    Read: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.acl_service_pb2.ReadRequest,
+        authzed.api.v0.acl_service_pb2.ReadResponse]
 
-    Write:grpc.UnaryUnaryMultiCallable[
-        global___WriteRequest,
-        global___WriteResponse] = ...
+    Write: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.acl_service_pb2.WriteRequest,
+        authzed.api.v0.acl_service_pb2.WriteResponse]
 
-    Check:grpc.UnaryUnaryMultiCallable[
-        global___CheckRequest,
-        global___CheckResponse] = ...
+    Check: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.acl_service_pb2.CheckRequest,
+        authzed.api.v0.acl_service_pb2.CheckResponse]
 
-    ContentChangeCheck:grpc.UnaryUnaryMultiCallable[
-        global___ContentChangeCheckRequest,
-        global___CheckResponse] = ...
+    ContentChangeCheck: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.acl_service_pb2.ContentChangeCheckRequest,
+        authzed.api.v0.acl_service_pb2.CheckResponse]
 
-    Expand:grpc.UnaryUnaryMultiCallable[
-        global___ExpandRequest,
-        global___ExpandResponse] = ...
+    Expand: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.acl_service_pb2.ExpandRequest,
+        authzed.api.v0.acl_service_pb2.ExpandResponse]
 
-    Lookup:grpc.UnaryUnaryMultiCallable[
-        global___LookupRequest,
-        global___LookupResponse] = ...
+    Lookup: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.acl_service_pb2.LookupRequest,
+        authzed.api.v0.acl_service_pb2.LookupResponse]
 
 
 class ACLServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def Read(self,
-        request: global___ReadRequest,
+        request: authzed.api.v0.acl_service_pb2.ReadRequest,
         context: grpc.ServicerContext,
-    ) -> global___ReadResponse: ...
+    ) -> authzed.api.v0.acl_service_pb2.ReadResponse: ...
 
     @abc.abstractmethod
     def Write(self,
-        request: global___WriteRequest,
+        request: authzed.api.v0.acl_service_pb2.WriteRequest,
         context: grpc.ServicerContext,
-    ) -> global___WriteResponse: ...
+    ) -> authzed.api.v0.acl_service_pb2.WriteResponse: ...
 
     @abc.abstractmethod
     def Check(self,
-        request: global___CheckRequest,
+        request: authzed.api.v0.acl_service_pb2.CheckRequest,
         context: grpc.ServicerContext,
-    ) -> global___CheckResponse: ...
+    ) -> authzed.api.v0.acl_service_pb2.CheckResponse: ...
 
     @abc.abstractmethod
     def ContentChangeCheck(self,
-        request: global___ContentChangeCheckRequest,
+        request: authzed.api.v0.acl_service_pb2.ContentChangeCheckRequest,
         context: grpc.ServicerContext,
-    ) -> global___CheckResponse: ...
+    ) -> authzed.api.v0.acl_service_pb2.CheckResponse: ...
 
     @abc.abstractmethod
     def Expand(self,
-        request: global___ExpandRequest,
+        request: authzed.api.v0.acl_service_pb2.ExpandRequest,
         context: grpc.ServicerContext,
-    ) -> global___ExpandResponse: ...
+    ) -> authzed.api.v0.acl_service_pb2.ExpandResponse: ...
 
     @abc.abstractmethod
     def Lookup(self,
-        request: global___LookupRequest,
+        request: authzed.api.v0.acl_service_pb2.LookupRequest,
         context: grpc.ServicerContext,
-    ) -> global___LookupResponse: ...
+    ) -> authzed.api.v0.acl_service_pb2.LookupResponse: ...
 
 
 def add_ACLServiceServicer_to_server(servicer: ACLServiceServicer, server: grpc.Server) -> None: ...

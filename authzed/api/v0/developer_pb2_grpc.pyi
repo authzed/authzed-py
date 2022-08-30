@@ -3,72 +3,72 @@
 isort:skip_file
 """
 import abc
+import authzed.api.v0.developer_pb2
 import grpc
 
-from .developer_pb2 import *
 class DeveloperServiceStub:
     def __init__(self, channel: grpc.Channel) -> None: ...
-    EditCheck:grpc.UnaryUnaryMultiCallable[
-        global___EditCheckRequest,
-        global___EditCheckResponse] = ...
+    EditCheck: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.EditCheckRequest,
+        authzed.api.v0.developer_pb2.EditCheckResponse]
 
-    Validate:grpc.UnaryUnaryMultiCallable[
-        global___ValidateRequest,
-        global___ValidateResponse] = ...
+    Validate: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.ValidateRequest,
+        authzed.api.v0.developer_pb2.ValidateResponse]
 
-    Share:grpc.UnaryUnaryMultiCallable[
-        global___ShareRequest,
-        global___ShareResponse] = ...
+    Share: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.ShareRequest,
+        authzed.api.v0.developer_pb2.ShareResponse]
 
-    LookupShared:grpc.UnaryUnaryMultiCallable[
-        global___LookupShareRequest,
-        global___LookupShareResponse] = ...
+    LookupShared: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.LookupShareRequest,
+        authzed.api.v0.developer_pb2.LookupShareResponse]
 
-    UpgradeSchema:grpc.UnaryUnaryMultiCallable[
-        global___UpgradeSchemaRequest,
-        global___UpgradeSchemaResponse] = ...
+    UpgradeSchema: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.UpgradeSchemaRequest,
+        authzed.api.v0.developer_pb2.UpgradeSchemaResponse]
 
-    FormatSchema:grpc.UnaryUnaryMultiCallable[
-        global___FormatSchemaRequest,
-        global___FormatSchemaResponse] = ...
+    FormatSchema: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.FormatSchemaRequest,
+        authzed.api.v0.developer_pb2.FormatSchemaResponse]
 
 
 class DeveloperServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def EditCheck(self,
-        request: global___EditCheckRequest,
+        request: authzed.api.v0.developer_pb2.EditCheckRequest,
         context: grpc.ServicerContext,
-    ) -> global___EditCheckResponse: ...
+    ) -> authzed.api.v0.developer_pb2.EditCheckResponse: ...
 
     @abc.abstractmethod
     def Validate(self,
-        request: global___ValidateRequest,
+        request: authzed.api.v0.developer_pb2.ValidateRequest,
         context: grpc.ServicerContext,
-    ) -> global___ValidateResponse: ...
+    ) -> authzed.api.v0.developer_pb2.ValidateResponse: ...
 
     @abc.abstractmethod
     def Share(self,
-        request: global___ShareRequest,
+        request: authzed.api.v0.developer_pb2.ShareRequest,
         context: grpc.ServicerContext,
-    ) -> global___ShareResponse: ...
+    ) -> authzed.api.v0.developer_pb2.ShareResponse: ...
 
     @abc.abstractmethod
     def LookupShared(self,
-        request: global___LookupShareRequest,
+        request: authzed.api.v0.developer_pb2.LookupShareRequest,
         context: grpc.ServicerContext,
-    ) -> global___LookupShareResponse: ...
+    ) -> authzed.api.v0.developer_pb2.LookupShareResponse: ...
 
     @abc.abstractmethod
     def UpgradeSchema(self,
-        request: global___UpgradeSchemaRequest,
+        request: authzed.api.v0.developer_pb2.UpgradeSchemaRequest,
         context: grpc.ServicerContext,
-    ) -> global___UpgradeSchemaResponse: ...
+    ) -> authzed.api.v0.developer_pb2.UpgradeSchemaResponse: ...
 
     @abc.abstractmethod
     def FormatSchema(self,
-        request: global___FormatSchemaRequest,
+        request: authzed.api.v0.developer_pb2.FormatSchemaRequest,
         context: grpc.ServicerContext,
-    ) -> global___FormatSchemaResponse: ...
+    ) -> authzed.api.v0.developer_pb2.FormatSchemaResponse: ...
 
 
 def add_DeveloperServiceServicer_to_server(servicer: DeveloperServiceServicer, server: grpc.Server) -> None: ...

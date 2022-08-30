@@ -11,90 +11,116 @@ import google.protobuf.message
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class WatchResourcesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """WatchResourcesRequest starts a watch for specific permission updates
+    for the given resource and subject types.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     RESOURCE_OBJECT_TYPE_FIELD_NUMBER: builtins.int
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_OBJECT_TYPE_FIELD_NUMBER: builtins.int
     OPTIONAL_SUBJECT_RELATION_FIELD_NUMBER: builtins.int
     OPTIONAL_START_CURSOR_FIELD_NUMBER: builtins.int
-    resource_object_type: typing.Text = ...
-    permission: typing.Text = ...
-    subject_object_type: typing.Text = ...
-    optional_subject_relation: typing.Text = ...
+    resource_object_type: typing.Text
+    """resource_object_type is the type of resource object for which we will
+    watch for changes.
+    """
+
+    permission: typing.Text
+    """permission is the name of the permission or relation for which we will
+    watch for changes.
+    """
+
+    subject_object_type: typing.Text
+    """subject_object_type is the type of the subject resource for which we will
+    watch for changes.
+    """
+
+    optional_subject_relation: typing.Text
+    """optional_subject_relation allows you to specify a group of subjects to watch
+    for a given subject type.
+    """
 
     @property
     def optional_start_cursor(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
     def __init__(self,
         *,
-        resource_object_type : typing.Text = ...,
-        permission : typing.Text = ...,
-        subject_object_type : typing.Text = ...,
-        optional_subject_relation : typing.Text = ...,
-        optional_start_cursor : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
+        resource_object_type: typing.Text = ...,
+        permission: typing.Text = ...,
+        subject_object_type: typing.Text = ...,
+        optional_subject_relation: typing.Text = ...,
+        optional_start_cursor: typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"optional_start_cursor",b"optional_start_cursor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"optional_start_cursor",b"optional_start_cursor",u"optional_subject_relation",b"optional_subject_relation",u"permission",b"permission",u"resource_object_type",b"resource_object_type",u"subject_object_type",b"subject_object_type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["optional_start_cursor",b"optional_start_cursor"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_start_cursor",b"optional_start_cursor","optional_subject_relation",b"optional_subject_relation","permission",b"permission","resource_object_type",b"resource_object_type","subject_object_type",b"subject_object_type"]) -> None: ...
 global___WatchResourcesRequest = WatchResourcesRequest
 
 class PermissionUpdate(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Permissionship(metaclass=_Permissionship):
-        V = typing.NewType('V', builtins.int)
+    """PermissionUpdate represents a single permission update for a specific
+    subject's permissions.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    class _Permissionship:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PermissionUpdate._Permissionship.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        PERMISSIONSHIP_UNSPECIFIED: PermissionUpdate._Permissionship.ValueType  # 0
+        PERMISSIONSHIP_NO_PERMISSION: PermissionUpdate._Permissionship.ValueType  # 1
+        PERMISSIONSHIP_HAS_PERMISSION: PermissionUpdate._Permissionship.ValueType  # 2
+    class Permissionship(_Permissionship, metaclass=_PermissionshipEnumTypeWrapper):
+        """todo: work this into the v1 core API at some point since it's used
+        across services.
+        """
+        pass
 
-    PERMISSIONSHIP_UNSPECIFIED = PermissionUpdate.Permissionship.V(0)
-    PERMISSIONSHIP_NO_PERMISSION = PermissionUpdate.Permissionship.V(1)
-    PERMISSIONSHIP_HAS_PERMISSION = PermissionUpdate.Permissionship.V(2)
-
-    class _Permissionship(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Permissionship.V], builtins.type):  # type: ignore
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        PERMISSIONSHIP_UNSPECIFIED = PermissionUpdate.Permissionship.V(0)
-        PERMISSIONSHIP_NO_PERMISSION = PermissionUpdate.Permissionship.V(1)
-        PERMISSIONSHIP_HAS_PERMISSION = PermissionUpdate.Permissionship.V(2)
+    PERMISSIONSHIP_UNSPECIFIED: PermissionUpdate.Permissionship.ValueType  # 0
+    PERMISSIONSHIP_NO_PERMISSION: PermissionUpdate.Permissionship.ValueType  # 1
+    PERMISSIONSHIP_HAS_PERMISSION: PermissionUpdate.Permissionship.ValueType  # 2
 
     SUBJECT_FIELD_NUMBER: builtins.int
     RESOURCE_FIELD_NUMBER: builtins.int
     RELATION_FIELD_NUMBER: builtins.int
     UPDATED_PERMISSION_FIELD_NUMBER: builtins.int
-    relation: typing.Text = ...
-    updated_permission: global___PermissionUpdate.Permissionship.V = ...
-
     @property
-    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference: ...
-
+    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference:
+        """subject defines the subject resource whose permissions have changed."""
+        pass
     @property
-    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference: ...
-
+    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference:
+        """resource defines the specific object in the system."""
+        pass
+    relation: typing.Text
+    updated_permission: global___PermissionUpdate.Permissionship.ValueType
     def __init__(self,
         *,
-        subject : typing.Optional[authzed.api.v1.core_pb2.SubjectReference] = ...,
-        resource : typing.Optional[authzed.api.v1.core_pb2.ObjectReference] = ...,
-        relation : typing.Text = ...,
-        updated_permission : global___PermissionUpdate.Permissionship.V = ...,
+        subject: typing.Optional[authzed.api.v1.core_pb2.SubjectReference] = ...,
+        resource: typing.Optional[authzed.api.v1.core_pb2.ObjectReference] = ...,
+        relation: typing.Text = ...,
+        updated_permission: global___PermissionUpdate.Permissionship.ValueType = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"resource",b"resource",u"subject",b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"relation",b"relation",u"resource",b"resource",u"subject",b"subject",u"updated_permission",b"updated_permission"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["resource",b"resource","subject",b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["relation",b"relation","resource",b"resource","subject",b"subject","updated_permission",b"updated_permission"]) -> None: ...
 global___PermissionUpdate = PermissionUpdate
 
 class WatchResourcesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """WatchResourcesResponse enumerates the list of permission updates that have
+    occurred as a result of one or more relationship updates.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     UPDATES_FIELD_NUMBER: builtins.int
     CHANGES_THROUGH_FIELD_NUMBER: builtins.int
-
     @property
     def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PermissionUpdate]: ...
-
     @property
     def changes_through(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
     def __init__(self,
         *,
-        updates : typing.Optional[typing.Iterable[global___PermissionUpdate]] = ...,
-        changes_through : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
+        updates: typing.Optional[typing.Iterable[global___PermissionUpdate]] = ...,
+        changes_through: typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"changes_through",b"changes_through"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"changes_through",b"changes_through",u"updates",b"updates"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["changes_through",b"changes_through"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["changes_through",b"changes_through","updates",b"updates"]) -> None: ...
 global___WatchResourcesResponse = WatchResourcesResponse

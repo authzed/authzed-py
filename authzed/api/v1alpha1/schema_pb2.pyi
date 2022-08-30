@@ -9,67 +9,96 @@ import google.protobuf.message
 import typing
 import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class ReadSchemaRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """ReadSchemaRequest is the required data to read Object Definitions from
+    a Schema.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     OBJECT_DEFINITIONS_NAMES_FIELD_NUMBER: builtins.int
-
     @property
-    def object_definitions_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
+    def object_definitions_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """The list of names of the Object Definitions that are being requested.
 
+        These names must be fully qualified with their namespace (e.g.
+        myblog/post).
+        """
+        pass
     def __init__(self,
         *,
-        object_definitions_names : typing.Optional[typing.Iterable[typing.Text]] = ...,
+        object_definitions_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"object_definitions_names",b"object_definitions_names"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["object_definitions_names",b"object_definitions_names"]) -> None: ...
 global___ReadSchemaRequest = ReadSchemaRequest
 
 class ReadSchemaResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """ReadSchemaResponse is the resulting data after having read the Object
+    Definitions from a Schema.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     OBJECT_DEFINITIONS_FIELD_NUMBER: builtins.int
     COMPUTED_DEFINITIONS_REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def object_definitions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
-    computed_definitions_revision: typing.Text = ...
+    def object_definitions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """The Object Definitions that were requested."""
+        pass
+    computed_definitions_revision: typing.Text
+    """The computed revision of the returned object definitions."""
 
     def __init__(self,
         *,
-        object_definitions : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        computed_definitions_revision : typing.Text = ...,
+        object_definitions: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        computed_definitions_revision: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"computed_definitions_revision",b"computed_definitions_revision",u"object_definitions",b"object_definitions"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["computed_definitions_revision",b"computed_definitions_revision","object_definitions",b"object_definitions"]) -> None: ...
 global___ReadSchemaResponse = ReadSchemaResponse
 
 class WriteSchemaRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """WriteSchemaRequest is the required data used to "upsert" the Schema of a
+    Permissions System.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     SCHEMA_FIELD_NUMBER: builtins.int
     OPTIONAL_DEFINITIONS_REVISION_PRECONDITION_FIELD_NUMBER: builtins.int
-    schema: typing.Text = ...
-    optional_definitions_revision_precondition: typing.Text = ...
+    schema: typing.Text
+    """The Schema containing one or more Object Definitions that will be written
+    to the Permissions System.
+    256KiB
+    """
+
+    optional_definitions_revision_precondition: typing.Text
+    """If specified, the existing revision of object definitions in the schema that must be present for
+    the write to succeed. If the revision specified differs (i.e. the underlying schema has changed),
+    the write call will fail with a FAILED_PRECONDITION error.
+    """
 
     def __init__(self,
         *,
-        schema : typing.Text = ...,
-        optional_definitions_revision_precondition : typing.Text = ...,
+        schema: typing.Text = ...,
+        optional_definitions_revision_precondition: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"optional_definitions_revision_precondition",b"optional_definitions_revision_precondition",u"schema",b"schema"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_definitions_revision_precondition",b"optional_definitions_revision_precondition","schema",b"schema"]) -> None: ...
 global___WriteSchemaRequest = WriteSchemaRequest
 
 class WriteSchemaResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """WriteSchemaResponse is the resulting data after having written a Schema to
+    a Permissions System.
+    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
     OBJECT_DEFINITIONS_NAMES_FIELD_NUMBER: builtins.int
     COMPUTED_DEFINITIONS_REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def object_definitions_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
-    computed_definitions_revision: typing.Text = ...
+    def object_definitions_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]:
+        """The names of the Object Definitions that were written."""
+        pass
+    computed_definitions_revision: typing.Text
+    """The computed revision of the written object definitions."""
 
     def __init__(self,
         *,
-        object_definitions_names : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        computed_definitions_revision : typing.Text = ...,
+        object_definitions_names: typing.Optional[typing.Iterable[typing.Text]] = ...,
+        computed_definitions_revision: typing.Text = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"computed_definitions_revision",b"computed_definitions_revision",u"object_definitions_names",b"object_definitions_names"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["computed_definitions_revision",b"computed_definitions_revision","object_definitions_names",b"object_definitions_names"]) -> None: ...
 global___WriteSchemaResponse = WriteSchemaResponse
