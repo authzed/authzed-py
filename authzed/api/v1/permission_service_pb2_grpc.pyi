@@ -33,6 +33,10 @@ class PermissionsServiceStub:
         global___LookupResourcesRequest,
         global___LookupResourcesResponse] = ...
 
+    LookupSubjects:grpc.UnaryStreamMultiCallable[
+        global___LookupSubjectsRequest,
+        global___LookupSubjectsResponse] = ...
+
 
 class PermissionsServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -70,6 +74,12 @@ class PermissionsServiceServicer(metaclass=abc.ABCMeta):
         request: global___LookupResourcesRequest,
         context: grpc.ServicerContext,
     ) -> typing.Iterator[global___LookupResourcesResponse]: ...
+
+    @abc.abstractmethod
+    def LookupSubjects(self,
+        request: global___LookupSubjectsRequest,
+        context: grpc.ServicerContext,
+    ) -> typing.Iterator[global___LookupSubjectsResponse]: ...
 
 
 def add_PermissionsServiceServicer_to_server(servicer: PermissionsServiceServicer, server: grpc.Server) -> None: ...

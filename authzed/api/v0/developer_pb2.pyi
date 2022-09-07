@@ -3,7 +3,6 @@
 isort:skip_file
 """
 import authzed.api.v0.core_pb2
-import authzed.api.v0.namespace_pb2
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -164,22 +163,17 @@ class RequestContext(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
     SCHEMA_FIELD_NUMBER: builtins.int
     RELATIONSHIPS_FIELD_NUMBER: builtins.int
-    LEGACY_NS_CONFIGS_FIELD_NUMBER: builtins.int
     schema: typing.Text = ...
 
     @property
     def relationships(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.core_pb2.RelationTuple]: ...
 
-    @property
-    def legacy_ns_configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.namespace_pb2.NamespaceDefinition]: ...
-
     def __init__(self,
         *,
         schema : typing.Text = ...,
         relationships : typing.Optional[typing.Iterable[authzed.api.v0.core_pb2.RelationTuple]] = ...,
-        legacy_ns_configs : typing.Optional[typing.Iterable[authzed.api.v0.namespace_pb2.NamespaceDefinition]] = ...,
         ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"legacy_ns_configs",b"legacy_ns_configs",u"relationships",b"relationships",u"schema",b"schema"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal[u"relationships",b"relationships",u"schema",b"schema"]) -> None: ...
 global___RequestContext = RequestContext
 
 class EditCheckRequest(google.protobuf.message.Message):
