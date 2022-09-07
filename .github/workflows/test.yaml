@@ -98,12 +98,4 @@ jobs:
           pip install poetry
           poetry env info
           poetry install
-      - name: "Generate & Diff Protos"
-        shell: "bash"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          ./buf.gen.yaml
-      - name: "Verify Buf Generate"
-        uses: "chainguard-dev/actions/nodiff@main"
-        with:
-          fixup-command: "./buf.gen.yaml"
+      - uses: "authzed/actions/buf-generate@main"
