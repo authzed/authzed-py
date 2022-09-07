@@ -3,11 +3,9 @@ name: "Test"
 on:
   push:
     branches:
-      - "!dependabot/*"
-      - "*"
+      - "main"
   pull_request:
-    branches:
-      - "*"
+    branches: ["*"]
 jobs:
   lint:
     name: "Format & Lint"
