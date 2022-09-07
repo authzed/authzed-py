@@ -13,6 +13,7 @@ from authzed.api.v1.core_pb2 import (
     SubjectReference,
     ZedToken,
 )
+from authzed.api.v1.permission_service_grpc import PermissionsServiceStub
 from authzed.api.v1.permission_service_pb2 import (
     CheckPermissionRequest,
     CheckPermissionResponse,
@@ -23,6 +24,8 @@ from authzed.api.v1.permission_service_pb2 import (
     ExpandPermissionTreeResponse,
     LookupResourcesRequest,
     LookupResourcesResponse,
+    LookupSubjectsRequest,
+    LookupSubjectsResponse,
     Precondition,
     ReadRelationshipsRequest,
     ReadRelationshipsResponse,
@@ -31,14 +34,13 @@ from authzed.api.v1.permission_service_pb2 import (
     WriteRelationshipsRequest,
     WriteRelationshipsResponse,
 )
-from authzed.api.v1.permission_service_pb2_grpc import PermissionsServiceStub
 from authzed.api.v1.schema_pb2 import (
     ReadSchemaRequest,
     ReadSchemaResponse,
     WriteSchemaRequest,
     WriteSchemaResponse,
 )
-from authzed.api.v1.schema_pb2_grpc import SchemaServiceStub
+from authzed.api.v1.schema_service_grpc import SchemaServiceStub
 
 
 class Client(SchemaServiceStub, PermissionsServiceStub):
@@ -79,6 +81,8 @@ __all__ = [
     "ExpandPermissionTreeResponse",
     "LookupResourcesRequest",
     "LookupResourcesResponse",
+    "LookupSubjectsRequest",
+    "LookupSubjectsResponse",
     "Precondition",
     "ReadRelationshipsRequest",
     "ReadRelationshipsResponse",
