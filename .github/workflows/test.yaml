@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3"
       - uses: "bewuethr/yamllint-action@v1.1.1"
         with:
           config-file: ".yamllint"
@@ -53,7 +53,7 @@ jobs:
           - "3.9"
           - "3.10"
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3"
       - uses: "actions/setup-python@v4"
         with:
           python-version: "${{ matrix.python-version }}"
@@ -78,7 +78,7 @@ jobs:
     name: "Generate & Diff Protobuf"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3"
       - uses: "bufbuild/buf-setup-action@v1"
         with:
           version: "1.7.0"
