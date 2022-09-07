@@ -75,7 +75,7 @@ jobs:
           pytest -vv .
 
   protobuf:
-    name: "Generate & Diff"
+    name: "Generate & Diff Protobuf"
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v2"
@@ -88,6 +88,9 @@ jobs:
         run: |
           bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install grpc
+      - uses: "bufbuild/buf-setup-action@v1"
+        with:
+          version: "1.7.0"
       - name: "Install Python Dependencies"
         run: |
           virtualenv ~/.cache/virtualenv/authzedpy
@@ -95,4 +98,12 @@ jobs:
           pip install poetry
           poetry env info
           poetry install
-      - uses: "authzed/actions/buf-generate@main"
+      - name: "Generate & Diff Protos"
+        shell: "bash"
+        run: |
+          source ~/.cache/virtualenv/authzedpy/bin/activate
+          ./buf.gen.yaml
+      - name: "Verify Buf Generate"
+        uses: "chainguard-dev/actions/nodiff@main"
+        with:
+          fixup-command: "./buf.gen.yaml"
