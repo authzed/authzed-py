@@ -87,7 +87,9 @@ jobs:
       - name: "Install Homebrew & gRPC"
         run: |
           bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
           brew install grpc
+          ls /home/linuxbrew/.linuxbrew/bin
       - uses: "bufbuild/buf-setup-action@v1"
         with:
           version: "1.7.0"
@@ -98,4 +100,10 @@ jobs:
           pip install poetry
           poetry env info
           poetry install
+          echo "/home/runner/.cache/virtualenv/authzedpy/bin" >> $GITHUB_PATH
+          python -V
+          whereis grpc_python_plugin
+          whereis protoc-gen-mypy
+          whereis protoc-gen-mypy_grpc
+          echo $GITHUB_PATH
       - uses: "authzed/actions/buf-generate@main"
