@@ -7,41 +7,6 @@ on:
   pull_request:
     branches: ["*"]
 jobs:
-  lint:
-    name: "Format & Lint"
-    runs-on: "ubuntu-latest"
-    strategy:
-      fail-fast: false
-    steps:
-      - uses: "actions/checkout@v3"
-      - uses: "bewuethr/yamllint-action@v1.1.1"
-        with:
-          config-file: ".yamllint"
-      - uses: "actions/setup-python@v4"
-        with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install
-      - name: "Pyflakes"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs pyflakes
-      - name: "Blacken"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          black --check --diff .
-      - name: "Isort"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs isort --check --diff
-
   pytest:
     name: "Unit and Integration Tests"
     runs-on: "ubuntu-latest"
