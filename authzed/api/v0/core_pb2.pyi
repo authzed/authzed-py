@@ -5,76 +5,97 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
-import typing
-import typing_extensions
+import sys
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+if sys.version_info >= (3, 8):
+    import typing as typing_extensions
+else:
+    import typing_extensions
+
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class RelationTuple(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     OBJECT_AND_RELATION_FIELD_NUMBER: builtins.int
     USER_FIELD_NUMBER: builtins.int
-
     @property
-    def object_and_relation(self) -> global___ObjectAndRelation: ...
+    def object_and_relation(self) -> global___ObjectAndRelation:
+        """Each tupleset specifies keys of a set of relation tuples. The set can
+        include a single tuple key, or all tuples with a given object ID or
+        userset in a namespace, optionally constrained by a relation name.
 
+        examples:
+        doc:readme#viewer@group:eng#member (fully specified)
+        doc:*#*#group:eng#member (all tuples that this userset relates to)
+        doc:12345#*#* (all tuples with a direct relationship to a document)
+        doc:12345#writer#* (all tuples with direct write relationship with the
+        document) doc:#writer#group:eng#member (all tuples that eng group has write
+        relationship)
+        """
     @property
     def user(self) -> global___User: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        object_and_relation : typing.Optional[global___ObjectAndRelation] = ...,
-        user : typing.Optional[global___User] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"object_and_relation",b"object_and_relation",u"user",b"user"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"object_and_relation",b"object_and_relation",u"user",b"user"]) -> None: ...
+        object_and_relation: global___ObjectAndRelation | None = ...,
+        user: global___User | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["object_and_relation", b"object_and_relation", "user", b"user"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["object_and_relation", b"object_and_relation", "user", b"user"]) -> None: ...
+
 global___RelationTuple = RelationTuple
 
 class ObjectAndRelation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     NAMESPACE_FIELD_NUMBER: builtins.int
     OBJECT_ID_FIELD_NUMBER: builtins.int
     RELATION_FIELD_NUMBER: builtins.int
-    namespace: typing.Text = ...
-    object_id: typing.Text = ...
-    relation: typing.Text = ...
-
-    def __init__(self,
+    namespace: builtins.str
+    object_id: builtins.str
+    relation: builtins.str
+    def __init__(
+        self,
         *,
-        namespace : typing.Text = ...,
-        object_id : typing.Text = ...,
-        relation : typing.Text = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"namespace",b"namespace",u"object_id",b"object_id",u"relation",b"relation"]) -> None: ...
+        namespace: builtins.str = ...,
+        object_id: builtins.str = ...,
+        relation: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["namespace", b"namespace", "object_id", b"object_id", "relation", b"relation"]) -> None: ...
+
 global___ObjectAndRelation = ObjectAndRelation
 
 class RelationReference(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     NAMESPACE_FIELD_NUMBER: builtins.int
     RELATION_FIELD_NUMBER: builtins.int
-    namespace: typing.Text = ...
-    relation: typing.Text = ...
-
-    def __init__(self,
+    namespace: builtins.str
+    relation: builtins.str
+    def __init__(
+        self,
         *,
-        namespace : typing.Text = ...,
-        relation : typing.Text = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"namespace",b"namespace",u"relation",b"relation"]) -> None: ...
+        namespace: builtins.str = ...,
+        relation: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["namespace", b"namespace", "relation", b"relation"]) -> None: ...
+
 global___RelationReference = RelationReference
 
 class User(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    USERSET_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    USERSET_FIELD_NUMBER: builtins.int
     @property
     def userset(self) -> global___ObjectAndRelation: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        userset : typing.Optional[global___ObjectAndRelation] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"user_oneof",b"user_oneof",u"userset",b"userset"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"user_oneof",b"user_oneof",u"userset",b"userset"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal[u"user_oneof",b"user_oneof"]) -> typing.Optional[typing_extensions.Literal["userset"]]: ...
+        userset: global___ObjectAndRelation | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["user_oneof", b"user_oneof", "userset", b"userset"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["user_oneof", b"user_oneof", "userset", b"userset"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["user_oneof", b"user_oneof"]) -> typing_extensions.Literal["userset"] | None: ...
+
 global___User = User

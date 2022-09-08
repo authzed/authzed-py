@@ -3,83 +3,141 @@
 isort:skip_file
 """
 import abc
+import authzed.api.v1.permission_service_pb2
+import collections.abc
 import grpc
-import typing
 
-from .permission_service_pb2 import *
 class PermissionsServiceStub:
+    """PermissionsService implements a set of RPCs that perform operations on
+    relationships and permissions.
+    """
+
     def __init__(self, channel: grpc.Channel) -> None: ...
-    ReadRelationships:grpc.UnaryStreamMultiCallable[
-        global___ReadRelationshipsRequest,
-        global___ReadRelationshipsResponse] = ...
-
-    WriteRelationships:grpc.UnaryUnaryMultiCallable[
-        global___WriteRelationshipsRequest,
-        global___WriteRelationshipsResponse] = ...
-
-    DeleteRelationships:grpc.UnaryUnaryMultiCallable[
-        global___DeleteRelationshipsRequest,
-        global___DeleteRelationshipsResponse] = ...
-
-    CheckPermission:grpc.UnaryUnaryMultiCallable[
-        global___CheckPermissionRequest,
-        global___CheckPermissionResponse] = ...
-
-    ExpandPermissionTree:grpc.UnaryUnaryMultiCallable[
-        global___ExpandPermissionTreeRequest,
-        global___ExpandPermissionTreeResponse] = ...
-
-    LookupResources:grpc.UnaryStreamMultiCallable[
-        global___LookupResourcesRequest,
-        global___LookupResourcesResponse] = ...
-
-    LookupSubjects:grpc.UnaryStreamMultiCallable[
-        global___LookupSubjectsRequest,
-        global___LookupSubjectsResponse] = ...
-
+    ReadRelationships: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1.permission_service_pb2.ReadRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.ReadRelationshipsResponse,
+    ]
+    """ReadRelationships reads a set of the relationships matching one or more
+    filters.
+    """
+    WriteRelationships: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.WriteRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.WriteRelationshipsResponse,
+    ]
+    """WriteRelationships atomically writes and/or deletes a set of specified
+    relationships. An optional set of preconditions can be provided that must
+    be satisfied for the operation to commit.
+    """
+    DeleteRelationships: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.DeleteRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.DeleteRelationshipsResponse,
+    ]
+    """DeleteRelationships atomically bulk deletes all relationships matching the
+    provided filter. If no relationships match, none will be deleted and the
+    operation will succeed. An optional set of preconditions can be provided that must
+    be satisfied for the operation to commit.
+    """
+    CheckPermission: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.CheckPermissionRequest,
+        authzed.api.v1.permission_service_pb2.CheckPermissionResponse,
+    ]
+    """CheckPermission determines for a given resource whether a subject computes
+    to having a permission or is a direct member of a particular relation.
+    """
+    ExpandPermissionTree: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.ExpandPermissionTreeRequest,
+        authzed.api.v1.permission_service_pb2.ExpandPermissionTreeResponse,
+    ]
+    """ExpandPermissionTree reveals the graph structure for a resource's
+    permission or relation. This RPC does not recurse infinitely deep and may
+    require multiple calls to fully unnest a deeply nested graph.
+    """
+    LookupResources: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1.permission_service_pb2.LookupResourcesRequest,
+        authzed.api.v1.permission_service_pb2.LookupResourcesResponse,
+    ]
+    """LookupResources returns all the resources of a given type that a subject
+    can access whether via a computed permission or relation membership.
+    """
+    LookupSubjects: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1.permission_service_pb2.LookupSubjectsRequest,
+        authzed.api.v1.permission_service_pb2.LookupSubjectsResponse,
+    ]
+    """LookupSubjects returns all the subjects of a given type that
+    have access whether via a computed permission or relation membership.
+    """
 
 class PermissionsServiceServicer(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def ReadRelationships(self,
-        request: global___ReadRelationshipsRequest,
-        context: grpc.ServicerContext,
-    ) -> typing.Iterator[global___ReadRelationshipsResponse]: ...
+    """PermissionsService implements a set of RPCs that perform operations on
+    relationships and permissions.
+    """
 
     @abc.abstractmethod
-    def WriteRelationships(self,
-        request: global___WriteRelationshipsRequest,
+    def ReadRelationships(
+        self,
+        request: authzed.api.v1.permission_service_pb2.ReadRelationshipsRequest,
         context: grpc.ServicerContext,
-    ) -> global___WriteRelationshipsResponse: ...
-
+    ) -> collections.abc.Iterator[authzed.api.v1.permission_service_pb2.ReadRelationshipsResponse]:
+        """ReadRelationships reads a set of the relationships matching one or more
+        filters.
+        """
     @abc.abstractmethod
-    def DeleteRelationships(self,
-        request: global___DeleteRelationshipsRequest,
+    def WriteRelationships(
+        self,
+        request: authzed.api.v1.permission_service_pb2.WriteRelationshipsRequest,
         context: grpc.ServicerContext,
-    ) -> global___DeleteRelationshipsResponse: ...
-
+    ) -> authzed.api.v1.permission_service_pb2.WriteRelationshipsResponse:
+        """WriteRelationships atomically writes and/or deletes a set of specified
+        relationships. An optional set of preconditions can be provided that must
+        be satisfied for the operation to commit.
+        """
     @abc.abstractmethod
-    def CheckPermission(self,
-        request: global___CheckPermissionRequest,
+    def DeleteRelationships(
+        self,
+        request: authzed.api.v1.permission_service_pb2.DeleteRelationshipsRequest,
         context: grpc.ServicerContext,
-    ) -> global___CheckPermissionResponse: ...
-
+    ) -> authzed.api.v1.permission_service_pb2.DeleteRelationshipsResponse:
+        """DeleteRelationships atomically bulk deletes all relationships matching the
+        provided filter. If no relationships match, none will be deleted and the
+        operation will succeed. An optional set of preconditions can be provided that must
+        be satisfied for the operation to commit.
+        """
     @abc.abstractmethod
-    def ExpandPermissionTree(self,
-        request: global___ExpandPermissionTreeRequest,
+    def CheckPermission(
+        self,
+        request: authzed.api.v1.permission_service_pb2.CheckPermissionRequest,
         context: grpc.ServicerContext,
-    ) -> global___ExpandPermissionTreeResponse: ...
-
+    ) -> authzed.api.v1.permission_service_pb2.CheckPermissionResponse:
+        """CheckPermission determines for a given resource whether a subject computes
+        to having a permission or is a direct member of a particular relation.
+        """
     @abc.abstractmethod
-    def LookupResources(self,
-        request: global___LookupResourcesRequest,
+    def ExpandPermissionTree(
+        self,
+        request: authzed.api.v1.permission_service_pb2.ExpandPermissionTreeRequest,
         context: grpc.ServicerContext,
-    ) -> typing.Iterator[global___LookupResourcesResponse]: ...
-
+    ) -> authzed.api.v1.permission_service_pb2.ExpandPermissionTreeResponse:
+        """ExpandPermissionTree reveals the graph structure for a resource's
+        permission or relation. This RPC does not recurse infinitely deep and may
+        require multiple calls to fully unnest a deeply nested graph.
+        """
     @abc.abstractmethod
-    def LookupSubjects(self,
-        request: global___LookupSubjectsRequest,
+    def LookupResources(
+        self,
+        request: authzed.api.v1.permission_service_pb2.LookupResourcesRequest,
         context: grpc.ServicerContext,
-    ) -> typing.Iterator[global___LookupSubjectsResponse]: ...
-
+    ) -> collections.abc.Iterator[authzed.api.v1.permission_service_pb2.LookupResourcesResponse]:
+        """LookupResources returns all the resources of a given type that a subject
+        can access whether via a computed permission or relation membership.
+        """
+    @abc.abstractmethod
+    def LookupSubjects(
+        self,
+        request: authzed.api.v1.permission_service_pb2.LookupSubjectsRequest,
+        context: grpc.ServicerContext,
+    ) -> collections.abc.Iterator[authzed.api.v1.permission_service_pb2.LookupSubjectsResponse]:
+        """LookupSubjects returns all the subjects of a given type that
+        have access whether via a computed permission or relation membership.
+        """
 
 def add_PermissionsServiceServicer_to_server(servicer: PermissionsServiceServicer, server: grpc.Server) -> None: ...
