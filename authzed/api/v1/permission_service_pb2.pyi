@@ -4,380 +4,596 @@ isort:skip_file
 """
 import authzed.api.v1.core_pb2
 import builtins
+import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import sys
 import typing
-import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
+
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class Consistency(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """Consistency will define how a request is handled by the backend.
+    By defining a consistency requirement, and a token at which those
+    requirements should be applied, where applicable.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     MINIMIZE_LATENCY_FIELD_NUMBER: builtins.int
     AT_LEAST_AS_FRESH_FIELD_NUMBER: builtins.int
     AT_EXACT_SNAPSHOT_FIELD_NUMBER: builtins.int
     FULLY_CONSISTENT_FIELD_NUMBER: builtins.int
-    minimize_latency: builtins.bool = ...
-    fully_consistent: builtins.bool = ...
-
+    minimize_latency: builtins.bool
+    """minimize_latency indicates that the latency for the call should be
+    minimized by having the system select the fastest snapshot available.
+    """
     @property
-    def at_least_as_fresh(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
+    def at_least_as_fresh(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """at_least_as_fresh indicates that all data used in the API call must be
+        *at least as fresh* as that found in the ZedToken; more recent data might
+        be used if available or faster.
+        """
     @property
-    def at_exact_snapshot(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def at_exact_snapshot(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """at_exact_snapshot indicates that all data used in the API call must be
+        *at the given* snapshot in time; if the snapshot is no longer available,
+        an error will be returned to the caller.
+        """
+    fully_consistent: builtins.bool
+    """fully_consistent indicates that all data used in the API call *must* be
+    at the most recent snapshot found.
 
-    def __init__(self,
+    NOTE: using this method can be *quite slow*, so unless there is a need to
+    do so, it is recommended to use `at_least_as_fresh` with a stored
+    ZedToken.
+    """
+    def __init__(
+        self,
         *,
-        minimize_latency : builtins.bool = ...,
-        at_least_as_fresh : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        at_exact_snapshot : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        fully_consistent : builtins.bool = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"at_exact_snapshot",b"at_exact_snapshot",u"at_least_as_fresh",b"at_least_as_fresh",u"fully_consistent",b"fully_consistent",u"minimize_latency",b"minimize_latency",u"requirement",b"requirement"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"at_exact_snapshot",b"at_exact_snapshot",u"at_least_as_fresh",b"at_least_as_fresh",u"fully_consistent",b"fully_consistent",u"minimize_latency",b"minimize_latency",u"requirement",b"requirement"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal[u"requirement",b"requirement"]) -> typing.Optional[typing_extensions.Literal["minimize_latency","at_least_as_fresh","at_exact_snapshot","fully_consistent"]]: ...
+        minimize_latency: builtins.bool = ...,
+        at_least_as_fresh: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        at_exact_snapshot: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        fully_consistent: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["at_exact_snapshot", b"at_exact_snapshot", "at_least_as_fresh", b"at_least_as_fresh", "fully_consistent", b"fully_consistent", "minimize_latency", b"minimize_latency", "requirement", b"requirement"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["at_exact_snapshot", b"at_exact_snapshot", "at_least_as_fresh", b"at_least_as_fresh", "fully_consistent", b"fully_consistent", "minimize_latency", b"minimize_latency", "requirement", b"requirement"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["requirement", b"requirement"]) -> typing_extensions.Literal["minimize_latency", "at_least_as_fresh", "at_exact_snapshot", "fully_consistent"] | None: ...
+
 global___Consistency = Consistency
 
 class RelationshipFilter(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """RelationshipFilter is a collection of filters which when applied to a
+    relationship will return relationships that have exactly matching fields.
+
+    resource_type is required. All other fields are optional and if left
+    unspecified will not filter relationships.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     RESOURCE_TYPE_FIELD_NUMBER: builtins.int
     OPTIONAL_RESOURCE_ID_FIELD_NUMBER: builtins.int
     OPTIONAL_RELATION_FIELD_NUMBER: builtins.int
     OPTIONAL_SUBJECT_FILTER_FIELD_NUMBER: builtins.int
-    resource_type: typing.Text = ...
-    optional_resource_id: typing.Text = ...
-    optional_relation: typing.Text = ...
-
+    resource_type: builtins.str
+    optional_resource_id: builtins.str
+    optional_relation: builtins.str
     @property
     def optional_subject_filter(self) -> global___SubjectFilter: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        resource_type : typing.Text = ...,
-        optional_resource_id : typing.Text = ...,
-        optional_relation : typing.Text = ...,
-        optional_subject_filter : typing.Optional[global___SubjectFilter] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"optional_subject_filter",b"optional_subject_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"optional_relation",b"optional_relation",u"optional_resource_id",b"optional_resource_id",u"optional_subject_filter",b"optional_subject_filter",u"resource_type",b"resource_type"]) -> None: ...
+        resource_type: builtins.str = ...,
+        optional_resource_id: builtins.str = ...,
+        optional_relation: builtins.str = ...,
+        optional_subject_filter: global___SubjectFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["optional_subject_filter", b"optional_subject_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_relation", b"optional_relation", "optional_resource_id", b"optional_resource_id", "optional_subject_filter", b"optional_subject_filter", "resource_type", b"resource_type"]) -> None: ...
+
 global___RelationshipFilter = RelationshipFilter
 
 class SubjectFilter(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class RelationFilter(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-        RELATION_FIELD_NUMBER: builtins.int
-        relation: typing.Text = ...
+    """SubjectFilter specifies a filter on the subject of a relationship.
 
-        def __init__(self,
+    subject_type is required and all other fields are optional, and will not
+    impose any additional requirements if left unspecified.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class RelationFilter(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        RELATION_FIELD_NUMBER: builtins.int
+        relation: builtins.str
+        def __init__(
+            self,
             *,
-            relation : typing.Text = ...,
-            ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal[u"relation",b"relation"]) -> None: ...
+            relation: builtins.str = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["relation", b"relation"]) -> None: ...
 
     SUBJECT_TYPE_FIELD_NUMBER: builtins.int
     OPTIONAL_SUBJECT_ID_FIELD_NUMBER: builtins.int
     OPTIONAL_RELATION_FIELD_NUMBER: builtins.int
-    subject_type: typing.Text = ...
-    optional_subject_id: typing.Text = ...
-
+    subject_type: builtins.str
+    optional_subject_id: builtins.str
     @property
     def optional_relation(self) -> global___SubjectFilter.RelationFilter: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        subject_type : typing.Text = ...,
-        optional_subject_id : typing.Text = ...,
-        optional_relation : typing.Optional[global___SubjectFilter.RelationFilter] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"optional_relation",b"optional_relation"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"optional_relation",b"optional_relation",u"optional_subject_id",b"optional_subject_id",u"subject_type",b"subject_type"]) -> None: ...
+        subject_type: builtins.str = ...,
+        optional_subject_id: builtins.str = ...,
+        optional_relation: global___SubjectFilter.RelationFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["optional_relation", b"optional_relation"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_relation", b"optional_relation", "optional_subject_id", b"optional_subject_id", "subject_type", b"subject_type"]) -> None: ...
+
 global___SubjectFilter = SubjectFilter
 
 class ReadRelationshipsRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """ReadRelationshipsRequest specifies one or more filters used to read matching
+    relationships within the system.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     CONSISTENCY_FIELD_NUMBER: builtins.int
     RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
-
     @property
     def consistency(self) -> global___Consistency: ...
-
     @property
     def relationship_filter(self) -> global___RelationshipFilter: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        consistency : typing.Optional[global___Consistency] = ...,
-        relationship_filter : typing.Optional[global___RelationshipFilter] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"relationship_filter",b"relationship_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"relationship_filter",b"relationship_filter"]) -> None: ...
+        consistency: global___Consistency | None = ...,
+        relationship_filter: global___RelationshipFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "relationship_filter", b"relationship_filter"]) -> None: ...
+
 global___ReadRelationshipsRequest = ReadRelationshipsRequest
 
 class ReadRelationshipsResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """ReadRelationshipsResponse contains a Relationship found that matches the
+    specified relationship filter(s). A instance of this response message will
+    be streamed to the client for each relationship found.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     READ_AT_FIELD_NUMBER: builtins.int
     RELATIONSHIP_FIELD_NUMBER: builtins.int
-
     @property
     def read_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
     @property
     def relationship(self) -> authzed.api.v1.core_pb2.Relationship: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        read_at : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        relationship : typing.Optional[authzed.api.v1.core_pb2.Relationship] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"read_at",b"read_at",u"relationship",b"relationship"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"read_at",b"read_at",u"relationship",b"relationship"]) -> None: ...
+        read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        relationship: authzed.api.v1.core_pb2.Relationship | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["read_at", b"read_at", "relationship", b"relationship"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["read_at", b"read_at", "relationship", b"relationship"]) -> None: ...
+
 global___ReadRelationshipsResponse = ReadRelationshipsResponse
 
 class Precondition(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Operation(metaclass=_Operation):
-        V = typing.NewType('V', builtins.int)
+    """Precondition specifies how and the existence or absence of certain
+    relationships as expressed through the accompanying filter should affect
+    whether or not the operation proceeds.
 
-    OPERATION_UNSPECIFIED = Precondition.Operation.V(0)
-    OPERATION_MUST_NOT_MATCH = Precondition.Operation.V(1)
-    OPERATION_MUST_MATCH = Precondition.Operation.V(2)
+    MUST_NOT_MATCH will fail the parent request if any relationships match the
+    relationships filter.
+    MUST_MATCH will fail the parent request if there are no
+    relationships that match the filter.
+    """
 
-    class _Operation(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Operation.V], builtins.type):  # type: ignore
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        OPERATION_UNSPECIFIED = Precondition.Operation.V(0)
-        OPERATION_MUST_NOT_MATCH = Precondition.Operation.V(1)
-        OPERATION_MUST_MATCH = Precondition.Operation.V(2)
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Operation:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _OperationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Precondition._Operation.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        OPERATION_UNSPECIFIED: Precondition._Operation.ValueType  # 0
+        OPERATION_MUST_NOT_MATCH: Precondition._Operation.ValueType  # 1
+        OPERATION_MUST_MATCH: Precondition._Operation.ValueType  # 2
+
+    class Operation(_Operation, metaclass=_OperationEnumTypeWrapper): ...
+    OPERATION_UNSPECIFIED: Precondition.Operation.ValueType  # 0
+    OPERATION_MUST_NOT_MATCH: Precondition.Operation.ValueType  # 1
+    OPERATION_MUST_MATCH: Precondition.Operation.ValueType  # 2
 
     OPERATION_FIELD_NUMBER: builtins.int
     FILTER_FIELD_NUMBER: builtins.int
-    operation: global___Precondition.Operation.V = ...
-
+    operation: global___Precondition.Operation.ValueType
     @property
     def filter(self) -> global___RelationshipFilter: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        operation : global___Precondition.Operation.V = ...,
-        filter : typing.Optional[global___RelationshipFilter] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"filter",b"filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"filter",b"filter",u"operation",b"operation"]) -> None: ...
+        operation: global___Precondition.Operation.ValueType = ...,
+        filter: global___RelationshipFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["filter", b"filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["filter", b"filter", "operation", b"operation"]) -> None: ...
+
 global___Precondition = Precondition
 
 class WriteRelationshipsRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """WriteRelationshipsRequest contains a list of Relationship mutations that
+    should be applied to the service. If the optional_preconditions parameter
+    is included, all of the specified preconditions must also be satisfied before
+    the write will be committed.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     UPDATES_FIELD_NUMBER: builtins.int
     OPTIONAL_PRECONDITIONS_FIELD_NUMBER: builtins.int
-
     @property
     def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.RelationshipUpdate]: ...
-
     @property
-    def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]: ...
-
-    def __init__(self,
+    def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]:
+        """To be bounded by configuration"""
+    def __init__(
+        self,
         *,
-        updates : typing.Optional[typing.Iterable[authzed.api.v1.core_pb2.RelationshipUpdate]] = ...,
-        optional_preconditions : typing.Optional[typing.Iterable[global___Precondition]] = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"optional_preconditions",b"optional_preconditions",u"updates",b"updates"]) -> None: ...
+        updates: collections.abc.Iterable[authzed.api.v1.core_pb2.RelationshipUpdate] | None = ...,
+        optional_preconditions: collections.abc.Iterable[global___Precondition] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_preconditions", b"optional_preconditions", "updates", b"updates"]) -> None: ...
+
 global___WriteRelationshipsRequest = WriteRelationshipsRequest
 
 class WriteRelationshipsResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    WRITTEN_AT_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    WRITTEN_AT_FIELD_NUMBER: builtins.int
     @property
     def written_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        written_at : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"written_at",b"written_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"written_at",b"written_at"]) -> None: ...
+        written_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["written_at", b"written_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["written_at", b"written_at"]) -> None: ...
+
 global___WriteRelationshipsResponse = WriteRelationshipsResponse
 
 class DeleteRelationshipsRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """DeleteRelationshipsRequest specifies which Relationships should be deleted,
+    requesting the delete of *ALL* relationships that match the specified
+    filters. If the optional_preconditions parameter is included, all of the
+    specified preconditions must also be satisfied before the delete will be
+    executed.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
     OPTIONAL_PRECONDITIONS_FIELD_NUMBER: builtins.int
-
     @property
     def relationship_filter(self) -> global___RelationshipFilter: ...
-
     @property
-    def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]: ...
-
-    def __init__(self,
+    def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]:
+        """To be bounded by configuration"""
+    def __init__(
+        self,
         *,
-        relationship_filter : typing.Optional[global___RelationshipFilter] = ...,
-        optional_preconditions : typing.Optional[typing.Iterable[global___Precondition]] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"relationship_filter",b"relationship_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"optional_preconditions",b"optional_preconditions",u"relationship_filter",b"relationship_filter"]) -> None: ...
+        relationship_filter: global___RelationshipFilter | None = ...,
+        optional_preconditions: collections.abc.Iterable[global___Precondition] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_preconditions", b"optional_preconditions", "relationship_filter", b"relationship_filter"]) -> None: ...
+
 global___DeleteRelationshipsRequest = DeleteRelationshipsRequest
 
 class DeleteRelationshipsResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    DELETED_AT_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    DELETED_AT_FIELD_NUMBER: builtins.int
     @property
     def deleted_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        deleted_at : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"deleted_at",b"deleted_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"deleted_at",b"deleted_at"]) -> None: ...
+        deleted_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["deleted_at", b"deleted_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["deleted_at", b"deleted_at"]) -> None: ...
+
 global___DeleteRelationshipsResponse = DeleteRelationshipsResponse
 
 class CheckPermissionRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """CheckPermissionRequest issues a check on whether a subject has a permission
+    or is a member of a relation, on a specific resource.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     CONSISTENCY_FIELD_NUMBER: builtins.int
     RESOURCE_FIELD_NUMBER: builtins.int
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
-    permission: typing.Text = ...
-
     @property
     def consistency(self) -> global___Consistency: ...
-
     @property
-    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference: ...
-
+    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference:
+        """resource is the resource on which to check the permission or relation."""
+    permission: builtins.str
+    """permission is the name of the permission (or relation) on which to execute
+    the check.
+    """
     @property
-    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference: ...
-
-    def __init__(self,
+    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference:
+        """subject is the subject that will be checked for the permission or relation."""
+    def __init__(
+        self,
         *,
-        consistency : typing.Optional[global___Consistency] = ...,
-        resource : typing.Optional[authzed.api.v1.core_pb2.ObjectReference] = ...,
-        permission : typing.Text = ...,
-        subject : typing.Optional[authzed.api.v1.core_pb2.SubjectReference] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"resource",b"resource",u"subject",b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"permission",b"permission",u"resource",b"resource",u"subject",b"subject"]) -> None: ...
+        consistency: global___Consistency | None = ...,
+        resource: authzed.api.v1.core_pb2.ObjectReference | None = ...,
+        permission: builtins.str = ...,
+        subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
+
 global___CheckPermissionRequest = CheckPermissionRequest
 
 class CheckPermissionResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Permissionship(metaclass=_Permissionship):
-        V = typing.NewType('V', builtins.int)
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    PERMISSIONSHIP_UNSPECIFIED = CheckPermissionResponse.Permissionship.V(0)
-    PERMISSIONSHIP_NO_PERMISSION = CheckPermissionResponse.Permissionship.V(1)
-    PERMISSIONSHIP_HAS_PERMISSION = CheckPermissionResponse.Permissionship.V(2)
+    class _Permissionship:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
 
-    class _Permissionship(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Permissionship.V], builtins.type):  # type: ignore
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        PERMISSIONSHIP_UNSPECIFIED = CheckPermissionResponse.Permissionship.V(0)
-        PERMISSIONSHIP_NO_PERMISSION = CheckPermissionResponse.Permissionship.V(1)
-        PERMISSIONSHIP_HAS_PERMISSION = CheckPermissionResponse.Permissionship.V(2)
+    class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckPermissionResponse._Permissionship.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        PERMISSIONSHIP_UNSPECIFIED: CheckPermissionResponse._Permissionship.ValueType  # 0
+        PERMISSIONSHIP_NO_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 1
+        PERMISSIONSHIP_HAS_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 2
+
+    class Permissionship(_Permissionship, metaclass=_PermissionshipEnumTypeWrapper): ...
+    PERMISSIONSHIP_UNSPECIFIED: CheckPermissionResponse.Permissionship.ValueType  # 0
+    PERMISSIONSHIP_NO_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 1
+    PERMISSIONSHIP_HAS_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 2
 
     CHECKED_AT_FIELD_NUMBER: builtins.int
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
-    permissionship: global___CheckPermissionResponse.Permissionship.V = ...
-
     @property
     def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    permissionship: global___CheckPermissionResponse.Permissionship.ValueType
+    """Permissionship communicates whether or not the subject has the requested
+    permission or has a relationship with the given resource, over the given
+    relation.
 
-    def __init__(self,
+    This value will be authzed.api.v1.PERMISSIONSHIP_HAS_PERMISSION if the
+    requested subject is a member of the computed permission set or there
+    exists a relationship with the requested relation from the given resource
+    to the given subject.
+    """
+    def __init__(
+        self,
         *,
-        checked_at : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        permissionship : global___CheckPermissionResponse.Permissionship.V = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"checked_at",b"checked_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"checked_at",b"checked_at",u"permissionship",b"permissionship"]) -> None: ...
+        checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "permissionship", b"permissionship"]) -> None: ...
+
 global___CheckPermissionResponse = CheckPermissionResponse
 
 class ExpandPermissionTreeRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """ExpandPermissionTreeRequest returns a tree representing the expansion of all
+    relationships found accessible from a permission or relation on a particular
+    resource.
+
+    ExpandPermissionTreeRequest is typically used to determine the full set of
+    subjects with a permission, along with the relationships that grant said
+    access.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     CONSISTENCY_FIELD_NUMBER: builtins.int
     RESOURCE_FIELD_NUMBER: builtins.int
     PERMISSION_FIELD_NUMBER: builtins.int
-    permission: typing.Text = ...
-
     @property
     def consistency(self) -> global___Consistency: ...
-
     @property
-    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference: ...
-
-    def __init__(self,
+    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference:
+        """resource is the resource over which to run the expansion."""
+    permission: builtins.str
+    """permission is the name of the permission or relation over which to run the
+    expansion for the resource.
+    """
+    def __init__(
+        self,
         *,
-        consistency : typing.Optional[global___Consistency] = ...,
-        resource : typing.Optional[authzed.api.v1.core_pb2.ObjectReference] = ...,
-        permission : typing.Text = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"resource",b"resource"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"permission",b"permission",u"resource",b"resource"]) -> None: ...
+        consistency: global___Consistency | None = ...,
+        resource: authzed.api.v1.core_pb2.ObjectReference | None = ...,
+        permission: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "resource", b"resource"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "permission", b"permission", "resource", b"resource"]) -> None: ...
+
 global___ExpandPermissionTreeRequest = ExpandPermissionTreeRequest
 
 class ExpandPermissionTreeResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     EXPANDED_AT_FIELD_NUMBER: builtins.int
     TREE_ROOT_FIELD_NUMBER: builtins.int
-
     @property
     def expanded_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
     @property
-    def tree_root(self) -> authzed.api.v1.core_pb2.PermissionRelationshipTree: ...
-
-    def __init__(self,
+    def tree_root(self) -> authzed.api.v1.core_pb2.PermissionRelationshipTree:
+        """tree_root is a tree structure whose leaf nodes are subjects, and
+        intermediate nodes represent the various operations (union, intersection,
+        exclusion) to reach those subjects.
+        """
+    def __init__(
+        self,
         *,
-        expanded_at : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        tree_root : typing.Optional[authzed.api.v1.core_pb2.PermissionRelationshipTree] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"expanded_at",b"expanded_at",u"tree_root",b"tree_root"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"expanded_at",b"expanded_at",u"tree_root",b"tree_root"]) -> None: ...
+        expanded_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        tree_root: authzed.api.v1.core_pb2.PermissionRelationshipTree | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["expanded_at", b"expanded_at", "tree_root", b"tree_root"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["expanded_at", b"expanded_at", "tree_root", b"tree_root"]) -> None: ...
+
 global___ExpandPermissionTreeResponse = ExpandPermissionTreeResponse
 
 class LookupResourcesRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """LookupResourcesRequest performs a lookup of all resources of a particular
+    kind on which the subject has the specified permission or the relation in
+    which the subject exists, streaming back the IDs of those resources.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     CONSISTENCY_FIELD_NUMBER: builtins.int
     RESOURCE_OBJECT_TYPE_FIELD_NUMBER: builtins.int
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
-    resource_object_type: typing.Text = ...
-    permission: typing.Text = ...
-
     @property
     def consistency(self) -> global___Consistency: ...
-
+    resource_object_type: builtins.str
+    """resource_object_type is the type of resource object for which the IDs will
+    be returned.
+    """
+    permission: builtins.str
+    """permission is the name of the permission or relation for which the subject
+    must Check.
+    """
     @property
-    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference: ...
-
-    def __init__(self,
+    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference:
+        """subject is the subject with access to the resources."""
+    def __init__(
+        self,
         *,
-        consistency : typing.Optional[global___Consistency] = ...,
-        resource_object_type : typing.Text = ...,
-        permission : typing.Text = ...,
-        subject : typing.Optional[authzed.api.v1.core_pb2.SubjectReference] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"subject",b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"consistency",b"consistency",u"permission",b"permission",u"resource_object_type",b"resource_object_type",u"subject",b"subject"]) -> None: ...
+        consistency: global___Consistency | None = ...,
+        resource_object_type: builtins.str = ...,
+        permission: builtins.str = ...,
+        subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject"]) -> None: ...
+
 global___LookupResourcesRequest = LookupResourcesRequest
 
 class LookupResourcesResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    """LookupResourcesResponse contains a single matching resource object ID for the
+    requested object type, permission, and subject.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     LOOKED_UP_AT_FIELD_NUMBER: builtins.int
     RESOURCE_OBJECT_ID_FIELD_NUMBER: builtins.int
-    resource_object_id: typing.Text = ...
-
     @property
     def looked_up_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-
-    def __init__(self,
+    resource_object_id: builtins.str
+    def __init__(
+        self,
         *,
-        looked_up_at : typing.Optional[authzed.api.v1.core_pb2.ZedToken] = ...,
-        resource_object_id : typing.Text = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"looked_up_at",b"looked_up_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"looked_up_at",b"looked_up_at",u"resource_object_id",b"resource_object_id"]) -> None: ...
+        looked_up_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        resource_object_id: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "resource_object_id", b"resource_object_id"]) -> None: ...
+
 global___LookupResourcesResponse = LookupResourcesResponse
+
+class LookupSubjectsRequest(google.protobuf.message.Message):
+    """LookupSubjectsRequest performs a lookup of all subjects of a particular
+    kind for which the subject has the specified permission or the relation in
+    which the subject exists, streaming back the IDs of those subjects.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    RESOURCE_FIELD_NUMBER: builtins.int
+    PERMISSION_FIELD_NUMBER: builtins.int
+    SUBJECT_OBJECT_TYPE_FIELD_NUMBER: builtins.int
+    OPTIONAL_SUBJECT_RELATION_FIELD_NUMBER: builtins.int
+    @property
+    def consistency(self) -> global___Consistency: ...
+    @property
+    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference:
+        """resource is the resource for which all matching subjects for the permission
+        or relation will be returned.
+        """
+    permission: builtins.str
+    """permission is the name of the permission (or relation) for which to find
+    the subjects.
+    """
+    subject_object_type: builtins.str
+    """subject_object_type is the type of subject object for which the IDs will
+    be returned.
+    """
+    optional_subject_relation: builtins.str
+    """optional_subject_relation is the optional relation for the subject."""
+    def __init__(
+        self,
+        *,
+        consistency: global___Consistency | None = ...,
+        resource: authzed.api.v1.core_pb2.ObjectReference | None = ...,
+        permission: builtins.str = ...,
+        subject_object_type: builtins.str = ...,
+        optional_subject_relation: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "resource", b"resource"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_subject_relation", b"optional_subject_relation", "permission", b"permission", "resource", b"resource", "subject_object_type", b"subject_object_type"]) -> None: ...
+
+global___LookupSubjectsRequest = LookupSubjectsRequest
+
+class LookupSubjectsResponse(google.protobuf.message.Message):
+    """LookupSubjectsResponse contains a single matching subject object ID for the
+    requested subject object type on the permission or relation.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOOKED_UP_AT_FIELD_NUMBER: builtins.int
+    SUBJECT_OBJECT_ID_FIELD_NUMBER: builtins.int
+    EXCLUDED_SUBJECT_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def looked_up_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    subject_object_id: builtins.str
+    """subject_object_id is the Object ID of the subject found. May be a `*` if
+    a wildcard was found.
+    """
+    @property
+    def excluded_subject_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """excluded_subject_ids are the Object IDs of the subjects excluded. This list
+        will only contain object IDs if `subject_object_id` is a wildcard (`*`) and
+        will only be populated if exclusions exist from the wildcard.
+        """
+    def __init__(
+        self,
+        *,
+        looked_up_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        subject_object_id: builtins.str = ...,
+        excluded_subject_ids: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["excluded_subject_ids", b"excluded_subject_ids", "looked_up_at", b"looked_up_at", "subject_object_id", b"subject_object_id"]) -> None: ...
+
+global___LookupSubjectsResponse = LookupSubjectsResponse

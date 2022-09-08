@@ -3,47 +3,10 @@ name: "Test"
 on:
   push:
     branches:
-      - "!dependabot/*"
-      - "*"
+      - "main"
   pull_request:
-    branches:
-      - "*"
+    branches: ["*"]
 jobs:
-  lint:
-    name: "Format & Lint"
-    runs-on: "ubuntu-latest"
-    strategy:
-      fail-fast: false
-    steps:
-      - uses: "actions/checkout@v2"
-      - uses: "bewuethr/yamllint-action@v1.1.1"
-        with:
-          config-file: ".yamllint"
-      - uses: "actions/setup-python@v1"
-        with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install
-      - name: "Pyflakes"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs pyflakes
-      - name: "Blacken"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          black --check --diff .
-      - name: "Isort"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs isort --check --diff
-
   pytest:
     name: "Unit and Integration Tests"
     runs-on: "ubuntu-latest"
@@ -55,8 +18,8 @@ jobs:
           - "3.9"
           - "3.10"
     steps:
-      - uses: "actions/checkout@v2"
-      - uses: "actions/setup-python@v2"
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v4"
         with:
           python-version: "${{ matrix.python-version }}"
       - name: "Setup Python Environment"
@@ -77,11 +40,11 @@ jobs:
           pytest -vv .
 
   protobuf:
-    name: "Generate & Diff"
+    name: "Generate & Diff Protobuf"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v2"
-      - uses: "actions/setup-python@v1"
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v4"
         with:
           python-version: "3.10"
       - name: "Setup Python Environment"
@@ -89,10 +52,12 @@ jobs:
       - name: "Install Homebrew & gRPC"
         run: |
           bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
           brew install grpc
-      - uses: "bufbuild/buf-setup-action@v0.6.0"
+          ls /home/linuxbrew/.linuxbrew/bin
+      - uses: "bufbuild/buf-setup-action@v1"
         with:
-          version: "1.0.0-rc12"
+          version: "1.7.0"
       - name: "Install Python Dependencies"
         run: |
           virtualenv ~/.cache/virtualenv/authzedpy
@@ -100,7 +65,10 @@ jobs:
           pip install poetry
           poetry env info
           poetry install
-      - name: "Generate & Diff Protos"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          ./buf.gen.yaml && git diff --text && bash -c '[ $(git status --porcelain | tee /dev/fd/2 | wc -c) -eq 0 ]'
+          echo "/home/runner/.cache/virtualenv/authzedpy/bin" >> $GITHUB_PATH
+          python -V
+          whereis grpc_python_plugin
+          whereis protoc-gen-mypy
+          whereis protoc-gen-mypy_grpc
+          echo $GITHUB_PATH
+      - uses: "authzed/actions/buf-generate@main"

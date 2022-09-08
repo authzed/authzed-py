@@ -3,32 +3,56 @@
 isort:skip_file
 """
 import abc
+import authzed.api.v1alpha1.schema_pb2
 import grpc
 
-from .schema_pb2 import *
 class SchemaServiceStub:
+    """SchemaService implements operations on a Permissions System's Schema."""
+
     def __init__(self, channel: grpc.Channel) -> None: ...
-    ReadSchema:grpc.UnaryUnaryMultiCallable[
-        global___ReadSchemaRequest,
-        global___ReadSchemaResponse] = ...
+    ReadSchema: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1alpha1.schema_pb2.ReadSchemaRequest,
+        authzed.api.v1alpha1.schema_pb2.ReadSchemaResponse,
+    ]
+    """Read returns the current Object Definitions for a Permissions System.
 
-    WriteSchema:grpc.UnaryUnaryMultiCallable[
-        global___WriteSchemaRequest,
-        global___WriteSchemaResponse] = ...
+    Errors include:
+    - INVALID_ARGUMENT: a provided value has failed to semantically validate
+    - NOT_FOUND: one of the Object Definitions being requested does not exist
+    """
+    WriteSchema: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1alpha1.schema_pb2.WriteSchemaRequest,
+        authzed.api.v1alpha1.schema_pb2.WriteSchemaResponse,
+    ]
+    """Write overwrites the current Object Definitions for a Permissions System.
 
+    Any Object Definitions that exist, but are not included will be deleted.
+    """
 
 class SchemaServiceServicer(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def ReadSchema(self,
-        request: global___ReadSchemaRequest,
-        context: grpc.ServicerContext,
-    ) -> global___ReadSchemaResponse: ...
+    """SchemaService implements operations on a Permissions System's Schema."""
 
     @abc.abstractmethod
-    def WriteSchema(self,
-        request: global___WriteSchemaRequest,
+    def ReadSchema(
+        self,
+        request: authzed.api.v1alpha1.schema_pb2.ReadSchemaRequest,
         context: grpc.ServicerContext,
-    ) -> global___WriteSchemaResponse: ...
+    ) -> authzed.api.v1alpha1.schema_pb2.ReadSchemaResponse:
+        """Read returns the current Object Definitions for a Permissions System.
 
+        Errors include:
+        - INVALID_ARGUMENT: a provided value has failed to semantically validate
+        - NOT_FOUND: one of the Object Definitions being requested does not exist
+        """
+    @abc.abstractmethod
+    def WriteSchema(
+        self,
+        request: authzed.api.v1alpha1.schema_pb2.WriteSchemaRequest,
+        context: grpc.ServicerContext,
+    ) -> authzed.api.v1alpha1.schema_pb2.WriteSchemaResponse:
+        """Write overwrites the current Object Definitions for a Permissions System.
+
+        Any Object Definitions that exist, but are not included will be deleted.
+        """
 
 def add_SchemaServiceServicer_to_server(servicer: SchemaServiceServicer, server: grpc.Server) -> None: ...
