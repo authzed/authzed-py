@@ -8,6 +8,7 @@ from authzed.api.v1 import (
     Client,
     Consistency,
     LookupResourcesRequest,
+    LookupSubjectsRequest,
     ObjectReference,
     ReadSchemaRequest,
     Relationship,
@@ -112,25 +113,25 @@ def test_lookup_resources(client):
     assert responses.count(post_two.object_id) == 1
 
 
-# def test_lookup_subjects(client):
-#     # Write a basic schema.
-#     write_test_schema(client)
-#     beatrice, emilia, post_one, post_two = write_test_tuples(client)
-#
-#     resp = client.LookupSubjects(
-#         LookupSubjectsRequest(
-#             subject_object_type="user",
-#             permission="view",
-#             resource=post_one,
-#             consistency=Consistency(fully_consistent=True),
-#         )
-#     )
-#     responses = []
-#     for response in resp:
-#         responses.append(response.subject_object_id)
-#     assert len(responses) == 2
-#     assert responses.count(emilia.object.object_id) == 1
-#     assert responses.count(beatrice.object.object_id) == 1
+def test_lookup_subjects(client):
+    # Write a basic schema.
+    write_test_schema(client)
+    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+
+    resp = client.LookupSubjects(
+        LookupSubjectsRequest(
+            subject_object_type="user",
+            permission="view",
+            resource=post_one,
+            consistency=Consistency(fully_consistent=True),
+        )
+    )
+    responses = []
+    for response in resp:
+        responses.append(response.subject_object_id)
+    assert len(responses) == 2
+    assert responses.count(emilia.object.object_id) == 1
+    assert responses.count(beatrice.object.object_id) == 1
 
 
 def write_test_tuples(client):
