@@ -9,6 +9,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import google.protobuf.struct_pb2
 import sys
 import typing
 
@@ -18,6 +19,24 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class _LookupPermissionship:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _LookupPermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_LookupPermissionship.ValueType], builtins.type):  # noqa: F821
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    LOOKUP_PERMISSIONSHIP_UNSPECIFIED: _LookupPermissionship.ValueType  # 0
+    LOOKUP_PERMISSIONSHIP_HAS_PERMISSION: _LookupPermissionship.ValueType  # 1
+    LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION: _LookupPermissionship.ValueType  # 2
+
+class LookupPermissionship(_LookupPermissionship, metaclass=_LookupPermissionshipEnumTypeWrapper):
+    """LookupPermissionship represents whether a Lookup response was partially evaluated or not"""
+
+LOOKUP_PERMISSIONSHIP_UNSPECIFIED: LookupPermissionship.ValueType  # 0
+LOOKUP_PERMISSIONSHIP_HAS_PERMISSION: LookupPermissionship.ValueType  # 1
+LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION: LookupPermissionship.ValueType  # 2
+global___LookupPermissionship = LookupPermissionship
 
 class Consistency(google.protobuf.message.Message):
     """Consistency will define how a request is handled by the backend.
@@ -331,6 +350,7 @@ class CheckPermissionRequest(google.protobuf.message.Message):
     RESOURCE_FIELD_NUMBER: builtins.int
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> global___Consistency: ...
     @property
@@ -343,6 +363,9 @@ class CheckPermissionRequest(google.protobuf.message.Message):
     @property
     def subject(self) -> authzed.api.v1.core_pb2.SubjectReference:
         """subject is the subject that will be checked for the permission or relation."""
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct:
+        """context consists of named values that are injected into the caveat evaluation context *"""
     def __init__(
         self,
         *,
@@ -350,11 +373,34 @@ class CheckPermissionRequest(google.protobuf.message.Message):
         resource: authzed.api.v1.core_pb2.ObjectReference | None = ...,
         permission: builtins.str = ...,
         subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
 
 global___CheckPermissionRequest = CheckPermissionRequest
+
+class PartialCaveatInfo(google.protobuf.message.Message):
+    """PartialCaveatInfo carries information necessary for the client to take action
+    in the event a response contains a partially evaluated caveat
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MISSING_REQUIRED_CONTEXT_FIELD_NUMBER: builtins.int
+    @property
+    def missing_required_context(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """missing_required_context is a list of one or more fields that were missing and prevented caveats
+        from being fully evaluated
+        """
+    def __init__(
+        self,
+        *,
+        missing_required_context: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["missing_required_context", b"missing_required_context"]) -> None: ...
+
+global___PartialCaveatInfo = PartialCaveatInfo
 
 class CheckPermissionResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -368,14 +414,17 @@ class CheckPermissionResponse(google.protobuf.message.Message):
         PERMISSIONSHIP_UNSPECIFIED: CheckPermissionResponse._Permissionship.ValueType  # 0
         PERMISSIONSHIP_NO_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 1
         PERMISSIONSHIP_HAS_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 2
+        PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 3
 
     class Permissionship(_Permissionship, metaclass=_PermissionshipEnumTypeWrapper): ...
     PERMISSIONSHIP_UNSPECIFIED: CheckPermissionResponse.Permissionship.ValueType  # 0
     PERMISSIONSHIP_NO_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 1
     PERMISSIONSHIP_HAS_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 2
+    PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 3
 
     CHECKED_AT_FIELD_NUMBER: builtins.int
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
     @property
     def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
     permissionship: global___CheckPermissionResponse.Permissionship.ValueType
@@ -388,14 +437,18 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     exists a relationship with the requested relation from the given resource
     to the given subject.
     """
+    @property
+    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+        """partial_caveat_info holds information of a partially-evaluated caveated response"""
     def __init__(
         self,
         *,
         checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
+        partial_caveat_info: global___PartialCaveatInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "permissionship", b"permissionship"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
 
 global___CheckPermissionResponse = CheckPermissionResponse
 
@@ -471,6 +524,7 @@ class LookupResourcesRequest(google.protobuf.message.Message):
     RESOURCE_OBJECT_TYPE_FIELD_NUMBER: builtins.int
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> global___Consistency: ...
     resource_object_type: builtins.str
@@ -484,6 +538,9 @@ class LookupResourcesRequest(google.protobuf.message.Message):
     @property
     def subject(self) -> authzed.api.v1.core_pb2.SubjectReference:
         """subject is the subject with access to the resources."""
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct:
+        """context consists of named values that are injected into the caveat evaluation context *"""
     def __init__(
         self,
         *,
@@ -491,9 +548,10 @@ class LookupResourcesRequest(google.protobuf.message.Message):
         resource_object_type: builtins.str = ...,
         permission: builtins.str = ...,
         subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject"]) -> None: ...
 
 global___LookupResourcesRequest = LookupResourcesRequest
 
@@ -506,17 +564,26 @@ class LookupResourcesResponse(google.protobuf.message.Message):
 
     LOOKED_UP_AT_FIELD_NUMBER: builtins.int
     RESOURCE_OBJECT_ID_FIELD_NUMBER: builtins.int
+    PERMISSIONSHIP_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
     @property
     def looked_up_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
     resource_object_id: builtins.str
+    permissionship: global___LookupPermissionship.ValueType
+    """permissionship indicates whether the response was partially evaluated or not"""
+    @property
+    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+        """partial_caveat_info holds information of a partially-evaluated caveated response"""
     def __init__(
         self,
         *,
         looked_up_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         resource_object_id: builtins.str = ...,
+        permissionship: global___LookupPermissionship.ValueType = ...,
+        partial_caveat_info: global___PartialCaveatInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "resource_object_id", b"resource_object_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "resource_object_id", b"resource_object_id"]) -> None: ...
 
 global___LookupResourcesResponse = LookupResourcesResponse
 
@@ -533,6 +600,7 @@ class LookupSubjectsRequest(google.protobuf.message.Message):
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_OBJECT_TYPE_FIELD_NUMBER: builtins.int
     OPTIONAL_SUBJECT_RELATION_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> global___Consistency: ...
     @property
@@ -550,6 +618,9 @@ class LookupSubjectsRequest(google.protobuf.message.Message):
     """
     optional_subject_relation: builtins.str
     """optional_subject_relation is the optional relation for the subject."""
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct:
+        """context consists of named values that are injected into the caveat evaluation context *"""
     def __init__(
         self,
         *,
@@ -558,9 +629,10 @@ class LookupSubjectsRequest(google.protobuf.message.Message):
         permission: builtins.str = ...,
         subject_object_type: builtins.str = ...,
         optional_subject_relation: builtins.str = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "resource", b"resource"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_subject_relation", b"optional_subject_relation", "permission", b"permission", "resource", b"resource", "subject_object_type", b"subject_object_type"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "resource", b"resource"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "optional_subject_relation", b"optional_subject_relation", "permission", b"permission", "resource", b"resource", "subject_object_type", b"subject_object_type"]) -> None: ...
 
 global___LookupSubjectsRequest = LookupSubjectsRequest
 
@@ -574,16 +646,40 @@ class LookupSubjectsResponse(google.protobuf.message.Message):
     LOOKED_UP_AT_FIELD_NUMBER: builtins.int
     SUBJECT_OBJECT_ID_FIELD_NUMBER: builtins.int
     EXCLUDED_SUBJECT_IDS_FIELD_NUMBER: builtins.int
+    PERMISSIONSHIP_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    SUBJECT_FIELD_NUMBER: builtins.int
+    EXCLUDED_SUBJECTS_FIELD_NUMBER: builtins.int
     @property
     def looked_up_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
     subject_object_id: builtins.str
     """subject_object_id is the Object ID of the subject found. May be a `*` if
     a wildcard was found.
+    deprecated: use `subject`
     """
     @property
     def excluded_subject_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """excluded_subject_ids are the Object IDs of the subjects excluded. This list
         will only contain object IDs if `subject_object_id` is a wildcard (`*`) and
+        will only be populated if exclusions exist from the wildcard.
+        deprecated: use `excluded_subjects`
+        """
+    permissionship: global___LookupPermissionship.ValueType
+    """permissionship indicates whether the response was partially evaluated or not
+    deprecated: use `subject.permissionship`
+    """
+    @property
+    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+        """partial_caveat_info holds information of a partially-evaluated caveated response
+        deprecated: use `subject.partial_caveat_info`
+        """
+    @property
+    def subject(self) -> global___ResolvedSubject:
+        """subject is the subject found, along with its permissionship."""
+    @property
+    def excluded_subjects(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ResolvedSubject]:
+        """excluded_subjects are the subjects excluded. This list
+        will only contain subjects if `subject.subject_object_id` is a wildcard (`*`) and
         will only be populated if exclusions exist from the wildcard.
         """
     def __init__(
@@ -592,8 +688,41 @@ class LookupSubjectsResponse(google.protobuf.message.Message):
         looked_up_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         subject_object_id: builtins.str = ...,
         excluded_subject_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        permissionship: global___LookupPermissionship.ValueType = ...,
+        partial_caveat_info: global___PartialCaveatInfo | None = ...,
+        subject: global___ResolvedSubject | None = ...,
+        excluded_subjects: collections.abc.Iterable[global___ResolvedSubject] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["excluded_subject_ids", b"excluded_subject_ids", "looked_up_at", b"looked_up_at", "subject_object_id", b"subject_object_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["excluded_subject_ids", b"excluded_subject_ids", "excluded_subjects", b"excluded_subjects", "looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "subject", b"subject", "subject_object_id", b"subject_object_id"]) -> None: ...
 
 global___LookupSubjectsResponse = LookupSubjectsResponse
+
+class ResolvedSubject(google.protobuf.message.Message):
+    """ResolvedSubject is a single subject resolved within LookupSubjects."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SUBJECT_OBJECT_ID_FIELD_NUMBER: builtins.int
+    PERMISSIONSHIP_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    subject_object_id: builtins.str
+    """subject_object_id is the Object ID of the subject found. May be a `*` if
+    a wildcard was found.
+    """
+    permissionship: global___LookupPermissionship.ValueType
+    """permissionship indicates whether the response was partially evaluated or not"""
+    @property
+    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+        """partial_caveat_info holds information of a partially-evaluated caveated response"""
+    def __init__(
+        self,
+        *,
+        subject_object_id: builtins.str = ...,
+        permissionship: global___LookupPermissionship.ValueType = ...,
+        partial_caveat_info: global___PartialCaveatInfo | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "subject_object_id", b"subject_object_id"]) -> None: ...
+
+global___ResolvedSubject = ResolvedSubject
