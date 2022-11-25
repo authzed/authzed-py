@@ -18,6 +18,7 @@ from authzed.api.v1 import (
     WriteSchemaRequest,
 )
 from grpcutil import insecure_bearer_token_credentials
+from google.protobuf.struct_pb2 import Struct
 
 
 @pytest.fixture(scope="function")
@@ -43,6 +44,10 @@ def test_basic_schema(client):
     resp = client.ReadSchema(ReadSchemaRequest())
     assert "definition document" in resp.schema_text
     assert "definition user" in resp.schema_text
+
+
+def test_schema_with_caveats(client):
+    write_test_schema(client)
 
 
 def test_check(client):
@@ -90,6 +95,25 @@ def test_check(client):
         )
     )
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_NO_PERMISSION
+
+
+def test_caveated_check(client):
+    # Write a basic schema.
+    write_test_schema(client)
+    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+
+    s = Struct()
+    s.update({"likes": True})
+
+    req = CheckPermissionRequest(
+            resource=post_one,
+            permission="view",
+            subject=emilia,
+            consistency=Consistency(fully_consistent=True),
+            context=s,
+        )
+    resp = client.CheckPermission(req)
+    assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 
 
 def test_lookup_resources(client):
@@ -188,9 +212,14 @@ def write_test_tuples(client):
 
 def write_test_schema(client):
     schema = """
+        caveat likes_harry_potter(likes bool) {
+          likes == false
+        }
+
         definition post {
             relation writer: user
             relation reader: user
+            relation caveated_reader: user with likes_harry_potter
 
             permission write = writer
             permission view = reader + writer
