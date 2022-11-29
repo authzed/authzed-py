@@ -74,3 +74,5 @@ jobs:
           whereis protoc-gen-mypy_grpc
           echo $GITHUB_PATH
       - uses: "authzed/actions/buf-generate@main"
+        with:
+          version: "1.9.0"
