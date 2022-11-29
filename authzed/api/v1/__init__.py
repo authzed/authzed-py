@@ -35,13 +35,13 @@ from authzed.api.v1.permission_service_pb2 import (
     WriteRelationshipsResponse,
 )
 from authzed.api.v1.permission_service_pb2_grpc import PermissionsServiceStub
-from authzed.api.v1.schema_pb2 import (
+from authzed.api.v1.schema_service_pb2 import (
     ReadSchemaRequest,
     ReadSchemaResponse,
     WriteSchemaRequest,
     WriteSchemaResponse,
 )
-from authzed.api.v1.schema_pb2_grpc import SchemaServiceStub
+from authzed.api.v1.schema_service_pb2_grpc import SchemaServiceStub
 
 
 class Client(SchemaServiceStub, PermissionsServiceStub):
