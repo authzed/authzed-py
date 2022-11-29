@@ -13,9 +13,7 @@ from authzed.api.v1.core_pb2 import (
     SubjectReference,
     ZedToken,
 )
-from authzed.api.v1.error_reason_pb2 import (
-    ErrorReason
-)
+from authzed.api.v1.error_reason_pb2 import ErrorReason
 from authzed.api.v1.permission_service_pb2 import (
     CheckPermissionRequest,
     CheckPermissionResponse,

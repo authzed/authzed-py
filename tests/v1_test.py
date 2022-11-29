@@ -1,6 +1,7 @@
 import uuid
 
 import pytest
+from google.protobuf.struct_pb2 import Struct
 
 from authzed.api.v1 import (
     CheckPermissionRequest,
@@ -18,7 +19,6 @@ from authzed.api.v1 import (
     WriteSchemaRequest,
 )
 from grpcutil import insecure_bearer_token_credentials
-from google.protobuf.struct_pb2 import Struct
 
 
 @pytest.fixture(scope="function")
@@ -106,12 +106,12 @@ def test_caveated_check(client):
     s.update({"likes": True})
 
     req = CheckPermissionRequest(
-            resource=post_one,
-            permission="view",
-            subject=emilia,
-            consistency=Consistency(fully_consistent=True),
-            context=s,
-        )
+        resource=post_one,
+        permission="view",
+        subject=emilia,
+        consistency=Consistency(fully_consistent=True),
+        context=s,
+    )
     resp = client.CheckPermission(req)
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 
