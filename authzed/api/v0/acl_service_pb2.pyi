@@ -4,315 +4,366 @@ isort:skip_file
 """
 import authzed.api.v0.core_pb2
 import builtins
+import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import sys
 import typing
-import typing_extensions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
+
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class RelationTupleFilter(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Filter(metaclass=_Filter):
-        V = typing.NewType('V', builtins.int)
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    UNKNOWN = RelationTupleFilter.Filter.V(0)
-    OBJECT_ID = RelationTupleFilter.Filter.V(1)
-    RELATION = RelationTupleFilter.Filter.V(2)
-    USERSET = RelationTupleFilter.Filter.V(4)
+    class _Filter:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
 
-    class _Filter(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Filter.V], builtins.type):  # type: ignore
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        UNKNOWN = RelationTupleFilter.Filter.V(0)
-        OBJECT_ID = RelationTupleFilter.Filter.V(1)
-        RELATION = RelationTupleFilter.Filter.V(2)
-        USERSET = RelationTupleFilter.Filter.V(4)
+    class _FilterEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RelationTupleFilter._Filter.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: RelationTupleFilter._Filter.ValueType  # 0
+        OBJECT_ID: RelationTupleFilter._Filter.ValueType  # 1
+        RELATION: RelationTupleFilter._Filter.ValueType  # 2
+        USERSET: RelationTupleFilter._Filter.ValueType  # 4
+
+    class Filter(_Filter, metaclass=_FilterEnumTypeWrapper): ...
+    UNKNOWN: RelationTupleFilter.Filter.ValueType  # 0
+    OBJECT_ID: RelationTupleFilter.Filter.ValueType  # 1
+    RELATION: RelationTupleFilter.Filter.ValueType  # 2
+    USERSET: RelationTupleFilter.Filter.ValueType  # 4
 
     NAMESPACE_FIELD_NUMBER: builtins.int
     OBJECT_ID_FIELD_NUMBER: builtins.int
     RELATION_FIELD_NUMBER: builtins.int
     USERSET_FIELD_NUMBER: builtins.int
     FILTERS_FIELD_NUMBER: builtins.int
-    namespace: typing.Text = ...
-    object_id: typing.Text = ...
-    relation: typing.Text = ...
-
-    @property
-    def filters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___RelationTupleFilter.Filter.V]: ...
-
+    namespace: builtins.str
+    object_id: builtins.str
+    """Setting any of these fields requires the appropriate filter type to be
+    added to the filters list as well
+    """
+    relation: builtins.str
     @property
     def userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation: ...
-
-    def __init__(self,
+    @property
+    def filters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___RelationTupleFilter.Filter.ValueType]: ...
+    def __init__(
+        self,
         *,
-        namespace : typing.Text = ...,
-        object_id : typing.Text = ...,
-        relation : typing.Text = ...,
-        userset : typing.Optional[authzed.api.v0.core_pb2.ObjectAndRelation] = ...,
-        filters : typing.Optional[typing.Iterable[global___RelationTupleFilter.Filter.V]] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"userset",b"userset"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"filters",b"filters",u"namespace",b"namespace",u"object_id",b"object_id",u"relation",b"relation",u"userset",b"userset"]) -> None: ...
+        namespace: builtins.str = ...,
+        object_id: builtins.str = ...,
+        relation: builtins.str = ...,
+        userset: authzed.api.v0.core_pb2.ObjectAndRelation | None = ...,
+        filters: collections.abc.Iterable[global___RelationTupleFilter.Filter.ValueType] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["userset", b"userset"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["filters", b"filters", "namespace", b"namespace", "object_id", b"object_id", "relation", b"relation", "userset", b"userset"]) -> None: ...
+
 global___RelationTupleFilter = RelationTupleFilter
 
 class ReadRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     TUPLESETS_FIELD_NUMBER: builtins.int
     AT_REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def tuplesets(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RelationTupleFilter]: ...
-
+    def tuplesets(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RelationTupleFilter]:
+        """A read request specifies one or multiple tuplesets and an optional zookie."""
     @property
     def at_revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        tuplesets : typing.Optional[typing.Iterable[global___RelationTupleFilter]] = ...,
-        at_revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"tuplesets",b"tuplesets"]) -> None: ...
+        tuplesets: collections.abc.Iterable[global___RelationTupleFilter] | None = ...,
+        at_revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "tuplesets", b"tuplesets"]) -> None: ...
+
 global___ReadRequest = ReadRequest
 
 class ReadResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Tupleset(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-        TUPLES_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class Tupleset(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        TUPLES_FIELD_NUMBER: builtins.int
         @property
         def tuples(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.core_pb2.RelationTuple]: ...
-
-        def __init__(self,
+        def __init__(
+            self,
             *,
-            tuples : typing.Optional[typing.Iterable[authzed.api.v0.core_pb2.RelationTuple]] = ...,
-            ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal[u"tuples",b"tuples"]) -> None: ...
+            tuples: collections.abc.Iterable[authzed.api.v0.core_pb2.RelationTuple] | None = ...,
+        ) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["tuples", b"tuples"]) -> None: ...
 
     TUPLESETS_FIELD_NUMBER: builtins.int
     REVISION_FIELD_NUMBER: builtins.int
-
     @property
     def tuplesets(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReadResponse.Tupleset]: ...
-
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        tuplesets : typing.Optional[typing.Iterable[global___ReadResponse.Tupleset]] = ...,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"revision",b"revision",u"tuplesets",b"tuplesets"]) -> None: ...
+        tuplesets: collections.abc.Iterable[global___ReadResponse.Tupleset] | None = ...,
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["revision", b"revision", "tuplesets", b"tuplesets"]) -> None: ...
+
 global___ReadResponse = ReadResponse
 
 class WriteRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     WRITE_CONDITIONS_FIELD_NUMBER: builtins.int
     UPDATES_FIELD_NUMBER: builtins.int
-
     @property
-    def write_conditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.core_pb2.RelationTuple]: ...
+    def write_conditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.core_pb2.RelationTuple]:
+        """Clients may modify a single relation tuple to add or remove an ACL. They
+        may also modify all tuples related to an object via a read-modify-write
+        process with optimistic concurrency control [21] that uses a read RPC
+        followed by a write RPC:
 
+        1. Read all relation tuples of an object, including a per-object “lock”
+           tuple.
+        2. Generate the tuples to write or delete. Send the writes, along with a
+           touch on the lock tuple, to Zanzibar, with the condition that the
+           writes will be committed only if the lock tuple has not been modified
+           since the read.
+        3. If the write condition is not met, go back to step 1.
+           The lock tuple is just a regular relation tuple used by clients to
+           detect write races.
+
+        The lock tuple is just a regular relation tuple used by clients to
+        detect write races.
+        To be bounded by configuration
+        """
     @property
     def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.core_pb2.RelationTupleUpdate]: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        write_conditions : typing.Optional[typing.Iterable[authzed.api.v0.core_pb2.RelationTuple]] = ...,
-        updates : typing.Optional[typing.Iterable[authzed.api.v0.core_pb2.RelationTupleUpdate]] = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"updates",b"updates",u"write_conditions",b"write_conditions"]) -> None: ...
+        write_conditions: collections.abc.Iterable[authzed.api.v0.core_pb2.RelationTuple] | None = ...,
+        updates: collections.abc.Iterable[authzed.api.v0.core_pb2.RelationTupleUpdate] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["updates", b"updates", "write_conditions", b"write_conditions"]) -> None: ...
+
 global___WriteRequest = WriteRequest
 
 class WriteResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    REVISION_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    REVISION_FIELD_NUMBER: builtins.int
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> None: ...
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> None: ...
+
 global___WriteResponse = WriteResponse
 
 class CheckRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     TEST_USERSET_FIELD_NUMBER: builtins.int
     USER_FIELD_NUMBER: builtins.int
     AT_REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def test_userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation: ...
-
+    def test_userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation:
+        """A check request specifies a userset, represented by ⟨object#relation⟩,
+        a putative user, often represented by an authentication token, and a
+        zookie corresponding to the desired object version.
+        """
     @property
-    def user(self) -> authzed.api.v0.core_pb2.User: ...
-
+    def user(self) -> authzed.api.v0.core_pb2.User:
+        """TODO swap for putative user"""
     @property
     def at_revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        test_userset : typing.Optional[authzed.api.v0.core_pb2.ObjectAndRelation] = ...,
-        user : typing.Optional[authzed.api.v0.core_pb2.User] = ...,
-        at_revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"test_userset",b"test_userset",u"user",b"user"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"test_userset",b"test_userset",u"user",b"user"]) -> None: ...
+        test_userset: authzed.api.v0.core_pb2.ObjectAndRelation | None = ...,
+        user: authzed.api.v0.core_pb2.User | None = ...,
+        at_revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "test_userset", b"test_userset", "user", b"user"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "test_userset", b"test_userset", "user", b"user"]) -> None: ...
+
 global___CheckRequest = CheckRequest
 
 class ContentChangeCheckRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     TEST_USERSET_FIELD_NUMBER: builtins.int
     USER_FIELD_NUMBER: builtins.int
-
     @property
-    def test_userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation: ...
-
+    def test_userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation:
+        """To authorize application content modifications, our clients send a special
+        type of check request, a content-change check. A content-change check
+        request does not carry a zookie and is evaluated at the latest snapshot.
+        """
     @property
-    def user(self) -> authzed.api.v0.core_pb2.User: ...
-
-    def __init__(self,
+    def user(self) -> authzed.api.v0.core_pb2.User:
+        """TODO swap for a putative user"""
+    def __init__(
+        self,
         *,
-        test_userset : typing.Optional[authzed.api.v0.core_pb2.ObjectAndRelation] = ...,
-        user : typing.Optional[authzed.api.v0.core_pb2.User] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"test_userset",b"test_userset",u"user",b"user"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"test_userset",b"test_userset",u"user",b"user"]) -> None: ...
+        test_userset: authzed.api.v0.core_pb2.ObjectAndRelation | None = ...,
+        user: authzed.api.v0.core_pb2.User | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["test_userset", b"test_userset", "user", b"user"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["test_userset", b"test_userset", "user", b"user"]) -> None: ...
+
 global___ContentChangeCheckRequest = ContentChangeCheckRequest
 
 class CheckResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Membership(metaclass=_Membership):
-        V = typing.NewType('V', builtins.int)
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    UNKNOWN = CheckResponse.Membership.V(0)
-    NOT_MEMBER = CheckResponse.Membership.V(1)
-    MEMBER = CheckResponse.Membership.V(2)
+    class _Membership:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
 
-    class _Membership(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Membership.V], builtins.type):  # type: ignore
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        UNKNOWN = CheckResponse.Membership.V(0)
-        NOT_MEMBER = CheckResponse.Membership.V(1)
-        MEMBER = CheckResponse.Membership.V(2)
+    class _MembershipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckResponse._Membership.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: CheckResponse._Membership.ValueType  # 0
+        NOT_MEMBER: CheckResponse._Membership.ValueType  # 1
+        MEMBER: CheckResponse._Membership.ValueType  # 2
+
+    class Membership(_Membership, metaclass=_MembershipEnumTypeWrapper): ...
+    UNKNOWN: CheckResponse.Membership.ValueType  # 0
+    NOT_MEMBER: CheckResponse.Membership.ValueType  # 1
+    MEMBER: CheckResponse.Membership.ValueType  # 2
 
     IS_MEMBER_FIELD_NUMBER: builtins.int
     REVISION_FIELD_NUMBER: builtins.int
     MEMBERSHIP_FIELD_NUMBER: builtins.int
-    is_member: builtins.bool = ...
-    membership: global___CheckResponse.Membership.V = ...
-
+    is_member: builtins.bool
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    membership: global___CheckResponse.Membership.ValueType
+    def __init__(
+        self,
         *,
-        is_member : builtins.bool = ...,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        membership : global___CheckResponse.Membership.V = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"is_member",b"is_member",u"membership",b"membership",u"revision",b"revision"]) -> None: ...
+        is_member: builtins.bool = ...,
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+        membership: global___CheckResponse.Membership.ValueType = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["is_member", b"is_member", "membership", b"membership", "revision", b"revision"]) -> None: ...
+
 global___CheckResponse = CheckResponse
 
 class ExpandRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     USERSET_FIELD_NUMBER: builtins.int
     AT_REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation: ...
-
+    def userset(self) -> authzed.api.v0.core_pb2.ObjectAndRelation:
+        """The Expand API returns the effective userset given an ⟨object#relation⟩
+        pair and an optional zookie. Unlike the Read API, Expand follows indirect
+        references expressed through userset rewrite rules.
+        """
     @property
     def at_revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        userset : typing.Optional[authzed.api.v0.core_pb2.ObjectAndRelation] = ...,
-        at_revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"userset",b"userset"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"userset",b"userset"]) -> None: ...
+        userset: authzed.api.v0.core_pb2.ObjectAndRelation | None = ...,
+        at_revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "userset", b"userset"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "userset", b"userset"]) -> None: ...
+
 global___ExpandRequest = ExpandRequest
 
 class ExpandResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     TREE_NODE_FIELD_NUMBER: builtins.int
     REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def tree_node(self) -> authzed.api.v0.core_pb2.RelationTupleTreeNode: ...
-
+    def tree_node(self) -> authzed.api.v0.core_pb2.RelationTupleTreeNode:
+        """The result is represented by a userset tree whose leaf nodes are user IDs
+        or usersets pointing to other ⟨object#relation⟩ pairs, and intermediate
+        nodes represent union, intersection, or exclusion operators.
+        """
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        tree_node : typing.Optional[authzed.api.v0.core_pb2.RelationTupleTreeNode] = ...,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision",u"tree_node",b"tree_node"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"revision",b"revision",u"tree_node",b"tree_node"]) -> None: ...
+        tree_node: authzed.api.v0.core_pb2.RelationTupleTreeNode | None = ...,
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision", "tree_node", b"tree_node"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["revision", b"revision", "tree_node", b"tree_node"]) -> None: ...
+
 global___ExpandResponse = ExpandResponse
 
 class LookupRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     OBJECT_RELATION_FIELD_NUMBER: builtins.int
     USER_FIELD_NUMBER: builtins.int
     AT_REVISION_FIELD_NUMBER: builtins.int
     PAGE_REFERENCE_FIELD_NUMBER: builtins.int
     LIMIT_FIELD_NUMBER: builtins.int
-    page_reference: typing.Text = ...
-    limit: builtins.int = ...
-
     @property
     def object_relation(self) -> authzed.api.v0.core_pb2.RelationReference: ...
-
     @property
     def user(self) -> authzed.api.v0.core_pb2.ObjectAndRelation: ...
-
     @property
     def at_revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    page_reference: builtins.str
+    limit: builtins.int
+    def __init__(
+        self,
         *,
-        object_relation : typing.Optional[authzed.api.v0.core_pb2.RelationReference] = ...,
-        user : typing.Optional[authzed.api.v0.core_pb2.ObjectAndRelation] = ...,
-        at_revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        page_reference : typing.Text = ...,
-        limit : builtins.int = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"object_relation",b"object_relation",u"user",b"user"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"limit",b"limit",u"object_relation",b"object_relation",u"page_reference",b"page_reference",u"user",b"user"]) -> None: ...
+        object_relation: authzed.api.v0.core_pb2.RelationReference | None = ...,
+        user: authzed.api.v0.core_pb2.ObjectAndRelation | None = ...,
+        at_revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+        page_reference: builtins.str = ...,
+        limit: builtins.int = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "object_relation", b"object_relation", "user", b"user"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "limit", b"limit", "object_relation", b"object_relation", "page_reference", b"page_reference", "user", b"user"]) -> None: ...
+
 global___LookupRequest = LookupRequest
 
 class LookupResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     RESOLVED_OBJECT_IDS_FIELD_NUMBER: builtins.int
     NEXT_PAGE_REFERENCE_FIELD_NUMBER: builtins.int
     REVISION_FIELD_NUMBER: builtins.int
-
     @property
-    def resolved_object_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
-    next_page_reference: typing.Text = ...
-
+    def resolved_object_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    next_page_reference: builtins.str
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        resolved_object_ids : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        next_page_reference : typing.Text = ...,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"next_page_reference",b"next_page_reference",u"resolved_object_ids",b"resolved_object_ids",u"revision",b"revision"]) -> None: ...
+        resolved_object_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        next_page_reference: builtins.str = ...,
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["next_page_reference", b"next_page_reference", "resolved_object_ids", b"resolved_object_ids", "revision", b"revision"]) -> None: ...
+
 global___LookupResponse = LookupResponse

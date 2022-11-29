@@ -5,109 +5,119 @@ isort:skip_file
 import authzed.api.v0.core_pb2
 import authzed.api.v0.namespace_pb2
 import builtins
+import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import typing
-import typing_extensions
+import sys
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
+if sys.version_info >= (3, 8):
+    import typing as typing_extensions
+else:
+    import typing_extensions
+
+DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class ReadConfigRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     NAMESPACE_FIELD_NUMBER: builtins.int
     AT_REVISION_FIELD_NUMBER: builtins.int
-    namespace: typing.Text = ...
-
+    namespace: builtins.str
     @property
     def at_revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        namespace : typing.Text = ...,
-        at_revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"at_revision",b"at_revision",u"namespace",b"namespace"]) -> None: ...
+        namespace: builtins.str = ...,
+        at_revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["at_revision", b"at_revision", "namespace", b"namespace"]) -> None: ...
+
 global___ReadConfigRequest = ReadConfigRequest
 
 class ReadConfigResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     NAMESPACE_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
     REVISION_FIELD_NUMBER: builtins.int
-    namespace: typing.Text = ...
-
+    namespace: builtins.str
     @property
     def config(self) -> authzed.api.v0.namespace_pb2.NamespaceDefinition: ...
-
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        namespace : typing.Text = ...,
-        config : typing.Optional[authzed.api.v0.namespace_pb2.NamespaceDefinition] = ...,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"config",b"config",u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"config",b"config",u"namespace",b"namespace",u"revision",b"revision"]) -> None: ...
+        namespace: builtins.str = ...,
+        config: authzed.api.v0.namespace_pb2.NamespaceDefinition | None = ...,
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "namespace", b"namespace", "revision", b"revision"]) -> None: ...
+
 global___ReadConfigResponse = ReadConfigResponse
 
 class WriteConfigRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    CONFIGS_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    CONFIGS_FIELD_NUMBER: builtins.int
     @property
     def configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v0.namespace_pb2.NamespaceDefinition]: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        configs : typing.Optional[typing.Iterable[authzed.api.v0.namespace_pb2.NamespaceDefinition]] = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"configs",b"configs"]) -> None: ...
+        configs: collections.abc.Iterable[authzed.api.v0.namespace_pb2.NamespaceDefinition] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["configs", b"configs"]) -> None: ...
+
 global___WriteConfigRequest = WriteConfigRequest
 
 class WriteConfigResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    REVISION_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    REVISION_FIELD_NUMBER: builtins.int
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> None: ...
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> None: ...
+
 global___WriteConfigResponse = WriteConfigResponse
 
 class DeleteConfigsRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     NAMESPACES_FIELD_NUMBER: builtins.int
-
     @property
-    def namespaces(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[typing.Text]: ...
-
-    def __init__(self,
+    def namespaces(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def __init__(
+        self,
         *,
-        namespaces : typing.Optional[typing.Iterable[typing.Text]] = ...,
-        ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"namespaces",b"namespaces"]) -> None: ...
+        namespaces: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["namespaces", b"namespaces"]) -> None: ...
+
 global___DeleteConfigsRequest = DeleteConfigsRequest
 
 class DeleteConfigsResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    REVISION_FIELD_NUMBER: builtins.int
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    REVISION_FIELD_NUMBER: builtins.int
     @property
     def revision(self) -> authzed.api.v0.core_pb2.Zookie: ...
-
-    def __init__(self,
+    def __init__(
+        self,
         *,
-        revision : typing.Optional[authzed.api.v0.core_pb2.Zookie] = ...,
-        ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[u"revision",b"revision"]) -> None: ...
+        revision: authzed.api.v0.core_pb2.Zookie | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["revision", b"revision"]) -> None: ...
+
 global___DeleteConfigsResponse = DeleteConfigsResponse
