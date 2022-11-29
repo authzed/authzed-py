@@ -2,6 +2,8 @@
 ---
 version: "v1"
 plugins:
+  - name: "python"
+    out: "."
   - name: "grpc-python"
     out: "."
     path: "grpc_python_plugin"
