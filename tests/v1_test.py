@@ -8,6 +8,7 @@ from authzed.api.v1 import (
     CheckPermissionResponse,
     Client,
     Consistency,
+    ContextualizedCaveat,
     LookupResourcesRequest,
     LookupSubjectsRequest,
     ObjectReference,
@@ -103,17 +104,42 @@ def test_caveated_check(client):
     beatrice, emilia, post_one, post_two = write_test_tuples(client)
 
     s = Struct()
+    # Likes Harry Potter
     s.update({"likes": True})
 
     req = CheckPermissionRequest(
         resource=post_one,
-        permission="view",
-        subject=emilia,
+        permission="view_as_fan",
+        subject=beatrice,
         consistency=Consistency(fully_consistent=True),
         context=s,
     )
     resp = client.CheckPermission(req)
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+
+    # No longer likes Harry Potter
+    s.update({"likes": False})
+    req = CheckPermissionRequest(
+        resource=post_one,
+        permission="view_as_fan",
+        subject=beatrice,
+        consistency=Consistency(fully_consistent=True),
+        context=s,
+    )
+    resp = client.CheckPermission(req)
+    assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_NO_PERMISSION
+
+    # Fandom is in question
+    req = CheckPermissionRequest(
+        resource=post_one,
+        permission="view_as_fan",
+        subject=beatrice,
+        consistency=Consistency(fully_consistent=True),
+        context=None,
+    )
+    resp = client.CheckPermission(req)
+    assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_CONDITIONAL_PERMISSION
+    assert "likes" in resp.partial_caveat_info.missing_required_context
 
 
 def test_lookup_resources(client):
@@ -204,6 +230,16 @@ def write_test_tuples(client):
                         subject=beatrice,
                     ),
                 ),
+                # Beatrice is also a caveated Reader on Post 1
+                RelationshipUpdate(
+                    operation=RelationshipUpdate.Operation.OPERATION_CREATE,
+                    relationship=Relationship(
+                        resource=post_one,
+                        relation="caveated_reader",
+                        subject=beatrice,
+                        optional_caveat=ContextualizedCaveat(caveat_name="likes_harry_potter"),
+                    ),
+                ),
             ]
         )
     )
@@ -213,7 +249,7 @@ def write_test_tuples(client):
 def write_test_schema(client):
     schema = """
         caveat likes_harry_potter(likes bool) {
-          likes == false
+          likes == true
         }
 
         definition post {
@@ -223,6 +259,7 @@ def write_test_schema(client):
 
             permission write = writer
             permission view = reader + writer
+            permission view_as_fan = caveated_reader + writer
         }
         definition user {}
     """

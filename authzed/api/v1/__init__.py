@@ -5,6 +5,7 @@ import grpc.aio
 
 from authzed.api.v1.core_pb2 import (
     AlgebraicSubjectSet,
+    ContextualizedCaveat,
     DirectSubjectSet,
     ObjectReference,
     PermissionRelationshipTree,
@@ -65,6 +66,7 @@ __all__ = [
     "Client",
     # Core
     "AlgebraicSubjectSet",
+    "ContextualizedCaveat",
     "DirectSubjectSet",
     "ObjectReference",
     "PermissionRelationshipTree",
