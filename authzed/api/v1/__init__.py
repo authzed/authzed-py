@@ -5,6 +5,7 @@ import grpc.aio
 
 from authzed.api.v1.core_pb2 import (
     AlgebraicSubjectSet,
+    ContextualizedCaveat,
     DirectSubjectSet,
     ObjectReference,
     PermissionRelationshipTree,
@@ -13,6 +14,7 @@ from authzed.api.v1.core_pb2 import (
     SubjectReference,
     ZedToken,
 )
+from authzed.api.v1.error_reason_pb2 import ErrorReason
 from authzed.api.v1.permission_service_pb2 import (
     CheckPermissionRequest,
     CheckPermissionResponse,
@@ -34,13 +36,13 @@ from authzed.api.v1.permission_service_pb2 import (
     WriteRelationshipsResponse,
 )
 from authzed.api.v1.permission_service_pb2_grpc import PermissionsServiceStub
-from authzed.api.v1.schema_pb2 import (
+from authzed.api.v1.schema_service_pb2 import (
     ReadSchemaRequest,
     ReadSchemaResponse,
     WriteSchemaRequest,
     WriteSchemaResponse,
 )
-from authzed.api.v1.schema_pb2_grpc import SchemaServiceStub
+from authzed.api.v1.schema_service_pb2_grpc import SchemaServiceStub
 
 
 class Client(SchemaServiceStub, PermissionsServiceStub):
@@ -64,6 +66,7 @@ __all__ = [
     "Client",
     # Core
     "AlgebraicSubjectSet",
+    "ContextualizedCaveat",
     "DirectSubjectSet",
     "ObjectReference",
     "PermissionRelationshipTree",
@@ -71,6 +74,8 @@ __all__ = [
     "RelationshipUpdate",
     "SubjectReference",
     "ZedToken",
+    # Error Reason
+    "ErrorReason",
     # Permission Service
     "CheckPermissionRequest",
     "CheckPermissionResponse",

@@ -8,6 +8,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import google.protobuf.struct_pb2
 import sys
 import typing
 
@@ -29,6 +30,7 @@ class Relationship(google.protobuf.message.Message):
     RESOURCE_FIELD_NUMBER: builtins.int
     RELATION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
+    OPTIONAL_CAVEAT_FIELD_NUMBER: builtins.int
     @property
     def resource(self) -> global___ObjectReference:
         """resource is the resource to which the subject is related, in some manner"""
@@ -37,17 +39,48 @@ class Relationship(google.protobuf.message.Message):
     @property
     def subject(self) -> global___SubjectReference:
         """subject is the subject to which the resource is related, in some manner."""
+    @property
+    def optional_caveat(self) -> global___ContextualizedCaveat:
+        """optional_caveat is a reference to a the caveat that must be enforced over the relationship"""
     def __init__(
         self,
         *,
         resource: global___ObjectReference | None = ...,
         relation: builtins.str = ...,
         subject: global___SubjectReference | None = ...,
+        optional_caveat: global___ContextualizedCaveat | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["relation", b"relation", "resource", b"resource", "subject", b"subject"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["optional_caveat", b"optional_caveat", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_caveat", b"optional_caveat", "relation", b"relation", "resource", b"resource", "subject", b"subject"]) -> None: ...
 
 global___Relationship = Relationship
+
+class ContextualizedCaveat(google.protobuf.message.Message):
+    """
+    ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
+    The context consists of key-value pairs that will be injected at evaluation time.
+    The keys must match the arguments defined on the caveat in the schema.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CAVEAT_NAME_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
+    caveat_name: builtins.str
+    """caveat_name is the name of the caveat expression to use, as defined in the schema *"""
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct:
+        """context consists of any named values that are defined at write time for the caveat expression *"""
+    def __init__(
+        self,
+        *,
+        caveat_name: builtins.str = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["context", b"context"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["caveat_name", b"caveat_name", "context", b"context"]) -> None: ...
+
+global___ContextualizedCaveat = ContextualizedCaveat
 
 class SubjectReference(google.protobuf.message.Message):
     """SubjectReference is used for referring to the subject portion of a
