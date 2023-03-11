@@ -56,7 +56,7 @@ class Relationship(google.protobuf.message.Message):
 global___Relationship = Relationship
 
 class ContextualizedCaveat(google.protobuf.message.Message):
-    """
+    """*
     ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
     The context consists of key-value pairs that will be injected at evaluation time.
     The keys must match the arguments defined on the caveat in the schema.
@@ -67,10 +67,10 @@ class ContextualizedCaveat(google.protobuf.message.Message):
     CAVEAT_NAME_FIELD_NUMBER: builtins.int
     CONTEXT_FIELD_NUMBER: builtins.int
     caveat_name: builtins.str
-    """caveat_name is the name of the caveat expression to use, as defined in the schema *"""
+    """* caveat_name is the name of the caveat expression to use, as defined in the schema *"""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """context consists of any named values that are defined at write time for the caveat expression *"""
+        """* context consists of any named values that are defined at write time for the caveat expression *"""
     def __init__(
         self,
         *,

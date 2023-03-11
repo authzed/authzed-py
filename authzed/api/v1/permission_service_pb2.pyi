@@ -365,7 +365,7 @@ class CheckPermissionRequest(google.protobuf.message.Message):
         """subject is the subject that will be checked for the permission or relation."""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """context consists of named values that are injected into the caveat evaluation context *"""
+        """* context consists of named values that are injected into the caveat evaluation context *"""
     def __init__(
         self,
         *,
@@ -540,7 +540,7 @@ class LookupResourcesRequest(google.protobuf.message.Message):
         """subject is the subject with access to the resources."""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """context consists of named values that are injected into the caveat evaluation context *"""
+        """* context consists of named values that are injected into the caveat evaluation context *"""
     def __init__(
         self,
         *,
@@ -620,7 +620,7 @@ class LookupSubjectsRequest(google.protobuf.message.Message):
     """optional_subject_relation is the optional relation for the subject."""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """context consists of named values that are injected into the caveat evaluation context *"""
+        """* context consists of named values that are injected into the caveat evaluation context *"""
     def __init__(
         self,
         *,
