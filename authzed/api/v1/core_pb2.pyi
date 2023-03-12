@@ -19,6 +19,10 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+"""Relationship specifies how a resource relates to a subject. Relationships
+form the data for the graph over which all permissions questions are
+answered.
+"""
 class Relationship(google.protobuf.message.Message):
     """Relationship specifies how a resource relates to a subject. Relationships
     form the data for the graph over which all permissions questions are
