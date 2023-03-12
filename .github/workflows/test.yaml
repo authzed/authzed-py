@@ -59,7 +59,7 @@ jobs:
           ls /home/linuxbrew/.linuxbrew/bin
       - uses: "bufbuild/buf-setup-action@v1"
         with:
-          version: "1.9.0"
+          version: "1.15.1"
       - name: "Install Python Dependencies"
         run: |
           virtualenv ~/.cache/virtualenv/authzedpy
@@ -75,4 +75,4 @@ jobs:
           echo $GITHUB_PATH
       - uses: "authzed/actions/buf-generate@main"
         with:
-          version: "1.9.0"
+          version: "1.15.1"
