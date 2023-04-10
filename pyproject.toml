@@ -22,7 +22,7 @@ python = "^3.7"
 typing-extensions = ">=3.7.4,<5"
 
 [tool.poetry.dev-dependencies]
-black = "^22.8.0"
+black = "^23.3.0"
 grpcio-tools = "~1.51"
 isort = "^5.6.4"
 jedi = "0.17.2"
