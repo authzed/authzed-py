@@ -9,6 +9,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import google.protobuf.struct_pb2
 import sys
 import typing
 
@@ -79,11 +80,13 @@ class CheckDebugTrace(google.protobuf.message.Message):
         PERMISSIONSHIP_UNSPECIFIED: CheckDebugTrace._Permissionship.ValueType  # 0
         PERMISSIONSHIP_NO_PERMISSION: CheckDebugTrace._Permissionship.ValueType  # 1
         PERMISSIONSHIP_HAS_PERMISSION: CheckDebugTrace._Permissionship.ValueType  # 2
+        PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckDebugTrace._Permissionship.ValueType  # 3
 
     class Permissionship(_Permissionship, metaclass=_PermissionshipEnumTypeWrapper): ...
     PERMISSIONSHIP_UNSPECIFIED: CheckDebugTrace.Permissionship.ValueType  # 0
     PERMISSIONSHIP_NO_PERMISSION: CheckDebugTrace.Permissionship.ValueType  # 1
     PERMISSIONSHIP_HAS_PERMISSION: CheckDebugTrace.Permissionship.ValueType  # 2
+    PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckDebugTrace.Permissionship.ValueType  # 3
 
     class SubProblems(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -103,6 +106,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
     PERMISSION_TYPE_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
     RESULT_FIELD_NUMBER: builtins.int
+    CAVEAT_EVALUATION_INFO_FIELD_NUMBER: builtins.int
     WAS_CACHED_RESULT_FIELD_NUMBER: builtins.int
     SUB_PROBLEMS_FIELD_NUMBER: builtins.int
     @property
@@ -119,6 +123,9 @@ class CheckDebugTrace(google.protobuf.message.Message):
         """
     result: global___CheckDebugTrace.Permissionship.ValueType
     """result holds the result of the Check call."""
+    @property
+    def caveat_evaluation_info(self) -> global___CaveatEvalInfo:
+        """caveat_evaluation_info holds information about the caveat evaluated for this step of the trace."""
     was_cached_result: builtins.bool
     """was_cached_result, if true, indicates that the result was found in the cache and returned directly."""
     @property
@@ -134,11 +141,67 @@ class CheckDebugTrace(google.protobuf.message.Message):
         permission_type: global___CheckDebugTrace.PermissionType.ValueType = ...,
         subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
         result: global___CheckDebugTrace.Permissionship.ValueType = ...,
+        caveat_evaluation_info: global___CaveatEvalInfo | None = ...,
         was_cached_result: builtins.bool = ...,
         sub_problems: global___CheckDebugTrace.SubProblems | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["resolution", b"resolution", "resource", b"resource", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["permission", b"permission", "permission_type", b"permission_type", "resolution", b"resolution", "resource", b"resource", "result", b"result", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "resolution", b"resolution", "resource", b"resource", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "permission", b"permission", "permission_type", b"permission_type", "resolution", b"resolution", "resource", b"resource", "result", b"result", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["resolution", b"resolution"]) -> typing_extensions.Literal["was_cached_result", "sub_problems"] | None: ...
 
 global___CheckDebugTrace = CheckDebugTrace
+
+class CaveatEvalInfo(google.protobuf.message.Message):
+    """CaveatEvalInfo holds information about a caveat expression that was evaluated."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Result:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CaveatEvalInfo._Result.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        RESULT_UNSPECIFIED: CaveatEvalInfo._Result.ValueType  # 0
+        RESULT_UNEVALUATED: CaveatEvalInfo._Result.ValueType  # 1
+        RESULT_FALSE: CaveatEvalInfo._Result.ValueType  # 2
+        RESULT_TRUE: CaveatEvalInfo._Result.ValueType  # 3
+        RESULT_MISSING_SOME_CONTEXT: CaveatEvalInfo._Result.ValueType  # 4
+
+    class Result(_Result, metaclass=_ResultEnumTypeWrapper): ...
+    RESULT_UNSPECIFIED: CaveatEvalInfo.Result.ValueType  # 0
+    RESULT_UNEVALUATED: CaveatEvalInfo.Result.ValueType  # 1
+    RESULT_FALSE: CaveatEvalInfo.Result.ValueType  # 2
+    RESULT_TRUE: CaveatEvalInfo.Result.ValueType  # 3
+    RESULT_MISSING_SOME_CONTEXT: CaveatEvalInfo.Result.ValueType  # 4
+
+    EXPRESSION_FIELD_NUMBER: builtins.int
+    RESULT_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    CAVEAT_NAME_FIELD_NUMBER: builtins.int
+    expression: builtins.str
+    """expression is the expression that was evaluated."""
+    result: global___CaveatEvalInfo.Result.ValueType
+    """result is the result of the evaluation."""
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct:
+        """context consists of any named values that were used for evaluating the caveat expression."""
+    @property
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo:
+        """partial_caveat_info holds information of a partially-evaluated caveated response, if applicable."""
+    caveat_name: builtins.str
+    """caveat_name is the name of the caveat that was executed, if applicable."""
+    def __init__(
+        self,
+        *,
+        expression: builtins.str = ...,
+        result: global___CaveatEvalInfo.Result.ValueType = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
+        caveat_name: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["context", b"context", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["caveat_name", b"caveat_name", "context", b"context", "expression", b"expression", "partial_caveat_info", b"partial_caveat_info", "result", b"result"]) -> None: ...
+
+global___CaveatEvalInfo = CaveatEvalInfo

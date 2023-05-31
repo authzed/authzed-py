@@ -56,8 +56,7 @@ class Relationship(google.protobuf.message.Message):
 global___Relationship = Relationship
 
 class ContextualizedCaveat(google.protobuf.message.Message):
-    """*
-    ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
+    """ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
     The context consists of key-value pairs that will be injected at evaluation time.
     The keys must match the arguments defined on the caveat in the schema.
     """
@@ -67,10 +66,10 @@ class ContextualizedCaveat(google.protobuf.message.Message):
     CAVEAT_NAME_FIELD_NUMBER: builtins.int
     CONTEXT_FIELD_NUMBER: builtins.int
     caveat_name: builtins.str
-    """* caveat_name is the name of the caveat expression to use, as defined in the schema *"""
+    """caveat_name is the name of the caveat expression to use, as defined in the schema"""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """* context consists of any named values that are defined at write time for the caveat expression *"""
+        """context consists of any named values that are defined at write time for the caveat expression"""
     def __init__(
         self,
         *,
@@ -145,6 +144,24 @@ class ZedToken(google.protobuf.message.Message):
 
 global___ZedToken = ZedToken
 
+class Cursor(google.protobuf.message.Message):
+    """Cursor is used to provide resumption of listing between calls to APIs
+    such as LookupResources.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TOKEN_FIELD_NUMBER: builtins.int
+    token: builtins.str
+    def __init__(
+        self,
+        *,
+        token: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["token", b"token"]) -> None: ...
+
+global___Cursor = Cursor
+
 class RelationshipUpdate(google.protobuf.message.Message):
     """RelationshipUpdate is used for mutating a single relationship within the
     service.
@@ -155,8 +172,8 @@ class RelationshipUpdate(google.protobuf.message.Message):
     TOUCH will upsert the relationship, and will not error if it
     already exists.
 
-    DELETE will delete the relationship and error if it doesn't
-    exist.
+    DELETE will delete the relationship. If the relationship does not exist,
+    this operation will no-op.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -289,3 +306,25 @@ class DirectSubjectSet(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["subjects", b"subjects"]) -> None: ...
 
 global___DirectSubjectSet = DirectSubjectSet
+
+class PartialCaveatInfo(google.protobuf.message.Message):
+    """PartialCaveatInfo carries information necessary for the client to take action
+    in the event a response contains a partially evaluated caveat
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MISSING_REQUIRED_CONTEXT_FIELD_NUMBER: builtins.int
+    @property
+    def missing_required_context(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """missing_required_context is a list of one or more fields that were missing and prevented caveats
+        from being fully evaluated
+        """
+    def __init__(
+        self,
+        *,
+        missing_required_context: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["missing_required_context", b"missing_required_context"]) -> None: ...
+
+global___PartialCaveatInfo = PartialCaveatInfo

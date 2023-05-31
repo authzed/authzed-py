@@ -30,7 +30,15 @@ class WatchRequest(google.protobuf.message.Message):
     @property
     def optional_object_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
-    def optional_start_cursor(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def optional_start_cursor(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """optional_start_cursor is the ZedToken holding the point-in-time at
+        which to start watching for changes.
+        If not specified, the watch will begin at the current head revision
+        of the datastore, returning any updates that occur after the caller
+        makes the request.
+        Note that if this cursor references a point-in-time containing data
+        that has been garbage collected, an error will be returned.
+        """
     def __init__(
         self,
         *,

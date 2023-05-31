@@ -208,6 +208,63 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           }
         }
     """
+    ERROR_REASON_CAVEAT_EVALUATION_ERROR: _ErrorReason.ValueType  # 14
+    """The request failed to evaluate a caveat expression due to an error.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_CAVEAT_EVALUATION_ERROR",
+          "domain": "authzed.com",
+          "metadata": {
+            "caveat_name": "somecaveat",
+          }
+        }
+    """
+    ERROR_REASON_INVALID_CURSOR: _ErrorReason.ValueType  # 15
+    """The request failed because the provided cursor was invalid in some way.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_INVALID_CURSOR",
+          "domain": "authzed.com",
+          "metadata": {
+             ... additional keys based on the kind of cursor error ...
+          }
+        }
+    """
+    ERROR_REASON_TOO_MANY_RELATIONSHIPS_FOR_TRANSACTIONAL_DELETE: _ErrorReason.ValueType  # 16
+    """The request failed because there are too many matching relationships to be
+    deleted within a single transactional deletion call. To avoid, set
+    `optional_allow_partial_deletions` to true on the DeleteRelationships call.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_TOO_MANY_RELATIONSHIPS_FOR_TRANSACTIONAL_DELETE",
+          "domain": "authzed.com",
+          "metadata": {
+             ... fields for the filter ...
+          }
+        }
+    """
+    ERROR_REASON_MAX_RELATIONSHIP_CONTEXT_SIZE: _ErrorReason.ValueType  # 17
+    """The request failed because the client attempted to write a relationship
+    with a context that exceeded the configured server limit.
+
+    Example of an ErrorInfo:
+
+        {
+          "reason": "ERROR_REASON_MAX_RELATIONSHIP_CONTEXT_SIZE",
+          "domain": "authzed.com",
+          "metadata": {
+            "relationship":     "relationship_exceeding_the_limit",
+            "max_allowed_size": "server_max_allowed_context_size",
+            "context_size":     "actual_relationship_context_size" ,
+          }
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -398,6 +455,63 @@ Example of an ErrorInfo:
       "metadata": {
         "definition_name": "somedefinition",
         "permission_name": "somerelation",
+      }
+    }
+"""
+ERROR_REASON_CAVEAT_EVALUATION_ERROR: ErrorReason.ValueType  # 14
+"""The request failed to evaluate a caveat expression due to an error.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_CAVEAT_EVALUATION_ERROR",
+      "domain": "authzed.com",
+      "metadata": {
+        "caveat_name": "somecaveat",
+      }
+    }
+"""
+ERROR_REASON_INVALID_CURSOR: ErrorReason.ValueType  # 15
+"""The request failed because the provided cursor was invalid in some way.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_INVALID_CURSOR",
+      "domain": "authzed.com",
+      "metadata": {
+         ... additional keys based on the kind of cursor error ...
+      }
+    }
+"""
+ERROR_REASON_TOO_MANY_RELATIONSHIPS_FOR_TRANSACTIONAL_DELETE: ErrorReason.ValueType  # 16
+"""The request failed because there are too many matching relationships to be
+deleted within a single transactional deletion call. To avoid, set
+`optional_allow_partial_deletions` to true on the DeleteRelationships call.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_TOO_MANY_RELATIONSHIPS_FOR_TRANSACTIONAL_DELETE",
+      "domain": "authzed.com",
+      "metadata": {
+         ... fields for the filter ...
+      }
+    }
+"""
+ERROR_REASON_MAX_RELATIONSHIP_CONTEXT_SIZE: ErrorReason.ValueType  # 17
+"""The request failed because the client attempted to write a relationship
+with a context that exceeded the configured server limit.
+
+Example of an ErrorInfo:
+
+    {
+      "reason": "ERROR_REASON_MAX_RELATIONSHIP_CONTEXT_SIZE",
+      "domain": "authzed.com",
+      "metadata": {
+        "relationship":     "relationship_exceeding_the_limit",
+        "max_allowed_size": "server_max_allowed_context_size",
+        "context_size":     "actual_relationship_context_size" ,
       }
     }
 """
