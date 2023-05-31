@@ -169,18 +169,36 @@ class ReadRelationshipsRequest(google.protobuf.message.Message):
 
     CONSISTENCY_FIELD_NUMBER: builtins.int
     RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
+    OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
+    OPTIONAL_CURSOR_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> global___Consistency: ...
     @property
-    def relationship_filter(self) -> global___RelationshipFilter: ...
+    def relationship_filter(self) -> global___RelationshipFilter:
+        """relationship_filter defines the filter to be applied to the relationships
+        to be returned.
+        """
+    optional_limit: builtins.int
+    """optional_limit, if non-zero, specifies the limit on the number of relationships to return
+    before the stream is closed on the server side. By default, the stream will continue
+    resolving relationships until exhausted or the stream is closed due to the client or a
+    network issue.
+    """
+    @property
+    def optional_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """optional_cursor, if specified, indicates the cursor after which results should resume being returned.
+        The cursor can be found on the ReadRelationshipsResponse object.
+        """
     def __init__(
         self,
         *,
         consistency: global___Consistency | None = ...,
         relationship_filter: global___RelationshipFilter | None = ...,
+        optional_limit: builtins.int = ...,
+        optional_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "relationship_filter", b"relationship_filter"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "relationship_filter", b"relationship_filter"]) -> None: ...
 
 global___ReadRelationshipsRequest = ReadRelationshipsRequest
 
@@ -194,18 +212,27 @@ class ReadRelationshipsResponse(google.protobuf.message.Message):
 
     READ_AT_FIELD_NUMBER: builtins.int
     RELATIONSHIP_FIELD_NUMBER: builtins.int
+    AFTER_RESULT_CURSOR_FIELD_NUMBER: builtins.int
     @property
-    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """read_at is the ZedToken at which the relationship was found."""
     @property
-    def relationship(self) -> authzed.api.v1.core_pb2.Relationship: ...
+    def relationship(self) -> authzed.api.v1.core_pb2.Relationship:
+        """relationship is the found relationship."""
+    @property
+    def after_result_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """after_result_cursor holds a cursor that can be used to resume the ReadRelationships stream after this
+        result.
+        """
     def __init__(
         self,
         *,
         read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         relationship: authzed.api.v1.core_pb2.Relationship | None = ...,
+        after_result_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["read_at", b"read_at", "relationship", b"relationship"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["read_at", b"read_at", "relationship", b"relationship"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["after_result_cursor", b"after_result_cursor", "read_at", b"read_at", "relationship", b"relationship"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["after_result_cursor", b"after_result_cursor", "read_at", b"read_at", "relationship", b"relationship"]) -> None: ...
 
 global___ReadRelationshipsResponse = ReadRelationshipsResponse
 
@@ -307,35 +334,86 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
 
     RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
     OPTIONAL_PRECONDITIONS_FIELD_NUMBER: builtins.int
+    OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
+    OPTIONAL_ALLOW_PARTIAL_DELETIONS_FIELD_NUMBER: builtins.int
     @property
     def relationship_filter(self) -> global___RelationshipFilter: ...
     @property
     def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]:
         """To be bounded by configuration"""
+    optional_limit: builtins.int
+    """optional_limit, if non-zero, specifies the limit on the number of relationships to be deleted.
+    If there are more matching relationships found to be deleted than the limit specified here,
+    the deletion call will fail with an error to prevent partial deletion. If partial deletion
+    is needed, specify below that partial deletion is allowed. Partial deletions can be used
+    in a loop to delete large amounts of relationships in a *non-transactional* manner.
+    """
+    optional_allow_partial_deletions: builtins.bool
+    """optional_allow_partial_deletions, if true and a limit is specified, will delete matching found
+    relationships up to the count specified in optional_limit, and no more.
+    """
     def __init__(
         self,
         *,
         relationship_filter: global___RelationshipFilter | None = ...,
         optional_preconditions: collections.abc.Iterable[global___Precondition] | None = ...,
+        optional_limit: builtins.int = ...,
+        optional_allow_partial_deletions: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["optional_preconditions", b"optional_preconditions", "relationship_filter", b"relationship_filter"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_allow_partial_deletions", b"optional_allow_partial_deletions", "optional_limit", b"optional_limit", "optional_preconditions", b"optional_preconditions", "relationship_filter", b"relationship_filter"]) -> None: ...
 
 global___DeleteRelationshipsRequest = DeleteRelationshipsRequest
 
 class DeleteRelationshipsResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class _DeletionProgress:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _DeletionProgressEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DeleteRelationshipsResponse._DeletionProgress.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DELETION_PROGRESS_UNSPECIFIED: DeleteRelationshipsResponse._DeletionProgress.ValueType  # 0
+        DELETION_PROGRESS_COMPLETE: DeleteRelationshipsResponse._DeletionProgress.ValueType  # 1
+        """DELETION_PROGRESS_COMPLETE indicates that all remaining relationships matching the filter
+        were deleted. Will be returned even if no relationships were deleted.
+        """
+        DELETION_PROGRESS_PARTIAL: DeleteRelationshipsResponse._DeletionProgress.ValueType  # 2
+        """DELETION_PROGRESS_PARTIAL indicates that a subset of the relationships matching the filter
+        were deleted. Only returned if optional_allow_partial_deletions was true, an optional_limit was
+        specified, and there existed more relationships matching the filter than optional_limit would allow.
+        Once all remaining relationships have been deleted, DELETION_PROGRESS_COMPLETE will be returned.
+        """
+
+    class DeletionProgress(_DeletionProgress, metaclass=_DeletionProgressEnumTypeWrapper): ...
+    DELETION_PROGRESS_UNSPECIFIED: DeleteRelationshipsResponse.DeletionProgress.ValueType  # 0
+    DELETION_PROGRESS_COMPLETE: DeleteRelationshipsResponse.DeletionProgress.ValueType  # 1
+    """DELETION_PROGRESS_COMPLETE indicates that all remaining relationships matching the filter
+    were deleted. Will be returned even if no relationships were deleted.
+    """
+    DELETION_PROGRESS_PARTIAL: DeleteRelationshipsResponse.DeletionProgress.ValueType  # 2
+    """DELETION_PROGRESS_PARTIAL indicates that a subset of the relationships matching the filter
+    were deleted. Only returned if optional_allow_partial_deletions was true, an optional_limit was
+    specified, and there existed more relationships matching the filter than optional_limit would allow.
+    Once all remaining relationships have been deleted, DELETION_PROGRESS_COMPLETE will be returned.
+    """
+
     DELETED_AT_FIELD_NUMBER: builtins.int
+    DELETION_PROGRESS_FIELD_NUMBER: builtins.int
     @property
-    def deleted_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def deleted_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """deleted_at is the revision at which the relationships were deleted."""
+    deletion_progress: global___DeleteRelationshipsResponse.DeletionProgress.ValueType
+    """deletion_progress is an enumeration of the possible outcomes that occurred when attempting to delete the specified relationships."""
     def __init__(
         self,
         *,
         deleted_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        deletion_progress: global___DeleteRelationshipsResponse.DeletionProgress.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deleted_at", b"deleted_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["deleted_at", b"deleted_at"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["deleted_at", b"deleted_at", "deletion_progress", b"deletion_progress"]) -> None: ...
 
 global___DeleteRelationshipsResponse = DeleteRelationshipsResponse
 
@@ -365,7 +443,7 @@ class CheckPermissionRequest(google.protobuf.message.Message):
         """subject is the subject that will be checked for the permission or relation."""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """* context consists of named values that are injected into the caveat evaluation context *"""
+        """context consists of named values that are injected into the caveat evaluation context"""
     def __init__(
         self,
         *,
@@ -379,28 +457,6 @@ class CheckPermissionRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
 
 global___CheckPermissionRequest = CheckPermissionRequest
-
-class PartialCaveatInfo(google.protobuf.message.Message):
-    """PartialCaveatInfo carries information necessary for the client to take action
-    in the event a response contains a partially evaluated caveat
-    """
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    MISSING_REQUIRED_CONTEXT_FIELD_NUMBER: builtins.int
-    @property
-    def missing_required_context(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """missing_required_context is a list of one or more fields that were missing and prevented caveats
-        from being fully evaluated
-        """
-    def __init__(
-        self,
-        *,
-        missing_required_context: collections.abc.Iterable[builtins.str] | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["missing_required_context", b"missing_required_context"]) -> None: ...
-
-global___PartialCaveatInfo = PartialCaveatInfo
 
 class CheckPermissionResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -438,14 +494,14 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     to the given subject.
     """
     @property
-    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo:
         """partial_caveat_info holds information of a partially-evaluated caveated response"""
     def __init__(
         self,
         *,
         checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
-        partial_caveat_info: global___PartialCaveatInfo | None = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
@@ -525,6 +581,8 @@ class LookupResourcesRequest(google.protobuf.message.Message):
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
     CONTEXT_FIELD_NUMBER: builtins.int
+    OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
+    OPTIONAL_CURSOR_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> global___Consistency: ...
     resource_object_type: builtins.str
@@ -540,7 +598,18 @@ class LookupResourcesRequest(google.protobuf.message.Message):
         """subject is the subject with access to the resources."""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """* context consists of named values that are injected into the caveat evaluation context *"""
+        """context consists of named values that are injected into the caveat evaluation context"""
+    optional_limit: builtins.int
+    """optional_limit, if non-zero, specifies the limit on the number of resources to return
+    before the stream is closed on the server side. By default, the stream will continue
+    resolving resources until exhausted or the stream is closed due to the client or a
+    network issue.
+    """
+    @property
+    def optional_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """optional_cursor, if specified, indicates the cursor after which results should resume being returned.
+        The cursor can be found on the LookupResourcesResponse object.
+        """
     def __init__(
         self,
         *,
@@ -549,9 +618,11 @@ class LookupResourcesRequest(google.protobuf.message.Message):
         permission: builtins.str = ...,
         subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
         context: google.protobuf.struct_pb2.Struct | None = ...,
+        optional_limit: builtins.int = ...,
+        optional_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "optional_cursor", b"optional_cursor", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject"]) -> None: ...
 
 global___LookupResourcesRequest = LookupResourcesRequest
 
@@ -566,24 +637,33 @@ class LookupResourcesResponse(google.protobuf.message.Message):
     RESOURCE_OBJECT_ID_FIELD_NUMBER: builtins.int
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
     PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    AFTER_RESULT_CURSOR_FIELD_NUMBER: builtins.int
     @property
-    def looked_up_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def looked_up_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """looked_up_at is the ZedToken at which the resource was found."""
     resource_object_id: builtins.str
+    """resource_object_id is the object ID of the found resource."""
     permissionship: global___LookupPermissionship.ValueType
     """permissionship indicates whether the response was partially evaluated or not"""
     @property
-    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo:
         """partial_caveat_info holds information of a partially-evaluated caveated response"""
+    @property
+    def after_result_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """after_result_cursor holds a cursor that can be used to resume the LookupResources stream after this
+        result.
+        """
     def __init__(
         self,
         *,
         looked_up_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         resource_object_id: builtins.str = ...,
         permissionship: global___LookupPermissionship.ValueType = ...,
-        partial_caveat_info: global___PartialCaveatInfo | None = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
+        after_result_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "resource_object_id", b"resource_object_id"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["after_result_cursor", b"after_result_cursor", "looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["after_result_cursor", b"after_result_cursor", "looked_up_at", b"looked_up_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "resource_object_id", b"resource_object_id"]) -> None: ...
 
 global___LookupResourcesResponse = LookupResourcesResponse
 
@@ -620,7 +700,7 @@ class LookupSubjectsRequest(google.protobuf.message.Message):
     """optional_subject_relation is the optional relation for the subject."""
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
-        """* context consists of named values that are injected into the caveat evaluation context *"""
+        """context consists of named values that are injected into the caveat evaluation context"""
     def __init__(
         self,
         *,
@@ -669,7 +749,7 @@ class LookupSubjectsResponse(google.protobuf.message.Message):
     deprecated: use `subject.permissionship`
     """
     @property
-    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo:
         """partial_caveat_info holds information of a partially-evaluated caveated response
         deprecated: use `subject.partial_caveat_info`
         """
@@ -689,7 +769,7 @@ class LookupSubjectsResponse(google.protobuf.message.Message):
         subject_object_id: builtins.str = ...,
         excluded_subject_ids: collections.abc.Iterable[builtins.str] | None = ...,
         permissionship: global___LookupPermissionship.ValueType = ...,
-        partial_caveat_info: global___PartialCaveatInfo | None = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
         subject: global___ResolvedSubject | None = ...,
         excluded_subjects: collections.abc.Iterable[global___ResolvedSubject] | None = ...,
     ) -> None: ...
@@ -713,14 +793,14 @@ class ResolvedSubject(google.protobuf.message.Message):
     permissionship: global___LookupPermissionship.ValueType
     """permissionship indicates whether the response was partially evaluated or not"""
     @property
-    def partial_caveat_info(self) -> global___PartialCaveatInfo:
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo:
         """partial_caveat_info holds information of a partially-evaluated caveated response"""
     def __init__(
         self,
         *,
         subject_object_id: builtins.str = ...,
         permissionship: global___LookupPermissionship.ValueType = ...,
-        partial_caveat_info: global___PartialCaveatInfo | None = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "subject_object_id", b"subject_object_id"]) -> None: ...
