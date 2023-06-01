@@ -681,19 +681,19 @@ files = [
 
 [[package]]
 name = "mypy-protobuf"
-version = "3.3.0"
+version = "3.4.0"
 description = "Generate mypy stub files from protobuf specs"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mypy-protobuf-3.3.0.tar.gz", hash = "sha256:24f3b0aecb06656e983f58e07c732a90577b9d7af3e1066fc2b663bbf0370248"},
-    {file = "mypy_protobuf-3.3.0-py3-none-any.whl", hash = "sha256:15604f6943b16c05db646903261e3b3e775cf7f7990b7c37b03d043a907b650d"},
+    {file = "mypy-protobuf-3.4.0.tar.gz", hash = "sha256:7d75a079651b105076776a35a5405e3fa773b8a167118f1b712e443e9a6c18a2"},
+    {file = "mypy_protobuf-3.4.0-py3-none-any.whl", hash = "sha256:da33dfde7547ff57e5ba5564126cbfa114f14413b2fa50759b1fa5de1e4ab511"},
 ]
 
 [package.dependencies]
-protobuf = ">=3.19.4"
-types-protobuf = ">=3.19.12"
+protobuf = ">=4.21.8"
+types-protobuf = ">=3.20.4"
 
 [[package]]
 name = "packaging"
@@ -1220,4 +1220,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "a8fcb4ed3cf6ef3060aca271c455504a00dc47c1dbdfe312e05d5d97b6b9dbcc"
+content-hash = "69d155422dad0bb5c17329e104e7f0a9a6134c84089624d7da0eb15be4e79116"
