@@ -798,14 +798,14 @@ files = [
 
 [[package]]
 name = "protoc-gen-validate"
-version = "0.10.1"
+version = "1.0.1"
 description = "PGV for python via just-in-time code generation"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "protoc-gen-validate-0.10.1.tar.gz", hash = "sha256:5084ecf416bae6995b16dcc3cee51f02f466ca7366c70c85a38efb6cf054a478"},
-    {file = "protoc_gen_validate-0.10.1-py3-none-any.whl", hash = "sha256:21278ef9550b917668dd0e050f9c5aa805d0c0abc52c6b1fd5576a8835a8a53e"},
+    {file = "protoc-gen-validate-1.0.1.tar.gz", hash = "sha256:ee011b07a3d6204ce55c96347617bda38d1cb2f625fc7e3282261a72601bc12f"},
+    {file = "protoc_gen_validate-1.0.1-py3-none-any.whl", hash = "sha256:d57ebc2aa8a6129f93f7a7ee6fb17e6afb718e657a482ec80c7b64a9301d9c24"},
 ]
 
 [package.dependencies]
@@ -1220,4 +1220,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "a8fcb4ed3cf6ef3060aca271c455504a00dc47c1dbdfe312e05d5d97b6b9dbcc"
+content-hash = "cf7727e4ba175f84e641d57589ecf8cf72f6c48ab43bf274f0703977a00aa2ae"
