@@ -265,6 +265,23 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           }
         }
     """
+    ERROR_REASON_ATTEMPT_TO_RECREATE_RELATIONSHIP: _ErrorReason.ValueType  # 18
+    """The request failed because a relationship marked to be CREATEd
+    was already present within the datastore.
+
+    Example of an ErrorInfo:
+
+        {
+          "reason": "ERROR_REASON_ATTEMPT_TO_RECREATE_RELATIONSHIP",
+          "domain": "authzed.com",
+          "metadata": {
+            "relationship":          "relationship_that_already_existed",
+            "resource_type":         "resource type",
+            "resource_object_id":    "resource object id",
+            ... additional decomposed relationship fields ...
+          }
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -512,6 +529,23 @@ Example of an ErrorInfo:
         "relationship":     "relationship_exceeding_the_limit",
         "max_allowed_size": "server_max_allowed_context_size",
         "context_size":     "actual_relationship_context_size" ,
+      }
+    }
+"""
+ERROR_REASON_ATTEMPT_TO_RECREATE_RELATIONSHIP: ErrorReason.ValueType  # 18
+"""The request failed because a relationship marked to be CREATEd
+was already present within the datastore.
+
+Example of an ErrorInfo:
+
+    {
+      "reason": "ERROR_REASON_ATTEMPT_TO_RECREATE_RELATIONSHIP",
+      "domain": "authzed.com",
+      "metadata": {
+        "relationship":          "relationship_that_already_existed",
+        "resource_type":         "resource type",
+        "resource_object_id":    "resource object id",
+        ... additional decomposed relationship fields ...
       }
     }
 """
