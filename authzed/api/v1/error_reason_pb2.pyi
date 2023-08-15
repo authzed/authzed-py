@@ -282,6 +282,23 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           }
         }
     """
+    ERROR_REASON_MAXIMUM_DEPTH_EXCEEDED: _ErrorReason.ValueType  # 19
+    """The request failed because it caused the maximum depth allowed to be
+    exceeded. This typically indicates that there is a circular data traversal
+    somewhere in the schema, but can also be raised if the data traversal is simply
+    too deep.
+
+    Example of an ErrorInfo:
+
+        {
+          "reason": "ERROR_REASON_MAXIMUM_DEPTH_EXCEEDED",
+          "domain": "authzed.com",
+          "metadata": {
+            "maximum_depth_allowed": "50",
+            ... additional fields based on request type ...
+          }
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -546,6 +563,23 @@ Example of an ErrorInfo:
         "resource_type":         "resource type",
         "resource_object_id":    "resource object id",
         ... additional decomposed relationship fields ...
+      }
+    }
+"""
+ERROR_REASON_MAXIMUM_DEPTH_EXCEEDED: ErrorReason.ValueType  # 19
+"""The request failed because it caused the maximum depth allowed to be
+exceeded. This typically indicates that there is a circular data traversal
+somewhere in the schema, but can also be raised if the data traversal is simply
+too deep.
+
+Example of an ErrorInfo:
+
+    {
+      "reason": "ERROR_REASON_MAXIMUM_DEPTH_EXCEEDED",
+      "domain": "authzed.com",
+      "metadata": {
+        "maximum_depth_allowed": "50",
+        ... additional fields based on request type ...
       }
     }
 """

@@ -26,6 +26,16 @@ class ExperimentalServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsResponse.FromString,
                 )
+        self.StreamingBulkCheckPermission = channel.unary_stream(
+                '/authzed.api.v1.ExperimentalService/StreamingBulkCheckPermission',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.StreamingBulkCheckPermissionRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.StreamingBulkCheckPermissionResponse.FromString,
+                )
+        self.BulkCheckPermission = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/BulkCheckPermission',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.FromString,
+                )
 
 
 class ExperimentalServiceServicer(object):
@@ -57,6 +67,18 @@ class ExperimentalServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamingBulkCheckPermission(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BulkCheckPermission(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ExperimentalServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -69,6 +91,16 @@ def add_ExperimentalServiceServicer_to_server(servicer, server):
                     servicer.BulkExportRelationships,
                     request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsResponse.SerializeToString,
+            ),
+            'StreamingBulkCheckPermission': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamingBulkCheckPermission,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.StreamingBulkCheckPermissionRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.StreamingBulkCheckPermissionResponse.SerializeToString,
+            ),
+            'BulkCheckPermission': grpc.unary_unary_rpc_method_handler(
+                    servicer.BulkCheckPermission,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -113,5 +145,39 @@ class ExperimentalService(object):
         return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.ExperimentalService/BulkExportRelationships',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamingBulkCheckPermission(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.ExperimentalService/StreamingBulkCheckPermission',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.StreamingBulkCheckPermissionRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.StreamingBulkCheckPermissionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BulkCheckPermission(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/BulkCheckPermission',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

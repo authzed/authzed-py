@@ -9,6 +9,8 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import google.protobuf.struct_pb2
+import google.rpc.status_pb2
 import sys
 
 if sys.version_info >= (3, 8):
@@ -17,6 +19,157 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+class StreamingBulkCheckPermissionRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    ITEMS_FIELD_NUMBER: builtins.int
+    @property
+    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
+    @property
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BulkCheckPermissionRequestItem]: ...
+    def __init__(
+        self,
+        *,
+        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
+        items: collections.abc.Iterable[global___BulkCheckPermissionRequestItem] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "items", b"items"]) -> None: ...
+
+global___StreamingBulkCheckPermissionRequest = StreamingBulkCheckPermissionRequest
+
+class BulkCheckPermissionRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    ITEMS_FIELD_NUMBER: builtins.int
+    @property
+    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
+    @property
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BulkCheckPermissionRequestItem]: ...
+    def __init__(
+        self,
+        *,
+        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
+        items: collections.abc.Iterable[global___BulkCheckPermissionRequestItem] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "items", b"items"]) -> None: ...
+
+global___BulkCheckPermissionRequest = BulkCheckPermissionRequest
+
+class BulkCheckPermissionRequestItem(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESOURCE_FIELD_NUMBER: builtins.int
+    PERMISSION_FIELD_NUMBER: builtins.int
+    SUBJECT_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
+    @property
+    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference: ...
+    permission: builtins.str
+    @property
+    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference: ...
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct: ...
+    def __init__(
+        self,
+        *,
+        resource: authzed.api.v1.core_pb2.ObjectReference | None = ...,
+        permission: builtins.str = ...,
+        subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["context", b"context", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["context", b"context", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
+
+global___BulkCheckPermissionRequestItem = BulkCheckPermissionRequestItem
+
+class BulkCheckPermissionResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CHECKED_AT_FIELD_NUMBER: builtins.int
+    PAIRS_FIELD_NUMBER: builtins.int
+    @property
+    def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    @property
+    def pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BulkCheckPermissionPair]: ...
+    def __init__(
+        self,
+        *,
+        checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        pairs: collections.abc.Iterable[global___BulkCheckPermissionPair] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "pairs", b"pairs"]) -> None: ...
+
+global___BulkCheckPermissionResponse = BulkCheckPermissionResponse
+
+class StreamingBulkCheckPermissionResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CHECKED_AT_FIELD_NUMBER: builtins.int
+    PAIRS_FIELD_NUMBER: builtins.int
+    @property
+    def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    @property
+    def pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BulkCheckPermissionPair]: ...
+    def __init__(
+        self,
+        *,
+        checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        pairs: collections.abc.Iterable[global___BulkCheckPermissionPair] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "pairs", b"pairs"]) -> None: ...
+
+global___StreamingBulkCheckPermissionResponse = StreamingBulkCheckPermissionResponse
+
+class BulkCheckPermissionPair(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REQUEST_FIELD_NUMBER: builtins.int
+    ITEM_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___BulkCheckPermissionRequestItem: ...
+    @property
+    def item(self) -> global___BulkCheckPermissionResponseItem: ...
+    @property
+    def error(self) -> google.rpc.status_pb2.Status: ...
+    def __init__(
+        self,
+        *,
+        request: global___BulkCheckPermissionRequestItem | None = ...,
+        item: global___BulkCheckPermissionResponseItem | None = ...,
+        error: google.rpc.status_pb2.Status | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["error", b"error", "item", b"item", "request", b"request", "response", b"response"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error", b"error", "item", b"item", "request", b"request", "response", b"response"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["response", b"response"]) -> typing_extensions.Literal["item", "error"] | None: ...
+
+global___BulkCheckPermissionPair = BulkCheckPermissionPair
+
+class BulkCheckPermissionResponseItem(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PERMISSIONSHIP_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    permissionship: authzed.api.v1.permission_service_pb2.CheckPermissionResponse.Permissionship.ValueType
+    @property
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo: ...
+    def __init__(
+        self,
+        *,
+        permissionship: authzed.api.v1.permission_service_pb2.CheckPermissionResponse.Permissionship.ValueType = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
+
+global___BulkCheckPermissionResponseItem = BulkCheckPermissionResponseItem
 
 class BulkImportRelationshipsRequest(google.protobuf.message.Message):
     """BulkImportRelationshipsRequest represents one batch of the streaming
