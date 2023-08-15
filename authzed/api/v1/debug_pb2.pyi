@@ -6,6 +6,7 @@ import authzed.api.v1.core_pb2
 import builtins
 import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
@@ -107,6 +108,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
     SUBJECT_FIELD_NUMBER: builtins.int
     RESULT_FIELD_NUMBER: builtins.int
     CAVEAT_EVALUATION_INFO_FIELD_NUMBER: builtins.int
+    DURATION_FIELD_NUMBER: builtins.int
     WAS_CACHED_RESULT_FIELD_NUMBER: builtins.int
     SUB_PROBLEMS_FIELD_NUMBER: builtins.int
     @property
@@ -126,6 +128,9 @@ class CheckDebugTrace(google.protobuf.message.Message):
     @property
     def caveat_evaluation_info(self) -> global___CaveatEvalInfo:
         """caveat_evaluation_info holds information about the caveat evaluated for this step of the trace."""
+    @property
+    def duration(self) -> google.protobuf.duration_pb2.Duration:
+        """duration holds the time spent executing this Check operation."""
     was_cached_result: builtins.bool
     """was_cached_result, if true, indicates that the result was found in the cache and returned directly."""
     @property
@@ -142,11 +147,12 @@ class CheckDebugTrace(google.protobuf.message.Message):
         subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
         result: global___CheckDebugTrace.Permissionship.ValueType = ...,
         caveat_evaluation_info: global___CaveatEvalInfo | None = ...,
+        duration: google.protobuf.duration_pb2.Duration | None = ...,
         was_cached_result: builtins.bool = ...,
         sub_problems: global___CheckDebugTrace.SubProblems | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "resolution", b"resolution", "resource", b"resource", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "permission", b"permission", "permission_type", b"permission_type", "resolution", b"resolution", "resource", b"resource", "result", b"result", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "duration", b"duration", "resolution", b"resolution", "resource", b"resource", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "duration", b"duration", "permission", b"permission", "permission_type", b"permission_type", "resolution", b"resolution", "resource", b"resource", "result", b"result", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["resolution", b"resolution"]) -> typing_extensions.Literal["was_cached_result", "sub_problems"] | None: ...
 
 global___CheckDebugTrace = CheckDebugTrace
