@@ -1,0 +1,87 @@
+name: "Update for API change"
+on:
+  workflow_dispatch:
+    inputs:
+      buftag:
+        description: "Tag or commit from https://buf.build/authzed/api/tags/main"
+        required: true
+        type: "string"
+jobs:
+  test:
+    name: "Create PR for API update"
+    timeout-minutes: 10
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-node@v3"
+      - name: "Update Buf Script"
+        id: "buf-update"
+        uses: "authzed/actions/buf-api-update@main"
+        with:
+          api-commit: "${{ inputs.buftag }}"
+          spec-path: "buf.gen.yaml"
+          file-format: "generate-shell-script"
+      - name: "Output update status"
+        env:
+          UPDATED_STATUS: "${{ steps.buf-update.outputs.updated }}"
+        run: |
+          echo "Update status: $UPDATED_STATUS"
+      - name: "Update package version"
+        uses: "authzed/actions/semver-update@main"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        with:
+          sourcefile-path: "pyproject.toml"
+          version-regex: 'name = "authzed"\nversion = "(.+)"'
+          version-change: "minor"
+      - name: "Install buf"
+        uses: "bufbuild/buf-setup-action@v1"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        with:
+          version: "1.15.1"
+      - name: "Install Python"
+        uses: "actions/setup-python@v4"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        with:
+          python-version: "3.10"
+      - name: "Setup Python Environment"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        run: "pip install -U pip virtualenv"
+      - name: "Install Homebrew & gRPC"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bash_profile
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          brew install grpc
+          ls /home/linuxbrew/.linuxbrew/bin
+      - name: "Install Python Dependencies"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        run: |
+          virtualenv ~/.cache/virtualenv/authzedpy
+          source ~/.cache/virtualenv/authzedpy/bin/activate
+          pip install poetry
+          poetry env info
+          poetry install
+          echo "/home/runner/.cache/virtualenv/authzedpy/bin" >> $GITHUB_PATH
+          python -V
+          whereis grpc_python_plugin
+          whereis protoc-gen-mypy
+          whereis protoc-gen-mypy_grpc
+          echo $GITHUB_PATH
+      - name: "Run buf generate"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        run: |
+          ./buf.gen.yaml
+      - name: "Run poetry lock"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        run: |
+          poetry lock
+      - name: "Create Pull Request"
+        uses: "peter-evans/create-pull-request@v4.0.4"
+        if: "steps.buf-update.outputs.updated == 'true'"
+        with:
+          delete-branch: "true"
+          title: "Update API to ${{ inputs.buftag }}"
+          branch: "api-change/${{ inputs.buftag }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"

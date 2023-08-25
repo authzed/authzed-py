@@ -1,14 +1,16 @@
 [tool.poetry]
 authors = ["Authzed <support@authzed.com>"]
 description = "Client library for SpiceDB."
+
+# NOTE: These two lines must be kept together for the API update action to function
 name = "authzed"
+version = "0.12.0"
 packages = [
   {include = "authzed"},
   {include = "validate"},
   {include = "grpcutil"},
 ]
 readme = "README.md"
-version = "0.12.0"
 
 [tool.poetry.dependencies]
 async_generator = "^1.10"
