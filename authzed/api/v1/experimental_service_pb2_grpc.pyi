@@ -35,10 +35,6 @@ class ExperimentalServiceStub:
     relationships from the server. It is resumable, and will return results
     in an order determined by the server.
     """
-    StreamingBulkCheckPermission: grpc.UnaryStreamMultiCallable[
-        authzed.api.v1.experimental_service_pb2.StreamingBulkCheckPermissionRequest,
-        authzed.api.v1.experimental_service_pb2.StreamingBulkCheckPermissionResponse,
-    ]
     BulkCheckPermission: grpc.UnaryUnaryMultiCallable[
         authzed.api.v1.experimental_service_pb2.BulkCheckPermissionRequest,
         authzed.api.v1.experimental_service_pb2.BulkCheckPermissionResponse,
@@ -75,12 +71,6 @@ class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
         relationships from the server. It is resumable, and will return results
         in an order determined by the server.
         """
-    @abc.abstractmethod
-    def StreamingBulkCheckPermission(
-        self,
-        request: authzed.api.v1.experimental_service_pb2.StreamingBulkCheckPermissionRequest,
-        context: grpc.ServicerContext,
-    ) -> collections.abc.Iterator[authzed.api.v1.experimental_service_pb2.StreamingBulkCheckPermissionResponse]: ...
     @abc.abstractmethod
     def BulkCheckPermission(
         self,

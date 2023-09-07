@@ -20,26 +20,6 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-class StreamingBulkCheckPermissionRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    CONSISTENCY_FIELD_NUMBER: builtins.int
-    ITEMS_FIELD_NUMBER: builtins.int
-    @property
-    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
-    @property
-    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BulkCheckPermissionRequestItem]: ...
-    def __init__(
-        self,
-        *,
-        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
-        items: collections.abc.Iterable[global___BulkCheckPermissionRequestItem] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "items", b"items"]) -> None: ...
-
-global___StreamingBulkCheckPermissionRequest = StreamingBulkCheckPermissionRequest
-
 class BulkCheckPermissionRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -106,26 +86,6 @@ class BulkCheckPermissionResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "pairs", b"pairs"]) -> None: ...
 
 global___BulkCheckPermissionResponse = BulkCheckPermissionResponse
-
-class StreamingBulkCheckPermissionResponse(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    CHECKED_AT_FIELD_NUMBER: builtins.int
-    PAIRS_FIELD_NUMBER: builtins.int
-    @property
-    def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
-    @property
-    def pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BulkCheckPermissionPair]: ...
-    def __init__(
-        self,
-        *,
-        checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
-        pairs: collections.abc.Iterable[global___BulkCheckPermissionPair] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "pairs", b"pairs"]) -> None: ...
-
-global___StreamingBulkCheckPermissionResponse = StreamingBulkCheckPermissionResponse
 
 class BulkCheckPermissionPair(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
