@@ -13,7 +13,6 @@ packages = [
 readme = "README.md"
 
 [tool.poetry.dependencies]
-async_generator = "^1.10"
 google-api-core = "^2.4.0"
 google_api = "^0.1.12"
 grpcio = "^1.54"
