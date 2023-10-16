@@ -20,13 +20,12 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'authzed.api.v1alpha1.schema_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
-  DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1'
-  _READSCHEMAREQUEST.fields_by_name['object_definitions_names']._options = None
-  _READSCHEMAREQUEST.fields_by_name['object_definitions_names']._serialized_options = b'\372BJ\222\001G\"ErC(\200\0012>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)*[a-z][a-z0-9_]{1,62}[a-z0-9]$'
-  _WRITESCHEMAREQUEST.fields_by_name['schema']._options = None
-  _WRITESCHEMAREQUEST.fields_by_name['schema']._serialized_options = b'\372B\006r\004(\200\200\020'
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1'
+  _globals['_READSCHEMAREQUEST'].fields_by_name['object_definitions_names']._options = None
+  _globals['_READSCHEMAREQUEST'].fields_by_name['object_definitions_names']._serialized_options = b'\372BJ\222\001G\"ErC(\200\0012>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)*[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _globals['_WRITESCHEMAREQUEST'].fields_by_name['schema']._options = None
+  _globals['_WRITESCHEMAREQUEST'].fields_by_name['schema']._serialized_options = b'\372B\006r\004(\200\200\020'
   _globals['_READSCHEMAREQUEST']._serialized_start=85
   _globals['_READSCHEMAREQUEST']._serialized_end=242
   _globals['_READSCHEMARESPONSE']._serialized_start=245

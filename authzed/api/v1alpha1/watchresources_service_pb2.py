@@ -22,15 +22,14 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'authzed.api.v1alpha1.watchresources_service_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
-  DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1'
-  _WATCHRESOURCESREQUEST.fields_by_name['resource_object_type']._options = None
-  _WATCHRESOURCESREQUEST.fields_by_name['resource_object_type']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)*[a-z][a-z0-9_]{1,62}[a-z0-9]$'
-  _WATCHRESOURCESREQUEST.fields_by_name['permission']._options = None
-  _WATCHRESOURCESREQUEST.fields_by_name['permission']._serialized_options = b'\372B$r\"(@2\036^[a-z][a-z0-9_]{1,62}[a-z0-9]$'
-  _WATCHRESOURCESSERVICE.methods_by_name['WatchResources']._options = None
-  _WATCHRESOURCESSERVICE.methods_by_name['WatchResources']._serialized_options = b'\202\323\344\223\002\032\"\025/v1alpha1/lookupwatch:\001*'
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\n\030com.authzed.api.v1alpha1Z8github.com/authzed/authzed-go/proto/authzed/api/v1alpha1'
+  _globals['_WATCHRESOURCESREQUEST'].fields_by_name['resource_object_type']._options = None
+  _globals['_WATCHRESOURCESREQUEST'].fields_by_name['resource_object_type']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)*[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _globals['_WATCHRESOURCESREQUEST'].fields_by_name['permission']._options = None
+  _globals['_WATCHRESOURCESREQUEST'].fields_by_name['permission']._serialized_options = b'\372B$r\"(@2\036^[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _globals['_WATCHRESOURCESSERVICE'].methods_by_name['WatchResources']._options = None
+  _globals['_WATCHRESOURCESSERVICE'].methods_by_name['WatchResources']._serialized_options = b'\202\323\344\223\002\032\"\025/v1alpha1/lookupwatch:\001*'
   _globals['_WATCHRESOURCESREQUEST']._serialized_start=158
   _globals['_WATCHRESOURCESREQUEST']._serialized_end=564
   _globals['_PERMISSIONUPDATE']._serialized_start=567

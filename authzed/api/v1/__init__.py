@@ -15,6 +15,18 @@ from authzed.api.v1.core_pb2 import (
     ZedToken,
 )
 from authzed.api.v1.error_reason_pb2 import ErrorReason
+from authzed.api.v1.experimental_service_pb2 import (
+    BulkCheckPermissionPair,
+    BulkCheckPermissionRequest,
+    BulkCheckPermissionRequestItem,
+    BulkCheckPermissionResponse,
+    BulkCheckPermissionResponseItem,
+    BulkExportRelationshipsRequest,
+    BulkExportRelationshipsResponse,
+    BulkImportRelationshipsRequest,
+    BulkImportRelationshipsResponse,
+)
+from authzed.api.v1.experimental_service_pb2_grpc import ExperimentalServiceStub
 from authzed.api.v1.permission_service_pb2 import (
     CheckPermissionRequest,
     CheckPermissionResponse,
@@ -43,9 +55,11 @@ from authzed.api.v1.schema_service_pb2 import (
     WriteSchemaResponse,
 )
 from authzed.api.v1.schema_service_pb2_grpc import SchemaServiceStub
+from authzed.api.v1.watch_service_pb2 import WatchRequest, WatchResponse
+from authzed.api.v1.watch_service_pb2_grpc import WatchServiceStub
 
 
-class Client(SchemaServiceStub, PermissionsServiceStub):
+class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub):
     """
     v1 Authzed gRPC API client.
     """
@@ -60,6 +74,8 @@ class Client(SchemaServiceStub, PermissionsServiceStub):
         channel = channelfn(target, credentials, options, compression)
         SchemaServiceStub.__init__(self, channel)
         PermissionsServiceStub.__init__(self, channel)
+        ExperimentalServiceStub.__init__(self, channel)
+        WatchServiceStub.__init__(self, channel)
 
 
 __all__ = [
@@ -100,4 +116,17 @@ __all__ = [
     "ReadSchemaResponse",
     "WriteSchemaRequest",
     "WriteSchemaResponse",
+    # Watch Service
+    "WatchRequest",
+    "WatchResponse",
+    # Experimental Service
+    "BulkCheckPermissionRequest",
+    "BulkCheckPermissionResponse",
+    "BulkCheckPermissionPair",
+    "BulkCheckPermissionRequestItem",
+    "BulkCheckPermissionResponseItem",
+    "BulkImportRelationshipsRequest",
+    "BulkImportRelationshipsResponse",
+    "BulkExportRelationshipsRequest",
+    "BulkExportRelationshipsResponse",
 ]

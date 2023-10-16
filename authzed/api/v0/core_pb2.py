@@ -20,27 +20,26 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'authzed.api.v0.core_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
-  DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0'
-  _RELATIONTUPLE.fields_by_name['object_and_relation']._options = None
-  _RELATIONTUPLE.fields_by_name['object_and_relation']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _RELATIONTUPLE.fields_by_name['user']._options = None
-  _RELATIONTUPLE.fields_by_name['user']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _OBJECTANDRELATION.fields_by_name['namespace']._options = None
-  _OBJECTANDRELATION.fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
-  _OBJECTANDRELATION.fields_by_name['object_id']._options = None
-  _OBJECTANDRELATION.fields_by_name['object_id']._serialized_options = b'\372B2r0(\200\0012+^(([a-zA-Z0-9_][a-zA-Z0-9/_|-]{0,127})|\\*)$'
-  _OBJECTANDRELATION.fields_by_name['relation']._options = None
-  _OBJECTANDRELATION.fields_by_name['relation']._serialized_options = b'\372B-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{1,62}[a-z0-9])$'
-  _RELATIONREFERENCE.fields_by_name['namespace']._options = None
-  _RELATIONREFERENCE.fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
-  _RELATIONREFERENCE.fields_by_name['relation']._options = None
-  _RELATIONREFERENCE.fields_by_name['relation']._serialized_options = b'\372B-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{1,62}[a-z0-9])$'
-  _USER.oneofs_by_name['user_oneof']._options = None
-  _USER.oneofs_by_name['user_oneof']._serialized_options = b'\370B\001'
-  _USER.fields_by_name['userset']._options = None
-  _USER.fields_by_name['userset']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\n\022com.authzed.api.v0Z2github.com/authzed/authzed-go/proto/authzed/api/v0'
+  _globals['_RELATIONTUPLE'].fields_by_name['object_and_relation']._options = None
+  _globals['_RELATIONTUPLE'].fields_by_name['object_and_relation']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['_RELATIONTUPLE'].fields_by_name['user']._options = None
+  _globals['_RELATIONTUPLE'].fields_by_name['user']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['_OBJECTANDRELATION'].fields_by_name['namespace']._options = None
+  _globals['_OBJECTANDRELATION'].fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _globals['_OBJECTANDRELATION'].fields_by_name['object_id']._options = None
+  _globals['_OBJECTANDRELATION'].fields_by_name['object_id']._serialized_options = b'\372B2r0(\200\0012+^(([a-zA-Z0-9_][a-zA-Z0-9/_|-]{0,127})|\\*)$'
+  _globals['_OBJECTANDRELATION'].fields_by_name['relation']._options = None
+  _globals['_OBJECTANDRELATION'].fields_by_name['relation']._serialized_options = b'\372B-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{1,62}[a-z0-9])$'
+  _globals['_RELATIONREFERENCE'].fields_by_name['namespace']._options = None
+  _globals['_RELATIONREFERENCE'].fields_by_name['namespace']._serialized_options = b'\372BErC(\200\0012>^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _globals['_RELATIONREFERENCE'].fields_by_name['relation']._options = None
+  _globals['_RELATIONREFERENCE'].fields_by_name['relation']._serialized_options = b'\372B-r+(@2\'^(\\.\\.\\.|[a-z][a-z0-9_]{1,62}[a-z0-9])$'
+  _globals['_USER'].oneofs_by_name['user_oneof']._options = None
+  _globals['_USER'].oneofs_by_name['user_oneof']._serialized_options = b'\370B\001'
+  _globals['_USER'].fields_by_name['userset']._options = None
+  _globals['_USER'].fields_by_name['userset']._serialized_options = b'\372B\005\212\001\002\020\001'
   _globals['_RELATIONTUPLE']._serialized_start=71
   _globals['_RELATIONTUPLE']._serialized_end=231
   _globals['_OBJECTANDRELATION']._serialized_start=234
