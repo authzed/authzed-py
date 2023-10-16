@@ -18,11 +18,11 @@ google_api = "^0.1.12"
 grpcio = "^1.54"
 mock = "^5.1.0"
 protobuf = "~4.23"
-protoc-gen-validate = ">=0.4.1,<=1.0.2"
 python = "^3.8"
 typing-extensions = ">=3.7.4,<5"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+protoc-gen-validate = ">=0.4.1,<=1.0.2"
 black = "^23.3.0"
 grpcio-tools = "~1.59"
 isort = "^5.6.4"
