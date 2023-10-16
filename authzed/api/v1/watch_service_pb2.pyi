@@ -17,6 +17,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+@typing_extensions.final
 class WatchRequest(google.protobuf.message.Message):
     """WatchRequest specifies the object definitions for which we want to start
     watching mutations, and an optional start snapshot for when to start
@@ -50,6 +51,7 @@ class WatchRequest(google.protobuf.message.Message):
 
 global___WatchRequest = WatchRequest
 
+@typing_extensions.final
 class WatchResponse(google.protobuf.message.Message):
     """WatchResponse contains all tuple modification events in ascending
     timestamp order, from the requested start snapshot to a snapshot

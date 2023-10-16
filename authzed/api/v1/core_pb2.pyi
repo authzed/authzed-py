@@ -19,6 +19,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+@typing_extensions.final
 class Relationship(google.protobuf.message.Message):
     """Relationship specifies how a resource relates to a subject. Relationships
     form the data for the graph over which all permissions questions are
@@ -55,6 +56,7 @@ class Relationship(google.protobuf.message.Message):
 
 global___Relationship = Relationship
 
+@typing_extensions.final
 class ContextualizedCaveat(google.protobuf.message.Message):
     """ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
     The context consists of key-value pairs that will be injected at evaluation time.
@@ -81,6 +83,7 @@ class ContextualizedCaveat(google.protobuf.message.Message):
 
 global___ContextualizedCaveat = ContextualizedCaveat
 
+@typing_extensions.final
 class SubjectReference(google.protobuf.message.Message):
     """SubjectReference is used for referring to the subject portion of a
     Relationship. The relation component is optional and is used for defining a
@@ -105,6 +108,7 @@ class SubjectReference(google.protobuf.message.Message):
 
 global___SubjectReference = SubjectReference
 
+@typing_extensions.final
 class ObjectReference(google.protobuf.message.Message):
     """ObjectReference is used to refer to a specific object in the system."""
 
@@ -124,6 +128,7 @@ class ObjectReference(google.protobuf.message.Message):
 
 global___ObjectReference = ObjectReference
 
+@typing_extensions.final
 class ZedToken(google.protobuf.message.Message):
     """ZedToken is used to provide causality metadata between Write and Check
     requests.
@@ -144,6 +149,7 @@ class ZedToken(google.protobuf.message.Message):
 
 global___ZedToken = ZedToken
 
+@typing_extensions.final
 class Cursor(google.protobuf.message.Message):
     """Cursor is used to provide resumption of listing between calls to APIs
     such as LookupResources.
@@ -162,6 +168,7 @@ class Cursor(google.protobuf.message.Message):
 
 global___Cursor = Cursor
 
+@typing_extensions.final
 class RelationshipUpdate(google.protobuf.message.Message):
     """RelationshipUpdate is used for mutating a single relationship within the
     service.
@@ -182,7 +189,7 @@ class RelationshipUpdate(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _OperationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RelationshipUpdate._Operation.ValueType], builtins.type):  # noqa: F821
+    class _OperationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RelationshipUpdate._Operation.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         OPERATION_UNSPECIFIED: RelationshipUpdate._Operation.ValueType  # 0
         OPERATION_CREATE: RelationshipUpdate._Operation.ValueType  # 1
@@ -211,6 +218,7 @@ class RelationshipUpdate(google.protobuf.message.Message):
 
 global___RelationshipUpdate = RelationshipUpdate
 
+@typing_extensions.final
 class PermissionRelationshipTree(google.protobuf.message.Message):
     """PermissionRelationshipTree is used for representing a tree of a resource and
     its permission relationships with other objects.
@@ -243,6 +251,7 @@ class PermissionRelationshipTree(google.protobuf.message.Message):
 
 global___PermissionRelationshipTree = PermissionRelationshipTree
 
+@typing_extensions.final
 class AlgebraicSubjectSet(google.protobuf.message.Message):
     """AlgebraicSubjectSet is a subject set which is computed based on applying the
     specified operation to the operands according to the algebra of sets.
@@ -262,7 +271,7 @@ class AlgebraicSubjectSet(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _OperationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AlgebraicSubjectSet._Operation.ValueType], builtins.type):  # noqa: F821
+    class _OperationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AlgebraicSubjectSet._Operation.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         OPERATION_UNSPECIFIED: AlgebraicSubjectSet._Operation.ValueType  # 0
         OPERATION_UNION: AlgebraicSubjectSet._Operation.ValueType  # 1
@@ -290,6 +299,7 @@ class AlgebraicSubjectSet(google.protobuf.message.Message):
 
 global___AlgebraicSubjectSet = AlgebraicSubjectSet
 
+@typing_extensions.final
 class DirectSubjectSet(google.protobuf.message.Message):
     """DirectSubjectSet is a subject set which is simply a collection of subjects."""
 
@@ -307,6 +317,7 @@ class DirectSubjectSet(google.protobuf.message.Message):
 
 global___DirectSubjectSet = DirectSubjectSet
 
+@typing_extensions.final
 class PartialCaveatInfo(google.protobuf.message.Message):
     """PartialCaveatInfo carries information necessary for the client to take action
     in the event a response contains a partially evaluated caveat

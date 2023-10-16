@@ -19,6 +19,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+@typing_extensions.final
 class WatchResourcesRequest(google.protobuf.message.Message):
     """WatchResourcesRequest starts a watch for specific permission updates
     for the given resource and subject types.
@@ -63,6 +64,7 @@ class WatchResourcesRequest(google.protobuf.message.Message):
 
 global___WatchResourcesRequest = WatchResourcesRequest
 
+@typing_extensions.final
 class PermissionUpdate(google.protobuf.message.Message):
     """PermissionUpdate represents a single permission update for a specific
     subject's permissions.
@@ -74,7 +76,7 @@ class PermissionUpdate(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PermissionUpdate._Permissionship.ValueType], builtins.type):  # noqa: F821
+    class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PermissionUpdate._Permissionship.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PERMISSIONSHIP_UNSPECIFIED: PermissionUpdate._Permissionship.ValueType  # 0
         PERMISSIONSHIP_NO_PERMISSION: PermissionUpdate._Permissionship.ValueType  # 1
@@ -114,6 +116,7 @@ class PermissionUpdate(google.protobuf.message.Message):
 
 global___PermissionUpdate = PermissionUpdate
 
+@typing_extensions.final
 class WatchResourcesResponse(google.protobuf.message.Message):
     """WatchResourcesResponse enumerates the list of permission updates that have
     occurred as a result of one or more relationship updates.

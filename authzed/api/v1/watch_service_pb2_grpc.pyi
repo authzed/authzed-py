@@ -6,10 +6,26 @@ import abc
 import authzed.api.v1.watch_service_pb2
 import collections.abc
 import grpc
+import grpc.aio
+import typing
+
+_T = typing.TypeVar('_T')
+
+class _MaybeAsyncIterator(collections.abc.AsyncIterator[_T], collections.abc.Iterator[_T], metaclass=abc.ABCMeta):
+    ...
+
+class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type: ignore
+    ...
 
 class WatchServiceStub:
-    def __init__(self, channel: grpc.Channel) -> None: ...
+    def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
     Watch: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1.watch_service_pb2.WatchRequest,
+        authzed.api.v1.watch_service_pb2.WatchResponse,
+    ]
+
+class WatchServiceAsyncStub:
+    Watch: grpc.aio.UnaryStreamMultiCallable[
         authzed.api.v1.watch_service_pb2.WatchRequest,
         authzed.api.v1.watch_service_pb2.WatchResponse,
     ]
@@ -19,7 +35,7 @@ class WatchServiceServicer(metaclass=abc.ABCMeta):
     def Watch(
         self,
         request: authzed.api.v1.watch_service_pb2.WatchRequest,
-        context: grpc.ServicerContext,
-    ) -> collections.abc.Iterator[authzed.api.v1.watch_service_pb2.WatchResponse]: ...
+        context: _ServicerContext,
+    ) -> typing.Union[collections.abc.Iterator[authzed.api.v1.watch_service_pb2.WatchResponse], collections.abc.AsyncIterator[authzed.api.v1.watch_service_pb2.WatchResponse]]: ...
 
-def add_WatchServiceServicer_to_server(servicer: WatchServiceServicer, server: grpc.Server) -> None: ...
+def add_WatchServiceServicer_to_server(servicer: WatchServiceServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

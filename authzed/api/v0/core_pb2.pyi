@@ -14,6 +14,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+@typing_extensions.final
 class RelationTuple(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -46,6 +47,7 @@ class RelationTuple(google.protobuf.message.Message):
 
 global___RelationTuple = RelationTuple
 
+@typing_extensions.final
 class ObjectAndRelation(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -66,6 +68,7 @@ class ObjectAndRelation(google.protobuf.message.Message):
 
 global___ObjectAndRelation = ObjectAndRelation
 
+@typing_extensions.final
 class RelationReference(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -83,6 +86,7 @@ class RelationReference(google.protobuf.message.Message):
 
 global___RelationReference = RelationReference
 
+@typing_extensions.final
 class User(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
