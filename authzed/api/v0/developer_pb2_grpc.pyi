@@ -4,10 +4,21 @@ isort:skip_file
 """
 import abc
 import authzed.api.v0.developer_pb2
+import collections.abc
 import grpc
+import grpc.aio
+import typing
+
+_T = typing.TypeVar('_T')
+
+class _MaybeAsyncIterator(collections.abc.AsyncIterator[_T], collections.abc.Iterator[_T], metaclass=abc.ABCMeta):
+    ...
+
+class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type: ignore
+    ...
 
 class DeveloperServiceStub:
-    def __init__(self, channel: grpc.Channel) -> None: ...
+    def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
     EditCheck: grpc.UnaryUnaryMultiCallable[
         authzed.api.v0.developer_pb2.EditCheckRequest,
         authzed.api.v0.developer_pb2.EditCheckResponse,
@@ -33,42 +44,68 @@ class DeveloperServiceStub:
         authzed.api.v0.developer_pb2.FormatSchemaResponse,
     ]
 
+class DeveloperServiceAsyncStub:
+    EditCheck: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.EditCheckRequest,
+        authzed.api.v0.developer_pb2.EditCheckResponse,
+    ]
+    Validate: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.ValidateRequest,
+        authzed.api.v0.developer_pb2.ValidateResponse,
+    ]
+    Share: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.ShareRequest,
+        authzed.api.v0.developer_pb2.ShareResponse,
+    ]
+    LookupShared: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.LookupShareRequest,
+        authzed.api.v0.developer_pb2.LookupShareResponse,
+    ]
+    UpgradeSchema: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.UpgradeSchemaRequest,
+        authzed.api.v0.developer_pb2.UpgradeSchemaResponse,
+    ]
+    FormatSchema: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v0.developer_pb2.FormatSchemaRequest,
+        authzed.api.v0.developer_pb2.FormatSchemaResponse,
+    ]
+
 class DeveloperServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def EditCheck(
         self,
         request: authzed.api.v0.developer_pb2.EditCheckRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v0.developer_pb2.EditCheckResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v0.developer_pb2.EditCheckResponse, collections.abc.Awaitable[authzed.api.v0.developer_pb2.EditCheckResponse]]: ...
     @abc.abstractmethod
     def Validate(
         self,
         request: authzed.api.v0.developer_pb2.ValidateRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v0.developer_pb2.ValidateResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v0.developer_pb2.ValidateResponse, collections.abc.Awaitable[authzed.api.v0.developer_pb2.ValidateResponse]]: ...
     @abc.abstractmethod
     def Share(
         self,
         request: authzed.api.v0.developer_pb2.ShareRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v0.developer_pb2.ShareResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v0.developer_pb2.ShareResponse, collections.abc.Awaitable[authzed.api.v0.developer_pb2.ShareResponse]]: ...
     @abc.abstractmethod
     def LookupShared(
         self,
         request: authzed.api.v0.developer_pb2.LookupShareRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v0.developer_pb2.LookupShareResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v0.developer_pb2.LookupShareResponse, collections.abc.Awaitable[authzed.api.v0.developer_pb2.LookupShareResponse]]: ...
     @abc.abstractmethod
     def UpgradeSchema(
         self,
         request: authzed.api.v0.developer_pb2.UpgradeSchemaRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v0.developer_pb2.UpgradeSchemaResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v0.developer_pb2.UpgradeSchemaResponse, collections.abc.Awaitable[authzed.api.v0.developer_pb2.UpgradeSchemaResponse]]: ...
     @abc.abstractmethod
     def FormatSchema(
         self,
         request: authzed.api.v0.developer_pb2.FormatSchemaRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v0.developer_pb2.FormatSchemaResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v0.developer_pb2.FormatSchemaResponse, collections.abc.Awaitable[authzed.api.v0.developer_pb2.FormatSchemaResponse]]: ...
 
-def add_DeveloperServiceServicer_to_server(servicer: DeveloperServiceServicer, server: grpc.Server) -> None: ...
+def add_DeveloperServiceServicer_to_server(servicer: DeveloperServiceServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

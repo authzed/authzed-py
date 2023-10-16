@@ -20,6 +20,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+@typing_extensions.final
 class BulkCheckPermissionRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -40,6 +41,7 @@ class BulkCheckPermissionRequest(google.protobuf.message.Message):
 
 global___BulkCheckPermissionRequest = BulkCheckPermissionRequest
 
+@typing_extensions.final
 class BulkCheckPermissionRequestItem(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -67,6 +69,7 @@ class BulkCheckPermissionRequestItem(google.protobuf.message.Message):
 
 global___BulkCheckPermissionRequestItem = BulkCheckPermissionRequestItem
 
+@typing_extensions.final
 class BulkCheckPermissionResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -87,6 +90,7 @@ class BulkCheckPermissionResponse(google.protobuf.message.Message):
 
 global___BulkCheckPermissionResponse = BulkCheckPermissionResponse
 
+@typing_extensions.final
 class BulkCheckPermissionPair(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -112,6 +116,7 @@ class BulkCheckPermissionPair(google.protobuf.message.Message):
 
 global___BulkCheckPermissionPair = BulkCheckPermissionPair
 
+@typing_extensions.final
 class BulkCheckPermissionResponseItem(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -131,6 +136,7 @@ class BulkCheckPermissionResponseItem(google.protobuf.message.Message):
 
 global___BulkCheckPermissionResponseItem = BulkCheckPermissionResponseItem
 
+@typing_extensions.final
 class BulkImportRelationshipsRequest(google.protobuf.message.Message):
     """BulkImportRelationshipsRequest represents one batch of the streaming
     BulkImportRelationships API. The maximum size is only limited by the backing
@@ -152,6 +158,7 @@ class BulkImportRelationshipsRequest(google.protobuf.message.Message):
 
 global___BulkImportRelationshipsRequest = BulkImportRelationshipsRequest
 
+@typing_extensions.final
 class BulkImportRelationshipsResponse(google.protobuf.message.Message):
     """BulkImportRelationshipsResponse is returned on successful completion of the
     bulk load stream, and contains the total number of relationships loaded.
@@ -170,6 +177,7 @@ class BulkImportRelationshipsResponse(google.protobuf.message.Message):
 
 global___BulkImportRelationshipsResponse = BulkImportRelationshipsResponse
 
+@typing_extensions.final
 class BulkExportRelationshipsRequest(google.protobuf.message.Message):
     """BulkExportRelationshipsRequest represents a resumable request for
     all relationships from the server.
@@ -206,6 +214,7 @@ class BulkExportRelationshipsRequest(google.protobuf.message.Message):
 
 global___BulkExportRelationshipsRequest = BulkExportRelationshipsRequest
 
+@typing_extensions.final
 class BulkExportRelationshipsResponse(google.protobuf.message.Message):
     """BulkExportRelationshipsResponse is one page in a stream of relationship
     groups that meet the criteria specified by the originating request. The

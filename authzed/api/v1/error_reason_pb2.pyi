@@ -19,7 +19,7 @@ class _ErrorReason:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ErrorReason.ValueType], builtins.type):  # noqa: F821
+class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ErrorReason.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     ERROR_REASON_UNSPECIFIED: _ErrorReason.ValueType  # 0
     """Do not use this default value."""

@@ -6,14 +6,37 @@ import abc
 import authzed.api.v1alpha1.watchresources_service_pb2
 import collections.abc
 import grpc
+import grpc.aio
+import typing
+
+_T = typing.TypeVar('_T')
+
+class _MaybeAsyncIterator(collections.abc.AsyncIterator[_T], collections.abc.Iterator[_T], metaclass=abc.ABCMeta):
+    ...
+
+class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type: ignore
+    ...
 
 class WatchResourcesServiceStub:
     """WatchResourcesService is used to receive a stream of updates for resources of a
     specific (resource type, permission, subject) combination.
     """
 
-    def __init__(self, channel: grpc.Channel) -> None: ...
+    def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
     WatchResources: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesRequest,
+        authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesResponse,
+    ]
+    """WatchResources initiates a watch for permission changes for the provided
+    (resource type, permission, subject) pair.
+    """
+
+class WatchResourcesServiceAsyncStub:
+    """WatchResourcesService is used to receive a stream of updates for resources of a
+    specific (resource type, permission, subject) combination.
+    """
+
+    WatchResources: grpc.aio.UnaryStreamMultiCallable[
         authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesRequest,
         authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesResponse,
     ]
@@ -30,10 +53,10 @@ class WatchResourcesServiceServicer(metaclass=abc.ABCMeta):
     def WatchResources(
         self,
         request: authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesRequest,
-        context: grpc.ServicerContext,
-    ) -> collections.abc.Iterator[authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesResponse]:
+        context: _ServicerContext,
+    ) -> typing.Union[collections.abc.Iterator[authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesResponse], collections.abc.AsyncIterator[authzed.api.v1alpha1.watchresources_service_pb2.WatchResourcesResponse]]:
         """WatchResources initiates a watch for permission changes for the provided
         (resource type, permission, subject) pair.
         """
 
-def add_WatchResourcesServiceServicer_to_server(servicer: WatchResourcesServiceServicer, server: grpc.Server) -> None: ...
+def add_WatchResourcesServiceServicer_to_server(servicer: WatchResourcesServiceServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

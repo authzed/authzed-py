@@ -6,13 +6,23 @@ import abc
 import authzed.api.v1.experimental_service_pb2
 import collections.abc
 import grpc
+import grpc.aio
+import typing
+
+_T = typing.TypeVar('_T')
+
+class _MaybeAsyncIterator(collections.abc.AsyncIterator[_T], collections.abc.Iterator[_T], metaclass=abc.ABCMeta):
+    ...
+
+class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type: ignore
+    ...
 
 class ExperimentalServiceStub:
     """ExperimentalService exposes a number of APIs that are currently being
     prototyped and tested for future inclusion in the stable API.
     """
 
-    def __init__(self, channel: grpc.Channel) -> None: ...
+    def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
     BulkImportRelationships: grpc.StreamUnaryMultiCallable[
         authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsRequest,
         authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsResponse,
@@ -40,6 +50,38 @@ class ExperimentalServiceStub:
         authzed.api.v1.experimental_service_pb2.BulkCheckPermissionResponse,
     ]
 
+class ExperimentalServiceAsyncStub:
+    """ExperimentalService exposes a number of APIs that are currently being
+    prototyped and tested for future inclusion in the stable API.
+    """
+
+    BulkImportRelationships: grpc.aio.StreamUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsRequest,
+        authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsResponse,
+    ]
+    """BulkImportRelationships is a faster path to writing a large number of
+    relationships at once. It is both batched and streaming. For maximum
+    performance, the caller should attempt to write relationships in as close
+    to relationship sort order as possible: (resource.object_type,
+    resource.object_id, relation, subject.object.object_type,
+    subject.object.object_id, subject.optional_relation)
+
+    EXPERIMENTAL
+    https://github.com/authzed/spicedb/issues/1303
+    """
+    BulkExportRelationships: grpc.aio.UnaryStreamMultiCallable[
+        authzed.api.v1.experimental_service_pb2.BulkExportRelationshipsRequest,
+        authzed.api.v1.experimental_service_pb2.BulkExportRelationshipsResponse,
+    ]
+    """BulkExportRelationships is the fastest path available to exporting
+    relationships from the server. It is resumable, and will return results
+    in an order determined by the server.
+    """
+    BulkCheckPermission: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.BulkCheckPermissionRequest,
+        authzed.api.v1.experimental_service_pb2.BulkCheckPermissionResponse,
+    ]
+
 class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
     """ExperimentalService exposes a number of APIs that are currently being
     prototyped and tested for future inclusion in the stable API.
@@ -48,9 +90,9 @@ class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def BulkImportRelationships(
         self,
-        request_iterator: collections.abc.Iterator[authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsRequest],
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsResponse:
+        request_iterator: _MaybeAsyncIterator[authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsRequest],
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsResponse, collections.abc.Awaitable[authzed.api.v1.experimental_service_pb2.BulkImportRelationshipsResponse]]:
         """BulkImportRelationships is a faster path to writing a large number of
         relationships at once. It is both batched and streaming. For maximum
         performance, the caller should attempt to write relationships in as close
@@ -65,8 +107,8 @@ class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
     def BulkExportRelationships(
         self,
         request: authzed.api.v1.experimental_service_pb2.BulkExportRelationshipsRequest,
-        context: grpc.ServicerContext,
-    ) -> collections.abc.Iterator[authzed.api.v1.experimental_service_pb2.BulkExportRelationshipsResponse]:
+        context: _ServicerContext,
+    ) -> typing.Union[collections.abc.Iterator[authzed.api.v1.experimental_service_pb2.BulkExportRelationshipsResponse], collections.abc.AsyncIterator[authzed.api.v1.experimental_service_pb2.BulkExportRelationshipsResponse]]:
         """BulkExportRelationships is the fastest path available to exporting
         relationships from the server. It is resumable, and will return results
         in an order determined by the server.
@@ -75,7 +117,7 @@ class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
     def BulkCheckPermission(
         self,
         request: authzed.api.v1.experimental_service_pb2.BulkCheckPermissionRequest,
-        context: grpc.ServicerContext,
-    ) -> authzed.api.v1.experimental_service_pb2.BulkCheckPermissionResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.experimental_service_pb2.BulkCheckPermissionResponse, collections.abc.Awaitable[authzed.api.v1.experimental_service_pb2.BulkCheckPermissionResponse]]: ...
 
-def add_ExperimentalServiceServicer_to_server(servicer: ExperimentalServiceServicer, server: grpc.Server) -> None: ...
+def add_ExperimentalServiceServicer_to_server(servicer: ExperimentalServiceServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

@@ -21,6 +21,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+@typing_extensions.final
 class DebugInformation(google.protobuf.message.Message):
     """DebugInformation defines debug information returned by an API call in a footer when
     requested with a specific debugging header.
@@ -50,6 +51,7 @@ class DebugInformation(google.protobuf.message.Message):
 
 global___DebugInformation = DebugInformation
 
+@typing_extensions.final
 class CheckDebugTrace(google.protobuf.message.Message):
     """CheckDebugTrace is a recursive trace of the requests made for resolving a CheckPermission
     API call.
@@ -61,7 +63,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PermissionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckDebugTrace._PermissionType.ValueType], builtins.type):  # noqa: F821
+    class _PermissionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckDebugTrace._PermissionType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PERMISSION_TYPE_UNSPECIFIED: CheckDebugTrace._PermissionType.ValueType  # 0
         PERMISSION_TYPE_RELATION: CheckDebugTrace._PermissionType.ValueType  # 1
@@ -76,7 +78,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckDebugTrace._Permissionship.ValueType], builtins.type):  # noqa: F821
+    class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckDebugTrace._Permissionship.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PERMISSIONSHIP_UNSPECIFIED: CheckDebugTrace._Permissionship.ValueType  # 0
         PERMISSIONSHIP_NO_PERMISSION: CheckDebugTrace._Permissionship.ValueType  # 1
@@ -89,6 +91,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
     PERMISSIONSHIP_HAS_PERMISSION: CheckDebugTrace.Permissionship.ValueType  # 2
     PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckDebugTrace.Permissionship.ValueType  # 3
 
+    @typing_extensions.final
     class SubProblems(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -157,6 +160,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
 
 global___CheckDebugTrace = CheckDebugTrace
 
+@typing_extensions.final
 class CaveatEvalInfo(google.protobuf.message.Message):
     """CaveatEvalInfo holds information about a caveat expression that was evaluated."""
 
@@ -166,7 +170,7 @@ class CaveatEvalInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CaveatEvalInfo._Result.ValueType], builtins.type):  # noqa: F821
+    class _ResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CaveatEvalInfo._Result.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         RESULT_UNSPECIFIED: CaveatEvalInfo._Result.ValueType  # 0
         RESULT_UNEVALUATED: CaveatEvalInfo._Result.ValueType  # 1
