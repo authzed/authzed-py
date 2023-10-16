@@ -55,9 +55,11 @@ from authzed.api.v1.schema_service_pb2 import (
     WriteSchemaResponse,
 )
 from authzed.api.v1.schema_service_pb2_grpc import SchemaServiceStub
+from authzed.api.v1.watch_service_pb2 import WatchRequest, WatchResponse
+from authzed.api.v1.watch_service_pb2_grpc import WatchServiceStub
 
 
-class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub):
+class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub):
     """
     v1 Authzed gRPC API client.
     """
@@ -73,6 +75,7 @@ class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub)
         SchemaServiceStub.__init__(self, channel)
         PermissionsServiceStub.__init__(self, channel)
         ExperimentalServiceStub.__init__(self, channel)
+        WatchServiceStub.__init__(self, channel)
 
 
 __all__ = [
@@ -113,6 +116,9 @@ __all__ = [
     "ReadSchemaResponse",
     "WriteSchemaRequest",
     "WriteSchemaResponse",
+    # Watch Service
+    "WatchRequest",
+    "WatchResponse",
     # Experimental Service
     "BulkCheckPermissionRequest",
     "BulkCheckPermissionResponse",
