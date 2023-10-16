@@ -4,6 +4,8 @@ import pytest
 from google.protobuf.struct_pb2 import Struct
 
 from authzed.api.v1 import (
+    BulkCheckPermissionRequest,
+    BulkCheckPermissionRequestItem,
     CheckPermissionRequest,
     CheckPermissionResponse,
     Client,
@@ -182,6 +184,39 @@ def test_lookup_subjects(client):
     assert len(responses) == 2
     assert responses.count(emilia.object.object_id) == 1
     assert responses.count(beatrice.object.object_id) == 1
+
+
+def test_bulk_check(client):
+    # Write a basic schema.
+    write_test_schema(client)
+    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+
+    # Issue some checks.
+    resp = client.BulkCheckPermission(
+        BulkCheckPermissionRequest(
+            consistency=Consistency(fully_consistent=True),
+            items=[
+                BulkCheckPermissionRequestItem(
+                    resource=post_one,
+                    permission="view",
+                    subject=emilia,
+                ),
+                BulkCheckPermissionRequestItem(
+                    resource=post_one,
+                    permission="write",
+                    subject=emilia,
+                ),
+            ],
+        )
+    )
+
+    assert len(resp.pairs) == 2
+    assert (
+        resp.pairs[0].item.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+    )
+    assert (
+        resp.pairs[1].item.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+    )
 
 
 def write_test_tuples(client):
