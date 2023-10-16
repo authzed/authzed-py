@@ -22,13 +22,12 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'authzed.api.v1.watch_service_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
-  DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
-  _WATCHREQUEST.fields_by_name['optional_object_types']._options = None
-  _WATCHREQUEST.fields_by_name['optional_object_types']._serialized_options = b'\372BL\222\001I\010\000\"ErC(\200\0012>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)*[a-z][a-z0-9_]{1,62}[a-z0-9]$'
-  _WATCHSERVICE.methods_by_name['Watch']._options = None
-  _WATCHSERVICE.methods_by_name['Watch']._serialized_options = b'\202\323\344\223\002\016\"\t/v1/watch:\001*'
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
+  _globals['_WATCHREQUEST'].fields_by_name['optional_object_types']._options = None
+  _globals['_WATCHREQUEST'].fields_by_name['optional_object_types']._serialized_options = b'\372BL\222\001I\010\000\"ErC(\200\0012>^([a-z][a-z0-9_]{1,62}[a-z0-9]/)*[a-z][a-z0-9_]{1,62}[a-z0-9]$'
+  _globals['_WATCHSERVICE'].methods_by_name['Watch']._options = None
+  _globals['_WATCHSERVICE'].methods_by_name['Watch']._serialized_options = b'\202\323\344\223\002\016\"\t/v1/watch:\001*'
   _globals['_WATCHREQUEST']._serialized_start=137
   _globals['_WATCHREQUEST']._serialized_end=363
   _globals['_WATCHRESPONSE']._serialized_start=366

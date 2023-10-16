@@ -23,19 +23,18 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'authzed.api.v1.debug_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
-  DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
-  _CHECKDEBUGTRACE.oneofs_by_name['resolution']._options = None
-  _CHECKDEBUGTRACE.oneofs_by_name['resolution']._serialized_options = b'\370B\001'
-  _CHECKDEBUGTRACE.fields_by_name['resource']._options = None
-  _CHECKDEBUGTRACE.fields_by_name['resource']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _CHECKDEBUGTRACE.fields_by_name['permission_type']._options = None
-  _CHECKDEBUGTRACE.fields_by_name['permission_type']._serialized_options = b'\372B\007\202\001\004\020\001 \000'
-  _CHECKDEBUGTRACE.fields_by_name['subject']._options = None
-  _CHECKDEBUGTRACE.fields_by_name['subject']._serialized_options = b'\372B\005\212\001\002\020\001'
-  _CHECKDEBUGTRACE.fields_by_name['result']._options = None
-  _CHECKDEBUGTRACE.fields_by_name['result']._serialized_options = b'\372B\007\202\001\004\020\001 \000'
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
+  _globals['_CHECKDEBUGTRACE'].oneofs_by_name['resolution']._options = None
+  _globals['_CHECKDEBUGTRACE'].oneofs_by_name['resolution']._serialized_options = b'\370B\001'
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['resource']._options = None
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['resource']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['permission_type']._options = None
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['permission_type']._serialized_options = b'\372B\007\202\001\004\020\001 \000'
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['subject']._options = None
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['subject']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['result']._options = None
+  _globals['_CHECKDEBUGTRACE'].fields_by_name['result']._serialized_options = b'\372B\007\202\001\004\020\001 \000'
   _globals['_DEBUGINFORMATION']._serialized_start=160
   _globals['_DEBUGINFORMATION']._serialized_end=266
   _globals['_CHECKDEBUGTRACE']._serialized_start=269

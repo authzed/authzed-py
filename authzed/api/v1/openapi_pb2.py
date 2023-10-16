@@ -20,7 +20,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'authzed.api.v1.openapi_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
-  DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1\222A\264\002\022\234\001\n\007Authzed\"D\n\rAuthzed, Inc.\022\036https://github.com/authzed/api\032\023support@authzed.com*F\n\022Apache 2.0 License\0220https://github.com/authzed/api/blob/main/LICENSE2\0031.0*\003\001\002\0042\020application/json:\020application/jsonZ#\n!\n\nApiKeyAuth\022\023\010\002\032\rAuthorization \002rE\n\033More about the Authzed API.\022&https://docs.authzed.com/reference/api'
+  _globals['DESCRIPTOR']._options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\n\022com.authzed.api.v1Z2github.com/authzed/authzed-go/proto/authzed/api/v1\222A\264\002\022\234\001\n\007Authzed\"D\n\rAuthzed, Inc.\022\036https://github.com/authzed/api\032\023support@authzed.com*F\n\022Apache 2.0 License\0220https://github.com/authzed/api/blob/main/LICENSE2\0031.0*\003\001\002\0042\020application/json:\020application/jsonZ#\n!\n\nApiKeyAuth\022\023\010\002\032\rAuthorization \002rE\n\033More about the Authzed API.\022&https://docs.authzed.com/reference/api'
 # @@protoc_insertion_point(module_scope)

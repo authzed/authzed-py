@@ -62,7 +62,7 @@ class WriteSchemaRequest(google.protobuf.message.Message):
     schema: builtins.str
     """The Schema containing one or more Object Definitions that will be written
     to the Permissions System.
-    256KiB
+    4MiB
     """
     def __init__(
         self,
