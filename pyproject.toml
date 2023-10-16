@@ -16,7 +16,7 @@ readme = "README.md"
 google-api-core = "^2.4.0"
 google_api = "^0.1.12"
 grpcio = "^1.54"
-protobuf = "~4.23"
+protobuf = ">=4.23,<4.25"
 python = "^3.8"
 typing-extensions = ">=3.7.4,<5"
 
