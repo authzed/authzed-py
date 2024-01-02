@@ -6,6 +6,9 @@ on:
       - "main"
   pull_request:
     branches: ["*"]
+env:
+  GRPC_VERSION: "1.60"
+  BUF_VERSION: "1.28.1"
 jobs:
   pytest:
     name: "Unit and Integration Tests"
@@ -56,7 +59,7 @@ jobs:
           echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bash_profile
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
-          brew install grpc
+          brew install grpc@$GRPC_VERSION
           ls /home/linuxbrew/.linuxbrew/bin
       - name: "Install Python Dependencies"
         run: |
@@ -73,4 +76,4 @@ jobs:
           echo $GITHUB_PATH
       - uses: "authzed/actions/buf-generate@main"
         with:
-          version: "1.15.1"
+          version: "${{ env.BUF_VERSION }}"
