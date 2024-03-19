@@ -729,13 +729,13 @@ files = [
 
 [[package]]
 name = "protoc-gen-validate"
-version = "1.0.2"
+version = "1.0.4"
 description = "PGV for python via just-in-time code generation"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "protoc-gen-validate-1.0.2.tar.gz", hash = "sha256:ec9779f04cf50fef5503f346ecd8fe8d97bc48c85bf6a17ff18a0506de933709"},
-    {file = "protoc_gen_validate-1.0.2-py3-none-any.whl", hash = "sha256:707e03a51b8f71d4658d7ee5e9001496dda7bb63b040219d2dc4f039e1076010"},
+    {file = "protoc-gen-validate-1.0.4.tar.gz", hash = "sha256:5154f763a12d41e656643c5002bca996c2a470eff914ed9d2b2c9f2d7b0f1cc7"},
+    {file = "protoc_gen_validate-1.0.4-py3-none-any.whl", hash = "sha256:e38953396924d8948001bea118e92874eff55f93acbb999497fb18209464581f"},
 ]
 
 [package.dependencies]
@@ -959,4 +959,4 @@ test = ["pytest (>=6.0.0)", "setuptools (>=65)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "1d5508299f1a61eff5f4892261cd260d0fd0a0d96bb98156b82d2b334e27793e"
+content-hash = "bb2a86ac1a60ad888089abaec366389599e63c4ce9637ae2020e23d96cc00e00"
