@@ -3,6 +3,7 @@
 isort:skip_file
 """
 import authzed.api.v1.core_pb2
+import authzed.api.v1.permission_service_pb2
 import builtins
 import collections.abc
 import google.protobuf.descriptor
@@ -28,8 +29,13 @@ class WatchRequest(google.protobuf.message.Message):
 
     OPTIONAL_OBJECT_TYPES_FIELD_NUMBER: builtins.int
     OPTIONAL_START_CURSOR_FIELD_NUMBER: builtins.int
+    OPTIONAL_RELATIONSHIP_FILTERS_FIELD_NUMBER: builtins.int
     @property
-    def optional_object_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def optional_object_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """optional_object_types is a filter of resource object types to watch for changes.
+        If specified, only changes to the specified object types will be returned and
+        optional_relationship_filters cannot be used.
+        """
     @property
     def optional_start_cursor(self) -> authzed.api.v1.core_pb2.ZedToken:
         """optional_start_cursor is the ZedToken holding the point-in-time at
@@ -40,14 +46,23 @@ class WatchRequest(google.protobuf.message.Message):
         Note that if this cursor references a point-in-time containing data
         that has been garbage collected, an error will be returned.
         """
+    @property
+    def optional_relationship_filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.permission_service_pb2.RelationshipFilter]:
+        """optional_relationship_filters, if specified, indicates the
+        filter(s) to apply to each relationship to be returned by watch.
+        The relationship will be returned as long as at least one filter matches,
+        this allows clients to match relationships on multiple filters on a single watch call.
+        If specified, optional_object_types cannot be used.
+        """
     def __init__(
         self,
         *,
         optional_object_types: collections.abc.Iterable[builtins.str] | None = ...,
         optional_start_cursor: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        optional_relationship_filters: collections.abc.Iterable[authzed.api.v1.permission_service_pb2.RelationshipFilter] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["optional_start_cursor", b"optional_start_cursor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["optional_object_types", b"optional_object_types", "optional_start_cursor", b"optional_start_cursor"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_object_types", b"optional_object_types", "optional_relationship_filters", b"optional_relationship_filters", "optional_start_cursor", b"optional_start_cursor"]) -> None: ...
 
 global___WatchRequest = WatchRequest
 

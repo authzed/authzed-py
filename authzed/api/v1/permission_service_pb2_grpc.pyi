@@ -54,6 +54,13 @@ class PermissionsServiceStub:
     """CheckPermission determines for a given resource whether a subject computes
     to having a permission or is a direct member of a particular relation.
     """
+    CheckBulkPermissions: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.CheckBulkPermissionsRequest,
+        authzed.api.v1.permission_service_pb2.CheckBulkPermissionsResponse,
+    ]
+    """CheckBulkPermissions evaluates the given list of permission checks
+    and returns the list of results.
+    """
     ExpandPermissionTree: grpc.UnaryUnaryMultiCallable[
         authzed.api.v1.permission_service_pb2.ExpandPermissionTreeRequest,
         authzed.api.v1.permission_service_pb2.ExpandPermissionTreeResponse,
@@ -112,6 +119,13 @@ class PermissionsServiceAsyncStub:
     ]
     """CheckPermission determines for a given resource whether a subject computes
     to having a permission or is a direct member of a particular relation.
+    """
+    CheckBulkPermissions: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.CheckBulkPermissionsRequest,
+        authzed.api.v1.permission_service_pb2.CheckBulkPermissionsResponse,
+    ]
+    """CheckBulkPermissions evaluates the given list of permission checks
+    and returns the list of results.
     """
     ExpandPermissionTree: grpc.aio.UnaryUnaryMultiCallable[
         authzed.api.v1.permission_service_pb2.ExpandPermissionTreeRequest,
@@ -179,6 +193,15 @@ class PermissionsServiceServicer(metaclass=abc.ABCMeta):
     ) -> typing.Union[authzed.api.v1.permission_service_pb2.CheckPermissionResponse, collections.abc.Awaitable[authzed.api.v1.permission_service_pb2.CheckPermissionResponse]]:
         """CheckPermission determines for a given resource whether a subject computes
         to having a permission or is a direct member of a particular relation.
+        """
+    @abc.abstractmethod
+    def CheckBulkPermissions(
+        self,
+        request: authzed.api.v1.permission_service_pb2.CheckBulkPermissionsRequest,
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.permission_service_pb2.CheckBulkPermissionsResponse, collections.abc.Awaitable[authzed.api.v1.permission_service_pb2.CheckBulkPermissionsResponse]]:
+        """CheckBulkPermissions evaluates the given list of permission checks
+        and returns the list of results.
         """
     @abc.abstractmethod
     def ExpandPermissionTree(

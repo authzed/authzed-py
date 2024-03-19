@@ -36,6 +36,11 @@ class PermissionsServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionResponse.FromString,
                 )
+        self.CheckBulkPermissions = channel.unary_unary(
+                '/authzed.api.v1.PermissionsService/CheckBulkPermissions',
+                request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsResponse.FromString,
+                )
         self.ExpandPermissionTree = channel.unary_unary(
                 '/authzed.api.v1.PermissionsService/ExpandPermissionTree',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExpandPermissionTreeRequest.SerializeToString,
@@ -93,6 +98,14 @@ class PermissionsServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CheckBulkPermissions(self, request, context):
+        """CheckBulkPermissions evaluates the given list of permission checks
+        and returns the list of results.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ExpandPermissionTree(self, request, context):
         """ExpandPermissionTree reveals the graph structure for a resource's
         permission or relation. This RPC does not recurse infinitely deep and may
@@ -140,6 +153,11 @@ def add_PermissionsServiceServicer_to_server(servicer, server):
                     servicer.CheckPermission,
                     request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionResponse.SerializeToString,
+            ),
+            'CheckBulkPermissions': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckBulkPermissions,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsResponse.SerializeToString,
             ),
             'ExpandPermissionTree': grpc.unary_unary_rpc_method_handler(
                     servicer.ExpandPermissionTree,
@@ -233,6 +251,23 @@ class PermissionsService(object):
         return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/CheckPermission',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CheckBulkPermissions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/CheckBulkPermissions',
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
