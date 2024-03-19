@@ -299,6 +299,34 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           }
         }
     """
+    ERROR_REASON_SERIALIZATION_FAILURE: _ErrorReason.ValueType  # 20
+    """The request failed due to a serialization error in the backend database.
+    This typically indicates that various in flight transactions conflicted with each other
+    and the database had to abort one or more of them. SpiceDB will retry a few times before returning
+    the error to the client.
+
+    Example of an ErrorInfo:
+
+        {
+          "reason": "ERROR_REASON_SERIALIZATION_FAILURE",
+          "domain": "authzed.com",
+          "metadata": {}
+        }
+    """
+    ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST: _ErrorReason.ValueType  # 21
+    """The request contained more check items than the maximum configured.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST",
+          "domain": "authzed.com",
+          "metadata": {
+            "check_count": "525",
+            "maximum_checks_allowed": "500",
+          }
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -580,6 +608,34 @@ Example of an ErrorInfo:
       "metadata": {
         "maximum_depth_allowed": "50",
         ... additional fields based on request type ...
+      }
+    }
+"""
+ERROR_REASON_SERIALIZATION_FAILURE: ErrorReason.ValueType  # 20
+"""The request failed due to a serialization error in the backend database.
+This typically indicates that various in flight transactions conflicted with each other
+and the database had to abort one or more of them. SpiceDB will retry a few times before returning
+the error to the client.
+
+Example of an ErrorInfo:
+
+    {
+      "reason": "ERROR_REASON_SERIALIZATION_FAILURE",
+      "domain": "authzed.com",
+      "metadata": {}
+    }
+"""
+ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST: ErrorReason.ValueType  # 21
+"""The request contained more check items than the maximum configured.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST",
+      "domain": "authzed.com",
+      "metadata": {
+        "check_count": "525",
+        "maximum_checks_allowed": "500",
       }
     }
 """

@@ -3,6 +3,7 @@
 isort:skip_file
 """
 import authzed.api.v1.core_pb2
+import authzed.api.v1.debug_pb2
 import builtins
 import collections.abc
 import google.protobuf.descriptor
@@ -10,6 +11,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.struct_pb2
+import google.rpc.status_pb2
 import sys
 import typing
 
@@ -94,31 +96,49 @@ class RelationshipFilter(google.protobuf.message.Message):
     """RelationshipFilter is a collection of filters which when applied to a
     relationship will return relationships that have exactly matching fields.
 
-    resource_type is required. All other fields are optional and if left
-    unspecified will not filter relationships.
+    All fields are optional and if left unspecified will not filter relationships,
+    but at least one field must be specified.
+
+    NOTE: The performance of the API will be affected by the selection of fields
+    on which to filter. If a field is not indexed, the performance of the API
+    can be significantly slower.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     RESOURCE_TYPE_FIELD_NUMBER: builtins.int
     OPTIONAL_RESOURCE_ID_FIELD_NUMBER: builtins.int
+    OPTIONAL_RESOURCE_ID_PREFIX_FIELD_NUMBER: builtins.int
     OPTIONAL_RELATION_FIELD_NUMBER: builtins.int
     OPTIONAL_SUBJECT_FILTER_FIELD_NUMBER: builtins.int
     resource_type: builtins.str
+    """resource_type is the *optional* resource type of the relationship.
+    NOTE: It is not prefixed with "optional_" for legacy compatibility.
+    """
     optional_resource_id: builtins.str
+    """optional_resource_id is the *optional* resource ID of the relationship.
+    If specified, optional_resource_id_prefix cannot be specified.
+    """
+    optional_resource_id_prefix: builtins.str
+    """optional_resource_id_prefix is the *optional* prefix for the resource ID of the relationship.
+    If specified, optional_resource_id cannot be specified.
+    """
     optional_relation: builtins.str
+    """relation is the *optional* relation of the relationship."""
     @property
-    def optional_subject_filter(self) -> global___SubjectFilter: ...
+    def optional_subject_filter(self) -> global___SubjectFilter:
+        """optional_subject_filter is the optional filter for the subjects of the relationships."""
     def __init__(
         self,
         *,
         resource_type: builtins.str = ...,
         optional_resource_id: builtins.str = ...,
+        optional_resource_id_prefix: builtins.str = ...,
         optional_relation: builtins.str = ...,
         optional_subject_filter: global___SubjectFilter | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["optional_subject_filter", b"optional_subject_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["optional_relation", b"optional_relation", "optional_resource_id", b"optional_resource_id", "optional_subject_filter", b"optional_subject_filter", "resource_type", b"resource_type"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["optional_relation", b"optional_relation", "optional_resource_id", b"optional_resource_id", "optional_resource_id_prefix", b"optional_resource_id_prefix", "optional_subject_filter", b"optional_subject_filter", "resource_type", b"resource_type"]) -> None: ...
 
 global___RelationshipFilter = RelationshipFilter
 
@@ -441,6 +461,7 @@ class CheckPermissionRequest(google.protobuf.message.Message):
     PERMISSION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
     CONTEXT_FIELD_NUMBER: builtins.int
+    WITH_TRACING_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> global___Consistency: ...
     @property
@@ -456,6 +477,11 @@ class CheckPermissionRequest(google.protobuf.message.Message):
     @property
     def context(self) -> google.protobuf.struct_pb2.Struct:
         """context consists of named values that are injected into the caveat evaluation context"""
+    with_tracing: builtins.bool
+    """with_tracing, if true, indicates that the response should include a debug trace.
+    This can be useful for debugging and performance analysis, but adds a small amount
+    of compute overhead to the request.
+    """
     def __init__(
         self,
         *,
@@ -464,9 +490,10 @@ class CheckPermissionRequest(google.protobuf.message.Message):
         permission: builtins.str = ...,
         subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
         context: google.protobuf.struct_pb2.Struct | None = ...,
+        with_tracing: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "context", b"context", "permission", b"permission", "resource", b"resource", "subject", b"subject", "with_tracing", b"with_tracing"]) -> None: ...
 
 global___CheckPermissionRequest = CheckPermissionRequest
 
@@ -494,6 +521,7 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     CHECKED_AT_FIELD_NUMBER: builtins.int
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
     PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    DEBUG_TRACE_FIELD_NUMBER: builtins.int
     @property
     def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
     permissionship: global___CheckPermissionResponse.Permissionship.ValueType
@@ -509,17 +537,144 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     @property
     def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo:
         """partial_caveat_info holds information of a partially-evaluated caveated response"""
+    @property
+    def debug_trace(self) -> authzed.api.v1.debug_pb2.DebugInformation:
+        """debug_trace is the debugging trace of this check, if requested."""
     def __init__(
         self,
         *,
         checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
         partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
+        debug_trace: authzed.api.v1.debug_pb2.DebugInformation | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "debug_trace", b"debug_trace", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "debug_trace", b"debug_trace", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
 
 global___CheckPermissionResponse = CheckPermissionResponse
+
+@typing_extensions.final
+class CheckBulkPermissionsRequest(google.protobuf.message.Message):
+    """CheckBulkPermissionsRequest issues a check on whether a subject has permission 
+    or is a member of a relation on a specific resource for each item in the list.
+
+    The ordering of the items in the response is maintained in the response.
+    Checks with the same subject/permission will automatically be batched for performance optimization.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    ITEMS_FIELD_NUMBER: builtins.int
+    @property
+    def consistency(self) -> global___Consistency: ...
+    @property
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CheckBulkPermissionsRequestItem]: ...
+    def __init__(
+        self,
+        *,
+        consistency: global___Consistency | None = ...,
+        items: collections.abc.Iterable[global___CheckBulkPermissionsRequestItem] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "items", b"items"]) -> None: ...
+
+global___CheckBulkPermissionsRequest = CheckBulkPermissionsRequest
+
+@typing_extensions.final
+class CheckBulkPermissionsRequestItem(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RESOURCE_FIELD_NUMBER: builtins.int
+    PERMISSION_FIELD_NUMBER: builtins.int
+    SUBJECT_FIELD_NUMBER: builtins.int
+    CONTEXT_FIELD_NUMBER: builtins.int
+    @property
+    def resource(self) -> authzed.api.v1.core_pb2.ObjectReference: ...
+    permission: builtins.str
+    @property
+    def subject(self) -> authzed.api.v1.core_pb2.SubjectReference: ...
+    @property
+    def context(self) -> google.protobuf.struct_pb2.Struct: ...
+    def __init__(
+        self,
+        *,
+        resource: authzed.api.v1.core_pb2.ObjectReference | None = ...,
+        permission: builtins.str = ...,
+        subject: authzed.api.v1.core_pb2.SubjectReference | None = ...,
+        context: google.protobuf.struct_pb2.Struct | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["context", b"context", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["context", b"context", "permission", b"permission", "resource", b"resource", "subject", b"subject"]) -> None: ...
+
+global___CheckBulkPermissionsRequestItem = CheckBulkPermissionsRequestItem
+
+@typing_extensions.final
+class CheckBulkPermissionsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CHECKED_AT_FIELD_NUMBER: builtins.int
+    PAIRS_FIELD_NUMBER: builtins.int
+    @property
+    def checked_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    @property
+    def pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CheckBulkPermissionsPair]: ...
+    def __init__(
+        self,
+        *,
+        checked_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        pairs: collections.abc.Iterable[global___CheckBulkPermissionsPair] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checked_at", b"checked_at", "pairs", b"pairs"]) -> None: ...
+
+global___CheckBulkPermissionsResponse = CheckBulkPermissionsResponse
+
+@typing_extensions.final
+class CheckBulkPermissionsPair(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REQUEST_FIELD_NUMBER: builtins.int
+    ITEM_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def request(self) -> global___CheckBulkPermissionsRequestItem: ...
+    @property
+    def item(self) -> global___CheckBulkPermissionsResponseItem: ...
+    @property
+    def error(self) -> google.rpc.status_pb2.Status: ...
+    def __init__(
+        self,
+        *,
+        request: global___CheckBulkPermissionsRequestItem | None = ...,
+        item: global___CheckBulkPermissionsResponseItem | None = ...,
+        error: google.rpc.status_pb2.Status | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["error", b"error", "item", b"item", "request", b"request", "response", b"response"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["error", b"error", "item", b"item", "request", b"request", "response", b"response"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["response", b"response"]) -> typing_extensions.Literal["item", "error"] | None: ...
+
+global___CheckBulkPermissionsPair = CheckBulkPermissionsPair
+
+@typing_extensions.final
+class CheckBulkPermissionsResponseItem(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PERMISSIONSHIP_FIELD_NUMBER: builtins.int
+    PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    permissionship: global___CheckPermissionResponse.Permissionship.ValueType
+    @property
+    def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo: ...
+    def __init__(
+        self,
+        *,
+        permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
+        partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
+
+global___CheckBulkPermissionsResponseItem = CheckBulkPermissionsResponseItem
 
 @typing_extensions.final
 class ExpandPermissionTreeRequest(google.protobuf.message.Message):

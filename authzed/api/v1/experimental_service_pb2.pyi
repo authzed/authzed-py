@@ -188,6 +188,7 @@ class BulkExportRelationshipsRequest(google.protobuf.message.Message):
     CONSISTENCY_FIELD_NUMBER: builtins.int
     OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
     OPTIONAL_CURSOR_FIELD_NUMBER: builtins.int
+    OPTIONAL_RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
     @property
     def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
     optional_limit: builtins.int
@@ -202,15 +203,21 @@ class BulkExportRelationshipsRequest(google.protobuf.message.Message):
         should resume being returned. The cursor can be found on the
         BulkExportRelationshipsResponse object.
         """
+    @property
+    def optional_relationship_filter(self) -> authzed.api.v1.permission_service_pb2.RelationshipFilter:
+        """optional_relationship_filter, if specified, indicates the
+        filter to apply to each relationship to be exported.
+        """
     def __init__(
         self,
         *,
         consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
         optional_limit: builtins.int = ...,
         optional_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
+        optional_relationship_filter: authzed.api.v1.permission_service_pb2.RelationshipFilter | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "optional_relationship_filter", b"optional_relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "optional_relationship_filter", b"optional_relationship_filter"]) -> None: ...
 
 global___BulkExportRelationshipsRequest = BulkExportRelationshipsRequest
 
