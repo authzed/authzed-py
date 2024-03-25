@@ -16,7 +16,7 @@ jobs:
           - "3.10"
       fail-fast: false
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - uses: "bewuethr/yamllint-action@v1.2.2"
         with:
           config-file: ".yamllint"
@@ -56,13 +56,13 @@ jobs:
       matrix:
         language: ["python"]
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - uses: "authzed/actions/codeql@main"
   trivy:
     name: "Analyze with Trivy"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - name: "Run Trivy vulnerability scanner"
         uses: "aquasecurity/trivy-action@master"
         with:
