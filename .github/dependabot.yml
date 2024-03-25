@@ -7,7 +7,13 @@ updates:
       interval: "weekly"
     labels:
       - "area/dependencies"
+    groups:
+      pip:
+        patterns: ["*"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      github-actions:
+        patterns: ["*"]
