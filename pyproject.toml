@@ -22,6 +22,7 @@ typing-extensions = ">=3.7.4,<5"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=23.3,<25.0"
+grpc-stubs = "^1.53"
 grpcio-tools = ">=1.59,<1.63"
 isort = "^5.6.4"
 mypy = "1.9.0"
