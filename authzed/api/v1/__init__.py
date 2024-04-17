@@ -61,7 +61,7 @@ from authzed.api.v1.watch_service_pb2_grpc import WatchServiceStub
 
 class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub):
     """
-    v1 Authzed gRPC API client.
+    v1 Authzed gRPC API client - Auto-detects sync or async depending on if initialized within an event loop
     """
 
     def __init__(self, target, credentials, options=None, compression=None):
@@ -72,6 +72,36 @@ class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub,
             channelfn = grpc.secure_channel
 
         channel = channelfn(target, credentials, options, compression)
+        SchemaServiceStub.__init__(self, channel)
+        PermissionsServiceStub.__init__(self, channel)
+        ExperimentalServiceStub.__init__(self, channel)
+        WatchServiceStub.__init__(self, channel)
+
+
+class AsyncClient(
+    SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub
+):
+    """
+    v1 Authzed gRPC API client, for use with asyncio.
+    """
+
+    def __init__(self, target, credentials, options=None, compression=None):
+        channel = grpc.aio.secure_channel(target, credentials, options, compression)
+        SchemaServiceStub.__init__(self, channel)
+        PermissionsServiceStub.__init__(self, channel)
+        ExperimentalServiceStub.__init__(self, channel)
+        WatchServiceStub.__init__(self, channel)
+
+
+class SyncClient(
+    SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub
+):
+    """
+    v1 Authzed gRPC API client, running synchronously.
+    """
+
+    def __init__(self, target, credentials, options=None, compression=None):
+        channel = grpc.secure_channel(target, credentials, options, compression)
         SchemaServiceStub.__init__(self, channel)
         PermissionsServiceStub.__init__(self, channel)
         ExperimentalServiceStub.__init__(self, channel)
