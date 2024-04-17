@@ -92,7 +92,7 @@ jobs:
           pip install poetry
           poetry env info
           poetry install --only dev
-      - name: mypy
+      - name: "mypy"
         run: |
           source ~/.cache/virtualenv/authzedpy/bin/activate
           mypy authzed
