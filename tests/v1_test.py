@@ -1,10 +1,10 @@
+import asyncio
 import uuid
+from inspect import isawaitable
+from typing import Any, AsyncIterable, Iterable, List, Literal, TypeVar, Union
 
 import pytest
 from google.protobuf.struct_pb2 import Struct
-import asyncio
-from typing import Literal, TypeVar, Iterable, AsyncIterable, Union, List, Any
-from inspect import isawaitable
 
 from authzed.api.v1 import (
     AsyncClient,
