@@ -343,7 +343,7 @@ async def write_test_tuples(client):
     post_one = ObjectReference(object_type="post", object_id="post-one")
     post_two = ObjectReference(object_type="post", object_id="post-two")
     # Add some relationships.
-    resp = await maybe_await(
+    await maybe_await(
         client.WriteRelationships(
             WriteRelationshipsRequest(
                 updates=[
