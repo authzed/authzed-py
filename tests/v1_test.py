@@ -1,9 +1,13 @@
+import asyncio
 import uuid
+from inspect import isawaitable
+from typing import Any, AsyncIterable, Iterable, List, Literal, TypeVar, Union
 
 import pytest
 from google.protobuf.struct_pb2 import Struct
 
 from authzed.api.v1 import (
+    AsyncClient,
     BulkCheckPermissionRequest,
     BulkCheckPermissionRequestItem,
     BulkExportRelationshipsRequest,
@@ -20,92 +24,145 @@ from authzed.api.v1 import (
     Relationship,
     RelationshipUpdate,
     SubjectReference,
+    SyncClient,
     WriteRelationshipsRequest,
     WriteSchemaRequest,
 )
 from grpcutil import insecure_bearer_token_credentials
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def token():
     return str(uuid.uuid4())
 
 
-@pytest.fixture(scope="function")
-def client(token):
-    # NOTE: `spicedb serve-testing` must be running for these tests to work.
+@pytest.fixture()
+def client_autodetect_sync(token) -> Client:
+    with pytest.raises(RuntimeError):
+        asyncio.get_running_loop()
     return Client("localhost:50051", insecure_bearer_token_credentials(token))
 
 
-def test_basic_schema(client):
+@pytest.fixture()
+async def client_autodetect_async(token) -> Client:
+    assert asyncio.get_running_loop()
+    return Client("localhost:50051", insecure_bearer_token_credentials(token))
+
+
+@pytest.fixture()
+def sync_client(token) -> SyncClient:
+    return SyncClient("localhost:50051", insecure_bearer_token_credentials(token))
+
+
+@pytest.fixture()
+async def async_client(token) -> AsyncClient:
+    return AsyncClient("localhost:50051", insecure_bearer_token_credentials(token))
+
+
+# The configs array paramaterizes the tests in this file to run with different clients.
+# To make changes, modify both the configs array and the config fixture
+Config = Literal["Client_autodetect_sync", "Client_autodetect_async", "SyncClient", "AsyncClient"]
+configs: List[Config] = [
+    "Client_autodetect_sync",
+    "Client_autodetect_async",
+    "SyncClient",
+    "AsyncClient",
+]
+
+
+@pytest.fixture(params=configs)
+def client(
+    request,
+    client_autodetect_sync: Client,
+    client_autodetect_async: Client,
+    sync_client: SyncClient,
+    async_client: AsyncClient,
+):
+    clients: dict[Config, Any] = {
+        "Client_autodetect_sync": client_autodetect_sync,
+        "Client_autodetect_async": client_autodetect_async,
+        "SyncClient": sync_client,
+        "AsyncClient": async_client,
+    }
+    return clients[request.param]
+
+
+async def test_basic_schema(client):
     schema = """
         definition document {
             relation reader: user
         }
         definition user {}
     """
-    client.WriteSchema(WriteSchemaRequest(schema=schema))
-
-    resp = client.ReadSchema(ReadSchemaRequest())
+    resp = await maybe_await(client.WriteSchema(WriteSchemaRequest(schema=schema)))
+    resp = await maybe_await(client.ReadSchema(ReadSchemaRequest()))
     assert "definition document" in resp.schema_text
     assert "definition user" in resp.schema_text
 
 
-def test_schema_with_caveats(client):
-    write_test_schema(client)
+async def test_schema_with_caveats(client):
+    await write_test_schema(client)
 
 
-def test_check(client):
+async def test_check(client):
     # Write a basic schema.
-    write_test_schema(client)
-    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+    await write_test_schema(client)
+    beatrice, emilia, post_one, post_two = await write_test_tuples(client)
 
     # Issue some checks.
-    resp = client.CheckPermission(
-        CheckPermissionRequest(
-            resource=post_one,
-            permission="view",
-            subject=emilia,
-            consistency=Consistency(fully_consistent=True),
+    resp = await maybe_await(
+        client.CheckPermission(
+            CheckPermissionRequest(
+                resource=post_one,
+                permission="view",
+                subject=emilia,
+                consistency=Consistency(fully_consistent=True),
+            )
         )
     )
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 
-    resp = client.CheckPermission(
-        CheckPermissionRequest(
-            resource=post_one,
-            permission="write",
-            subject=emilia,
-            consistency=Consistency(fully_consistent=True),
+    resp = await maybe_await(
+        client.CheckPermission(
+            CheckPermissionRequest(
+                resource=post_one,
+                permission="write",
+                subject=emilia,
+                consistency=Consistency(fully_consistent=True),
+            )
         )
     )
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 
-    resp = client.CheckPermission(
-        CheckPermissionRequest(
-            resource=post_one,
-            permission="view",
-            subject=beatrice,
-            consistency=Consistency(fully_consistent=True),
+    resp = await maybe_await(
+        client.CheckPermission(
+            CheckPermissionRequest(
+                resource=post_one,
+                permission="view",
+                subject=beatrice,
+                consistency=Consistency(fully_consistent=True),
+            )
         )
     )
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 
-    resp = client.CheckPermission(
-        CheckPermissionRequest(
-            resource=post_one,
-            permission="write",
-            subject=beatrice,
-            consistency=Consistency(fully_consistent=True),
+    resp = await maybe_await(
+        client.CheckPermission(
+            CheckPermissionRequest(
+                resource=post_one,
+                permission="write",
+                subject=beatrice,
+                consistency=Consistency(fully_consistent=True),
+            )
         )
     )
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_NO_PERMISSION
 
 
-def test_caveated_check(client):
+async def test_caveated_check(client):
     # Write a basic schema.
-    write_test_schema(client)
-    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+    await write_test_schema(client)
+    beatrice, emilia, post_one, post_two = await write_test_tuples(client)
 
     s = Struct()
     # Likes Harry Potter
@@ -118,7 +175,8 @@ def test_caveated_check(client):
         consistency=Consistency(fully_consistent=True),
         context=s,
     )
-    resp = client.CheckPermission(req)
+
+    resp = await maybe_await(client.CheckPermission(req))
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 
     # No longer likes Harry Potter
@@ -130,7 +188,7 @@ def test_caveated_check(client):
         consistency=Consistency(fully_consistent=True),
         context=s,
     )
-    resp = client.CheckPermission(req)
+    resp = await maybe_await(client.CheckPermission(req))
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_NO_PERMISSION
 
     # Fandom is in question
@@ -141,15 +199,15 @@ def test_caveated_check(client):
         consistency=Consistency(fully_consistent=True),
         context=None,
     )
-    resp = client.CheckPermission(req)
+    resp = await maybe_await(client.CheckPermission(req))
     assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_CONDITIONAL_PERMISSION
     assert "likes" in resp.partial_caveat_info.missing_required_context
 
 
-def test_lookup_resources(client):
+async def test_lookup_resources(client):
     # Write a basic schema.
-    write_test_schema(client)
-    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+    await write_test_schema(client)
+    beatrice, emilia, post_one, post_two = await write_test_tuples(client)
 
     resp = client.LookupResources(
         LookupResourcesRequest(
@@ -159,18 +217,17 @@ def test_lookup_resources(client):
             consistency=Consistency(fully_consistent=True),
         )
     )
-    responses = []
-    for response in resp:
-        responses.append(response.resource_object_id)
+    responses = await maybe_async_iterable_to_list(resp)
+    responses = [response.resource_object_id for response in responses]
     assert len(responses) == 2
     assert responses.count(post_one.object_id) == 1
     assert responses.count(post_two.object_id) == 1
 
 
-def test_lookup_subjects(client):
+async def test_lookup_subjects(client):
     # Write a basic schema.
-    write_test_schema(client)
-    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+    await write_test_schema(client)
+    beatrice, emilia, post_one, post_two = await write_test_tuples(client)
 
     resp = client.LookupSubjects(
         LookupSubjectsRequest(
@@ -180,35 +237,36 @@ def test_lookup_subjects(client):
             consistency=Consistency(fully_consistent=True),
         )
     )
-    responses = []
-    for response in resp:
-        responses.append(response.subject_object_id)
+    responses = await maybe_async_iterable_to_list(resp)
+    responses = [response.subject_object_id for response in responses]
     assert len(responses) == 2
     assert responses.count(emilia.object.object_id) == 1
     assert responses.count(beatrice.object.object_id) == 1
 
 
-def test_bulk_check(client):
+async def test_bulk_check(client):
     # Write a basic schema.
-    write_test_schema(client)
-    beatrice, emilia, post_one, post_two = write_test_tuples(client)
+    await write_test_schema(client)
+    beatrice, emilia, post_one, post_two = await write_test_tuples(client)
 
     # Issue some checks.
-    resp = client.BulkCheckPermission(
-        BulkCheckPermissionRequest(
-            consistency=Consistency(fully_consistent=True),
-            items=[
-                BulkCheckPermissionRequestItem(
-                    resource=post_one,
-                    permission="view",
-                    subject=emilia,
-                ),
-                BulkCheckPermissionRequestItem(
-                    resource=post_one,
-                    permission="write",
-                    subject=emilia,
-                ),
-            ],
+    resp = await maybe_await(
+        client.BulkCheckPermission(
+            BulkCheckPermissionRequest(
+                consistency=Consistency(fully_consistent=True),
+                items=[
+                    BulkCheckPermissionRequestItem(
+                        resource=post_one,
+                        permission="view",
+                        subject=emilia,
+                    ),
+                    BulkCheckPermissionRequestItem(
+                        resource=post_one,
+                        permission="write",
+                        subject=emilia,
+                    ),
+                ],
+            )
         )
     )
 
@@ -221,53 +279,55 @@ def test_bulk_check(client):
     )
 
 
-def test_bulk_export_import(client):
-    write_test_schema(client)
-    write_test_tuples(client)
+async def test_bulk_export_import(client):
+    await write_test_schema(client)
+    await write_test_tuples(client)
 
     # validate bulk export returns all relationships written
     resp = client.BulkExportRelationships(
         BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
     )
 
-    rels = rels_from_bulk_export_response(resp)
+    rels = await rels_from_bulk_export_response(resp)
     assert len(rels) == 4
 
     # create a new empty client
-    empty_client = Client("localhost:50051", insecure_bearer_token_credentials(str(uuid.uuid4())))
-    write_test_schema(empty_client)
+    ClientType = type(client)
+    empty_client = ClientType(
+        "localhost:50051", insecure_bearer_token_credentials(str(uuid.uuid4()))
+    )
+    await write_test_schema(empty_client)
 
     # validate indeed empty client is empty
     resp = empty_client.BulkExportRelationships(
         BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
     )
 
-    no_rels = rels_from_bulk_export_response(resp)
+    no_rels = await rels_from_bulk_export_response(resp)
     assert len(no_rels) == 0
 
     # do bulk import
     reqs = [BulkImportRelationshipsRequest(relationships=rels)]
-    import_rels = empty_client.BulkImportRelationships(((req for req in reqs)))
+    import_rels = await maybe_await(empty_client.BulkImportRelationships(((req for req in reqs))))
     assert import_rels.num_loaded == 4
 
     # validate all relationships were imported
     resp = empty_client.BulkExportRelationships(
         BulkExportRelationshipsRequest(consistency=Consistency(fully_consistent=True))
     )
-
-    rels = rels_from_bulk_export_response(resp)
+    rels = await rels_from_bulk_export_response(resp)
     assert len(rels) == 4
 
 
-def rels_from_bulk_export_response(resp):
+async def rels_from_bulk_export_response(resp):
+    resp = await maybe_async_iterable_to_list(resp)
     rels = []
-    for response in resp:
-        for rel in response.relationships:
-            rels.append(rel)
+    for r in resp:
+        rels.extend(r.relationships)
     return rels
 
 
-def write_test_tuples(client):
+async def write_test_tuples(client):
     emilia = SubjectReference(
         object=ObjectReference(
             object_type="user",
@@ -283,53 +343,55 @@ def write_test_tuples(client):
     post_one = ObjectReference(object_type="post", object_id="post-one")
     post_two = ObjectReference(object_type="post", object_id="post-two")
     # Add some relationships.
-    client.WriteRelationships(
-        WriteRelationshipsRequest(
-            updates=[
-                # Emilia is a Writer on Post 1
-                RelationshipUpdate(
-                    operation=RelationshipUpdate.Operation.OPERATION_CREATE,
-                    relationship=Relationship(
-                        resource=post_one,
-                        relation="writer",
-                        subject=emilia,
+    await maybe_await(
+        client.WriteRelationships(
+            WriteRelationshipsRequest(
+                updates=[
+                    # Emilia is a Writer on Post 1
+                    RelationshipUpdate(
+                        operation=RelationshipUpdate.Operation.OPERATION_CREATE,
+                        relationship=Relationship(
+                            resource=post_one,
+                            relation="writer",
+                            subject=emilia,
+                        ),
                     ),
-                ),
-                # Emilia is a Writer on Post 2
-                RelationshipUpdate(
-                    operation=RelationshipUpdate.Operation.OPERATION_CREATE,
-                    relationship=Relationship(
-                        resource=post_two,
-                        relation="writer",
-                        subject=emilia,
+                    # Emilia is a Writer on Post 2
+                    RelationshipUpdate(
+                        operation=RelationshipUpdate.Operation.OPERATION_CREATE,
+                        relationship=Relationship(
+                            resource=post_two,
+                            relation="writer",
+                            subject=emilia,
+                        ),
                     ),
-                ),
-                # Beatrice is a Reader on Post 1
-                RelationshipUpdate(
-                    operation=RelationshipUpdate.Operation.OPERATION_CREATE,
-                    relationship=Relationship(
-                        resource=post_one,
-                        relation="reader",
-                        subject=beatrice,
+                    # Beatrice is a Reader on Post 1
+                    RelationshipUpdate(
+                        operation=RelationshipUpdate.Operation.OPERATION_CREATE,
+                        relationship=Relationship(
+                            resource=post_one,
+                            relation="reader",
+                            subject=beatrice,
+                        ),
                     ),
-                ),
-                # Beatrice is also a caveated Reader on Post 1
-                RelationshipUpdate(
-                    operation=RelationshipUpdate.Operation.OPERATION_CREATE,
-                    relationship=Relationship(
-                        resource=post_one,
-                        relation="caveated_reader",
-                        subject=beatrice,
-                        optional_caveat=ContextualizedCaveat(caveat_name="likes_harry_potter"),
+                    # Beatrice is also a caveated Reader on Post 1
+                    RelationshipUpdate(
+                        operation=RelationshipUpdate.Operation.OPERATION_CREATE,
+                        relationship=Relationship(
+                            resource=post_one,
+                            relation="caveated_reader",
+                            subject=beatrice,
+                            optional_caveat=ContextualizedCaveat(caveat_name="likes_harry_potter"),
+                        ),
                     ),
-                ),
-            ]
+                ]
+            )
         )
     )
     return beatrice, emilia, post_one, post_two
 
 
-def write_test_schema(client):
+async def write_test_schema(client):
     schema = """
         caveat likes_harry_potter(likes bool) {
           likes == true
@@ -346,4 +408,24 @@ def write_test_schema(client):
         }
         definition user {}
     """
-    client.WriteSchema(WriteSchemaRequest(schema=schema))
+    await maybe_await(client.WriteSchema(WriteSchemaRequest(schema=schema)))
+
+
+T = TypeVar("T")
+
+
+async def maybe_await(resp: T) -> T:
+    if isawaitable(resp):
+        resp = await resp
+    return resp
+
+
+async def maybe_async_iterable_to_list(iterable: Union[Iterable[T], AsyncIterable[T]]) -> List[T]:
+    items = []
+    if isinstance(iterable, AsyncIterable):
+        async for item in iterable:
+            items.append(item)
+    else:
+        for item in iterable:
+            items.append(item)
+    return items
