@@ -49,6 +49,7 @@ module = ["google.rpc.*", "grpcutil"]
 addopts = "-x"
 log_level = "debug"
 minversion = "6.0"
+asyncio_mode = "auto"
 
 [tool.isort]
 ensure_newline_before_comments = true

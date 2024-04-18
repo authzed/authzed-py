@@ -106,3 +106,9 @@ You can regenerate the code by executing `buf.gen.yaml`:
 ```sh
 ./buf.gen.yaml
 ```
+
+### Running the Unit tests
+
+1. `poetry install --with dev`
+1. `docker run -d -p 50051:50051 -p 50052:50052 --entrypoint spicedb quay.io/authzed/spicedb:latest-debug serve-testing` (or pick a specific version of the spicedb server as appropriate)
+1. `poetry run pytest -vv .`
