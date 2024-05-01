@@ -67,7 +67,7 @@ jobs:
           source ~/.cache/virtualenv/authzedpy/bin/activate
           pip install poetry
           poetry env info
-          poetry install
+          poetry install --with dev
           echo "/home/runner/.cache/virtualenv/authzedpy/bin" >> $GITHUB_PATH
           python -V
           whereis grpc_python_plugin
