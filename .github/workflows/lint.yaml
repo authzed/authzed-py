@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: "actions/checkout@v4"
-      - uses: "bewuethr/yamllint-action@v1.2.2"
+      - uses: "bewuethr/yamllint-action@v1.3.0"
         with:
           config-file: ".yamllint"
       - uses: "actions/setup-python@v5"
