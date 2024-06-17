@@ -28,6 +28,11 @@ from authzed.api.v1.experimental_service_pb2 import (
 )
 from authzed.api.v1.experimental_service_pb2_grpc import ExperimentalServiceStub
 from authzed.api.v1.permission_service_pb2 import (
+    CheckBulkPermissionsPair,
+    CheckBulkPermissionsRequest,
+    CheckBulkPermissionsRequestItem,
+    CheckBulkPermissionsResponse,
+    CheckBulkPermissionsResponseItem,
     CheckPermissionRequest,
     CheckPermissionResponse,
     Consistency,
@@ -123,6 +128,11 @@ __all__ = [
     # Error Reason
     "ErrorReason",
     # Permission Service
+    "CheckBulkPermissionsPair",
+    "CheckBulkPermissionsRequest",
+    "CheckBulkPermissionsRequestItem",
+    "CheckBulkPermissionsResponse",
+    "CheckBulkPermissionsResponseItem",
     "CheckPermissionRequest",
     "CheckPermissionResponse",
     "Consistency",
