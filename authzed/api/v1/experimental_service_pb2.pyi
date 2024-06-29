@@ -17,6 +17,130 @@ import typing
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
+class ExperimentalRegisterRelationshipCounterRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """name is the name of the counter being registered."""
+    @property
+    def relationship_filter(self) -> authzed.api.v1.permission_service_pb2.RelationshipFilter:
+        """relationship_filter defines the filter to be applied to the relationships
+        to be counted.
+        """
+
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        relationship_filter: authzed.api.v1.permission_service_pb2.RelationshipFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "relationship_filter", b"relationship_filter"]) -> None: ...
+
+global___ExperimentalRegisterRelationshipCounterRequest = ExperimentalRegisterRelationshipCounterRequest
+
+@typing.final
+class ExperimentalRegisterRelationshipCounterResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ExperimentalRegisterRelationshipCounterResponse = ExperimentalRegisterRelationshipCounterResponse
+
+@typing.final
+class ExperimentalCountRelationshipsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """name is the name of the counter whose count is being requested."""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+
+global___ExperimentalCountRelationshipsRequest = ExperimentalCountRelationshipsRequest
+
+@typing.final
+class ExperimentalCountRelationshipsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COUNTER_STILL_CALCULATING_FIELD_NUMBER: builtins.int
+    READ_COUNTER_VALUE_FIELD_NUMBER: builtins.int
+    counter_still_calculating: builtins.bool
+    """counter_still_calculating is true if the counter is still calculating the count."""
+    @property
+    def read_counter_value(self) -> global___ReadCounterValue:
+        """read_counter_value is the value of the counter at the time of the read."""
+
+    def __init__(
+        self,
+        *,
+        counter_still_calculating: builtins.bool = ...,
+        read_counter_value: global___ReadCounterValue | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["counter_result", b"counter_result", "counter_still_calculating", b"counter_still_calculating", "read_counter_value", b"read_counter_value"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["counter_result", b"counter_result", "counter_still_calculating", b"counter_still_calculating", "read_counter_value", b"read_counter_value"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["counter_result", b"counter_result"]) -> typing.Literal["counter_still_calculating", "read_counter_value"] | None: ...
+
+global___ExperimentalCountRelationshipsResponse = ExperimentalCountRelationshipsResponse
+
+@typing.final
+class ReadCounterValue(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELATIONSHIP_COUNT_FIELD_NUMBER: builtins.int
+    READ_AT_FIELD_NUMBER: builtins.int
+    relationship_count: builtins.int
+    """relationship_count is the count of relationships that match the filter."""
+    @property
+    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """read_at is the ZedToken at which the relationship count applies."""
+
+    def __init__(
+        self,
+        *,
+        relationship_count: builtins.int = ...,
+        read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["read_at", b"read_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["read_at", b"read_at", "relationship_count", b"relationship_count"]) -> None: ...
+
+global___ReadCounterValue = ReadCounterValue
+
+@typing.final
+class ExperimentalUnregisterRelationshipCounterRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """name is the name of the counter being unregistered."""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+
+global___ExperimentalUnregisterRelationshipCounterRequest = ExperimentalUnregisterRelationshipCounterRequest
+
+@typing.final
+class ExperimentalUnregisterRelationshipCounterResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___ExperimentalUnregisterRelationshipCounterResponse = ExperimentalUnregisterRelationshipCounterResponse
+
+@typing.final
 class BulkCheckPermissionRequest(google.protobuf.message.Message):
     """NOTE: Deprecated now that BulkCheckPermission has been promoted to the stable API as "CheckBulkPermission"."""
 
