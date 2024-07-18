@@ -378,6 +378,41 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           "metadata": {}
         }
     """
+    ERROR_REASON_COUNTER_ALREADY_REGISTERED: _ErrorReason.ValueType  # 26
+    """The request failed because the counter was already registered.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_COUNTER_ALREADY_REGISTERED",
+          "domain": "authzed.com",
+          "metadata": { "counter_name": "name" }
+        }
+    """
+    ERROR_REASON_COUNTER_NOT_REGISTERED: _ErrorReason.ValueType  # 27
+    """The request failed because the counter was not registered.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_COUNTER_NOT_REGISTERED",
+          "domain": "authzed.com",
+          "metadata": { "counter_name": "name"  }
+        }
+    """
+    ERROR_REASON_WILDCARD_NOT_ALLOWED: _ErrorReason.ValueType  # 28
+    """The request failed because a wildcard was not allowed. For CheckPermission,
+    this means that the subject or resource ID was a wildcard. For LookupResources,
+    this means that the subject ID was a wildcard.
+
+    Example of an ErrorInfo:
+
+        {  
+          "reason": "ERROR_REASON_WILDCARD_NOT_ALLOWED",
+          "domain": "authzed.com",
+          "metadata": { "disallowed_field": "subject_id" }
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -738,6 +773,41 @@ Example of an ErrorInfo:
       "reason": "ERROR_REASON_EMPTY_PRECONDITION",
       "domain": "authzed.com",
       "metadata": {}
+    }
+"""
+ERROR_REASON_COUNTER_ALREADY_REGISTERED: ErrorReason.ValueType  # 26
+"""The request failed because the counter was already registered.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_COUNTER_ALREADY_REGISTERED",
+      "domain": "authzed.com",
+      "metadata": { "counter_name": "name" }
+    }
+"""
+ERROR_REASON_COUNTER_NOT_REGISTERED: ErrorReason.ValueType  # 27
+"""The request failed because the counter was not registered.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_COUNTER_NOT_REGISTERED",
+      "domain": "authzed.com",
+      "metadata": { "counter_name": "name"  }
+    }
+"""
+ERROR_REASON_WILDCARD_NOT_ALLOWED: ErrorReason.ValueType  # 28
+"""The request failed because a wildcard was not allowed. For CheckPermission,
+this means that the subject or resource ID was a wildcard. For LookupResources,
+this means that the subject ID was a wildcard.
+
+Example of an ErrorInfo:
+
+    {  
+      "reason": "ERROR_REASON_WILDCARD_NOT_ALLOWED",
+      "domain": "authzed.com",
+      "metadata": { "disallowed_field": "subject_id" }
     }
 """
 global___ErrorReason = ErrorReason

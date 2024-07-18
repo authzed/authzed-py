@@ -91,6 +91,26 @@ class ExperimentalServiceStub:
     introspect the schema of a SpiceDB instance.
     """
 
+    ExperimentalRegisterRelationshipCounter: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterRequest,
+        authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterResponse,
+    ]
+    """EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before
+    a count can be requested.
+    """
+
+    ExperimentalCountRelationships: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsRequest,
+        authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsResponse,
+    ]
+    """EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter."""
+
+    ExperimentalUnregisterRelationshipCounter: grpc.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterRequest,
+        authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterResponse,
+    ]
+    """EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships."""
+
 class ExperimentalServiceAsyncStub:
     """ExperimentalService exposes a number of APIs that are currently being
     prototyped and tested for future inclusion in the stable API.
@@ -163,6 +183,26 @@ class ExperimentalServiceAsyncStub:
     specified schema and the schema stored in SpiceDB. This is useful for clients that need to
     introspect the schema of a SpiceDB instance.
     """
+
+    ExperimentalRegisterRelationshipCounter: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterRequest,
+        authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterResponse,
+    ]
+    """EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before
+    a count can be requested.
+    """
+
+    ExperimentalCountRelationships: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsRequest,
+        authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsResponse,
+    ]
+    """EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter."""
+
+    ExperimentalUnregisterRelationshipCounter: grpc.aio.UnaryUnaryMultiCallable[
+        authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterRequest,
+        authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterResponse,
+    ]
+    """EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships."""
 
 class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
     """ExperimentalService exposes a number of APIs that are currently being
@@ -250,5 +290,31 @@ class ExperimentalServiceServicer(metaclass=abc.ABCMeta):
         specified schema and the schema stored in SpiceDB. This is useful for clients that need to
         introspect the schema of a SpiceDB instance.
         """
+
+    @abc.abstractmethod
+    def ExperimentalRegisterRelationshipCounter(
+        self,
+        request: authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterRequest,
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterResponse, collections.abc.Awaitable[authzed.api.v1.experimental_service_pb2.ExperimentalRegisterRelationshipCounterResponse]]:
+        """EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before
+        a count can be requested.
+        """
+
+    @abc.abstractmethod
+    def ExperimentalCountRelationships(
+        self,
+        request: authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsRequest,
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsResponse, collections.abc.Awaitable[authzed.api.v1.experimental_service_pb2.ExperimentalCountRelationshipsResponse]]:
+        """EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter."""
+
+    @abc.abstractmethod
+    def ExperimentalUnregisterRelationshipCounter(
+        self,
+        request: authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterRequest,
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterResponse, collections.abc.Awaitable[authzed.api.v1.experimental_service_pb2.ExperimentalUnregisterRelationshipCounterResponse]]:
+        """EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships."""
 
 def add_ExperimentalServiceServicer_to_server(servicer: ExperimentalServiceServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...
