@@ -41,6 +41,7 @@ line-length = 100
 [tool.mypy]
 explicit_package_bases = true
 
+# TODO: is this intentional?
 [[tool.mypy.overrides]]
 ignore_missing_imports = true
 module = ["google.rpc.*", "grpcutil"]
