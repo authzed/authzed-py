@@ -1,13 +1,12 @@
 #!/usr/bin/env -S buf generate buf.build/authzed/api:v1.34.0 --template
 ---
-version: "v1"
+version: v2
+managed:
+  enabled: true
 plugins:
-  - name: "python"
+  - remote: buf.build/protocolbuffers/python:v26.1
     out: "."
-  - name: "grpc-python"
+  - remote: buf.build/grpc/python:v1.65.4
     out: "."
-    path: "grpc_python_plugin"
-  - name: "mypy"
-    out: "."
-  - name: "mypy_grpc"
+  - remote: buf.build/protocolbuffers/pyi:v27.3
     out: "."
