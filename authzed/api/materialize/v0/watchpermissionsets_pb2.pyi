@@ -46,6 +46,7 @@ class WatchPermissionSetsResponse(google.protobuf.message.Message):
     CHANGE_FIELD_NUMBER: builtins.int
     COMPLETED_REVISION_FIELD_NUMBER: builtins.int
     LOOKUP_PERMISSION_SETS_REQUIRED_FIELD_NUMBER: builtins.int
+    BREAKING_SCHEMA_CHANGE_FIELD_NUMBER: builtins.int
     @property
     def change(self) -> global___PermissionSetChange:
         """change is the permission set delta that has occurred as result of a mutation in origin SpiceDB.
@@ -70,16 +71,25 @@ class WatchPermissionSetsResponse(google.protobuf.message.Message):
         cluster has seen its schema changed.
         """
 
+    @property
+    def breaking_schema_change(self) -> global___BreakingSchemaChange:
+        """breaking_schema_change is a signal that a breaking schema change has been written to the origin SpiceDB cluster,
+        and that the consumer should expect delays in the ingestion of new changes,
+        because the permission set snapshot needs to be rebuilt from scratch. Once the snapshot is ready, the consumer
+        will receive a LookupPermissionSetsRequired event.
+        """
+
     def __init__(
         self,
         *,
         change: global___PermissionSetChange | None = ...,
         completed_revision: authzed.api.v1.core_pb2.ZedToken | None = ...,
         lookup_permission_sets_required: global___LookupPermissionSetsRequired | None = ...,
+        breaking_schema_change: global___BreakingSchemaChange | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["change", b"change", "completed_revision", b"completed_revision", "lookup_permission_sets_required", b"lookup_permission_sets_required", "response", b"response"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["change", b"change", "completed_revision", b"completed_revision", "lookup_permission_sets_required", b"lookup_permission_sets_required", "response", b"response"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["response", b"response"]) -> typing.Literal["change", "completed_revision", "lookup_permission_sets_required"] | None: ...
+    def HasField(self, field_name: typing.Literal["breaking_schema_change", b"breaking_schema_change", "change", b"change", "completed_revision", b"completed_revision", "lookup_permission_sets_required", b"lookup_permission_sets_required", "response", b"response"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["breaking_schema_change", b"breaking_schema_change", "change", b"change", "completed_revision", b"completed_revision", "lookup_permission_sets_required", b"lookup_permission_sets_required", "response", b"response"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["response", b"response"]) -> typing.Literal["change", "completed_revision", "lookup_permission_sets_required", "breaking_schema_change"] | None: ...
 
 global___WatchPermissionSetsResponse = WatchPermissionSetsResponse
 
@@ -91,12 +101,15 @@ class Cursor(google.protobuf.message.Message):
     TOKEN_FIELD_NUMBER: builtins.int
     STARTING_INDEX_FIELD_NUMBER: builtins.int
     COMPLETED_MEMBERS_FIELD_NUMBER: builtins.int
+    STARTING_KEY_FIELD_NUMBER: builtins.int
     limit: builtins.int
     """limit is the number of permission sets to stream over a single LookupPermissionSets call that was requested."""
     starting_index: builtins.int
     """starting_index is an offset of the permission set represented by this cursor"""
     completed_members: builtins.bool
     """completed_members is a boolean flag that indicates that the cursor has reached the end of the permission sets"""
+    starting_key: builtins.str
+    """starting_key is a string cursor used by some backends to resume the stream from a specific point."""
     @property
     def token(self) -> authzed.api.v1.core_pb2.ZedToken:
         """token is the snapshot revision at which the cursor was computed."""
@@ -108,9 +121,10 @@ class Cursor(google.protobuf.message.Message):
         token: authzed.api.v1.core_pb2.ZedToken | None = ...,
         starting_index: builtins.int = ...,
         completed_members: builtins.bool = ...,
+        starting_key: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["token", b"token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["completed_members", b"completed_members", "limit", b"limit", "starting_index", b"starting_index", "token", b"token"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["completed_members", b"completed_members", "limit", b"limit", "starting_index", b"starting_index", "starting_key", b"starting_key", "token", b"token"]) -> None: ...
 
 global___Cursor = Cursor
 
@@ -119,12 +133,20 @@ class LookupPermissionSetsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     LIMIT_FIELD_NUMBER: builtins.int
+    OPTIONAL_AT_REVISION_FIELD_NUMBER: builtins.int
     OPTIONAL_STARTING_AFTER_CURSOR_FIELD_NUMBER: builtins.int
     limit: builtins.int
     """limit is the number of permission sets to stream over a single LookupPermissionSets. Once the limit is reached,
     the server will close the stream. If more permission sets are available, the consume should open a new stream
     providing optional_starting_after_cursor, using the cursor from the last response.
     """
+    @property
+    def optional_at_revision(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """optional_at_revision specifies the client is requesting to lookup PermissionSets at a specific revision. It's
+        optional, and if not provided, PermissionSets will be looked up at the current revision. The cursor always
+        takes precedence in defining the revision when present.
+        """
+
     @property
     def optional_starting_after_cursor(self) -> global___Cursor:
         """optional_starting_after_cursor is used to specify the offset to start streaming permission sets from."""
@@ -133,10 +155,11 @@ class LookupPermissionSetsRequest(google.protobuf.message.Message):
         self,
         *,
         limit: builtins.int = ...,
+        optional_at_revision: authzed.api.v1.core_pb2.ZedToken | None = ...,
         optional_starting_after_cursor: global___Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["optional_starting_after_cursor", b"optional_starting_after_cursor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["limit", b"limit", "optional_starting_after_cursor", b"optional_starting_after_cursor"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_at_revision", b"optional_at_revision", "optional_starting_after_cursor", b"optional_starting_after_cursor"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["limit", b"limit", "optional_at_revision", b"optional_at_revision", "optional_starting_after_cursor", b"optional_starting_after_cursor"]) -> None: ...
 
 global___LookupPermissionSetsRequest = LookupPermissionSetsRequest
 
@@ -282,7 +305,7 @@ global___MemberReference = MemberReference
 class LookupPermissionSetsRequired(google.protobuf.message.Message):
     """LookupPermissionSetsRequired is a signal that the consumer should perform a LookupPermissionSets call because
     the permission set snapshot needs to be rebuilt from scratch. This typically happens when the origin SpiceDB
-    cluster has seen its schema changed.
+    cluster has seen its schema changed, see BreakingSchemaChange event.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -301,3 +324,27 @@ class LookupPermissionSetsRequired(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["required_lookup_at", b"required_lookup_at"]) -> None: ...
 
 global___LookupPermissionSetsRequired = LookupPermissionSetsRequired
+
+@typing.final
+class BreakingSchemaChange(google.protobuf.message.Message):
+    """BreakingSchemaChange is used to signal a breaking schema change has happened, and that the consumer should
+    expect delays in the ingestion of new changes, because the permission set snapshot needs to be rebuilt from scratch.
+    Once the snapshot is ready, the consumer will receive a LookupPermissionSetsRequired event.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CHANGE_AT_FIELD_NUMBER: builtins.int
+    @property
+    def change_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """change_at is the revision at which a breaking schema event has happened."""
+
+    def __init__(
+        self,
+        *,
+        change_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["change_at", b"change_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["change_at", b"change_at"]) -> None: ...
+
+global___BreakingSchemaChange = BreakingSchemaChange
