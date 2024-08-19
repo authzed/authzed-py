@@ -14,3 +14,7 @@ repos:
     rev: "v1.35.1"
     hooks:
       - id: "yamllint"
+  - repo: "https://github.com/RobertCraigie/pyright-python"
+    rev: "v1.1.376"
+    hooks:
+      - id: "pyright"
