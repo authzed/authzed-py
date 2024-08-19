@@ -47,5 +47,11 @@ resp = client.BulkCheckPermission(
     )
 )
 assert len(resp.pairs) == 2
-assert resp.pairs[0].item.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
-assert resp.pairs[1].item.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+assert (
+    resp.pairs[0].item.permissionship
+    == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+)
+assert (
+    resp.pairs[1].item.permissionship
+    == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+)
