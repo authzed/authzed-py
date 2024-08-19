@@ -1,3 +1,9 @@
+[virtualenvs]
+# This puts the virtualenv inside the dir,
+# which also means that pyright will always be able
+# to find it.
+in-project = true
+
 [tool.poetry]
 authors = ["Authzed <support@authzed.com>"]
 description = "Client library for SpiceDB."
@@ -19,16 +25,13 @@ grpcio = "^1.63"
 protobuf = ">=5.26,<6"
 python = "^3.8"
 typing-extensions = ">=3.7.4,<5"
+pyright = "^1.1.376"
 
 [tool.poetry.group.dev.dependencies]
-black = ">=23.3,<25.0"
 grpc-stubs = "^1.53"
 grpcio-tools = ">=1.63,<1.66"
-isort = "^5.6.4"
-mypy = "1.11.1"
 mypy-protobuf = "3.6.0"
 mock = "^5.1.0"
-pyflakes = "^3.0.1"
 pytest = ">=7.1.3,<9.0.0"
 pytest-asyncio = ">=0.21,<0.24"
 protoc-gen-validate = ">=0.4.1,<=1.1.0"
@@ -37,6 +40,18 @@ types-protobuf = ">=5.26,<6.0"
 [tool.black]
 exclude = '(^\.(.*)|^(.*)_pb2(_grpc)?\.py)'
 line-length = 100
+
+[tool.pyright]
+include = ["authzed"]
+exclude = ["**/*.py"]
+venvPath = "."
+venv = ".venv"
+# NOTE: this isn't ideal. The issue here appears to be with the code that's
+# generated for google grpc Statuses, and pyright complains that Status isn't
+# on the module, which *does* appear to be true. It's unclear whether this is
+# an issue with our usage or with the package that generates types.
+# TODO: try using pyi to generate the stubs rather than mypy
+reportAttributeAccessIssue = "warning"
 
 [tool.mypy]
 explicit_package_bases = true
