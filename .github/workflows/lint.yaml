@@ -1,6 +1,6 @@
 ---
 name: "Lint"
-on: # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - "main"
@@ -8,42 +8,12 @@ on: # yamllint disable-line rule:truthy
     branches: ["*"]
 jobs:
   lint:
-    name: "Format & Lint"
+    # Uses pre-commit to run all checks
     runs-on: "ubuntu-latest"
-    strategy:
-      matrix:
-        python-version:
-          - "3.10"
-      fail-fast: false
     steps:
-      - uses: "actions/checkout@v4"
-      - uses: "bewuethr/yamllint-action@v1.3.0"
-        with:
-          config-file: ".yamllint"
-      - uses: "actions/setup-python@v5"
-        with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install --only dev
-      - name: "Pyflakes"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs pyflakes
-      - name: "Blacken"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          black --check --diff .
-      - name: "Isort"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs isort --check --diff
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v3"
+      - uses: "pre-commit/action@v3.0.1"
   codeql:
     name: "Analyze with CodeQL"
     runs-on: "ubuntu-latest"
