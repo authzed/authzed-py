@@ -1,8 +1,8 @@
-#!/usr/bin/env -S buf generate buf.build/authzed/api:v1.34.0 --template
----
 version: v2
 managed:
   enabled: true
+inputs:
+  - module: buf.build/authzed/api:v1.34.0
 plugins:
   - remote: buf.build/protocolbuffers/python:v26.1
     out: "."
