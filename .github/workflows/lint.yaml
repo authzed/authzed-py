@@ -12,8 +12,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v4"
-      - name: "Install poetry"
-        run: "pipx install poetry"
+      - name: "Install Poetry"
+        uses: "snok/install-poetry@v1"
+        with:
+          # This should come from pyproject.toml but poetry
+          # wasn't picking it up for whatever reason.
+          virtualenvs-in-project: true
+          virtualenvs-path: ".venv"
       - uses: "actions/setup-python@v5"
         with:
           python-version: "3.11"
