@@ -1,6 +1,6 @@
 ---
 name: "Lint"
-on: # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - "main"
@@ -8,42 +8,23 @@ on: # yamllint disable-line rule:truthy
     branches: ["*"]
 jobs:
   lint:
-    name: "Format & Lint"
+    # Uses pre-commit to run all checks
     runs-on: "ubuntu-latest"
-    strategy:
-      matrix:
-        python-version:
-          - "3.10"
-      fail-fast: false
     steps:
       - uses: "actions/checkout@v4"
-      - uses: "bewuethr/yamllint-action@v1.3.0"
+      - name: "Install Poetry"
+        uses: "snok/install-poetry@v1"
         with:
-          config-file: ".yamllint"
+          # This should come from pyproject.toml but poetry
+          # wasn't picking it up for whatever reason.
+          virtualenvs-in-project: true
+          virtualenvs-path: ".venv"
       - uses: "actions/setup-python@v5"
         with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install --only dev
-      - name: "Pyflakes"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs pyflakes
-      - name: "Blacken"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          black --check --diff .
-      - name: "Isort"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          find . -name "*.py" | grep -v "_pb2" | xargs isort --check --diff
+          python-version: "3.11"
+          cache: 'poetry'
+      - run: "poetry install"
+      - uses: "pre-commit/action@v3.0.1"
   codeql:
     name: "Analyze with CodeQL"
     runs-on: "ubuntu-latest"
@@ -75,24 +56,3 @@ jobs:
         uses: "github/codeql-action/upload-sarif@v3"
         with:
           sarif_file: "trivy-results.sarif"
-  mypy:
-    name: "Type Check with Mypy"
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@v4"
-      - uses: "actions/setup-python@v5"
-        with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install --only dev
-      - name: "mypy"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          mypy authzed

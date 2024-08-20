@@ -64,11 +64,19 @@ from authzed.api.v1.schema_service_pb2 import (
     WriteSchemaRequest,
     WriteSchemaResponse,
 )
-from authzed.api.v1.schema_service_pb2_grpc import SchemaServiceAsyncStub, SchemaServiceStub
+from authzed.api.v1.schema_service_pb2_grpc import (
+    SchemaServiceAsyncStub,
+    SchemaServiceStub,
+)
 from authzed.api.v1.watch_service_pb2 import WatchRequest, WatchResponse
-from authzed.api.v1.watch_service_pb2_grpc import WatchServiceAsyncStub, WatchServiceStub
+from authzed.api.v1.watch_service_pb2_grpc import (
+    WatchServiceAsyncStub,
+    WatchServiceStub,
+)
 
-class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub):
+class Client(
+    SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub
+):
     """The Client is typed as a synchronous client (though in practice it works with both sync and async code).
     If you are using the async code, you should switch to the AsyncClient class instead in order to get proper type hints
     """

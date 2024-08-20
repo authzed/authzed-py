@@ -64,7 +64,9 @@ from authzed.api.v1.watch_service_pb2 import WatchRequest, WatchResponse
 from authzed.api.v1.watch_service_pb2_grpc import WatchServiceStub
 
 
-class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub):
+class Client(
+    SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub, WatchServiceStub
+):
     """
     v1 Authzed gRPC API client - Auto-detects sync or async depending on if initialized within an event loop
     """

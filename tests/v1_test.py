@@ -61,7 +61,9 @@ async def async_client(token) -> AsyncClient:
 
 # The configs array paramaterizes the tests in this file to run with different clients.
 # To make changes, modify both the configs array and the config fixture
-Config = Literal["Client_autodetect_sync", "Client_autodetect_async", "SyncClient", "AsyncClient"]
+Config = Literal[
+    "Client_autodetect_sync", "Client_autodetect_async", "SyncClient", "AsyncClient"
+]
 configs: List[Config] = [
     "Client_autodetect_sync",
     "Client_autodetect_async",
@@ -200,7 +202,10 @@ async def test_caveated_check(client):
         context=None,
     )
     resp = await maybe_await(client.CheckPermission(req))
-    assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_CONDITIONAL_PERMISSION
+    assert (
+        resp.permissionship
+        == CheckPermissionResponse.PERMISSIONSHIP_CONDITIONAL_PERMISSION
+    )
     assert "likes" in resp.partial_caveat_info.missing_required_context
 
 
@@ -272,10 +277,12 @@ async def test_bulk_check(client):
 
     assert len(resp.pairs) == 2
     assert (
-        resp.pairs[0].item.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+        resp.pairs[0].item.permissionship
+        == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
     )
     assert (
-        resp.pairs[1].item.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
+        resp.pairs[1].item.permissionship
+        == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
     )
 
 
@@ -308,7 +315,9 @@ async def test_bulk_export_import(client):
 
     # do bulk import
     reqs = [BulkImportRelationshipsRequest(relationships=rels)]
-    import_rels = await maybe_await(empty_client.BulkImportRelationships(((req for req in reqs))))
+    import_rels = await maybe_await(
+        empty_client.BulkImportRelationships((req for req in reqs))
+    )
     assert import_rels.num_loaded == 4
 
     # validate all relationships were imported
@@ -381,7 +390,9 @@ async def write_test_tuples(client):
                             resource=post_one,
                             relation="caveated_reader",
                             subject=beatrice,
-                            optional_caveat=ContextualizedCaveat(caveat_name="likes_harry_potter"),
+                            optional_caveat=ContextualizedCaveat(
+                                caveat_name="likes_harry_potter"
+                            ),
                         ),
                     ),
                 ]
@@ -420,7 +431,9 @@ async def maybe_await(resp: T) -> T:
     return resp
 
 
-async def maybe_async_iterable_to_list(iterable: Union[Iterable[T], AsyncIterable[T]]) -> List[T]:
+async def maybe_async_iterable_to_list(
+    iterable: Union[Iterable[T], AsyncIterable[T]],
+) -> List[T]:
     items = []
     if isinstance(iterable, AsyncIterable):
         async for item in iterable:
