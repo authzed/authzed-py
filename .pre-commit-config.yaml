@@ -18,4 +18,3 @@ repos:
     rev: "v1.1.376"
     hooks:
       - id: "pyright"
-        args: ["--verbose"]
