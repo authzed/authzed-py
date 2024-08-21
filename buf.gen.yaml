@@ -1,13 +1,14 @@
-#!/usr/bin/env -S buf generate buf.build/authzed/api:v1.35.0 --template
+#!/usr/bin/env -S buf generate
 ---
-version: "v1"
+version: "v2"
+inputs:
+  - module: "buf.build/authzed/api:v1.35.0"
 plugins:
-  - name: "python"
+  - local: "python"
     out: "."
-  - name: "grpc-python"
+  - local: "grpc_python_plugin"
     out: "."
-    path: "grpc_python_plugin"
-  - name: "mypy"
+  - local: "mypy"
     out: "."
-  - name: "mypy_grpc"
+  - local: "mypy_grpc"
     out: "."
