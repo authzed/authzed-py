@@ -8,7 +8,6 @@ on:
     branches: ["*"]
 env:
   GRPC_VERSION: "1.62"
-  BUF_VERSION: "1.30.0"
 jobs:
   pytest:
     name: "Unit and Integration Tests"
