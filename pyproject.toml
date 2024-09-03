@@ -47,12 +47,12 @@ ignore_missing_imports = true
 module = ["google.rpc.*", "grpcutil"]
 
 [tool.pytest.ini_options]
-addopts = "-x -m \"not ci_only\""
+addopts = "-x -m \"not remote_calls\""
 log_level = "debug"
 minversion = "6.0"
 asyncio_mode = "auto"
 markers = [
-"ci_only: marks tests that will only run in CI"
+"remote_calls: marks tests that make remote calls, not normally run"
 ]
 
 [tool.isort]
