@@ -13,6 +13,10 @@ jobs:
   pytest:
     name: "Unit and Integration Tests"
     runs-on: "ubuntu-latest"
+    services:
+      remote-spicedb:
+        image: authzed/spicedb
+        options: "--entrypoint 'spicedb serve-testing'"
     strategy:
       matrix:
         python-version:
@@ -39,9 +43,11 @@ jobs:
         with:
           version: "latest"
       - name: "Pytest"
+        # NOTE: the -m "" overrides the default marks, which
+        # selects the otherwise-unselected ci_only tests.
         run: |
           source ~/.cache/virtualenv/authzedpy/bin/activate
-          pytest -vv .
+          pytest -vv -m ""
 
   protobuf:
     name: "Generate & Diff Protobuf"
