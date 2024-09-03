@@ -28,12 +28,9 @@ from authzed.api.v1 import (
     WriteRelationshipsRequest,
     WriteSchemaRequest,
 )
+from .calls import write_test_schema
+from .utils import maybe_async_iterable_to_list, maybe_await
 from grpcutil import insecure_bearer_token_credentials
-
-
-@pytest.fixture()
-def token():
-    return str(uuid.uuid4())
 
 
 @pytest.fixture()
@@ -389,43 +386,3 @@ async def write_test_tuples(client):
         )
     )
     return beatrice, emilia, post_one, post_two
-
-
-async def write_test_schema(client):
-    schema = """
-        caveat likes_harry_potter(likes bool) {
-          likes == true
-        }
-
-        definition post {
-            relation writer: user
-            relation reader: user
-            relation caveated_reader: user with likes_harry_potter
-
-            permission write = writer
-            permission view = reader + writer
-            permission view_as_fan = caveated_reader + writer
-        }
-        definition user {}
-    """
-    await maybe_await(client.WriteSchema(WriteSchemaRequest(schema=schema)))
-
-
-T = TypeVar("T")
-
-
-async def maybe_await(resp: T) -> T:
-    if isawaitable(resp):
-        resp = await resp
-    return resp
-
-
-async def maybe_async_iterable_to_list(iterable: Union[Iterable[T], AsyncIterable[T]]) -> List[T]:
-    items = []
-    if isinstance(iterable, AsyncIterable):
-        async for item in iterable:
-            items.append(item)
-    else:
-        for item in iterable:
-            items.append(item)
-    return items
