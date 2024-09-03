@@ -97,3 +97,21 @@ resp = client.CheckPermission(CheckPermissionRequest(
 ))
 assert resp.permissionship == CheckPermissionResponse.PERMISSIONSHIP_HAS_PERMISSION
 ```
+
+### Insecure Client Usage
+When running in a context like `docker compose`, because of Docker's virtual networking,
+the gRPC client sees the SpiceDB container as "remote." It has built-in safeguards to prevent
+calling a remote client in an insecure manner, such as using client credentials without TLS.
+
+However, this is a pain when setting up a development or testing environment, so we provide
+the `InsecureClient` as a convenience:
+
+```py
+from authzed.api.v1 import Client
+from grpcutil import bearer_token_credentials
+
+client = Client(
+    "spicedb:50051",
+    "my super secret token"
+)
+```
