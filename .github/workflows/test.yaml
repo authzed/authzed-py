@@ -15,7 +15,7 @@ jobs:
     runs-on: "ubuntu-latest"
     services:
       remote-spicedb:
-        image: authzed/spicedb
+        image: "authzed/spicedb"
         options: "--entrypoint 'spicedb serve-testing'"
     strategy:
       matrix:
