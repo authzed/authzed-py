@@ -1,6 +1,6 @@
 import asyncio
 import uuid
-from typing import Any, Literal, List
+from typing import Any, List, Literal
 
 import pytest
 from google.protobuf.struct_pb2 import Struct
@@ -27,9 +27,10 @@ from authzed.api.v1 import (
     WriteRelationshipsRequest,
     WriteSchemaRequest,
 )
+from grpcutil import insecure_bearer_token_credentials
+
 from .calls import write_test_schema
 from .utils import maybe_async_iterable_to_list, maybe_await
-from grpcutil import insecure_bearer_token_credentials
 
 
 @pytest.fixture()

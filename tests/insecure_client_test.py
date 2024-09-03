@@ -1,11 +1,7 @@
-import pytest
 import grpc
+import pytest
 
-from authzed.api.v1 import (
-    InsecureClient,
-    SyncClient,
-    AsyncClient,
-)
+from authzed.api.v1 import AsyncClient, InsecureClient, SyncClient
 from grpcutil import insecure_bearer_token_credentials
 
 from .calls import write_test_schema

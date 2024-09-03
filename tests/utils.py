@@ -1,11 +1,5 @@
 from inspect import isawaitable
-from typing import (
-    TypeVar,
-    List,
-    Union,
-    Iterable,
-    AsyncIterable,
-)
+from typing import AsyncIterable, Iterable, List, TypeVar, Union
 
 T = TypeVar("T")
 

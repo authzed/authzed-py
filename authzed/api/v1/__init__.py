@@ -1,9 +1,8 @@
-from typing import Callable, Any
 import asyncio
+from typing import Any, Callable
 
 import grpc
 import grpc.aio
-
 from grpc_interceptor import ClientCallDetails, ClientInterceptor
 
 from authzed.api.v1.core_pb2 import (
