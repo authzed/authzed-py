@@ -1,8 +1,7 @@
-from authzed.api.v1 import (
-    WriteSchemaRequest
-)
+from authzed.api.v1 import WriteSchemaRequest
 
 from .utils import maybe_await
+
 
 async def write_test_schema(client):
     schema = """

@@ -1,12 +1,13 @@
 from inspect import isawaitable
 from typing import (
-        TypeVar,
-        Union,
-        Iterable,
-        AsyncIterable,
-        )
+    TypeVar,
+    Union,
+    Iterable,
+    AsyncIterable,
+)
 
 T = TypeVar("T")
+
 
 async def maybe_async_iterable_to_list(iterable: Union[Iterable[T], AsyncIterable[T]]) -> list[T]:
     items = []
@@ -17,6 +18,7 @@ async def maybe_async_iterable_to_list(iterable: Union[Iterable[T], AsyncIterabl
         for item in iterable:
             items.append(item)
     return items
+
 
 async def maybe_await(resp: T) -> T:
     if isawaitable(resp):
