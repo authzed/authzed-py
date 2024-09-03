@@ -47,10 +47,13 @@ ignore_missing_imports = true
 module = ["google.rpc.*", "grpcutil"]
 
 [tool.pytest.ini_options]
-addopts = "-x"
+addopts = "-x -m \"not ci_only\""
 log_level = "debug"
 minversion = "6.0"
 asyncio_mode = "auto"
+markers = [
+"ci_only: marks tests that will only run in CI"
+]
 
 [tool.isort]
 ensure_newline_before_comments = true
