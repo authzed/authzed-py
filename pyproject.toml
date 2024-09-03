@@ -47,13 +47,10 @@ ignore_missing_imports = true
 module = ["google.rpc.*", "grpcutil"]
 
 [tool.pytest.ini_options]
-addopts = "-x -m \"not remote_calls\""
+addopts = "-x"
 log_level = "debug"
 minversion = "6.0"
 asyncio_mode = "auto"
-markers = [
-"remote_calls: marks tests that make remote calls, not normally run"
-]
 
 [tool.isort]
 ensure_newline_before_comments = true

@@ -20,21 +20,21 @@ from .calls import write_test_schema
 remote_host = "192.168.something.something"
 
 
-@pytest.mark.remote_calls
+@pytest.mark.skip(reason="Makes a remote call that we haven't yet supported in CI")
 async def test_normal_async_client_raises_error_on_insecure_remote_call(token):
     with pytest.raises(grpc.RpcError):
         client = AsyncClient(f"{remote_host}:50051", insecure_bearer_token_credentials(token))
         await write_test_schema(client)
 
 
-@pytest.mark.remote_calls
+@pytest.mark.skip(reason="Makes a remote call that we haven't yet supported in CI")
 async def test_normal_sync_client_raises_error_on_insecure_remote_call(token):
     with pytest.raises(grpc.RpcError):
         client = SyncClient(f"{remote_host}:50051", insecure_bearer_token_credentials(token))
         await write_test_schema(client)
 
 
-@pytest.mark.remote_calls
+@pytest.mark.skip(reason="Makes a remote call that we haven't yet supported in CI")
 async def test_insecure_client_makes_insecure_remote_call(token):
     insecure_client = InsecureClient(f"{remote_host}:50051", token)
     await write_test_schema(insecure_client)
