@@ -191,6 +191,7 @@ __all__ = [
     "DeleteRelationshipsResponse",
     "ExpandPermissionTreeRequest",
     "ExpandPermissionTreeResponse",
+    "InsecureClient",
     "LookupResourcesRequest",
     "LookupResourcesResponse",
     "LookupSubjectsRequest",
