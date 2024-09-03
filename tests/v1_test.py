@@ -1,6 +1,6 @@
 import asyncio
 import uuid
-from typing import Any, Literal
+from typing import Any, Literal, List
 
 import pytest
 from google.protobuf.struct_pb2 import Struct
@@ -58,7 +58,7 @@ async def async_client(token) -> AsyncClient:
 # The configs array paramaterizes the tests in this file to run with different clients.
 # To make changes, modify both the configs array and the config fixture
 Config = Literal["Client_autodetect_sync", "Client_autodetect_async", "SyncClient", "AsyncClient"]
-configs: list[Config] = [
+configs: List[Config] = [
     "Client_autodetect_sync",
     "Client_autodetect_async",
     "SyncClient",
