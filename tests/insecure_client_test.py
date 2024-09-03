@@ -23,6 +23,7 @@ from .calls import write_test_schema
 # docker run --rm -p 192.168.x.x:50051:50051 authzed/spicedb serve-testing
 remote_host = "192.168.something.something"
 
+
 @pytest.mark.remote_calls
 async def test_normal_async_client_raises_error_on_insecure_remote_call(token):
     with pytest.raises(grpc.RpcError):
