@@ -41,7 +41,7 @@ jobs:
       - name: "Pytest"
         run: |
           source ~/.cache/virtualenv/authzedpy/bin/activate
-          pytest -vv .
+          pytest -vv
 
   protobuf:
     name: "Generate & Diff Protobuf"

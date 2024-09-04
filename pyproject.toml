@@ -19,6 +19,7 @@ grpcio = "^1.63"
 protobuf = ">=5.26,<6"
 python = "^3.8"
 typing-extensions = ">=3.7.4,<5"
+grpc-interceptor = "^0.15.4"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=23.3,<25.0"
