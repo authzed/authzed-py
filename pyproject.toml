@@ -4,7 +4,7 @@ description = "Client library for SpiceDB."
 
 # NOTE: These two lines must be kept together for the API update action to function
 name = "authzed"
-version = "0.17.0"
+version = "0.18.1"
 packages = [
   {include = "authzed"},
   {include = "validate"},
