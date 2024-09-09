@@ -17,6 +17,7 @@ grpcio = "^1.63"
 protobuf = ">=5.26,<6"
 python = "^3.8"
 grpc-interceptor = "^0.15.4"
+googleapis-common-protos = "^1.65.0"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=23.3,<25.0"

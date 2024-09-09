@@ -101,6 +101,23 @@ files = [
 test = ["pytest (>=6)"]
 
 [[package]]
+name = "googleapis-common-protos"
+version = "1.65.0"
+description = "Common protobufs used in Google APIs"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "googleapis_common_protos-1.65.0-py2.py3-none-any.whl", hash = "sha256:2972e6c496f435b92590fd54045060867f3fe9be2c82ab148fc8885035479a63"},
+    {file = "googleapis_common_protos-1.65.0.tar.gz", hash = "sha256:334a29d07cddc3aa01dee4988f9afd9b2916ee2ff49d6b757155dc0d197852c0"},
+]
+
+[package.dependencies]
+protobuf = ">=3.20.2,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<6.0.0.dev0"
+
+[package.extras]
+grpc = ["grpcio (>=1.44.0,<2.0.0.dev0)"]
+
+[[package]]
 name = "grpc-interceptor"
 version = "0.15.4"
 description = "Simplifies gRPC interceptors"
@@ -681,4 +698,4 @@ test = ["pytest (>=6.0.0)", "setuptools (>=65)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "c7e295ad57a7b06b622e1976d65f7c22e8ee48251454f0bc56651421b6da688f"
+content-hash = "abd396db03217fd3b3399a342c60363daef82bee2d6caa91b75dcf1677eda3d6"
