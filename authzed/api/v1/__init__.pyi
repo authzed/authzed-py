@@ -106,6 +106,15 @@ class AsyncClient(
         compression: Optional[grpc.Compression] = None,
     ) -> None: ...
 
+class InsecureClient(Client):
+    def __init__(
+        self,
+        target: str,
+        token: str,
+        options=None,
+        compression=None,
+    ) -> None: ...
+
 __all__ = [
     "Client",
     # Core
@@ -133,6 +142,7 @@ __all__ = [
     "DeleteRelationshipsResponse",
     "ExpandPermissionTreeRequest",
     "ExpandPermissionTreeResponse",
+    "InsecureClient",
     "LookupResourcesRequest",
     "LookupResourcesResponse",
     "LookupSubjectsRequest",
