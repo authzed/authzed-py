@@ -4,8 +4,8 @@ import grpc
 
 from authzed.api.v1.core_pb2 import (
     AlgebraicSubjectSet,
-    Cursor,
     ContextualizedCaveat,
+    Cursor,
     DirectSubjectSet,
     ObjectReference,
     PermissionRelationshipTree,
