@@ -2,9 +2,10 @@
 authors = ["Authzed <support@authzed.com>"]
 description = "Client library for SpiceDB."
 
-# NOTE: These two lines must be kept together for the API update action to function
 name = "authzed"
-version = "0.18.1"
+# The version is set at publish time with a call to `poetry version -s <tag>`,
+# where the tag comes from the release.
+version = "0.0.0"
 packages = [
   {include = "authzed"},
   {include = "validate"},

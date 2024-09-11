@@ -22,13 +22,6 @@ jobs:
           UPDATED_STATUS: "${{ steps.buf-update.outputs.updated }}"
         run: |
           echo "Update status: $UPDATED_STATUS"
-      - name: "Update package version"
-        uses: "authzed/actions/semver-update@main"
-        if: "steps.buf-update.outputs.updated == 'true'"
-        with:
-          sourcefile-path: "pyproject.toml"
-          version-regex: 'name = "authzed"\nversion = "(.+)"'
-          version-change: "minor"
       - name: "Install buf"
         uses: "bufbuild/buf-setup-action@v1.39.0"
         with:
