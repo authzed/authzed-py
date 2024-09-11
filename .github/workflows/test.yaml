@@ -74,6 +74,6 @@ jobs:
           whereis protoc-gen-mypy
           whereis protoc-gen-mypy_grpc
           echo $GITHUB_PATH
-      - uses: "bufbuild/buf-setup-action@v1.39.0"
+      - uses: "bufbuild/buf-setup-action@v1.40.1"
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
