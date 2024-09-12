@@ -8,6 +8,7 @@ from grpc_interceptor import ClientCallDetails, ClientInterceptor
 from authzed.api.v1.core_pb2 import (
     AlgebraicSubjectSet,
     ContextualizedCaveat,
+    Cursor,
     DirectSubjectSet,
     ObjectReference,
     PermissionRelationshipTree,
@@ -186,6 +187,7 @@ __all__ = [
     "CheckPermissionRequest",
     "CheckPermissionResponse",
     "Consistency",
+    "Cursor",
     "DeleteRelationshipsRequest",
     "DeleteRelationshipsResponse",
     "ExpandPermissionTreeRequest",
