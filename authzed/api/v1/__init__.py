@@ -1,9 +1,10 @@
 import asyncio
-from typing import Any, Callable
+from typing import Any, Callable, Sequence, Optional, Tuple
 
 import grpc
 import grpc.aio
 from grpc_interceptor import ClientCallDetails, ClientInterceptor
+from grpc_interceptor.client import ClientInterceptorReturnType
 
 from authzed.api.v1.core_pb2 import (
     AlgebraicSubjectSet,
@@ -72,17 +73,18 @@ class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub,
     v1 Authzed gRPC API client - Auto-detects sync or async depending on if initialized within an event loop
     """
 
-    def __init__(self, target, credentials, options=None, compression=None):
+    def __init__(self, target: str, credentials, options=None, compression=None) -> None:
         channel = self.create_channel(target, credentials, options, compression)
         self.init_stubs(channel)
 
-    def init_stubs(self, channel):
+    def init_stubs(self, channel) -> None:
         SchemaServiceStub.__init__(self, channel)
         PermissionsServiceStub.__init__(self, channel)
         ExperimentalServiceStub.__init__(self, channel)
         WatchServiceStub.__init__(self, channel)
 
-    def create_channel(self, target, credentials, options=None, compression=None):
+    def create_channel(self, target: str, credentials: grpc.ChannelCredentials, options: Optional[Sequence[Tuple[str, Any]]]=None, compression=None) -> (grpc.aio.Channel | grpc.Channel):
+        channelfn: Callable
         try:
             asyncio.get_running_loop()
             channelfn = grpc.aio.secure_channel
@@ -97,23 +99,23 @@ class AsyncClient(Client):
     v1 Authzed gRPC API client, for use with asyncio.
     """
 
-    def __init__(self, target, credentials, options=None, compression=None):
+    def __init__(self, target: str, credentials, options=None, compression=None) -> None:
         channel = grpc.aio.secure_channel(target, credentials, options, compression)
         self.init_stubs(channel)
 
-
+ 
 class SyncClient(Client):
     """
     v1 Authzed gRPC API client, running synchronously.
     """
 
-    def __init__(self, target, credentials, options=None, compression=None):
+    def __init__(self, target, credentials, options=None, compression=None) -> None:
         channel = grpc.secure_channel(target, credentials, options, compression)
         self.init_stubs(channel)
 
 
 class TokenAuthorization(ClientInterceptor):
-    def __init__(self, token: str):
+    def __init__(self, token: str) -> None:
         self._token = token
 
     def intercept(
@@ -121,7 +123,7 @@ class TokenAuthorization(ClientInterceptor):
         method: Callable,
         request_or_iterator: Any,
         call_details: grpc.ClientCallDetails,
-    ):
+    ) -> ClientInterceptorReturnType:
         metadata: list[tuple[str, str | bytes]] = [("authorization", f"Bearer {self._token}")]
         if call_details.metadata is not None:
             metadata = [*metadata, *call_details.metadata]
@@ -153,7 +155,7 @@ class InsecureClient(Client):
         token: str,
         options=None,
         compression=None,
-    ):
+    ) -> None:
         fake_credentials = grpc.local_channel_credentials()
         channel = self.create_channel(target, fake_credentials, options, compression)
         auth_interceptor = TokenAuthorization(token)
