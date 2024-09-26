@@ -91,6 +91,27 @@ class PermissionsServiceStub:
     have access whether via a computed permission or relation membership.
     """
 
+    ImportBulkRelationships: grpc.StreamUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsResponse,
+    ]
+    """ImportBulkRelationships is a faster path to writing a large number of
+    relationships at once. It is both batched and streaming. For maximum
+    performance, the caller should attempt to write relationships in as close
+    to relationship sort order as possible: (resource.object_type,
+    resource.object_id, relation, subject.object.object_type,
+    subject.object.object_id, subject.optional_relation)
+    """
+
+    ExportBulkRelationships: grpc.UnaryStreamMultiCallable[
+        authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsResponse,
+    ]
+    """ExportBulkRelationships is the fastest path available to exporting
+    relationships from the server. It is resumable, and will return results
+    in an order determined by the server.
+    """
+
 class PermissionsServiceAsyncStub:
     """PermissionsService implements a set of RPCs that perform operations on
     relationships and permissions.
@@ -162,6 +183,27 @@ class PermissionsServiceAsyncStub:
     ]
     """LookupSubjects returns all the subjects of a given type that
     have access whether via a computed permission or relation membership.
+    """
+
+    ImportBulkRelationships: grpc.aio.StreamUnaryMultiCallable[
+        authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsResponse,
+    ]
+    """ImportBulkRelationships is a faster path to writing a large number of
+    relationships at once. It is both batched and streaming. For maximum
+    performance, the caller should attempt to write relationships in as close
+    to relationship sort order as possible: (resource.object_type,
+    resource.object_id, relation, subject.object.object_type,
+    subject.object.object_id, subject.optional_relation)
+    """
+
+    ExportBulkRelationships: grpc.aio.UnaryStreamMultiCallable[
+        authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsRequest,
+        authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsResponse,
+    ]
+    """ExportBulkRelationships is the fastest path available to exporting
+    relationships from the server. It is resumable, and will return results
+    in an order determined by the server.
     """
 
 class PermissionsServiceServicer(metaclass=abc.ABCMeta):
@@ -251,6 +293,31 @@ class PermissionsServiceServicer(metaclass=abc.ABCMeta):
     ) -> typing.Union[collections.abc.Iterator[authzed.api.v1.permission_service_pb2.LookupSubjectsResponse], collections.abc.AsyncIterator[authzed.api.v1.permission_service_pb2.LookupSubjectsResponse]]:
         """LookupSubjects returns all the subjects of a given type that
         have access whether via a computed permission or relation membership.
+        """
+
+    @abc.abstractmethod
+    def ImportBulkRelationships(
+        self,
+        request_iterator: _MaybeAsyncIterator[authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsRequest],
+        context: _ServicerContext,
+    ) -> typing.Union[authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsResponse, collections.abc.Awaitable[authzed.api.v1.permission_service_pb2.ImportBulkRelationshipsResponse]]:
+        """ImportBulkRelationships is a faster path to writing a large number of
+        relationships at once. It is both batched and streaming. For maximum
+        performance, the caller should attempt to write relationships in as close
+        to relationship sort order as possible: (resource.object_type,
+        resource.object_id, relation, subject.object.object_type,
+        subject.object.object_id, subject.optional_relation)
+        """
+
+    @abc.abstractmethod
+    def ExportBulkRelationships(
+        self,
+        request: authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsRequest,
+        context: _ServicerContext,
+    ) -> typing.Union[collections.abc.Iterator[authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsResponse], collections.abc.AsyncIterator[authzed.api.v1.permission_service_pb2.ExportBulkRelationshipsResponse]]:
+        """ExportBulkRelationships is the fastest path available to exporting
+        relationships from the server. It is resumable, and will return results
+        in an order determined by the server.
         """
 
 def add_PermissionsServiceServicer_to_server(servicer: PermissionsServiceServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

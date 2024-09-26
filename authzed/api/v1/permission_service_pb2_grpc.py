@@ -56,6 +56,16 @@ class PermissionsServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.FromString,
                 )
+        self.ImportBulkRelationships = channel.stream_unary(
+                '/authzed.api.v1.PermissionsService/ImportBulkRelationships',
+                request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsResponse.FromString,
+                )
+        self.ExportBulkRelationships = channel.unary_stream(
+                '/authzed.api.v1.PermissionsService/ExportBulkRelationships',
+                request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsResponse.FromString,
+                )
 
 
 class PermissionsServiceServicer(object):
@@ -131,6 +141,27 @@ class PermissionsServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ImportBulkRelationships(self, request_iterator, context):
+        """ImportBulkRelationships is a faster path to writing a large number of
+        relationships at once. It is both batched and streaming. For maximum
+        performance, the caller should attempt to write relationships in as close
+        to relationship sort order as possible: (resource.object_type,
+        resource.object_id, relation, subject.object.object_type,
+        subject.object.object_id, subject.optional_relation)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExportBulkRelationships(self, request, context):
+        """ExportBulkRelationships is the fastest path available to exporting
+        relationships from the server. It is resumable, and will return results
+        in an order determined by the server.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PermissionsServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -173,6 +204,16 @@ def add_PermissionsServiceServicer_to_server(servicer, server):
                     servicer.LookupSubjects,
                     request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.SerializeToString,
+            ),
+            'ImportBulkRelationships': grpc.stream_unary_rpc_method_handler(
+                    servicer.ImportBulkRelationships,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsResponse.SerializeToString,
+            ),
+            'ExportBulkRelationships': grpc.unary_stream_rpc_method_handler(
+                    servicer.ExportBulkRelationships,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -319,5 +360,39 @@ class PermissionsService(object):
         return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/LookupSubjects',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ImportBulkRelationships(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/authzed.api.v1.PermissionsService/ImportBulkRelationships',
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExportBulkRelationships(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/ExportBulkRelationships',
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

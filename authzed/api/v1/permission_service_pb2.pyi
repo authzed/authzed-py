@@ -1076,3 +1076,117 @@ class ResolvedSubject(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship", "subject_object_id", b"subject_object_id"]) -> None: ...
 
 global___ResolvedSubject = ResolvedSubject
+
+@typing.final
+class ImportBulkRelationshipsRequest(google.protobuf.message.Message):
+    """ImportBulkRelationshipsRequest represents one batch of the streaming
+    ImportBulkRelationships API. The maximum size is only limited by the backing
+    datastore, and optimal size should be determined by the calling client
+    experimentally.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELATIONSHIPS_FIELD_NUMBER: builtins.int
+    @property
+    def relationships(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.Relationship]: ...
+    def __init__(
+        self,
+        *,
+        relationships: collections.abc.Iterable[authzed.api.v1.core_pb2.Relationship] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["relationships", b"relationships"]) -> None: ...
+
+global___ImportBulkRelationshipsRequest = ImportBulkRelationshipsRequest
+
+@typing.final
+class ImportBulkRelationshipsResponse(google.protobuf.message.Message):
+    """ImportBulkRelationshipsResponse is returned on successful completion of the
+    bulk load stream, and contains the total number of relationships loaded.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NUM_LOADED_FIELD_NUMBER: builtins.int
+    num_loaded: builtins.int
+    def __init__(
+        self,
+        *,
+        num_loaded: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["num_loaded", b"num_loaded"]) -> None: ...
+
+global___ImportBulkRelationshipsResponse = ImportBulkRelationshipsResponse
+
+@typing.final
+class ExportBulkRelationshipsRequest(google.protobuf.message.Message):
+    """ExportBulkRelationshipsRequest represents a resumable request for
+    all relationships from the server.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
+    OPTIONAL_CURSOR_FIELD_NUMBER: builtins.int
+    OPTIONAL_RELATIONSHIP_FILTER_FIELD_NUMBER: builtins.int
+    optional_limit: builtins.int
+    """optional_limit, if non-zero, specifies the limit on the number of
+    relationships the server can return in one page. By default, the server
+    will pick a page size, and the server is free to choose a smaller size
+    at will.
+    """
+    @property
+    def consistency(self) -> global___Consistency: ...
+    @property
+    def optional_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """optional_cursor, if specified, indicates the cursor after which results
+        should resume being returned. The cursor can be found on the
+        BulkExportRelationshipsResponse object.
+        """
+
+    @property
+    def optional_relationship_filter(self) -> global___RelationshipFilter:
+        """optional_relationship_filter, if specified, indicates the
+        filter to apply to each relationship to be exported.
+        """
+
+    def __init__(
+        self,
+        *,
+        consistency: global___Consistency | None = ...,
+        optional_limit: builtins.int = ...,
+        optional_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
+        optional_relationship_filter: global___RelationshipFilter | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "optional_relationship_filter", b"optional_relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "optional_relationship_filter", b"optional_relationship_filter"]) -> None: ...
+
+global___ExportBulkRelationshipsRequest = ExportBulkRelationshipsRequest
+
+@typing.final
+class ExportBulkRelationshipsResponse(google.protobuf.message.Message):
+    """ExportBulkRelationshipsResponse is one page in a stream of relationship
+    groups that meet the criteria specified by the originating request. The
+    server will continue to stream back relationship groups as quickly as it can
+    until all relationships have been transmitted back.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    AFTER_RESULT_CURSOR_FIELD_NUMBER: builtins.int
+    RELATIONSHIPS_FIELD_NUMBER: builtins.int
+    @property
+    def after_result_cursor(self) -> authzed.api.v1.core_pb2.Cursor: ...
+    @property
+    def relationships(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.Relationship]: ...
+    def __init__(
+        self,
+        *,
+        after_result_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
+        relationships: collections.abc.Iterable[authzed.api.v1.core_pb2.Relationship] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["after_result_cursor", b"after_result_cursor"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["after_result_cursor", b"after_result_cursor", "relationships", b"relationships"]) -> None: ...
+
+global___ExportBulkRelationshipsResponse = ExportBulkRelationshipsResponse
