@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: ["*"]
 env:
-  GRPC_VERSION: "1.62"
+  GRPC_VERSION: "1.67"
   BUF_VERSION: "1.30.0"
 jobs:
   pytest:
