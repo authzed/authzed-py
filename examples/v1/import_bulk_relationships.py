@@ -3,6 +3,7 @@ This is intended to be a (slightly) more real-world example
 that demonstrates the two levels of batching in making BulkImportRelationships
 requests.
 """
+
 from itertools import batched
 from authzed.api.v1 import (
     Client,
@@ -32,6 +33,7 @@ schema = """
 """
 
 client.WriteSchema(WriteSchemaRequest(schema=schema))
+
 
 # A generator that we can use to create an arbitrarily-long list of relationships
 # In your own application, this would be whatever's generating the list of imported

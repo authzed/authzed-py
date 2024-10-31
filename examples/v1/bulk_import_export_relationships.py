@@ -3,6 +3,7 @@ This demonstrates the simplest possible usage of the bulk
 import and export functionality. See import_bulk_relationships.py
 for a more realistic example of batching.
 """
+
 from authzed.api.v1 import (
     BulkExportRelationshipsRequest,
     BulkImportRelationshipsRequest,
