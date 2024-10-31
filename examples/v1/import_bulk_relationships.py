@@ -2,6 +2,10 @@
 This is intended to be a (slightly) more real-world example
 that demonstrates the two levels of batching in making BulkImportRelationships
 requests.
+
+This example makes use of itertools.batched to break up an iterator of relationships
+into chunks. Documentation for itertools.batched can be found here:
+https://docs.python.org/3/library/itertools.html#itertools.batched
 """
 
 from itertools import batched
