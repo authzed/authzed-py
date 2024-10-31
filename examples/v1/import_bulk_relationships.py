@@ -5,6 +5,7 @@ requests.
 """
 
 from itertools import batched
+
 from authzed.api.v1 import (
     Client,
     ObjectReference,
