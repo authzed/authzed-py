@@ -68,9 +68,7 @@ transaction_chunks = batched(
     relationship_generator(TOTAL_RELATIONSHIPS_TO_WRITE), RELATIONSHIPS_PER_TRANSACTION
 )
 for relationships_for_request in transaction_chunks:
-    request_chunks = batched(
-            relationships_for_request, RELATIONSHIPS_PER_REQUEST_CHUNK
-            )
+    request_chunks = batched(relationships_for_request, RELATIONSHIPS_PER_REQUEST_CHUNK)
     response = client.ImportBulkRelationships(
         (
             ImportBulkRelationshipsRequest(relationships=relationships_chunk)
