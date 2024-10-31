@@ -64,15 +64,17 @@ RELATIONSHIPS_PER_REQUEST_CHUNK = 10
 # NOTE: batched takes a larger iterator and makes an iterator of smaller chunks out of it.
 # We iterate over chunks of size RELATIONSHIPS_PER_TRANSACTION, and then we break each request into
 # chunks of size RELATIONSHIPS_PER_REQUEST_CHUNK.
-for relationships_for_request in batched(
+transaction_chunks = batched(
     relationship_generator(TOTAL_RELATIONSHIPS_TO_WRITE), RELATIONSHIPS_PER_TRANSACTION
-):
+)
+for relationships_for_request in transaction_chunks:
+    request_chunks = batched(
+            relationships_for_request, RELATIONSHIPS_PER_REQUEST_CHUNK
+            )
     response = client.ImportBulkRelationships(
         (
-            ImportBulkRelationshipsRequest(relationships=relationships_for_chunk)
-            for relationships_for_chunk in batched(
-                relationships_for_request, RELATIONSHIPS_PER_REQUEST_CHUNK
-            )
+            ImportBulkRelationshipsRequest(relationships=relationships_chunk)
+            for relationships_chunk in request_chunks
         )
     )
     print("request successful")
