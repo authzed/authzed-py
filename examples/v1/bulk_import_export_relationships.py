@@ -1,3 +1,8 @@
+"""
+This demonstrates the simplest possible usage of the bulk
+import and export functionality. See import_bulk_relationships.py
+for a more realistic example of batching.
+"""
 from authzed.api.v1 import (
     BulkExportRelationshipsRequest,
     BulkImportRelationshipsRequest,
@@ -60,7 +65,7 @@ reqs = [
     )
 ]
 
-import_reps = client.BulkImportRelationships(((req for req in reqs)))
+import_reps = client.BulkImportRelationships((req for req in reqs))
 assert import_reps.num_loaded == 2
 
 export_resp = client.BulkExportRelationships(
