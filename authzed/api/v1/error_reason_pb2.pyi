@@ -413,6 +413,20 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           "metadata": { "disallowed_field": "subject_id" }
         }
     """
+    ERROR_REASON_TRANSACTION_METADATA_TOO_LARGE: _ErrorReason.ValueType  # 29
+    """The request failed because the transaction metadata was too large.
+
+    Example of an ErrorInfo:
+
+        {
+          "reason": "ERROR_REASON_TRANSACTION_METADATA_TOO_LARGE",
+          "domain": "authzed.com",
+          "metadata": {
+            "metadata_byte_size": "1024",
+            "maximum_allowed_metadata_byte_size": "512",
+          }
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -808,6 +822,20 @@ Example of an ErrorInfo:
       "reason": "ERROR_REASON_WILDCARD_NOT_ALLOWED",
       "domain": "authzed.com",
       "metadata": { "disallowed_field": "subject_id" }
+    }
+"""
+ERROR_REASON_TRANSACTION_METADATA_TOO_LARGE: ErrorReason.ValueType  # 29
+"""The request failed because the transaction metadata was too large.
+
+Example of an ErrorInfo:
+
+    {
+      "reason": "ERROR_REASON_TRANSACTION_METADATA_TOO_LARGE",
+      "domain": "authzed.com",
+      "metadata": {
+        "metadata_byte_size": "1024",
+        "maximum_allowed_metadata_byte_size": "512",
+      }
     }
 """
 global___ErrorReason = ErrorReason

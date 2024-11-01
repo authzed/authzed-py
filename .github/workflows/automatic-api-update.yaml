@@ -1,3 +1,4 @@
+---
 name: "Called update for API change"
 on:
   repository_dispatch:
@@ -5,7 +6,6 @@ on:
 jobs:
   test:
     name: "Create PR for API update"
-    timeout-minutes: 10
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v4"
@@ -16,7 +16,7 @@ jobs:
         with:
           api-commit: "${{ github.event.client_payload.BUFTAG }}"
           spec-path: "buf.gen.yaml"
-          file-format: "generate-shell-script"
+          file-format: "buf-gen-yaml"
       - name: "Output update status"
         env:
           UPDATED_STATUS: "${{ steps.buf-update.outputs.updated }}"
@@ -27,45 +27,9 @@ jobs:
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
         if: "steps.buf-update.outputs.updated == 'true'"
-      - name: "Install Python"
-        uses: "actions/setup-python@v5"
-        if: "steps.buf-update.outputs.updated == 'true'"
-        with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        if: "steps.buf-update.outputs.updated == 'true'"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Homebrew & gRPC"
-        if: "steps.buf-update.outputs.updated == 'true'"
-        run: |
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bash_profile
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
-          brew install grpc
-          ls /home/linuxbrew/.linuxbrew/bin
-      - name: "Install Python Dependencies"
-        if: "steps.buf-update.outputs.updated == 'true'"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install
-          echo "/home/runner/.cache/virtualenv/authzedpy/bin" >> $GITHUB_PATH
-          python -V
-          whereis grpc_python_plugin
-          whereis protoc-gen-mypy
-          whereis protoc-gen-mypy_grpc
-          echo $GITHUB_PATH
       - name: "Run buf generate"
         if: "steps.buf-update.outputs.updated == 'true'"
-        run: |
-          ./buf.gen.yaml
-      - name: "Run poetry lock"
-        if: "steps.buf-update.outputs.updated == 'true'"
-        run: |
-          poetry lock
+        run: "buf generate"
       - name: "Create Pull Request"
         uses: "peter-evans/create-pull-request@v7.0.5"
         if: "steps.buf-update.outputs.updated == 'true'"
@@ -73,4 +37,5 @@ jobs:
           delete-branch: "true"
           title: "Update API to ${{ github.event.client_payload.BUFTAG }}"
           branch: "api-change/${{ github.event.client_payload.BUFTAG }}"
+          base: "main"
           token: "${{ secrets.GITHUB_TOKEN }}"

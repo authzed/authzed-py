@@ -18,7 +18,7 @@ class WatchServiceStub(object):
                 '/authzed.api.v1.WatchService/Watch',
                 request_serializer=authzed_dot_api_dot_v1_dot_watch__service__pb2.WatchRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_watch__service__pb2.WatchResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class WatchServiceServicer(object):
@@ -42,6 +42,7 @@ def add_WatchServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.v1.WatchService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.v1.WatchService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -59,8 +60,18 @@ class WatchService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.WatchService/Watch',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.v1.WatchService/Watch',
             authzed_dot_api_dot_v1_dot_watch__service__pb2.WatchRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_watch__service__pb2.WatchResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
