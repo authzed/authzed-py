@@ -18,7 +18,7 @@ class WatchPermissionsServiceStub(object):
                 '/authzed.api.materialize.v0.WatchPermissionsService/WatchPermissions',
                 request_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissions__pb2.WatchPermissionsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissions__pb2.WatchPermissionsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class WatchPermissionsServiceServicer(object):
@@ -57,6 +57,7 @@ def add_WatchPermissionsServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.materialize.v0.WatchPermissionsService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.materialize.v0.WatchPermissionsService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -74,8 +75,18 @@ class WatchPermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.materialize.v0.WatchPermissionsService/WatchPermissions',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.materialize.v0.WatchPermissionsService/WatchPermissions',
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissions__pb2.WatchPermissionsRequest.SerializeToString,
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissions__pb2.WatchPermissionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
