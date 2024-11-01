@@ -20,52 +20,52 @@ class ExperimentalServiceStub(object):
                 '/authzed.api.v1.ExperimentalService/BulkImportRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkImportRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkImportRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.BulkExportRelationships = channel.unary_stream(
                 '/authzed.api.v1.ExperimentalService/BulkExportRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.BulkCheckPermission = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/BulkCheckPermission',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalReflectSchema = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalReflectSchema',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalComputablePermissions = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalComputablePermissions',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalDependentRelations = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalDependentRelations',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalDiffSchema = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalDiffSchema',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalRegisterRelationshipCounter = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalRegisterRelationshipCounter',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalCountRelationships = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalCountRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.ExperimentalUnregisterRelationshipCounter = channel.unary_unary(
                 '/authzed.api.v1.ExperimentalService/ExperimentalUnregisterRelationshipCounter',
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class ExperimentalServiceServicer(object):
@@ -220,6 +220,7 @@ def add_ExperimentalServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.v1.ExperimentalService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.v1.ExperimentalService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -239,11 +240,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/authzed.api.v1.ExperimentalService/BulkImportRelationships',
+        return grpc.experimental.stream_unary(
+            request_iterator,
+            target,
+            '/authzed.api.v1.ExperimentalService/BulkImportRelationships',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkImportRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkImportRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BulkExportRelationships(request,
@@ -256,11 +267,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.ExperimentalService/BulkExportRelationships',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/BulkExportRelationships',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkExportRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BulkCheckPermission(request,
@@ -273,11 +294,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/BulkCheckPermission',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/BulkCheckPermission',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalReflectSchema(request,
@@ -290,11 +321,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalReflectSchema',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalReflectSchema',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalComputablePermissions(request,
@@ -307,11 +348,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalComputablePermissions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalComputablePermissions',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalDependentRelations(request,
@@ -324,11 +375,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalDependentRelations',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalDependentRelations',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalDiffSchema(request,
@@ -341,11 +402,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalDiffSchema',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalDiffSchema',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalRegisterRelationshipCounter(request,
@@ -358,11 +429,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalRegisterRelationshipCounter',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalRegisterRelationshipCounter',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalCountRelationships(request,
@@ -375,11 +456,21 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalCountRelationships',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalCountRelationships',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExperimentalUnregisterRelationshipCounter(request,
@@ -392,8 +483,18 @@ class ExperimentalService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalUnregisterRelationshipCounter',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.ExperimentalService/ExperimentalUnregisterRelationshipCounter',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -20,52 +20,52 @@ class PermissionsServiceStub(object):
                 '/authzed.api.v1.PermissionsService/ReadRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ReadRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ReadRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.WriteRelationships = channel.unary_unary(
                 '/authzed.api.v1.PermissionsService/WriteRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.WriteRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.WriteRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.DeleteRelationships = channel.unary_unary(
                 '/authzed.api.v1.PermissionsService/DeleteRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.DeleteRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.DeleteRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.CheckPermission = channel.unary_unary(
                 '/authzed.api.v1.PermissionsService/CheckPermission',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionResponse.FromString,
-                )
+                _registered_method=True)
         self.CheckBulkPermissions = channel.unary_unary(
                 '/authzed.api.v1.PermissionsService/CheckBulkPermissions',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsResponse.FromString,
-                )
+                _registered_method=True)
         self.ExpandPermissionTree = channel.unary_unary(
                 '/authzed.api.v1.PermissionsService/ExpandPermissionTree',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExpandPermissionTreeRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExpandPermissionTreeResponse.FromString,
-                )
+                _registered_method=True)
         self.LookupResources = channel.unary_stream(
                 '/authzed.api.v1.PermissionsService/LookupResources',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesResponse.FromString,
-                )
+                _registered_method=True)
         self.LookupSubjects = channel.unary_stream(
                 '/authzed.api.v1.PermissionsService/LookupSubjects',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.FromString,
-                )
+                _registered_method=True)
         self.ImportBulkRelationships = channel.stream_unary(
                 '/authzed.api.v1.PermissionsService/ImportBulkRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
         self.ExportBulkRelationships = channel.unary_stream(
                 '/authzed.api.v1.PermissionsService/ExportBulkRelationships',
                 request_serializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class PermissionsServiceServicer(object):
@@ -147,7 +147,8 @@ class PermissionsServiceServicer(object):
         performance, the caller should attempt to write relationships in as close
         to relationship sort order as possible: (resource.object_type,
         resource.object_id, relation, subject.object.object_type,
-        subject.object.object_id, subject.optional_relation)
+        subject.object.object_id, subject.optional_relation). All relationships
+        written are done so under a single transaction.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -219,6 +220,7 @@ def add_PermissionsServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.v1.PermissionsService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.v1.PermissionsService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -238,11 +240,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/ReadRelationships',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/ReadRelationships',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ReadRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ReadRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def WriteRelationships(request,
@@ -255,11 +267,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/WriteRelationships',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/WriteRelationships',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.WriteRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.WriteRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DeleteRelationships(request,
@@ -272,11 +294,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/DeleteRelationships',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/DeleteRelationships',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.DeleteRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.DeleteRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CheckPermission(request,
@@ -289,11 +321,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/CheckPermission',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/CheckPermission',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckPermissionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CheckBulkPermissions(request,
@@ -306,11 +348,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/CheckBulkPermissions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/CheckBulkPermissions',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.CheckBulkPermissionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExpandPermissionTree(request,
@@ -323,11 +375,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.PermissionsService/ExpandPermissionTree',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/ExpandPermissionTree',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ExpandPermissionTreeRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ExpandPermissionTreeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LookupResources(request,
@@ -340,11 +402,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/LookupResources',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/LookupResources',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupResourcesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LookupSubjects(request,
@@ -357,11 +429,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/LookupSubjects',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/LookupSubjects',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.LookupSubjectsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ImportBulkRelationships(request_iterator,
@@ -374,11 +456,21 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/authzed.api.v1.PermissionsService/ImportBulkRelationships',
+        return grpc.experimental.stream_unary(
+            request_iterator,
+            target,
+            '/authzed.api.v1.PermissionsService/ImportBulkRelationships',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ImportBulkRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExportBulkRelationships(request,
@@ -391,8 +483,18 @@ class PermissionsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.v1.PermissionsService/ExportBulkRelationships',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.v1.PermissionsService/ExportBulkRelationships',
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_permission__service__pb2.ExportBulkRelationshipsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
