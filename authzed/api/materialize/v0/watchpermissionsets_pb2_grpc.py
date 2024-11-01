@@ -18,12 +18,12 @@ class WatchPermissionSetsServiceStub(object):
                 '/authzed.api.materialize.v0.WatchPermissionSetsService/WatchPermissionSets',
                 request_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.WatchPermissionSetsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.WatchPermissionSetsResponse.FromString,
-                )
+                _registered_method=True)
         self.LookupPermissionSets = channel.unary_stream(
                 '/authzed.api.materialize.v0.WatchPermissionSetsService/LookupPermissionSets',
                 request_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class WatchPermissionSetsServiceServicer(object):
@@ -101,6 +101,7 @@ def add_WatchPermissionSetsServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.materialize.v0.WatchPermissionSetsService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.materialize.v0.WatchPermissionSetsService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -118,11 +119,21 @@ class WatchPermissionSetsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.materialize.v0.WatchPermissionSetsService/WatchPermissionSets',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.materialize.v0.WatchPermissionSetsService/WatchPermissionSets',
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.WatchPermissionSetsRequest.SerializeToString,
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.WatchPermissionSetsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LookupPermissionSets(request,
@@ -135,8 +146,18 @@ class WatchPermissionSetsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/authzed.api.materialize.v0.WatchPermissionSetsService/LookupPermissionSets',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/authzed.api.materialize.v0.WatchPermissionSetsService/LookupPermissionSets',
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsRequest.SerializeToString,
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

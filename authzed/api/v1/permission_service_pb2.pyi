@@ -321,26 +321,37 @@ class WriteRelationshipsRequest(google.protobuf.message.Message):
     """WriteRelationshipsRequest contains a list of Relationship mutations that
     should be applied to the service. If the optional_preconditions parameter
     is included, all of the specified preconditions must also be satisfied before
-    the write will be committed.
+    the write will be committed. All updates will be applied transactionally,
+    and if any preconditions fail, the entire transaction will be reverted.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     UPDATES_FIELD_NUMBER: builtins.int
     OPTIONAL_PRECONDITIONS_FIELD_NUMBER: builtins.int
+    OPTIONAL_TRANSACTION_METADATA_FIELD_NUMBER: builtins.int
     @property
     def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.RelationshipUpdate]: ...
     @property
     def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]:
         """To be bounded by configuration"""
 
+    @property
+    def optional_transaction_metadata(self) -> google.protobuf.struct_pb2.Struct:
+        """optional_transaction_metadata is an optional field that can be used to store metadata about the transaction.
+        If specified, this metadata will be supplied in the WatchResponse for the updates associated with this
+        transaction.
+        """
+
     def __init__(
         self,
         *,
         updates: collections.abc.Iterable[authzed.api.v1.core_pb2.RelationshipUpdate] | None = ...,
         optional_preconditions: collections.abc.Iterable[global___Precondition] | None = ...,
+        optional_transaction_metadata: google.protobuf.struct_pb2.Struct | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["optional_preconditions", b"optional_preconditions", "updates", b"updates"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_transaction_metadata", b"optional_transaction_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["optional_preconditions", b"optional_preconditions", "optional_transaction_metadata", b"optional_transaction_metadata", "updates", b"updates"]) -> None: ...
 
 global___WriteRelationshipsRequest = WriteRelationshipsRequest
 
@@ -376,6 +387,7 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
     OPTIONAL_PRECONDITIONS_FIELD_NUMBER: builtins.int
     OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
     OPTIONAL_ALLOW_PARTIAL_DELETIONS_FIELD_NUMBER: builtins.int
+    OPTIONAL_TRANSACTION_METADATA_FIELD_NUMBER: builtins.int
     optional_limit: builtins.int
     """optional_limit, if non-zero, specifies the limit on the number of relationships to be deleted.
     If there are more matching relationships found to be deleted than the limit specified here,
@@ -393,6 +405,13 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
     def optional_preconditions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Precondition]:
         """To be bounded by configuration"""
 
+    @property
+    def optional_transaction_metadata(self) -> google.protobuf.struct_pb2.Struct:
+        """optional_transaction_metadata is an optional field that can be used to store metadata about the transaction.
+        If specified, this metadata will be supplied in the WatchResponse for the deletions associated with
+        this transaction.
+        """
+
     def __init__(
         self,
         *,
@@ -400,9 +419,10 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
         optional_preconditions: collections.abc.Iterable[global___Precondition] | None = ...,
         optional_limit: builtins.int = ...,
         optional_allow_partial_deletions: builtins.bool = ...,
+        optional_transaction_metadata: google.protobuf.struct_pb2.Struct | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["optional_allow_partial_deletions", b"optional_allow_partial_deletions", "optional_limit", b"optional_limit", "optional_preconditions", b"optional_preconditions", "relationship_filter", b"relationship_filter"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_transaction_metadata", b"optional_transaction_metadata", "relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["optional_allow_partial_deletions", b"optional_allow_partial_deletions", "optional_limit", b"optional_limit", "optional_preconditions", b"optional_preconditions", "optional_transaction_metadata", b"optional_transaction_metadata", "relationship_filter", b"relationship_filter"]) -> None: ...
 
 global___DeleteRelationshipsRequest = DeleteRelationshipsRequest
 
