@@ -18,32 +18,32 @@ class DeveloperServiceStub(object):
                 '/authzed.api.v0.DeveloperService/EditCheck',
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.EditCheckRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.EditCheckResponse.FromString,
-                )
+                _registered_method=True)
         self.Validate = channel.unary_unary(
                 '/authzed.api.v0.DeveloperService/Validate',
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.ValidateRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.ValidateResponse.FromString,
-                )
+                _registered_method=True)
         self.Share = channel.unary_unary(
                 '/authzed.api.v0.DeveloperService/Share',
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.ShareRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.ShareResponse.FromString,
-                )
+                _registered_method=True)
         self.LookupShared = channel.unary_unary(
                 '/authzed.api.v0.DeveloperService/LookupShared',
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.LookupShareRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.LookupShareResponse.FromString,
-                )
+                _registered_method=True)
         self.UpgradeSchema = channel.unary_unary(
                 '/authzed.api.v0.DeveloperService/UpgradeSchema',
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaResponse.FromString,
-                )
+                _registered_method=True)
         self.FormatSchema = channel.unary_unary(
                 '/authzed.api.v0.DeveloperService/FormatSchema',
                 request_serializer=authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class DeveloperServiceServicer(object):
@@ -122,6 +122,7 @@ def add_DeveloperServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.v0.DeveloperService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.v0.DeveloperService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -139,11 +140,21 @@ class DeveloperService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/EditCheck',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v0.DeveloperService/EditCheck',
             authzed_dot_api_dot_v0_dot_developer__pb2.EditCheckRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.EditCheckResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Validate(request,
@@ -156,11 +167,21 @@ class DeveloperService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/Validate',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v0.DeveloperService/Validate',
             authzed_dot_api_dot_v0_dot_developer__pb2.ValidateRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.ValidateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Share(request,
@@ -173,11 +194,21 @@ class DeveloperService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/Share',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v0.DeveloperService/Share',
             authzed_dot_api_dot_v0_dot_developer__pb2.ShareRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.ShareResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LookupShared(request,
@@ -190,11 +221,21 @@ class DeveloperService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/LookupShared',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v0.DeveloperService/LookupShared',
             authzed_dot_api_dot_v0_dot_developer__pb2.LookupShareRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.LookupShareResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpgradeSchema(request,
@@ -207,11 +248,21 @@ class DeveloperService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/UpgradeSchema',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v0.DeveloperService/UpgradeSchema',
             authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.UpgradeSchemaResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FormatSchema(request,
@@ -224,8 +275,18 @@ class DeveloperService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v0.DeveloperService/FormatSchema',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v0.DeveloperService/FormatSchema',
             authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v0_dot_developer__pb2.FormatSchemaResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

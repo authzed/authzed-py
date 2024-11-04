@@ -10,6 +10,7 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import google.protobuf.struct_pb2
 import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
@@ -77,17 +78,35 @@ class WatchResponse(google.protobuf.message.Message):
 
     UPDATES_FIELD_NUMBER: builtins.int
     CHANGES_THROUGH_FIELD_NUMBER: builtins.int
+    OPTIONAL_TRANSACTION_METADATA_FIELD_NUMBER: builtins.int
     @property
-    def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.RelationshipUpdate]: ...
+    def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.RelationshipUpdate]:
+        """updates are the RelationshipUpdate events that have occurred since the
+        last watch response.
+        """
+
     @property
-    def changes_through(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def changes_through(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """changes_through is the ZedToken that represents the point in time
+        that the watch response is current through. This token can be used
+        in a subsequent WatchRequest to resume watching from this point.
+        """
+
+    @property
+    def optional_transaction_metadata(self) -> google.protobuf.struct_pb2.Struct:
+        """optional_transaction_metadata is an optional field that returns the transaction metadata
+        given to SpiceDB during the transaction that produced the changes in this response.
+        This field may not exist if no transaction metadata was provided.
+        """
+
     def __init__(
         self,
         *,
         updates: collections.abc.Iterable[authzed.api.v1.core_pb2.RelationshipUpdate] | None = ...,
         changes_through: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        optional_transaction_metadata: google.protobuf.struct_pb2.Struct | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["changes_through", b"changes_through"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["changes_through", b"changes_through", "updates", b"updates"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["changes_through", b"changes_through", "optional_transaction_metadata", b"optional_transaction_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["changes_through", b"changes_through", "optional_transaction_metadata", b"optional_transaction_metadata", "updates", b"updates"]) -> None: ...
 
 global___WatchResponse = WatchResponse

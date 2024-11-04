@@ -19,12 +19,12 @@ class SchemaServiceStub(object):
                 '/authzed.api.v1.SchemaService/ReadSchema',
                 request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ReadSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ReadSchemaResponse.FromString,
-                )
+                _registered_method=True)
         self.WriteSchema = channel.unary_unary(
                 '/authzed.api.v1.SchemaService/WriteSchema',
                 request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class SchemaServiceServicer(object):
@@ -66,6 +66,7 @@ def add_SchemaServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'authzed.api.v1.SchemaService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('authzed.api.v1.SchemaService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -84,11 +85,21 @@ class SchemaService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.SchemaService/ReadSchema',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.SchemaService/ReadSchema',
             authzed_dot_api_dot_v1_dot_schema__service__pb2.ReadSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_schema__service__pb2.ReadSchemaResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def WriteSchema(request,
@@ -101,8 +112,18 @@ class SchemaService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.SchemaService/WriteSchema',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.SchemaService/WriteSchema',
             authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
