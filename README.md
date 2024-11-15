@@ -107,10 +107,9 @@ However, this is a pain when setting up a development or testing environment, so
 the `InsecureClient` as a convenience:
 
 ```py
-from authzed.api.v1 import Client
-from grpcutil import bearer_token_credentials
+from authzed.api.v1 import InsecureClient
 
-client = Client(
+client = InsecureClient(
     "spicedb:50051",
     "my super secret token"
 )
