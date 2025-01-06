@@ -12,6 +12,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.struct_pb2
+import google.protobuf.timestamp_pb2
 import sys
 import typing
 
@@ -116,6 +117,7 @@ class CheckDebugTrace(google.protobuf.message.Message):
     DURATION_FIELD_NUMBER: builtins.int
     WAS_CACHED_RESULT_FIELD_NUMBER: builtins.int
     SUB_PROBLEMS_FIELD_NUMBER: builtins.int
+    OPTIONAL_EXPIRES_AT_FIELD_NUMBER: builtins.int
     permission: builtins.str
     """permission holds the name of the permission or relation on which the Check was performed."""
     permission_type: global___CheckDebugTrace.PermissionType.ValueType
@@ -148,6 +150,12 @@ class CheckDebugTrace(google.protobuf.message.Message):
         and a permissionship of PERMISSIONSHIP_HAS_PERMISSION indicates the subject was found within this relation.
         """
 
+    @property
+    def optional_expires_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """optional_expires_at is the time at which at least one of the relationships used to
+        compute this result, expires (if any). This is *not* related to the caching window.
+        """
+
     def __init__(
         self,
         *,
@@ -160,9 +168,10 @@ class CheckDebugTrace(google.protobuf.message.Message):
         duration: google.protobuf.duration_pb2.Duration | None = ...,
         was_cached_result: builtins.bool = ...,
         sub_problems: global___CheckDebugTrace.SubProblems | None = ...,
+        optional_expires_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "duration", b"duration", "resolution", b"resolution", "resource", b"resource", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "duration", b"duration", "permission", b"permission", "permission_type", b"permission_type", "resolution", b"resolution", "resource", b"resource", "result", b"result", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "duration", b"duration", "optional_expires_at", b"optional_expires_at", "resolution", b"resolution", "resource", b"resource", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["caveat_evaluation_info", b"caveat_evaluation_info", "duration", b"duration", "optional_expires_at", b"optional_expires_at", "permission", b"permission", "permission_type", b"permission_type", "resolution", b"resolution", "resource", b"resource", "result", b"result", "sub_problems", b"sub_problems", "subject", b"subject", "was_cached_result", b"was_cached_result"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["resolution", b"resolution"]) -> typing.Literal["was_cached_result", "sub_problems"] | None: ...
 
 global___CheckDebugTrace = CheckDebugTrace

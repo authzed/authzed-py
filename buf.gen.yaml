@@ -8,4 +8,4 @@ plugins:
   - remote: "buf.build/community/nipunn1313-mypy:v3.6.0"
     out: "."
 inputs:
-  - module: "buf.build/authzed/api:v1.38.0"
+  - module: "buf.build/authzed/api:05f596b3c0e14ebdfffd043a954ef40dd26c49ae"
