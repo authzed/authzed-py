@@ -22,7 +22,7 @@ jobs:
           - "3.11"
           - "3.12"
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - uses: "actions/setup-python@v5"
         with:
           python-version: "${{ matrix.python-version }}"
@@ -41,39 +41,4 @@ jobs:
       - name: "Pytest"
         run: |
           source ~/.cache/virtualenv/authzedpy/bin/activate
-          pytest -vv .
-
-  protobuf:
-    name: "Generate & Diff Protobuf"
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@v3"
-      - uses: "actions/setup-python@v5"
-        with:
-          python-version: "3.10"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Homebrew & gRPC"
-        run: |
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bash_profile
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
-          brew install grpc@$GRPC_VERSION
-          ls /home/linuxbrew/.linuxbrew/bin
-      - name: "Install Python Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install
-          echo "/home/runner/.cache/virtualenv/authzedpy/bin" >> $GITHUB_PATH
-          python -V
-          whereis grpc_python_plugin
-          whereis protoc-gen-mypy
-          whereis protoc-gen-mypy_grpc
-          echo $GITHUB_PATH
-      - uses: "authzed/actions/buf-generate@main"
-        with:
-          version: "${{ env.BUF_VERSION }}"
+          pytest -vv

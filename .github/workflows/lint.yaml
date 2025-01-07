@@ -16,8 +16,8 @@ jobs:
           - "3.10"
       fail-fast: false
     steps:
-      - uses: "actions/checkout@v3"
-      - uses: "bewuethr/yamllint-action@v1.2.2"
+      - uses: "actions/checkout@v4"
+      - uses: "bewuethr/yamllint-action@v1.3.0"
         with:
           config-file: ".yamllint"
       - uses: "actions/setup-python@v5"
@@ -56,13 +56,13 @@ jobs:
       matrix:
         language: ["python"]
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - uses: "authzed/actions/codeql@main"
   trivy:
     name: "Analyze with Trivy"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - name: "Run Trivy vulnerability scanner"
         uses: "aquasecurity/trivy-action@master"
         with:
@@ -71,7 +71,31 @@ jobs:
           format: "sarif"
           output: "trivy-results.sarif"
           severity: "CRITICAL"
+        env:
+          TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db"
+          TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db"
       - name: "Upload Trivy scan results to GitHub Security tab"
         uses: "github/codeql-action/upload-sarif@v3"
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
+  mypy:
+    name: "Type Check with Mypy"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "actions/setup-python@v5"
+        with:
+          python-version: "3.10"
+      - name: "Setup Python Environment"
+        run: "pip install -U pip virtualenv"
+      - name: "Install Dependencies"
+        run: |
+          virtualenv ~/.cache/virtualenv/authzedpy
+          source ~/.cache/virtualenv/authzedpy/bin/activate
+          pip install poetry
+          poetry env info
+          poetry install --only dev
+      - name: "mypy"
+        run: |
+          source ~/.cache/virtualenv/authzedpy/bin/activate
+          mypy authzed
