@@ -31,6 +31,41 @@ class ExperimentalServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.FromString,
                 )
+        self.ExperimentalReflectSchema = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalReflectSchema',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaResponse.FromString,
+                )
+        self.ExperimentalComputablePermissions = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalComputablePermissions',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsResponse.FromString,
+                )
+        self.ExperimentalDependentRelations = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalDependentRelations',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsResponse.FromString,
+                )
+        self.ExperimentalDiffSchema = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalDiffSchema',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaResponse.FromString,
+                )
+        self.ExperimentalRegisterRelationshipCounter = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalRegisterRelationshipCounter',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterResponse.FromString,
+                )
+        self.ExperimentalCountRelationships = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalCountRelationships',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsResponse.FromString,
+                )
+        self.ExperimentalUnregisterRelationshipCounter = channel.unary_unary(
+                '/authzed.api.v1.ExperimentalService/ExperimentalUnregisterRelationshipCounter',
+                request_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterResponse.FromString,
+                )
 
 
 class ExperimentalServiceServicer(object):
@@ -63,7 +98,67 @@ class ExperimentalServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def BulkCheckPermission(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """NOTE: BulkCheckPermission has been promoted to the stable API as "CheckBulkPermission" and the
+        API will be removed from experimental in a future release.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalReflectSchema(self, request, context):
+        """EXPERIMENTAL: ReflectSchema is an API that allows clients to reflect the schema stored in
+        SpiceDB. This is useful for clients that need to introspect the schema of a SpiceDB instance.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalComputablePermissions(self, request, context):
+        """EXPERIMENTAL: ComputablePermissions is an API that allows clients to request the set of
+        permissions that compute based off a relation. For example, if a schema has a relation
+        `viewer` and a permission `view` defined as `permission view = viewer + editor`, then the
+        computable permissions for the relation `viewer` will include `view`.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalDependentRelations(self, request, context):
+        """EXPERIMENTAL: DependentRelations is an API that allows clients to request the set of
+        relations and permissions that used to compute a permission, recursively. It is the
+        inverse of the ComputablePermissions API.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalDiffSchema(self, request, context):
+        """EXPERIMENTAL: DiffSchema is an API that allows clients to request the difference between the
+        specified schema and the schema stored in SpiceDB. This is useful for clients that need to
+        introspect the schema of a SpiceDB instance.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalRegisterRelationshipCounter(self, request, context):
+        """EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before
+        a count can be requested.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalCountRelationships(self, request, context):
+        """EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExperimentalUnregisterRelationshipCounter(self, request, context):
+        """EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -85,6 +180,41 @@ def add_ExperimentalServiceServicer_to_server(servicer, server):
                     servicer.BulkCheckPermission,
                     request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.SerializeToString,
+            ),
+            'ExperimentalReflectSchema': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalReflectSchema,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaResponse.SerializeToString,
+            ),
+            'ExperimentalComputablePermissions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalComputablePermissions,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsResponse.SerializeToString,
+            ),
+            'ExperimentalDependentRelations': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalDependentRelations,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsResponse.SerializeToString,
+            ),
+            'ExperimentalDiffSchema': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalDiffSchema,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaResponse.SerializeToString,
+            ),
+            'ExperimentalRegisterRelationshipCounter': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalRegisterRelationshipCounter,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterResponse.SerializeToString,
+            ),
+            'ExperimentalCountRelationships': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalCountRelationships,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsResponse.SerializeToString,
+            ),
+            'ExperimentalUnregisterRelationshipCounter': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExperimentalUnregisterRelationshipCounter,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -146,5 +276,124 @@ class ExperimentalService(object):
         return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/BulkCheckPermission',
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_experimental__service__pb2.BulkCheckPermissionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalReflectSchema(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalReflectSchema',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalReflectSchemaResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalComputablePermissions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalComputablePermissions',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalComputablePermissionsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalDependentRelations(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalDependentRelations',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDependentRelationsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalDiffSchema(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalDiffSchema',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalDiffSchemaResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalRegisterRelationshipCounter(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalRegisterRelationshipCounter',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalRegisterRelationshipCounterResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalCountRelationships(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalCountRelationships',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalCountRelationshipsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExperimentalUnregisterRelationshipCounter(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/authzed.api.v1.ExperimentalService/ExperimentalUnregisterRelationshipCounter',
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_experimental__service__pb2.ExperimentalUnregisterRelationshipCounterResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
