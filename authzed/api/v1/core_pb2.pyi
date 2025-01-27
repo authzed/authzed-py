@@ -10,6 +10,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.struct_pb2
+import google.protobuf.timestamp_pb2
 import sys
 import typing
 
@@ -33,6 +34,7 @@ class Relationship(google.protobuf.message.Message):
     RELATION_FIELD_NUMBER: builtins.int
     SUBJECT_FIELD_NUMBER: builtins.int
     OPTIONAL_CAVEAT_FIELD_NUMBER: builtins.int
+    OPTIONAL_EXPIRES_AT_FIELD_NUMBER: builtins.int
     relation: builtins.str
     """relation is how the resource and subject are related."""
     @property
@@ -45,7 +47,11 @@ class Relationship(google.protobuf.message.Message):
 
     @property
     def optional_caveat(self) -> global___ContextualizedCaveat:
-        """optional_caveat is a reference to a the caveat that must be enforced over the relationship"""
+        """optional_caveat is a reference to a the caveat that must be enforced over the relationship."""
+
+    @property
+    def optional_expires_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """optional_expires_at is the time at which the relationship expires, if any."""
 
     def __init__(
         self,
@@ -54,9 +60,10 @@ class Relationship(google.protobuf.message.Message):
         relation: builtins.str = ...,
         subject: global___SubjectReference | None = ...,
         optional_caveat: global___ContextualizedCaveat | None = ...,
+        optional_expires_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["optional_caveat", b"optional_caveat", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["optional_caveat", b"optional_caveat", "relation", b"relation", "resource", b"resource", "subject", b"subject"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_caveat", b"optional_caveat", "optional_expires_at", b"optional_expires_at", "resource", b"resource", "subject", b"subject"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["optional_caveat", b"optional_caveat", "optional_expires_at", b"optional_expires_at", "relation", b"relation", "resource", b"resource", "subject", b"subject"]) -> None: ...
 
 global___Relationship = Relationship
 

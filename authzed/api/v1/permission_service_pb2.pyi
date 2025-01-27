@@ -12,6 +12,7 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.struct_pb2
+import google.protobuf.timestamp_pb2
 import google.rpc.status_pb2
 import sys
 import typing
@@ -557,6 +558,7 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
     PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
     DEBUG_TRACE_FIELD_NUMBER: builtins.int
+    OPTIONAL_EXPIRES_AT_FIELD_NUMBER: builtins.int
     permissionship: global___CheckPermissionResponse.Permissionship.ValueType
     """Permissionship communicates whether or not the subject has the requested
     permission or has a relationship with the given resource, over the given
@@ -577,6 +579,12 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     def debug_trace(self) -> authzed.api.v1.debug_pb2.DebugInformation:
         """debug_trace is the debugging trace of this check, if requested."""
 
+    @property
+    def optional_expires_at(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """optional_expires_at is the time at which at least one of the relationships used to
+        compute this result, expires (if any). This is *not* related to the caching window.
+        """
+
     def __init__(
         self,
         *,
@@ -584,9 +592,10 @@ class CheckPermissionResponse(google.protobuf.message.Message):
         permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
         partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
         debug_trace: authzed.api.v1.debug_pb2.DebugInformation | None = ...,
+        optional_expires_at: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["checked_at", b"checked_at", "debug_trace", b"debug_trace", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["checked_at", b"checked_at", "debug_trace", b"debug_trace", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["checked_at", b"checked_at", "debug_trace", b"debug_trace", "optional_expires_at", b"optional_expires_at", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["checked_at", b"checked_at", "debug_trace", b"debug_trace", "optional_expires_at", b"optional_expires_at", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
 
 global___CheckPermissionResponse = CheckPermissionResponse
 
@@ -603,6 +612,12 @@ class CheckBulkPermissionsRequest(google.protobuf.message.Message):
 
     CONSISTENCY_FIELD_NUMBER: builtins.int
     ITEMS_FIELD_NUMBER: builtins.int
+    WITH_TRACING_FIELD_NUMBER: builtins.int
+    with_tracing: builtins.bool
+    """with_tracing, if true, indicates that each response should include a debug trace.
+    This can be useful for debugging and performance analysis, but adds a small amount
+    of compute overhead to the request.
+    """
     @property
     def consistency(self) -> global___Consistency: ...
     @property
@@ -612,9 +627,10 @@ class CheckBulkPermissionsRequest(google.protobuf.message.Message):
         *,
         consistency: global___Consistency | None = ...,
         items: collections.abc.Iterable[global___CheckBulkPermissionsRequestItem] | None = ...,
+        with_tracing: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["consistency", b"consistency"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "items", b"items"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "items", b"items", "with_tracing", b"with_tracing"]) -> None: ...
 
 global___CheckBulkPermissionsRequest = CheckBulkPermissionsRequest
 
@@ -699,17 +715,23 @@ class CheckBulkPermissionsResponseItem(google.protobuf.message.Message):
 
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
     PARTIAL_CAVEAT_INFO_FIELD_NUMBER: builtins.int
+    DEBUG_TRACE_FIELD_NUMBER: builtins.int
     permissionship: global___CheckPermissionResponse.Permissionship.ValueType
     @property
     def partial_caveat_info(self) -> authzed.api.v1.core_pb2.PartialCaveatInfo: ...
+    @property
+    def debug_trace(self) -> authzed.api.v1.debug_pb2.DebugInformation:
+        """debug_trace is the debugging trace of this check, if requested."""
+
     def __init__(
         self,
         *,
         permissionship: global___CheckPermissionResponse.Permissionship.ValueType = ...,
         partial_caveat_info: authzed.api.v1.core_pb2.PartialCaveatInfo | None = ...,
+        debug_trace: authzed.api.v1.debug_pb2.DebugInformation | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["debug_trace", b"debug_trace", "partial_caveat_info", b"partial_caveat_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["debug_trace", b"debug_trace", "partial_caveat_info", b"partial_caveat_info", "permissionship", b"permissionship"]) -> None: ...
 
 global___CheckBulkPermissionsResponseItem = CheckBulkPermissionsResponseItem
 
@@ -1102,7 +1124,10 @@ class ImportBulkRelationshipsRequest(google.protobuf.message.Message):
     """ImportBulkRelationshipsRequest represents one batch of the streaming
     ImportBulkRelationships API. The maximum size is only limited by the backing
     datastore, and optimal size should be determined by the calling client
-    experimentally.
+    experimentally. When ImportBulk is invoked and receives its first request message,
+    a transaction is opened to import the relationships. All requests sent to the same
+    invocation are executed under this single transaction. If a relationship already
+    exists within the datastore, the entire transaction will fail with an error.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
