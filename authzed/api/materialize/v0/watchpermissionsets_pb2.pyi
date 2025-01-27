@@ -102,6 +102,7 @@ class Cursor(google.protobuf.message.Message):
     STARTING_INDEX_FIELD_NUMBER: builtins.int
     COMPLETED_MEMBERS_FIELD_NUMBER: builtins.int
     STARTING_KEY_FIELD_NUMBER: builtins.int
+    CURSOR_FIELD_NUMBER: builtins.int
     limit: builtins.int
     """limit is the number of permission sets to stream over a single LookupPermissionSets call that was requested."""
     starting_index: builtins.int
@@ -110,6 +111,8 @@ class Cursor(google.protobuf.message.Message):
     """completed_members is a boolean flag that indicates that the cursor has reached the end of the permission sets"""
     starting_key: builtins.str
     """starting_key is a string cursor used by some backends to resume the stream from a specific point."""
+    cursor: builtins.str
+    """cursor is a string-encoded internal materialize cursor."""
     @property
     def token(self) -> authzed.api.v1.core_pb2.ZedToken:
         """token is the snapshot revision at which the cursor was computed."""
@@ -122,9 +125,10 @@ class Cursor(google.protobuf.message.Message):
         starting_index: builtins.int = ...,
         completed_members: builtins.bool = ...,
         starting_key: builtins.str = ...,
+        cursor: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["token", b"token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["completed_members", b"completed_members", "limit", b"limit", "starting_index", b"starting_index", "starting_key", b"starting_key", "token", b"token"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["completed_members", b"completed_members", "cursor", b"cursor", "limit", b"limit", "starting_index", b"starting_index", "starting_key", b"starting_key", "token", b"token"]) -> None: ...
 
 global___Cursor = Cursor
 
