@@ -39,6 +39,9 @@ jobs:
         if: "steps.buf-update.outputs.updated == 'true'"
         with:
           delete-branch: "true"
+          # https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs
+          # This is how we ensure that workflows run
+          draft: "always-true"
           title: "Update API to ${{ inputs.buftag }}"
           base: "main"
           branch: "api-change/${{ inputs.buftag }}"
