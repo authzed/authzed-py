@@ -4,8 +4,11 @@ isort:skip_file
 """
 
 import authzed.api.v1.core_pb2
+import authzed.api.v1.permission_service_pb2
 import builtins
+import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.message
 import typing
 
@@ -95,3 +98,565 @@ class WriteSchemaResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["written_at", b"written_at"]) -> None: ...
 
 global___WriteSchemaResponse = WriteSchemaResponse
+
+@typing.final
+class ReflectSchemaRequest(google.protobuf.message.Message):
+    """Reflection types ////////////////////////////////////////////"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    OPTIONAL_FILTERS_FIELD_NUMBER: builtins.int
+    @property
+    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
+    @property
+    def optional_filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionSchemaFilter]:
+        """optional_filters defines optional filters that are applied in
+        an OR fashion to the schema, before being returned
+        """
+
+    def __init__(
+        self,
+        *,
+        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
+        optional_filters: collections.abc.Iterable[global___ReflectionSchemaFilter] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "optional_filters", b"optional_filters"]) -> None: ...
+
+global___ReflectSchemaRequest = ReflectSchemaRequest
+
+@typing.final
+class ReflectSchemaResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DEFINITIONS_FIELD_NUMBER: builtins.int
+    CAVEATS_FIELD_NUMBER: builtins.int
+    READ_AT_FIELD_NUMBER: builtins.int
+    @property
+    def definitions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionDefinition]:
+        """definitions are the definitions defined in the schema."""
+
+    @property
+    def caveats(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionCaveat]:
+        """caveats are the caveats defined in the schema."""
+
+    @property
+    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """read_at is the ZedToken at which the schema was read."""
+
+    def __init__(
+        self,
+        *,
+        definitions: collections.abc.Iterable[global___ReflectionDefinition] | None = ...,
+        caveats: collections.abc.Iterable[global___ReflectionCaveat] | None = ...,
+        read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["read_at", b"read_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["caveats", b"caveats", "definitions", b"definitions", "read_at", b"read_at"]) -> None: ...
+
+global___ReflectSchemaResponse = ReflectSchemaResponse
+
+@typing.final
+class ReflectionSchemaFilter(google.protobuf.message.Message):
+    """ReflectionSchemaFilter is a filter that can be applied to the schema on reflection."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    OPTIONAL_DEFINITION_NAME_FILTER_FIELD_NUMBER: builtins.int
+    OPTIONAL_CAVEAT_NAME_FILTER_FIELD_NUMBER: builtins.int
+    OPTIONAL_RELATION_NAME_FILTER_FIELD_NUMBER: builtins.int
+    OPTIONAL_PERMISSION_NAME_FILTER_FIELD_NUMBER: builtins.int
+    optional_definition_name_filter: builtins.str
+    """optional_definition_name_filter is a prefix that is matched against the definition name."""
+    optional_caveat_name_filter: builtins.str
+    """optional_caveat_name_filter is a prefix that is matched against the caveat name."""
+    optional_relation_name_filter: builtins.str
+    """optional_relation_name_filter is a prefix that is matched against the relation name."""
+    optional_permission_name_filter: builtins.str
+    """optional_permission_name_filter is a prefix that is matched against the permission name."""
+    def __init__(
+        self,
+        *,
+        optional_definition_name_filter: builtins.str = ...,
+        optional_caveat_name_filter: builtins.str = ...,
+        optional_relation_name_filter: builtins.str = ...,
+        optional_permission_name_filter: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["optional_caveat_name_filter", b"optional_caveat_name_filter", "optional_definition_name_filter", b"optional_definition_name_filter", "optional_permission_name_filter", b"optional_permission_name_filter", "optional_relation_name_filter", b"optional_relation_name_filter"]) -> None: ...
+
+global___ReflectionSchemaFilter = ReflectionSchemaFilter
+
+@typing.final
+class ReflectionDefinition(google.protobuf.message.Message):
+    """ReflectionDefinition is the representation of a definition in the schema."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    COMMENT_FIELD_NUMBER: builtins.int
+    RELATIONS_FIELD_NUMBER: builtins.int
+    PERMISSIONS_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    comment: builtins.str
+    """comment is a human-readable comments on the definition. Will include
+    delimiter characters.
+    """
+    @property
+    def relations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionRelation]: ...
+    @property
+    def permissions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionPermission]: ...
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        comment: builtins.str = ...,
+        relations: collections.abc.Iterable[global___ReflectionRelation] | None = ...,
+        permissions: collections.abc.Iterable[global___ReflectionPermission] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["comment", b"comment", "name", b"name", "permissions", b"permissions", "relations", b"relations"]) -> None: ...
+
+global___ReflectionDefinition = ReflectionDefinition
+
+@typing.final
+class ReflectionCaveat(google.protobuf.message.Message):
+    """ReflectionCaveat is the representation of a caveat in the schema."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    COMMENT_FIELD_NUMBER: builtins.int
+    PARAMETERS_FIELD_NUMBER: builtins.int
+    EXPRESSION_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    comment: builtins.str
+    """comment is a human-readable comments on the caveat. Will include
+    delimiter characters.
+    """
+    expression: builtins.str
+    @property
+    def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionCaveatParameter]: ...
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        comment: builtins.str = ...,
+        parameters: collections.abc.Iterable[global___ReflectionCaveatParameter] | None = ...,
+        expression: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["comment", b"comment", "expression", b"expression", "name", b"name", "parameters", b"parameters"]) -> None: ...
+
+global___ReflectionCaveat = ReflectionCaveat
+
+@typing.final
+class ReflectionCaveatParameter(google.protobuf.message.Message):
+    """ReflectionCaveatParameter is the representation of a parameter in a caveat."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    PARENT_CAVEAT_NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    type: builtins.str
+    """type is the type of the parameter. Will be a string representing the
+    type, e.g. `int` or `list<string>`
+    """
+    parent_caveat_name: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        type: builtins.str = ...,
+        parent_caveat_name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "parent_caveat_name", b"parent_caveat_name", "type", b"type"]) -> None: ...
+
+global___ReflectionCaveatParameter = ReflectionCaveatParameter
+
+@typing.final
+class ReflectionRelation(google.protobuf.message.Message):
+    """ReflectionRelation is the representation of a relation in the schema."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    COMMENT_FIELD_NUMBER: builtins.int
+    PARENT_DEFINITION_NAME_FIELD_NUMBER: builtins.int
+    SUBJECT_TYPES_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    comment: builtins.str
+    parent_definition_name: builtins.str
+    @property
+    def subject_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionTypeReference]: ...
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        comment: builtins.str = ...,
+        parent_definition_name: builtins.str = ...,
+        subject_types: collections.abc.Iterable[global___ReflectionTypeReference] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["comment", b"comment", "name", b"name", "parent_definition_name", b"parent_definition_name", "subject_types", b"subject_types"]) -> None: ...
+
+global___ReflectionRelation = ReflectionRelation
+
+@typing.final
+class ReflectionTypeReference(google.protobuf.message.Message):
+    """ReflectionTypeReference is the representation of a type reference in the schema."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SUBJECT_DEFINITION_NAME_FIELD_NUMBER: builtins.int
+    OPTIONAL_CAVEAT_NAME_FIELD_NUMBER: builtins.int
+    IS_TERMINAL_SUBJECT_FIELD_NUMBER: builtins.int
+    OPTIONAL_RELATION_NAME_FIELD_NUMBER: builtins.int
+    IS_PUBLIC_WILDCARD_FIELD_NUMBER: builtins.int
+    subject_definition_name: builtins.str
+    """subject_definition_name is the name of the subject's definition."""
+    optional_caveat_name: builtins.str
+    """optional_caveat_name is the name of the caveat that is applied to the subject, if any."""
+    is_terminal_subject: builtins.bool
+    """is_terminal_subject is true if the subject is terminal, meaning it is referenced directly vs a sub-relation."""
+    optional_relation_name: builtins.str
+    """optional_relation_name is the name of the relation that is applied to the subject, if any."""
+    is_public_wildcard: builtins.bool
+    """is_public_wildcard is true if the subject is a public wildcard."""
+    def __init__(
+        self,
+        *,
+        subject_definition_name: builtins.str = ...,
+        optional_caveat_name: builtins.str = ...,
+        is_terminal_subject: builtins.bool = ...,
+        optional_relation_name: builtins.str = ...,
+        is_public_wildcard: builtins.bool = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["is_public_wildcard", b"is_public_wildcard", "is_terminal_subject", b"is_terminal_subject", "optional_relation_name", b"optional_relation_name", "typeref", b"typeref"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["is_public_wildcard", b"is_public_wildcard", "is_terminal_subject", b"is_terminal_subject", "optional_caveat_name", b"optional_caveat_name", "optional_relation_name", b"optional_relation_name", "subject_definition_name", b"subject_definition_name", "typeref", b"typeref"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["typeref", b"typeref"]) -> typing.Literal["is_terminal_subject", "optional_relation_name", "is_public_wildcard"] | None: ...
+
+global___ReflectionTypeReference = ReflectionTypeReference
+
+@typing.final
+class ReflectionPermission(google.protobuf.message.Message):
+    """ReflectionPermission is the representation of a permission in the schema."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    COMMENT_FIELD_NUMBER: builtins.int
+    PARENT_DEFINITION_NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    comment: builtins.str
+    """comment is a human-readable comments on the permission. Will include
+    delimiter characters.
+    """
+    parent_definition_name: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        comment: builtins.str = ...,
+        parent_definition_name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["comment", b"comment", "name", b"name", "parent_definition_name", b"parent_definition_name"]) -> None: ...
+
+global___ReflectionPermission = ReflectionPermission
+
+@typing.final
+class ComputablePermissionsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    DEFINITION_NAME_FIELD_NUMBER: builtins.int
+    RELATION_NAME_FIELD_NUMBER: builtins.int
+    OPTIONAL_DEFINITION_NAME_FILTER_FIELD_NUMBER: builtins.int
+    definition_name: builtins.str
+    relation_name: builtins.str
+    optional_definition_name_filter: builtins.str
+    """optional_definition_name_match is a prefix that is matched against the definition name(s)
+    for the permissions returned.
+    If not specified, will be ignored.
+    """
+    @property
+    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
+    def __init__(
+        self,
+        *,
+        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
+        definition_name: builtins.str = ...,
+        relation_name: builtins.str = ...,
+        optional_definition_name_filter: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "definition_name", b"definition_name", "optional_definition_name_filter", b"optional_definition_name_filter", "relation_name", b"relation_name"]) -> None: ...
+
+global___ComputablePermissionsRequest = ComputablePermissionsRequest
+
+@typing.final
+class ReflectionRelationReference(google.protobuf.message.Message):
+    """ReflectionRelationReference is a reference to a relation or permission in the schema."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DEFINITION_NAME_FIELD_NUMBER: builtins.int
+    RELATION_NAME_FIELD_NUMBER: builtins.int
+    IS_PERMISSION_FIELD_NUMBER: builtins.int
+    definition_name: builtins.str
+    relation_name: builtins.str
+    is_permission: builtins.bool
+    def __init__(
+        self,
+        *,
+        definition_name: builtins.str = ...,
+        relation_name: builtins.str = ...,
+        is_permission: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["definition_name", b"definition_name", "is_permission", b"is_permission", "relation_name", b"relation_name"]) -> None: ...
+
+global___ReflectionRelationReference = ReflectionRelationReference
+
+@typing.final
+class ComputablePermissionsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PERMISSIONS_FIELD_NUMBER: builtins.int
+    READ_AT_FIELD_NUMBER: builtins.int
+    @property
+    def permissions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionRelationReference]: ...
+    @property
+    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """read_at is the ZedToken at which the schema was read."""
+
+    def __init__(
+        self,
+        *,
+        permissions: collections.abc.Iterable[global___ReflectionRelationReference] | None = ...,
+        read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["read_at", b"read_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["permissions", b"permissions", "read_at", b"read_at"]) -> None: ...
+
+global___ComputablePermissionsResponse = ComputablePermissionsResponse
+
+@typing.final
+class DependentRelationsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    DEFINITION_NAME_FIELD_NUMBER: builtins.int
+    PERMISSION_NAME_FIELD_NUMBER: builtins.int
+    definition_name: builtins.str
+    permission_name: builtins.str
+    @property
+    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
+    def __init__(
+        self,
+        *,
+        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
+        definition_name: builtins.str = ...,
+        permission_name: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "definition_name", b"definition_name", "permission_name", b"permission_name"]) -> None: ...
+
+global___DependentRelationsRequest = DependentRelationsRequest
+
+@typing.final
+class DependentRelationsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELATIONS_FIELD_NUMBER: builtins.int
+    READ_AT_FIELD_NUMBER: builtins.int
+    @property
+    def relations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionRelationReference]: ...
+    @property
+    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """read_at is the ZedToken at which the schema was read."""
+
+    def __init__(
+        self,
+        *,
+        relations: collections.abc.Iterable[global___ReflectionRelationReference] | None = ...,
+        read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["read_at", b"read_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["read_at", b"read_at", "relations", b"relations"]) -> None: ...
+
+global___DependentRelationsResponse = DependentRelationsResponse
+
+@typing.final
+class DiffSchemaRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONSISTENCY_FIELD_NUMBER: builtins.int
+    COMPARISON_SCHEMA_FIELD_NUMBER: builtins.int
+    comparison_schema: builtins.str
+    @property
+    def consistency(self) -> authzed.api.v1.permission_service_pb2.Consistency: ...
+    def __init__(
+        self,
+        *,
+        consistency: authzed.api.v1.permission_service_pb2.Consistency | None = ...,
+        comparison_schema: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["consistency", b"consistency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["comparison_schema", b"comparison_schema", "consistency", b"consistency"]) -> None: ...
+
+global___DiffSchemaRequest = DiffSchemaRequest
+
+@typing.final
+class DiffSchemaResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DIFFS_FIELD_NUMBER: builtins.int
+    READ_AT_FIELD_NUMBER: builtins.int
+    @property
+    def diffs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReflectionSchemaDiff]: ...
+    @property
+    def read_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """read_at is the ZedToken at which the schema was read."""
+
+    def __init__(
+        self,
+        *,
+        diffs: collections.abc.Iterable[global___ReflectionSchemaDiff] | None = ...,
+        read_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["read_at", b"read_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["diffs", b"diffs", "read_at", b"read_at"]) -> None: ...
+
+global___DiffSchemaResponse = DiffSchemaResponse
+
+@typing.final
+class ReflectionRelationSubjectTypeChange(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RELATION_FIELD_NUMBER: builtins.int
+    CHANGED_SUBJECT_TYPE_FIELD_NUMBER: builtins.int
+    @property
+    def relation(self) -> global___ReflectionRelation: ...
+    @property
+    def changed_subject_type(self) -> global___ReflectionTypeReference: ...
+    def __init__(
+        self,
+        *,
+        relation: global___ReflectionRelation | None = ...,
+        changed_subject_type: global___ReflectionTypeReference | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["changed_subject_type", b"changed_subject_type", "relation", b"relation"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["changed_subject_type", b"changed_subject_type", "relation", b"relation"]) -> None: ...
+
+global___ReflectionRelationSubjectTypeChange = ReflectionRelationSubjectTypeChange
+
+@typing.final
+class ReflectionCaveatParameterTypeChange(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PARAMETER_FIELD_NUMBER: builtins.int
+    PREVIOUS_TYPE_FIELD_NUMBER: builtins.int
+    previous_type: builtins.str
+    @property
+    def parameter(self) -> global___ReflectionCaveatParameter: ...
+    def __init__(
+        self,
+        *,
+        parameter: global___ReflectionCaveatParameter | None = ...,
+        previous_type: builtins.str = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["parameter", b"parameter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["parameter", b"parameter", "previous_type", b"previous_type"]) -> None: ...
+
+global___ReflectionCaveatParameterTypeChange = ReflectionCaveatParameterTypeChange
+
+@typing.final
+class ReflectionSchemaDiff(google.protobuf.message.Message):
+    """ReflectionSchemaDiff is the representation of a diff between two schemas."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DEFINITION_ADDED_FIELD_NUMBER: builtins.int
+    DEFINITION_REMOVED_FIELD_NUMBER: builtins.int
+    DEFINITION_DOC_COMMENT_CHANGED_FIELD_NUMBER: builtins.int
+    RELATION_ADDED_FIELD_NUMBER: builtins.int
+    RELATION_REMOVED_FIELD_NUMBER: builtins.int
+    RELATION_DOC_COMMENT_CHANGED_FIELD_NUMBER: builtins.int
+    RELATION_SUBJECT_TYPE_ADDED_FIELD_NUMBER: builtins.int
+    RELATION_SUBJECT_TYPE_REMOVED_FIELD_NUMBER: builtins.int
+    PERMISSION_ADDED_FIELD_NUMBER: builtins.int
+    PERMISSION_REMOVED_FIELD_NUMBER: builtins.int
+    PERMISSION_DOC_COMMENT_CHANGED_FIELD_NUMBER: builtins.int
+    PERMISSION_EXPR_CHANGED_FIELD_NUMBER: builtins.int
+    CAVEAT_ADDED_FIELD_NUMBER: builtins.int
+    CAVEAT_REMOVED_FIELD_NUMBER: builtins.int
+    CAVEAT_DOC_COMMENT_CHANGED_FIELD_NUMBER: builtins.int
+    CAVEAT_EXPR_CHANGED_FIELD_NUMBER: builtins.int
+    CAVEAT_PARAMETER_ADDED_FIELD_NUMBER: builtins.int
+    CAVEAT_PARAMETER_REMOVED_FIELD_NUMBER: builtins.int
+    CAVEAT_PARAMETER_TYPE_CHANGED_FIELD_NUMBER: builtins.int
+    @property
+    def definition_added(self) -> global___ReflectionDefinition: ...
+    @property
+    def definition_removed(self) -> global___ReflectionDefinition: ...
+    @property
+    def definition_doc_comment_changed(self) -> global___ReflectionDefinition: ...
+    @property
+    def relation_added(self) -> global___ReflectionRelation: ...
+    @property
+    def relation_removed(self) -> global___ReflectionRelation: ...
+    @property
+    def relation_doc_comment_changed(self) -> global___ReflectionRelation: ...
+    @property
+    def relation_subject_type_added(self) -> global___ReflectionRelationSubjectTypeChange: ...
+    @property
+    def relation_subject_type_removed(self) -> global___ReflectionRelationSubjectTypeChange: ...
+    @property
+    def permission_added(self) -> global___ReflectionPermission: ...
+    @property
+    def permission_removed(self) -> global___ReflectionPermission: ...
+    @property
+    def permission_doc_comment_changed(self) -> global___ReflectionPermission: ...
+    @property
+    def permission_expr_changed(self) -> global___ReflectionPermission: ...
+    @property
+    def caveat_added(self) -> global___ReflectionCaveat: ...
+    @property
+    def caveat_removed(self) -> global___ReflectionCaveat: ...
+    @property
+    def caveat_doc_comment_changed(self) -> global___ReflectionCaveat: ...
+    @property
+    def caveat_expr_changed(self) -> global___ReflectionCaveat: ...
+    @property
+    def caveat_parameter_added(self) -> global___ReflectionCaveatParameter: ...
+    @property
+    def caveat_parameter_removed(self) -> global___ReflectionCaveatParameter: ...
+    @property
+    def caveat_parameter_type_changed(self) -> global___ReflectionCaveatParameterTypeChange: ...
+    def __init__(
+        self,
+        *,
+        definition_added: global___ReflectionDefinition | None = ...,
+        definition_removed: global___ReflectionDefinition | None = ...,
+        definition_doc_comment_changed: global___ReflectionDefinition | None = ...,
+        relation_added: global___ReflectionRelation | None = ...,
+        relation_removed: global___ReflectionRelation | None = ...,
+        relation_doc_comment_changed: global___ReflectionRelation | None = ...,
+        relation_subject_type_added: global___ReflectionRelationSubjectTypeChange | None = ...,
+        relation_subject_type_removed: global___ReflectionRelationSubjectTypeChange | None = ...,
+        permission_added: global___ReflectionPermission | None = ...,
+        permission_removed: global___ReflectionPermission | None = ...,
+        permission_doc_comment_changed: global___ReflectionPermission | None = ...,
+        permission_expr_changed: global___ReflectionPermission | None = ...,
+        caveat_added: global___ReflectionCaveat | None = ...,
+        caveat_removed: global___ReflectionCaveat | None = ...,
+        caveat_doc_comment_changed: global___ReflectionCaveat | None = ...,
+        caveat_expr_changed: global___ReflectionCaveat | None = ...,
+        caveat_parameter_added: global___ReflectionCaveatParameter | None = ...,
+        caveat_parameter_removed: global___ReflectionCaveatParameter | None = ...,
+        caveat_parameter_type_changed: global___ReflectionCaveatParameterTypeChange | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["caveat_added", b"caveat_added", "caveat_doc_comment_changed", b"caveat_doc_comment_changed", "caveat_expr_changed", b"caveat_expr_changed", "caveat_parameter_added", b"caveat_parameter_added", "caveat_parameter_removed", b"caveat_parameter_removed", "caveat_parameter_type_changed", b"caveat_parameter_type_changed", "caveat_removed", b"caveat_removed", "definition_added", b"definition_added", "definition_doc_comment_changed", b"definition_doc_comment_changed", "definition_removed", b"definition_removed", "diff", b"diff", "permission_added", b"permission_added", "permission_doc_comment_changed", b"permission_doc_comment_changed", "permission_expr_changed", b"permission_expr_changed", "permission_removed", b"permission_removed", "relation_added", b"relation_added", "relation_doc_comment_changed", b"relation_doc_comment_changed", "relation_removed", b"relation_removed", "relation_subject_type_added", b"relation_subject_type_added", "relation_subject_type_removed", b"relation_subject_type_removed"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["caveat_added", b"caveat_added", "caveat_doc_comment_changed", b"caveat_doc_comment_changed", "caveat_expr_changed", b"caveat_expr_changed", "caveat_parameter_added", b"caveat_parameter_added", "caveat_parameter_removed", b"caveat_parameter_removed", "caveat_parameter_type_changed", b"caveat_parameter_type_changed", "caveat_removed", b"caveat_removed", "definition_added", b"definition_added", "definition_doc_comment_changed", b"definition_doc_comment_changed", "definition_removed", b"definition_removed", "diff", b"diff", "permission_added", b"permission_added", "permission_doc_comment_changed", b"permission_doc_comment_changed", "permission_expr_changed", b"permission_expr_changed", "permission_removed", b"permission_removed", "relation_added", b"relation_added", "relation_doc_comment_changed", b"relation_doc_comment_changed", "relation_removed", b"relation_removed", "relation_subject_type_added", b"relation_subject_type_added", "relation_subject_type_removed", b"relation_subject_type_removed"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["diff", b"diff"]) -> typing.Literal["definition_added", "definition_removed", "definition_doc_comment_changed", "relation_added", "relation_removed", "relation_doc_comment_changed", "relation_subject_type_added", "relation_subject_type_removed", "permission_added", "permission_removed", "permission_doc_comment_changed", "permission_expr_changed", "caveat_added", "caveat_removed", "caveat_doc_comment_changed", "caveat_expr_changed", "caveat_parameter_added", "caveat_parameter_removed", "caveat_parameter_type_changed"] | None: ...
+
+global___ReflectionSchemaDiff = ReflectionSchemaDiff
