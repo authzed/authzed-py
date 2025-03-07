@@ -164,8 +164,14 @@ class InsecureClient(Client):
         self.init_stubs(channel)
 
 
+# Import after defining Client to avoid circular imports
+from authzed.api.v1.retryable_client import RetryableClient, ConflictStrategy
+
+
 __all__ = [
     "Client",
+    "RetryableClient",
+    "ConflictStrategy",
     # Core
     "AlgebraicSubjectSet",
     "ContextualizedCaveat",
