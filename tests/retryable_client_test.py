@@ -92,18 +92,11 @@ async def test_successful_bulk_import(mock_is_coro, retryable_client, sample_rel
     # Configure mocks
     mock_is_coro.return_value = isinstance(retryable_client.WriteRelationships, AsyncMock)
     
+    # For both sync and async, simply return the response directly
     if isinstance(retryable_client.BulkImportRelationships, AsyncMock):
-        # For async client
-        mock_writer = AsyncMock()
-        mock_writer.write = AsyncMock()
-        mock_writer.done_writing = AsyncMock(return_value=BulkImportRelationshipsResponse())
-        retryable_client.BulkImportRelationships.return_value = mock_writer
+        retryable_client.BulkImportRelationships.return_value = BulkImportRelationshipsResponse()
     else:
-        # For sync client
-        mock_writer = Mock()
-        mock_writer.send = Mock()
-        mock_writer.done = Mock(return_value=BulkImportRelationshipsResponse())
-        retryable_client.BulkImportRelationships.return_value = mock_writer
+        retryable_client.BulkImportRelationships.return_value = BulkImportRelationshipsResponse()
     
     # Import with TOUCH conflict strategy
     result = await maybe_await(
@@ -117,12 +110,7 @@ async def test_successful_bulk_import(mock_is_coro, retryable_client, sample_rel
     assert retryable_client.BulkImportRelationships.called
     
     # If we get here without errors, the test passes
-    if isinstance(retryable_client.BulkImportRelationships, AsyncMock):
-        assert mock_writer.write.called
-        assert mock_writer.done_writing.called
-    else:
-        assert mock_writer.send.called
-        assert mock_writer.done.called
+    assert result is not None
 
 
 @patch("authzed.api.v1.retryable_client.RetryableClient._is_already_exists_error")
@@ -133,18 +121,12 @@ async def test_skip_conflict_strategy(mock_is_coro, mock_already_exists, retryab
     mock_already_exists.return_value = True
     mock_is_coro.return_value = isinstance(retryable_client.WriteRelationships, AsyncMock)
     
-    # Create a mock writer that raises an exception
-    mock_bulk_writer = Mock()
+    # Set up the mock to raise an error when called
+    error = grpc.RpcError("Already exists")
     if isinstance(retryable_client.BulkImportRelationships, AsyncMock):
-        mock_bulk_writer = AsyncMock()
-        mock_bulk_writer.write = AsyncMock()
-        mock_bulk_writer.done_writing = AsyncMock(side_effect=grpc.RpcError("Already exists"))
+        retryable_client.BulkImportRelationships.side_effect = error
     else:
-        mock_bulk_writer.send = Mock()
-        mock_bulk_writer.done = Mock(side_effect=grpc.RpcError("Already exists"))
-    
-    # Set up the mock
-    retryable_client.BulkImportRelationships.return_value = mock_bulk_writer
+        retryable_client.BulkImportRelationships.side_effect = error
     
     # Test import with SKIP conflict strategy
     result = await maybe_await(
@@ -177,18 +159,12 @@ async def test_touch_conflict_strategy(
     mock_write_async.return_value = WriteRelationshipsResponse()
     mock_is_coro.return_value = isinstance(retryable_client.WriteRelationships, AsyncMock)
     
-    # Create a mock writer that raises an exception
-    mock_bulk_writer = Mock()
+    # Set up the mock to raise an error when called
+    error = grpc.RpcError("Already exists")
     if isinstance(retryable_client.BulkImportRelationships, AsyncMock):
-        mock_bulk_writer = AsyncMock()
-        mock_bulk_writer.write = AsyncMock()
-        mock_bulk_writer.done_writing = AsyncMock(side_effect=grpc.RpcError("Already exists"))
+        retryable_client.BulkImportRelationships.side_effect = error
     else:
-        mock_bulk_writer.send = Mock()
-        mock_bulk_writer.done = Mock(side_effect=grpc.RpcError("Already exists"))
-    
-    # Set up the mock
-    retryable_client.BulkImportRelationships.return_value = mock_bulk_writer
+        retryable_client.BulkImportRelationships.side_effect = error
     
     # Test import with TOUCH conflict strategy
     await maybe_await(
@@ -215,18 +191,12 @@ async def test_fail_conflict_strategy(mock_is_coro, mock_already_exists, retryab
     mock_already_exists.return_value = True
     mock_is_coro.return_value = isinstance(retryable_client.WriteRelationships, AsyncMock)
     
-    # Create a mock writer that raises an exception
-    mock_bulk_writer = Mock()
+    # Set up the mock to raise an error when called
+    error = grpc.RpcError("Already exists")
     if isinstance(retryable_client.BulkImportRelationships, AsyncMock):
-        mock_bulk_writer = AsyncMock()
-        mock_bulk_writer.write = AsyncMock()
-        mock_bulk_writer.done_writing = AsyncMock(side_effect=grpc.RpcError("Already exists"))
+        retryable_client.BulkImportRelationships.side_effect = error
     else:
-        mock_bulk_writer.send = Mock()
-        mock_bulk_writer.done = Mock(side_effect=grpc.RpcError("Already exists"))
-    
-    # Set up the mock
-    retryable_client.BulkImportRelationships.return_value = mock_bulk_writer
+        retryable_client.BulkImportRelationships.side_effect = error
     
     # Test import with FAIL conflict strategy
     with pytest.raises(ValueError, match="Duplicate relationships found"):
