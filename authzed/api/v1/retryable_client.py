@@ -85,14 +85,13 @@ class RetryableClient(Client):
         """Synchronous implementation of retryable bulk import."""
         timeout = timeout_seconds or DEFAULT_TIMEOUT_SECONDS
         
-        # Try bulk import first
-        writer = self.BulkImportRelationships(timeout=timeout)
-        request = BulkImportRelationshipsRequest(relationships=relationships)
+        # Create a generator function to yield requests
+        def request_iterator():
+            yield BulkImportRelationshipsRequest(relationships=relationships)
         
-        writer.send(request)
-        
+        # Try bulk import first - correctly passing the request iterator
         try:
-            response = writer.done()
+            response = self.BulkImportRelationships(request_iterator(), timeout=timeout)
             return response  # Success on first try
         except Exception as err:
             # Handle errors based on type and conflict strategy
@@ -124,14 +123,13 @@ class RetryableClient(Client):
         """Asynchronous implementation of retryable bulk import."""
         timeout = timeout_seconds or DEFAULT_TIMEOUT_SECONDS
         
-        # Try bulk import first
-        writer = await self.BulkImportRelationships(timeout=timeout)
-        request = BulkImportRelationshipsRequest(relationships=relationships)
+        # Create an async generator function to yield requests
+        async def request_iterator():
+            yield BulkImportRelationshipsRequest(relationships=relationships)
         
-        await writer.write(request)
-        
+        # Try bulk import first - correctly passing the request iterator
         try:
-            response = await writer.done_writing()
+            response = await self.BulkImportRelationships(request_iterator(), timeout=timeout)
             return response  # Success on first try
         except Exception as err:
             # Handle errors based on type and conflict strategy
