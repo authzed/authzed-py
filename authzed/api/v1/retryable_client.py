@@ -150,7 +150,7 @@ class RetryableClient(Client):
                 raise ValueError("Duplicate relationships found")
                 
             # Default case - propagate the error
-            raise ValueError(f"Error finalizing write of {len(relationships)} relationships: {err}")
+            raise ValueError(f"Error finalizing write of {len(relationships)} relationships") from err
 
     def _write_batches_with_retry_sync(self, relationships: List[Relationship], timeout_seconds: int):
         """
