@@ -6,15 +6,18 @@ on:  # yamllint disable-line rule:truthy
       - "main"
   pull_request:
     branches: ["*"]
+    types:
+      # NOTE: this is necessary to enable the API automation-created PRs
+      # to have their checks run.
+      - "ready_for_review"
+      # These are the defaults
+      - "opened"
+      - "synchronize"
+      - "reopened"
 jobs:
   lint:
     name: "Format & Lint"
     runs-on: "ubuntu-latest"
-    strategy:
-      matrix:
-        python-version:
-          - "3.10"
-      fail-fast: false
     steps:
       - uses: "actions/checkout@v4"
       - uses: "bewuethr/yamllint-action@v1.3.0"
