@@ -25,6 +25,26 @@ class SchemaServiceStub(object):
                 request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaResponse.FromString,
                 _registered_method=True)
+        self.ReflectSchema = channel.unary_unary(
+                '/authzed.api.v1.SchemaService/ReflectSchema',
+                request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ReflectSchemaRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ReflectSchemaResponse.FromString,
+                _registered_method=True)
+        self.ComputablePermissions = channel.unary_unary(
+                '/authzed.api.v1.SchemaService/ComputablePermissions',
+                request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ComputablePermissionsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ComputablePermissionsResponse.FromString,
+                _registered_method=True)
+        self.DependentRelations = channel.unary_unary(
+                '/authzed.api.v1.SchemaService/DependentRelations',
+                request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DependentRelationsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DependentRelationsResponse.FromString,
+                _registered_method=True)
+        self.DiffSchema = channel.unary_unary(
+                '/authzed.api.v1.SchemaService/DiffSchema',
+                request_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DiffSchemaRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DiffSchemaResponse.FromString,
+                _registered_method=True)
 
 
 class SchemaServiceServicer(object):
@@ -49,6 +69,41 @@ class SchemaServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReflectSchema(self, request, context):
+        """ReflectSchema reflects the current schema stored in SpiceDB, returning a structural
+        form of the schema for use by client tooling.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ComputablePermissions(self, request, context):
+        """ComputablePermissions returns the set of permissions that compute based off a relation
+        in the current schema. For example, if the schema has a relation `viewer` and a permission
+        `view` defined as `permission view = viewer + editor`, then the
+        computable permissions for the relation `viewer` will include `view`.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DependentRelations(self, request, context):
+        """DependentRelations returns the set of relations and permissions that used
+        to compute a permission, recursively, in the current schema. It is the
+        inverse of the ComputablePermissions API.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DiffSchema(self, request, context):
+        """DiffSchema returns the difference between the specified schema and the current
+        schema stored in SpiceDB.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SchemaServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -61,6 +116,26 @@ def add_SchemaServiceServicer_to_server(servicer, server):
                     servicer.WriteSchema,
                     request_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaRequest.FromString,
                     response_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaResponse.SerializeToString,
+            ),
+            'ReflectSchema': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReflectSchema,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ReflectSchemaRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ReflectSchemaResponse.SerializeToString,
+            ),
+            'ComputablePermissions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ComputablePermissions,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ComputablePermissionsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.ComputablePermissionsResponse.SerializeToString,
+            ),
+            'DependentRelations': grpc.unary_unary_rpc_method_handler(
+                    servicer.DependentRelations,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DependentRelationsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DependentRelationsResponse.SerializeToString,
+            ),
+            'DiffSchema': grpc.unary_unary_rpc_method_handler(
+                    servicer.DiffSchema,
+                    request_deserializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DiffSchemaRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_v1_dot_schema__service__pb2.DiffSchemaResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -118,6 +193,114 @@ class SchemaService(object):
             '/authzed.api.v1.SchemaService/WriteSchema',
             authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaRequest.SerializeToString,
             authzed_dot_api_dot_v1_dot_schema__service__pb2.WriteSchemaResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReflectSchema(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.SchemaService/ReflectSchema',
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.ReflectSchemaRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.ReflectSchemaResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ComputablePermissions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.SchemaService/ComputablePermissions',
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.ComputablePermissionsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.ComputablePermissionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DependentRelations(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.SchemaService/DependentRelations',
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.DependentRelationsRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.DependentRelationsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DiffSchema(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.v1.SchemaService/DiffSchema',
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.DiffSchemaRequest.SerializeToString,
+            authzed_dot_api_dot_v1_dot_schema__service__pb2.DiffSchemaResponse.FromString,
             options,
             channel_credentials,
             insecure,

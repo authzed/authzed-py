@@ -6,6 +6,14 @@ on:
       - "main"
   pull_request:
     branches: ["*"]
+    types:
+      # NOTE: this is necessary to enable the API automation-created PRs
+      # to have their checks run.
+      - "ready_for_review"
+      # These are the defaults
+      - "opened"
+      - "synchronize"
+      - "reopened"
 env:
   GRPC_VERSION: "1.68"
   BUF_VERSION: "1.30.0"
