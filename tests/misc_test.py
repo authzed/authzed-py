@@ -1,5 +1,5 @@
 import pytest
-from protoc_gen_validate.validator import ValidationFailed, validate
+from protovalidate import ValidationError, validate
 
 from authzed.api.v1 import ObjectReference, Relationship
 
@@ -15,7 +15,7 @@ def test_type_error_does_not_segfault():
 
 
 def test_validate():
-    with pytest.raises(ValidationFailed):
+    with pytest.raises(ValidationError):
         validate(ObjectReference(object_type="post", object_id="@#¢∞¬÷“”"))
 
     validate(ObjectReference(object_type="post", object_id="test"))

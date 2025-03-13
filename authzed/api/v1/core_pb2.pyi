@@ -47,7 +47,7 @@ class Relationship(google.protobuf.message.Message):
 
     @property
     def optional_caveat(self) -> global___ContextualizedCaveat:
-        """optional_caveat is a reference to a the caveat that must be enforced over the relationship."""
+        """optional_caveat is a reference to a the caveat that must be enforced over the relationship"""
 
     @property
     def optional_expires_at(self) -> google.protobuf.timestamp_pb2.Timestamp:

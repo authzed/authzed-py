@@ -464,8 +464,11 @@ class DeleteRelationshipsResponse(google.protobuf.message.Message):
 
     DELETED_AT_FIELD_NUMBER: builtins.int
     DELETION_PROGRESS_FIELD_NUMBER: builtins.int
+    RELATIONSHIPS_DELETED_COUNT_FIELD_NUMBER: builtins.int
     deletion_progress: global___DeleteRelationshipsResponse.DeletionProgress.ValueType
     """deletion_progress is an enumeration of the possible outcomes that occurred when attempting to delete the specified relationships."""
+    relationships_deleted_count: builtins.int
+    """relationships_deleted_count is the number of relationships that were deleted."""
     @property
     def deleted_at(self) -> authzed.api.v1.core_pb2.ZedToken:
         """deleted_at is the revision at which the relationships were deleted."""
@@ -475,9 +478,10 @@ class DeleteRelationshipsResponse(google.protobuf.message.Message):
         *,
         deleted_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         deletion_progress: global___DeleteRelationshipsResponse.DeletionProgress.ValueType = ...,
+        relationships_deleted_count: builtins.int = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["deleted_at", b"deleted_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deleted_at", b"deleted_at", "deletion_progress", b"deletion_progress"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["deleted_at", b"deleted_at", "deletion_progress", b"deletion_progress", "relationships_deleted_count", b"relationships_deleted_count"]) -> None: ...
 
 global___DeleteRelationshipsResponse = DeleteRelationshipsResponse
 
@@ -601,7 +605,7 @@ global___CheckPermissionResponse = CheckPermissionResponse
 
 @typing.final
 class CheckBulkPermissionsRequest(google.protobuf.message.Message):
-    """CheckBulkPermissionsRequest issues a check on whether a subject has permission 
+    """CheckBulkPermissionsRequest issues a check on whether a subject has permission
     or is a member of a relation on a specific resource for each item in the list.
 
     The ordering of the items in the response is maintained in the response.
