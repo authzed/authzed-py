@@ -7,7 +7,8 @@ import grpc
 from google.rpc import code_pb2
 from grpc import StatusCode
 
-from authzed.api.v1 import Client, Relationship, RelationshipUpdate
+from authzed.api.v1.client import Client
+from authzed.api.v1.core_pb2 import Relationship, RelationshipUpdate
 from authzed.api.v1.experimental_service_pb2 import BulkImportRelationshipsRequest
 from authzed.api.v1.permission_service_pb2 import WriteRelationshipsRequest
 
