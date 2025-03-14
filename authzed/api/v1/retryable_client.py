@@ -130,8 +130,9 @@ class RetryableClient(Client):
         
         # Try bulk import first - correctly passing the request iterator
         try:
-            response = await self.BulkImportRelationships(request_iterator(), timeout=timeout)
-            return response  # Success on first try
+            if asyncio.iscoroutinefunction(self.BulkImportRelationships):
+                response = await self.BulkImportRelationships(request_iterator(), timeout=timeout)
+                return response  # Success on first try  # Success on first try
         except Exception as err:
             # Handle errors based on type and conflict strategy
             if self._is_canceled_error(err):
@@ -203,9 +204,10 @@ class RetryableClient(Client):
         
         while True:
             try:
-                request = WriteRelationshipsRequest(updates=updates)
-                response = await self.WriteRelationships(request, timeout=timeout_seconds)
-                return response
+                if asyncio.iscoroutinefunction(self.WriteRelationships):
+                    request = WriteRelationshipsRequest(updates=updates)
+                    response = await self.WriteRelationships(request, timeout=timeout_seconds)
+                    return response
             except Exception as err:
                 if self._is_retryable_error(err) and current_retries < DEFAULT_MAX_RETRIES:
                     # Throttle writes with exponential backoff
