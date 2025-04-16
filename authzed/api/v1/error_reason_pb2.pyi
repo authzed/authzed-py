@@ -29,7 +29,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        { 
+        {
           "reason": "ERROR_REASON_SCHEMA_PARSE_ERROR",
           "domain": "authzed.com",
           "metadata": {
@@ -48,7 +48,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_SCHEMA_TYPE_ERROR",
           "domain": "authzed.com",
           "metadata": {
@@ -62,7 +62,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_UNKNOWN_DEFINITION",
           "domain": "authzed.com",
           "metadata": {
@@ -75,7 +75,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_UNKNOWN_RELATION_OR_PERMISSION",
           "domain": "authzed.com",
           "metadata": {
@@ -102,7 +102,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST",
           "domain": "authzed.com",
           "metadata": {
@@ -116,7 +116,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_WRITE_OR_DELETE_PRECONDITION_FAILURE",
           "domain": "authzed.com",
           "metadata": {
@@ -131,7 +131,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_SERVICE_READ_ONLY",
           "domain": "authzed.com"
         }
@@ -141,7 +141,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_UNKNOWN_CAVEAT",
           "domain": "authzed.com",
           "metadata": {
@@ -154,7 +154,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_INVALID_SUBJECT_TYPE",
           "domain": "authzed.com",
           "metadata": {
@@ -169,7 +169,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_CAVEAT_PARAMETER_TYPE_ERROR",
           "domain": "authzed.com",
           "metadata": {
@@ -186,7 +186,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_UPDATES_ON_SAME_RELATIONSHIP",
           "domain": "authzed.com",
           "metadata": {
@@ -200,7 +200,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_CANNOT_UPDATE_PERMISSION",
           "domain": "authzed.com",
           "metadata": {
@@ -214,7 +214,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_CAVEAT_EVALUATION_ERROR",
           "domain": "authzed.com",
           "metadata": {
@@ -227,7 +227,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_INVALID_CURSOR",
           "domain": "authzed.com",
           "metadata": {
@@ -242,7 +242,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_TOO_MANY_RELATIONSHIPS_FOR_TRANSACTIONAL_DELETE",
           "domain": "authzed.com",
           "metadata": {
@@ -319,7 +319,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST",
           "domain": "authzed.com",
           "metadata": {
@@ -333,7 +333,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_EXCEEDS_MAXIMUM_ALLOWABLE_LIMIT",
           "domain": "authzed.com",
           "metadata": {
@@ -347,7 +347,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_INVALID_FILTER",
           "domain": "authzed.com",
           "metadata": {
@@ -361,7 +361,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_INMEMORY_TOO_MANY_CONCURRENT_UPDATES",
           "domain": "authzed.com",
           "metadata": {}
@@ -372,7 +372,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_EMPTY_PRECONDITION",
           "domain": "authzed.com",
           "metadata": {}
@@ -383,7 +383,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_COUNTER_ALREADY_REGISTERED",
           "domain": "authzed.com",
           "metadata": { "counter_name": "name" }
@@ -394,7 +394,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_COUNTER_NOT_REGISTERED",
           "domain": "authzed.com",
           "metadata": { "counter_name": "name"  }
@@ -407,7 +407,7 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
 
     Example of an ErrorInfo:
 
-        {  
+        {
           "reason": "ERROR_REASON_WILDCARD_NOT_ALLOWED",
           "domain": "authzed.com",
           "metadata": { "disallowed_field": "subject_id" }
@@ -440,7 +440,7 @@ ERROR_REASON_SCHEMA_PARSE_ERROR: ErrorReason.ValueType  # 1
 
 Example of an ErrorInfo:
 
-    { 
+    {
       "reason": "ERROR_REASON_SCHEMA_PARSE_ERROR",
       "domain": "authzed.com",
       "metadata": {
@@ -459,7 +459,7 @@ ERROR_REASON_SCHEMA_TYPE_ERROR: ErrorReason.ValueType  # 2
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_SCHEMA_TYPE_ERROR",
       "domain": "authzed.com",
       "metadata": {
@@ -473,7 +473,7 @@ ERROR_REASON_UNKNOWN_DEFINITION: ErrorReason.ValueType  # 3
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_UNKNOWN_DEFINITION",
       "domain": "authzed.com",
       "metadata": {
@@ -486,7 +486,7 @@ ERROR_REASON_UNKNOWN_RELATION_OR_PERMISSION: ErrorReason.ValueType  # 4
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_UNKNOWN_RELATION_OR_PERMISSION",
       "domain": "authzed.com",
       "metadata": {
@@ -513,7 +513,7 @@ ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST: ErrorReason.ValueType  # 6
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST",
       "domain": "authzed.com",
       "metadata": {
@@ -527,7 +527,7 @@ ERROR_REASON_WRITE_OR_DELETE_PRECONDITION_FAILURE: ErrorReason.ValueType  # 7
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_WRITE_OR_DELETE_PRECONDITION_FAILURE",
       "domain": "authzed.com",
       "metadata": {
@@ -542,7 +542,7 @@ ERROR_REASON_SERVICE_READ_ONLY: ErrorReason.ValueType  # 8
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_SERVICE_READ_ONLY",
       "domain": "authzed.com"
     }
@@ -552,7 +552,7 @@ ERROR_REASON_UNKNOWN_CAVEAT: ErrorReason.ValueType  # 9
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_UNKNOWN_CAVEAT",
       "domain": "authzed.com",
       "metadata": {
@@ -565,7 +565,7 @@ ERROR_REASON_INVALID_SUBJECT_TYPE: ErrorReason.ValueType  # 10
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_INVALID_SUBJECT_TYPE",
       "domain": "authzed.com",
       "metadata": {
@@ -580,7 +580,7 @@ ERROR_REASON_CAVEAT_PARAMETER_TYPE_ERROR: ErrorReason.ValueType  # 11
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_CAVEAT_PARAMETER_TYPE_ERROR",
       "domain": "authzed.com",
       "metadata": {
@@ -597,7 +597,7 @@ ERROR_REASON_UPDATES_ON_SAME_RELATIONSHIP: ErrorReason.ValueType  # 12
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_UPDATES_ON_SAME_RELATIONSHIP",
       "domain": "authzed.com",
       "metadata": {
@@ -611,7 +611,7 @@ ERROR_REASON_CANNOT_UPDATE_PERMISSION: ErrorReason.ValueType  # 13
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_CANNOT_UPDATE_PERMISSION",
       "domain": "authzed.com",
       "metadata": {
@@ -625,7 +625,7 @@ ERROR_REASON_CAVEAT_EVALUATION_ERROR: ErrorReason.ValueType  # 14
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_CAVEAT_EVALUATION_ERROR",
       "domain": "authzed.com",
       "metadata": {
@@ -638,7 +638,7 @@ ERROR_REASON_INVALID_CURSOR: ErrorReason.ValueType  # 15
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_INVALID_CURSOR",
       "domain": "authzed.com",
       "metadata": {
@@ -653,7 +653,7 @@ deleted within a single transactional deletion call. To avoid, set
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_TOO_MANY_RELATIONSHIPS_FOR_TRANSACTIONAL_DELETE",
       "domain": "authzed.com",
       "metadata": {
@@ -730,7 +730,7 @@ ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST: ErrorReason.ValueType  # 21
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_TOO_MANY_CHECKS_IN_REQUEST",
       "domain": "authzed.com",
       "metadata": {
@@ -744,7 +744,7 @@ ERROR_REASON_EXCEEDS_MAXIMUM_ALLOWABLE_LIMIT: ErrorReason.ValueType  # 22
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_EXCEEDS_MAXIMUM_ALLOWABLE_LIMIT",
       "domain": "authzed.com",
       "metadata": {
@@ -758,7 +758,7 @@ ERROR_REASON_INVALID_FILTER: ErrorReason.ValueType  # 23
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_INVALID_FILTER",
       "domain": "authzed.com",
       "metadata": {
@@ -772,7 +772,7 @@ against the in-memory datastore.
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_INMEMORY_TOO_MANY_CONCURRENT_UPDATES",
       "domain": "authzed.com",
       "metadata": {}
@@ -783,7 +783,7 @@ ERROR_REASON_EMPTY_PRECONDITION: ErrorReason.ValueType  # 25
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_EMPTY_PRECONDITION",
       "domain": "authzed.com",
       "metadata": {}
@@ -794,7 +794,7 @@ ERROR_REASON_COUNTER_ALREADY_REGISTERED: ErrorReason.ValueType  # 26
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_COUNTER_ALREADY_REGISTERED",
       "domain": "authzed.com",
       "metadata": { "counter_name": "name" }
@@ -805,7 +805,7 @@ ERROR_REASON_COUNTER_NOT_REGISTERED: ErrorReason.ValueType  # 27
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_COUNTER_NOT_REGISTERED",
       "domain": "authzed.com",
       "metadata": { "counter_name": "name"  }
@@ -818,7 +818,7 @@ this means that the subject ID was a wildcard.
 
 Example of an ErrorInfo:
 
-    {  
+    {
       "reason": "ERROR_REASON_WILDCARD_NOT_ALLOWED",
       "domain": "authzed.com",
       "metadata": { "disallowed_field": "subject_id" }

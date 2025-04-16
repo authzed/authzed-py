@@ -22,12 +22,14 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+from authzed.api.v1 import core_pb2 as authzed_dot_api_dot_v1_dot_core__pb2
+from authzed.api.v1 import permission_service_pb2 as authzed_dot_api_dot_v1_dot_permission__service__pb2
+from buf.validate import validate_pb2 as buf_dot_validate_dot_validate__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from validate import validate_pb2 as validate_dot_validate__pb2
-from authzed.api.v1 import core_pb2 as authzed_dot_api_dot_v1_dot_core__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#authzed/api/v1/schema_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\x1a\x19\x61uthzed/api/v1/core.proto\"\x13\n\x11ReadSchemaRequest\"r\n\x12ReadSchemaResponse\x12\x1f\n\x0bschema_text\x18\x01 \x01(\tR\nschemaText\x12;\n\x07read_at\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\x06readAt\"8\n\x12WriteSchemaRequest\x12\"\n\x06schema\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05(\x80\x80\x80\x02R\x06schema\"X\n\x13WriteSchemaResponse\x12\x41\n\nwritten_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01R\twrittenAt2\xf5\x01\n\rSchemaService\x12o\n\nReadSchema\x12!.authzed.api.v1.ReadSchemaRequest\x1a\".authzed.api.v1.ReadSchemaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/schema/read:\x01*\x12s\n\x0bWriteSchema\x12\".authzed.api.v1.WriteSchemaRequest\x1a#.authzed.api.v1.WriteSchemaResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/schema/write:\x01*BJ\n\x12\x63om.authzed.api.v1P\x01Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#authzed/api/v1/schema_service.proto\x12\x0e\x61uthzed.api.v1\x1a\x19\x61uthzed/api/v1/core.proto\x1a\'authzed/api/v1/permission_service.proto\x1a\x1b\x62uf/validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"\x13\n\x11ReadSchemaRequest\"x\n\x12ReadSchemaResponse\x12\x1f\n\x0bschema_text\x18\x01 \x01(\tR\nschemaText\x12\x41\n\x07read_at\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenB\x0e\xfa\x42\x05\x8a\x01\x02\x10\x01\xbaH\x03\xc8\x01\x01R\x06readAt\"B\n\x12WriteSchemaRequest\x12,\n\x06schema\x18\x01 \x01(\tB\x14\xfa\x42\x07r\x05(\x80\x80\x80\x02\xbaH\x07r\x05(\x80\x80\x80\x02R\x06schema\"^\n\x13WriteSchemaResponse\x12G\n\nwritten_at\x18\x01 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenB\x0e\xfa\x42\x05\x8a\x01\x02\x10\x01\xbaH\x03\xc8\x01\x01R\twrittenAt\"\xa8\x01\n\x14ReflectSchemaRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12Q\n\x10optional_filters\x18\x02 \x03(\x0b\x32&.authzed.api.v1.ReflectionSchemaFilterR\x0foptionalFilters\"\xce\x01\n\x15ReflectSchemaResponse\x12\x46\n\x0b\x64\x65\x66initions\x18\x01 \x03(\x0b\x32$.authzed.api.v1.ReflectionDefinitionR\x0b\x64\x65\x66initions\x12:\n\x07\x63\x61veats\x18\x02 \x03(\x0b\x32 .authzed.api.v1.ReflectionCaveatR\x07\x63\x61veats\x12\x31\n\x07read_at\x18\x03 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x06readAt\"\xa8\x02\n\x16ReflectionSchemaFilter\x12\x45\n\x1foptional_definition_name_filter\x18\x01 \x01(\tR\x1coptionalDefinitionNameFilter\x12=\n\x1boptional_caveat_name_filter\x18\x02 \x01(\tR\x18optionalCaveatNameFilter\x12\x41\n\x1doptional_relation_name_filter\x18\x03 \x01(\tR\x1aoptionalRelationNameFilter\x12\x45\n\x1foptional_permission_name_filter\x18\x04 \x01(\tR\x1coptionalPermissionNameFilter\"\xce\x01\n\x14ReflectionDefinition\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07\x63omment\x18\x02 \x01(\tR\x07\x63omment\x12@\n\trelations\x18\x03 \x03(\x0b\x32\".authzed.api.v1.ReflectionRelationR\trelations\x12\x46\n\x0bpermissions\x18\x04 \x03(\x0b\x32$.authzed.api.v1.ReflectionPermissionR\x0bpermissions\"\xab\x01\n\x10ReflectionCaveat\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07\x63omment\x18\x02 \x01(\tR\x07\x63omment\x12I\n\nparameters\x18\x03 \x03(\x0b\x32).authzed.api.v1.ReflectionCaveatParameterR\nparameters\x12\x1e\n\nexpression\x18\x04 \x01(\tR\nexpression\"q\n\x19ReflectionCaveatParameter\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12,\n\x12parent_caveat_name\x18\x03 \x01(\tR\x10parentCaveatName\"\xc6\x01\n\x12ReflectionRelation\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07\x63omment\x18\x02 \x01(\tR\x07\x63omment\x12\x34\n\x16parent_definition_name\x18\x03 \x01(\tR\x14parentDefinitionName\x12L\n\rsubject_types\x18\x04 \x03(\x0b\x32\'.authzed.api.v1.ReflectionTypeReferenceR\x0csubjectTypes\"\xa8\x02\n\x17ReflectionTypeReference\x12\x36\n\x17subject_definition_name\x18\x01 \x01(\tR\x15subjectDefinitionName\x12\x30\n\x14optional_caveat_name\x18\x02 \x01(\tR\x12optionalCaveatName\x12\x30\n\x13is_terminal_subject\x18\x03 \x01(\x08H\x00R\x11isTerminalSubject\x12\x36\n\x16optional_relation_name\x18\x04 \x01(\tH\x00R\x14optionalRelationName\x12.\n\x12is_public_wildcard\x18\x05 \x01(\x08H\x00R\x10isPublicWildcardB\t\n\x07typeref\"z\n\x14ReflectionPermission\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07\x63omment\x18\x02 \x01(\tR\x07\x63omment\x12\x34\n\x16parent_definition_name\x18\x03 \x01(\tR\x14parentDefinitionName\"\xf2\x01\n\x1c\x43omputablePermissionsRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12\'\n\x0f\x64\x65\x66inition_name\x18\x02 \x01(\tR\x0e\x64\x65\x66initionName\x12#\n\rrelation_name\x18\x03 \x01(\tR\x0crelationName\x12\x45\n\x1foptional_definition_name_filter\x18\x04 \x01(\tR\x1coptionalDefinitionNameFilter\"\x90\x01\n\x1bReflectionRelationReference\x12\'\n\x0f\x64\x65\x66inition_name\x18\x01 \x01(\tR\x0e\x64\x65\x66initionName\x12#\n\rrelation_name\x18\x02 \x01(\tR\x0crelationName\x12#\n\ris_permission\x18\x03 \x01(\x08R\x0cisPermission\"\xa1\x01\n\x1d\x43omputablePermissionsResponse\x12M\n\x0bpermissions\x18\x01 \x03(\x0b\x32+.authzed.api.v1.ReflectionRelationReferenceR\x0bpermissions\x12\x31\n\x07read_at\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x06readAt\"\xac\x01\n\x19\x44\x65pendentRelationsRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12\'\n\x0f\x64\x65\x66inition_name\x18\x02 \x01(\tR\x0e\x64\x65\x66initionName\x12\'\n\x0fpermission_name\x18\x03 \x01(\tR\x0epermissionName\"\x9a\x01\n\x1a\x44\x65pendentRelationsResponse\x12I\n\trelations\x18\x01 \x03(\x0b\x32+.authzed.api.v1.ReflectionRelationReferenceR\trelations\x12\x31\n\x07read_at\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x06readAt\"\x7f\n\x11\x44iffSchemaRequest\x12=\n\x0b\x63onsistency\x18\x01 \x01(\x0b\x32\x1b.authzed.api.v1.ConsistencyR\x0b\x63onsistency\x12+\n\x11\x63omparison_schema\x18\x02 \x01(\tR\x10\x63omparisonSchema\"\x83\x01\n\x12\x44iffSchemaResponse\x12:\n\x05\x64iffs\x18\x01 \x03(\x0b\x32$.authzed.api.v1.ReflectionSchemaDiffR\x05\x64iffs\x12\x31\n\x07read_at\x18\x02 \x01(\x0b\x32\x18.authzed.api.v1.ZedTokenR\x06readAt\"\xc0\x01\n#ReflectionRelationSubjectTypeChange\x12>\n\x08relation\x18\x01 \x01(\x0b\x32\".authzed.api.v1.ReflectionRelationR\x08relation\x12Y\n\x14\x63hanged_subject_type\x18\x02 \x01(\x0b\x32\'.authzed.api.v1.ReflectionTypeReferenceR\x12\x63hangedSubjectType\"\x93\x01\n#ReflectionCaveatParameterTypeChange\x12G\n\tparameter\x18\x01 \x01(\x0b\x32).authzed.api.v1.ReflectionCaveatParameterR\tparameter\x12#\n\rprevious_type\x18\x02 \x01(\tR\x0cpreviousType\"\xac\x0e\n\x14ReflectionSchemaDiff\x12Q\n\x10\x64\x65\x66inition_added\x18\x01 \x01(\x0b\x32$.authzed.api.v1.ReflectionDefinitionH\x00R\x0f\x64\x65\x66initionAdded\x12U\n\x12\x64\x65\x66inition_removed\x18\x02 \x01(\x0b\x32$.authzed.api.v1.ReflectionDefinitionH\x00R\x11\x64\x65\x66initionRemoved\x12k\n\x1e\x64\x65\x66inition_doc_comment_changed\x18\x03 \x01(\x0b\x32$.authzed.api.v1.ReflectionDefinitionH\x00R\x1b\x64\x65\x66initionDocCommentChanged\x12K\n\x0erelation_added\x18\x04 \x01(\x0b\x32\".authzed.api.v1.ReflectionRelationH\x00R\rrelationAdded\x12O\n\x10relation_removed\x18\x05 \x01(\x0b\x32\".authzed.api.v1.ReflectionRelationH\x00R\x0frelationRemoved\x12\x65\n\x1crelation_doc_comment_changed\x18\x06 \x01(\x0b\x32\".authzed.api.v1.ReflectionRelationH\x00R\x19relationDocCommentChanged\x12t\n\x1brelation_subject_type_added\x18\x07 \x01(\x0b\x32\x33.authzed.api.v1.ReflectionRelationSubjectTypeChangeH\x00R\x18relationSubjectTypeAdded\x12x\n\x1drelation_subject_type_removed\x18\x08 \x01(\x0b\x32\x33.authzed.api.v1.ReflectionRelationSubjectTypeChangeH\x00R\x1arelationSubjectTypeRemoved\x12Q\n\x10permission_added\x18\t \x01(\x0b\x32$.authzed.api.v1.ReflectionPermissionH\x00R\x0fpermissionAdded\x12U\n\x12permission_removed\x18\n \x01(\x0b\x32$.authzed.api.v1.ReflectionPermissionH\x00R\x11permissionRemoved\x12k\n\x1epermission_doc_comment_changed\x18\x0b \x01(\x0b\x32$.authzed.api.v1.ReflectionPermissionH\x00R\x1bpermissionDocCommentChanged\x12^\n\x17permission_expr_changed\x18\x0c \x01(\x0b\x32$.authzed.api.v1.ReflectionPermissionH\x00R\x15permissionExprChanged\x12\x45\n\x0c\x63\x61veat_added\x18\r \x01(\x0b\x32 .authzed.api.v1.ReflectionCaveatH\x00R\x0b\x63\x61veatAdded\x12I\n\x0e\x63\x61veat_removed\x18\x0e \x01(\x0b\x32 .authzed.api.v1.ReflectionCaveatH\x00R\rcaveatRemoved\x12_\n\x1a\x63\x61veat_doc_comment_changed\x18\x0f \x01(\x0b\x32 .authzed.api.v1.ReflectionCaveatH\x00R\x17\x63\x61veatDocCommentChanged\x12R\n\x13\x63\x61veat_expr_changed\x18\x10 \x01(\x0b\x32 .authzed.api.v1.ReflectionCaveatH\x00R\x11\x63\x61veatExprChanged\x12\x61\n\x16\x63\x61veat_parameter_added\x18\x11 \x01(\x0b\x32).authzed.api.v1.ReflectionCaveatParameterH\x00R\x14\x63\x61veatParameterAdded\x12\x65\n\x18\x63\x61veat_parameter_removed\x18\x12 \x01(\x0b\x32).authzed.api.v1.ReflectionCaveatParameterH\x00R\x16\x63\x61veatParameterRemoved\x12x\n\x1d\x63\x61veat_parameter_type_changed\x18\x13 \x01(\x0b\x32\x33.authzed.api.v1.ReflectionCaveatParameterTypeChangeH\x00R\x1a\x63\x61veatParameterTypeChangedB\x06\n\x04\x64iff2\xb0\x06\n\rSchemaService\x12o\n\nReadSchema\x12!.authzed.api.v1.ReadSchemaRequest\x1a\".authzed.api.v1.ReadSchemaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/schema/read:\x01*\x12s\n\x0bWriteSchema\x12\".authzed.api.v1.WriteSchemaRequest\x1a#.authzed.api.v1.WriteSchemaResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/schema/write:\x01*\x12\x81\x01\n\rReflectSchema\x12$.authzed.api.v1.ReflectSchemaRequest\x1a%.authzed.api.v1.ReflectSchemaResponse\"#\x82\xd3\xe4\x93\x02\x1d\"\x18/v1/schema/reflectschema:\x01*\x12\xa2\x01\n\x15\x43omputablePermissions\x12,.authzed.api.v1.ComputablePermissionsRequest\x1a-.authzed.api.v1.ComputablePermissionsResponse\",\x82\xd3\xe4\x93\x02&\"!/v1/schema/permissions/computable:\x01*\x12\x98\x01\n\x12\x44\x65pendentRelations\x12).authzed.api.v1.DependentRelationsRequest\x1a*.authzed.api.v1.DependentRelationsResponse\"+\x82\xd3\xe4\x93\x02%\" /v1/schema/permissions/dependent:\x01*\x12u\n\nDiffSchema\x12!.authzed.api.v1.DiffSchemaRequest\x1a\".authzed.api.v1.DiffSchemaResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/schema/diffschema:\x01*BJ\n\x12\x63om.authzed.api.v1P\x01Z2github.com/authzed/authzed-go/proto/authzed/api/v1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,23 +38,69 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\022com.authzed.api.v1P\001Z2github.com/authzed/authzed-go/proto/authzed/api/v1'
   _globals['_READSCHEMARESPONSE'].fields_by_name['read_at']._loaded_options = None
-  _globals['_READSCHEMARESPONSE'].fields_by_name['read_at']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['_READSCHEMARESPONSE'].fields_by_name['read_at']._serialized_options = b'\372B\005\212\001\002\020\001\272H\003\310\001\001'
   _globals['_WRITESCHEMAREQUEST'].fields_by_name['schema']._loaded_options = None
-  _globals['_WRITESCHEMAREQUEST'].fields_by_name['schema']._serialized_options = b'\372B\007r\005(\200\200\200\002'
+  _globals['_WRITESCHEMAREQUEST'].fields_by_name['schema']._serialized_options = b'\372B\007r\005(\200\200\200\002\272H\007r\005(\200\200\200\002'
   _globals['_WRITESCHEMARESPONSE'].fields_by_name['written_at']._loaded_options = None
-  _globals['_WRITESCHEMARESPONSE'].fields_by_name['written_at']._serialized_options = b'\372B\005\212\001\002\020\001'
+  _globals['_WRITESCHEMARESPONSE'].fields_by_name['written_at']._serialized_options = b'\372B\005\212\001\002\020\001\272H\003\310\001\001'
   _globals['_SCHEMASERVICE'].methods_by_name['ReadSchema']._loaded_options = None
   _globals['_SCHEMASERVICE'].methods_by_name['ReadSchema']._serialized_options = b'\202\323\344\223\002\024\"\017/v1/schema/read:\001*'
   _globals['_SCHEMASERVICE'].methods_by_name['WriteSchema']._loaded_options = None
   _globals['_SCHEMASERVICE'].methods_by_name['WriteSchema']._serialized_options = b'\202\323\344\223\002\025\"\020/v1/schema/write:\001*'
-  _globals['_READSCHEMAREQUEST']._serialized_start=137
-  _globals['_READSCHEMAREQUEST']._serialized_end=156
-  _globals['_READSCHEMARESPONSE']._serialized_start=158
-  _globals['_READSCHEMARESPONSE']._serialized_end=272
-  _globals['_WRITESCHEMAREQUEST']._serialized_start=274
-  _globals['_WRITESCHEMAREQUEST']._serialized_end=330
-  _globals['_WRITESCHEMARESPONSE']._serialized_start=332
-  _globals['_WRITESCHEMARESPONSE']._serialized_end=420
-  _globals['_SCHEMASERVICE']._serialized_start=423
-  _globals['_SCHEMASERVICE']._serialized_end=668
+  _globals['_SCHEMASERVICE'].methods_by_name['ReflectSchema']._loaded_options = None
+  _globals['_SCHEMASERVICE'].methods_by_name['ReflectSchema']._serialized_options = b'\202\323\344\223\002\035\"\030/v1/schema/reflectschema:\001*'
+  _globals['_SCHEMASERVICE'].methods_by_name['ComputablePermissions']._loaded_options = None
+  _globals['_SCHEMASERVICE'].methods_by_name['ComputablePermissions']._serialized_options = b'\202\323\344\223\002&\"!/v1/schema/permissions/computable:\001*'
+  _globals['_SCHEMASERVICE'].methods_by_name['DependentRelations']._loaded_options = None
+  _globals['_SCHEMASERVICE'].methods_by_name['DependentRelations']._serialized_options = b'\202\323\344\223\002%\" /v1/schema/permissions/dependent:\001*'
+  _globals['_SCHEMASERVICE'].methods_by_name['DiffSchema']._loaded_options = None
+  _globals['_SCHEMASERVICE'].methods_by_name['DiffSchema']._serialized_options = b'\202\323\344\223\002\032\"\025/v1/schema/diffschema:\001*'
+  _globals['_READSCHEMAREQUEST']._serialized_start=207
+  _globals['_READSCHEMAREQUEST']._serialized_end=226
+  _globals['_READSCHEMARESPONSE']._serialized_start=228
+  _globals['_READSCHEMARESPONSE']._serialized_end=348
+  _globals['_WRITESCHEMAREQUEST']._serialized_start=350
+  _globals['_WRITESCHEMAREQUEST']._serialized_end=416
+  _globals['_WRITESCHEMARESPONSE']._serialized_start=418
+  _globals['_WRITESCHEMARESPONSE']._serialized_end=512
+  _globals['_REFLECTSCHEMAREQUEST']._serialized_start=515
+  _globals['_REFLECTSCHEMAREQUEST']._serialized_end=683
+  _globals['_REFLECTSCHEMARESPONSE']._serialized_start=686
+  _globals['_REFLECTSCHEMARESPONSE']._serialized_end=892
+  _globals['_REFLECTIONSCHEMAFILTER']._serialized_start=895
+  _globals['_REFLECTIONSCHEMAFILTER']._serialized_end=1191
+  _globals['_REFLECTIONDEFINITION']._serialized_start=1194
+  _globals['_REFLECTIONDEFINITION']._serialized_end=1400
+  _globals['_REFLECTIONCAVEAT']._serialized_start=1403
+  _globals['_REFLECTIONCAVEAT']._serialized_end=1574
+  _globals['_REFLECTIONCAVEATPARAMETER']._serialized_start=1576
+  _globals['_REFLECTIONCAVEATPARAMETER']._serialized_end=1689
+  _globals['_REFLECTIONRELATION']._serialized_start=1692
+  _globals['_REFLECTIONRELATION']._serialized_end=1890
+  _globals['_REFLECTIONTYPEREFERENCE']._serialized_start=1893
+  _globals['_REFLECTIONTYPEREFERENCE']._serialized_end=2189
+  _globals['_REFLECTIONPERMISSION']._serialized_start=2191
+  _globals['_REFLECTIONPERMISSION']._serialized_end=2313
+  _globals['_COMPUTABLEPERMISSIONSREQUEST']._serialized_start=2316
+  _globals['_COMPUTABLEPERMISSIONSREQUEST']._serialized_end=2558
+  _globals['_REFLECTIONRELATIONREFERENCE']._serialized_start=2561
+  _globals['_REFLECTIONRELATIONREFERENCE']._serialized_end=2705
+  _globals['_COMPUTABLEPERMISSIONSRESPONSE']._serialized_start=2708
+  _globals['_COMPUTABLEPERMISSIONSRESPONSE']._serialized_end=2869
+  _globals['_DEPENDENTRELATIONSREQUEST']._serialized_start=2872
+  _globals['_DEPENDENTRELATIONSREQUEST']._serialized_end=3044
+  _globals['_DEPENDENTRELATIONSRESPONSE']._serialized_start=3047
+  _globals['_DEPENDENTRELATIONSRESPONSE']._serialized_end=3201
+  _globals['_DIFFSCHEMAREQUEST']._serialized_start=3203
+  _globals['_DIFFSCHEMAREQUEST']._serialized_end=3330
+  _globals['_DIFFSCHEMARESPONSE']._serialized_start=3333
+  _globals['_DIFFSCHEMARESPONSE']._serialized_end=3464
+  _globals['_REFLECTIONRELATIONSUBJECTTYPECHANGE']._serialized_start=3467
+  _globals['_REFLECTIONRELATIONSUBJECTTYPECHANGE']._serialized_end=3659
+  _globals['_REFLECTIONCAVEATPARAMETERTYPECHANGE']._serialized_start=3662
+  _globals['_REFLECTIONCAVEATPARAMETERTYPECHANGE']._serialized_end=3809
+  _globals['_REFLECTIONSCHEMADIFF']._serialized_start=3812
+  _globals['_REFLECTIONSCHEMADIFF']._serialized_end=5648
+  _globals['_SCHEMASERVICE']._serialized_start=5651
+  _globals['_SCHEMASERVICE']._serialized_end=6467
 # @@protoc_insertion_point(module_scope)
