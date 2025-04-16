@@ -2,13 +2,13 @@
 version: "v2"
 plugins:
   - remote: "buf.build/protocolbuffers/python:v28.3"
+    include_imports: true
     out: "."
   - remote: "buf.build/grpc/python:v1.67.1"
     out: "."
   - remote: "buf.build/community/nipunn1313-mypy:v3.6.0"
+    include_imports: true
     out: "."
 inputs:
-  # NOTE: this is pinned to a variant of 1.41.0 that includes the protovalidate code.
-  - module: "buf.build/authzed/api:0d17d5fd26b0576d8d95a7bf646c57e8b6f7c10c"
-  # Adding this allows protovalidate to work; unclear why this isn't provided directly by the lib
-  - module: "buf.build/bufbuild/protovalidate:v0.10.4"
+  # NOTE: this references a variant of 1.41.0 that includes the protovalidate code.
+  - module: "buf.build/authzed/api:use-protovalidate-instead-of-protoc-gen-validate"
