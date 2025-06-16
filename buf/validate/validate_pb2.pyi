@@ -43,7 +43,7 @@ class _Ignore:
 class _IgnoreEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Ignore.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     IGNORE_UNSPECIFIED: _Ignore.ValueType  # 0
-    """Validation is only skipped if it's an unpopulated nullable fields.
+    """Validation is only skipped if it's an unpopulated nullable field.
 
     ```proto
     syntax="proto3";
@@ -173,7 +173,7 @@ class _IgnoreEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     """The validation rules of this field will be skipped and not evaluated. This
     is useful for situations that necessitate turning off the rules of a field
     containing a message that may not make sense in the current context, or to
-    temporarily disable constraints during development.
+    temporarily disable rules during development.
 
     ```proto
     message MyMessage {
@@ -186,12 +186,12 @@ class _IgnoreEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     """
 
 class Ignore(_Ignore, metaclass=_IgnoreEnumTypeWrapper):
-    """Specifies how FieldConstraints.ignore behaves. See the documentation for
-    FieldConstraints.required for definitions of "populated" and "nullable".
+    """Specifies how FieldRules.ignore behaves. See the documentation for
+    FieldRules.required for definitions of "populated" and "nullable".
     """
 
 IGNORE_UNSPECIFIED: Ignore.ValueType  # 0
-"""Validation is only skipped if it's an unpopulated nullable fields.
+"""Validation is only skipped if it's an unpopulated nullable field.
 
 ```proto
 syntax="proto3";
@@ -321,7 +321,7 @@ IGNORE_ALWAYS: Ignore.ValueType  # 3
 """The validation rules of this field will be skipped and not evaluated. This
 is useful for situations that necessitate turning off the rules of a field
 containing a message that may not make sense in the current context, or to
-temporarily disable constraints during development.
+temporarily disable rules during development.
 
 ```proto
 message MyMessage {
@@ -347,7 +347,7 @@ class _KnownRegexEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     """HTTP header value as defined by [RFC 7230](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.4)."""
 
 class KnownRegex(_KnownRegex, metaclass=_KnownRegexEnumTypeWrapper):
-    """WellKnownRegex contain some well-known patterns."""
+    """KnownRegex contains some well-known patterns."""
 
 KNOWN_REGEX_UNSPECIFIED: KnownRegex.ValueType  # 0
 KNOWN_REGEX_HTTP_HEADER_NAME: KnownRegex.ValueType  # 1
@@ -357,11 +357,11 @@ KNOWN_REGEX_HTTP_HEADER_VALUE: KnownRegex.ValueType  # 2
 global___KnownRegex = KnownRegex
 
 @typing.final
-class Constraint(google.protobuf.message.Message):
-    """`Constraint` represents a validation rule written in the Common Expression
-    Language (CEL) syntax. Each Constraint includes a unique identifier, an
+class Rule(google.protobuf.message.Message):
+    """`Rule` represents a validation rule written in the Common Expression
+    Language (CEL) syntax. Each Rule includes a unique identifier, an
     optional error message, and the CEL expression to evaluate. For more
-    information on CEL, [see our documentation](https://github.com/bufbuild/protovalidate/blob/main/docs/cel.md).
+    information, [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
 
     ```proto
     message Foo {
@@ -381,12 +381,12 @@ class Constraint(google.protobuf.message.Message):
     MESSAGE_FIELD_NUMBER: builtins.int
     EXPRESSION_FIELD_NUMBER: builtins.int
     id: builtins.str
-    """`id` is a string that serves as a machine-readable name for this Constraint.
+    """`id` is a string that serves as a machine-readable name for this Rule.
     It should be unique within its scope, which could be either a message or a field.
     """
     message: builtins.str
     """`message` is an optional field that provides a human-readable error message
-    for this Constraint when the CEL expression evaluates to false. If a
+    for this Rule when the CEL expression evaluates to false. If a
     non-empty message is provided, any strings resulting from the CEL
     expression evaluation are ignored.
     """
@@ -406,18 +406,19 @@ class Constraint(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["expression", b"expression", "id", b"id", "message", b"message"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["expression", b"expression", "id", b"id", "message", b"message"]) -> None: ...
 
-global___Constraint = Constraint
+global___Rule = Rule
 
 @typing.final
-class MessageConstraints(google.protobuf.message.Message):
-    """MessageConstraints represents validation rules that are applied to the entire message.
-    It includes disabling options and a list of Constraint messages representing Common Expression Language (CEL) validation rules.
+class MessageRules(google.protobuf.message.Message):
+    """MessageRules represents validation rules that are applied to the entire message.
+    It includes disabling options and a list of Rule messages representing Common Expression Language (CEL) validation rules.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DISABLED_FIELD_NUMBER: builtins.int
     CEL_FIELD_NUMBER: builtins.int
+    ONEOF_FIELD_NUMBER: builtins.int
     disabled: builtins.bool
     """`disabled` is a boolean flag that, when set to true, nullifies any validation rules for this message.
     This includes any fields within the message that would otherwise support validation.
@@ -430,10 +431,10 @@ class MessageConstraints(google.protobuf.message.Message):
     ```
     """
     @property
-    def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Constraint]:
-        """`cel` is a repeated field of type Constraint. Each Constraint specifies a validation rule to be applied to this message.
-        These constraints are written in Common Expression Language (CEL) syntax. For more information on
-        CEL, [see our documentation](https://github.com/bufbuild/protovalidate/blob/main/docs/cel.md).
+    def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
+        """`cel` is a repeated field of type Rule. Each Rule specifies a validation rule to be applied to this message.
+        These rules are written in Common Expression Language (CEL) syntax. For more information,
+        [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
 
 
         ```proto
@@ -449,20 +450,85 @@ class MessageConstraints(google.protobuf.message.Message):
         ```
         """
 
+    @property
+    def oneof(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MessageOneofRule]:
+        """`oneof` is a repeated field of type MessageOneofRule that specifies a list of fields
+        of which at most one can be present. If `required` is also specified, then exactly one
+        of the specified fields _must_ be present.
+
+        This will enforce oneof-like constraints with a few features not provided by
+        actual Protobuf oneof declarations:
+          1. Repeated and map fields are allowed in this validation. In a Protobuf oneof,
+             only scalar fields are allowed.
+          2. Fields with implicit presence are allowed. In a Protobuf oneof, all member
+             fields have explicit presence. This means that, for the purpose of determining
+             how many fields are set, explicitly setting such a field to its zero value is
+             effectively the same as not setting it at all.
+          3. This will always generate validation errors for a message unmarshalled from
+             serialized data that sets more than one field. With a Protobuf oneof, when
+             multiple fields are present in the serialized form, earlier values are usually
+             silently ignored when unmarshalling, with only the last field being set when
+             unmarshalling completes.
+
+        Note that adding a field to a `oneof` will also set the IGNORE_IF_UNPOPULATED on the fields. This means
+        only the field that is set will be validated and the unset fields are not validated according to the field rules.
+        This behavior can be overridden by setting `ignore` against a field.
+
+        ```proto
+        message MyMessage {
+          // Only one of `field1` or `field2` _can_ be present in this message.
+          option (buf.validate.message).oneof = { fields: ["field1", "field2"] };
+          // Exactly one of `field3` or `field4` _must_ be present in this message.
+          option (buf.validate.message).oneof = { fields: ["field3", "field4"], required: true };
+          string field1 = 1;
+          bytes field2 = 2;
+          bool field3 = 3;
+          int32 field4 = 4;
+        }
+        ```
+        """
+
     def __init__(
         self,
         *,
         disabled: builtins.bool | None = ...,
-        cel: collections.abc.Iterable[global___Constraint] | None = ...,
+        cel: collections.abc.Iterable[global___Rule] | None = ...,
+        oneof: collections.abc.Iterable[global___MessageOneofRule] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["disabled", b"disabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cel", b"cel", "disabled", b"disabled"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cel", b"cel", "disabled", b"disabled", "oneof", b"oneof"]) -> None: ...
 
-global___MessageConstraints = MessageConstraints
+global___MessageRules = MessageRules
 
 @typing.final
-class OneofConstraints(google.protobuf.message.Message):
-    """The `OneofConstraints` message type enables you to manage constraints for
+class MessageOneofRule(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FIELDS_FIELD_NUMBER: builtins.int
+    REQUIRED_FIELD_NUMBER: builtins.int
+    required: builtins.bool
+    """If true, one of the fields specified _must_ be set."""
+    @property
+    def fields(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """A list of field names to include in the oneof. All field names must be
+        defined in the message. At least one field must be specified, and
+        duplicates are not permitted.
+        """
+
+    def __init__(
+        self,
+        *,
+        fields: collections.abc.Iterable[builtins.str] | None = ...,
+        required: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["required", b"required"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["fields", b"fields", "required", b"required"]) -> None: ...
+
+global___MessageOneofRule = MessageOneofRule
+
+@typing.final
+class OneofRules(google.protobuf.message.Message):
+    """The `OneofRules` message type enables you to manage rules for
     oneof fields in your protobuf messages.
     """
 
@@ -472,7 +538,7 @@ class OneofConstraints(google.protobuf.message.Message):
     required: builtins.bool
     """If `required` is true, exactly one field of the oneof must be present. A
     validation error is returned if no fields in the oneof are present. The
-    field itself may still be a default value; further constraints
+    field itself may still be a default value; further rules
     should be placed on the fields themselves to ensure they are valid values,
     such as `min_len` or `gt`.
 
@@ -496,11 +562,11 @@ class OneofConstraints(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["required", b"required"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["required", b"required"]) -> None: ...
 
-global___OneofConstraints = OneofConstraints
+global___OneofRules = OneofRules
 
 @typing.final
-class FieldConstraints(google.protobuf.message.Message):
-    """FieldConstraints encapsulates the rules for each type of field. Depending on
+class FieldRules(google.protobuf.message.Message):
+    """FieldRules encapsulates the rules for each type of field. Depending on
     the field, the correct set should be used to ensure proper validations.
     """
 
@@ -541,6 +607,7 @@ class FieldConstraints(google.protobuf.message.Message):
       - proto2 scalar fields (both optional and required)
     - proto3 scalar fields must be non-zero to be considered populated
     - repeated and map fields must be non-empty to be considered populated
+    - map keys/values and repeated items are always considered populated
 
     ```proto
     message MyMessage {
@@ -565,10 +632,10 @@ class FieldConstraints(google.protobuf.message.Message):
     ```
     """
     @property
-    def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Constraint]:
+    def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
         """`cel` is a repeated field used to represent a textual expression
-        in the Common Expression Language (CEL) syntax. For more information on
-        CEL, [see our documentation](https://github.com/bufbuild/protovalidate/blob/main/docs/cel.md).
+        in the Common Expression Language (CEL) syntax. For more information,
+        [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
 
         ```proto
         message MyMessage {
@@ -633,7 +700,7 @@ class FieldConstraints(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        cel: collections.abc.Iterable[global___Constraint] | None = ...,
+        cel: collections.abc.Iterable[global___Rule] | None = ...,
         required: builtins.bool | None = ...,
         ignore: global___Ignore.ValueType | None = ...,
         float: global___FloatRules | None = ...,
@@ -662,11 +729,11 @@ class FieldConstraints(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["any", b"any", "bool", b"bool", "bytes", b"bytes", "cel", b"cel", "double", b"double", "duration", b"duration", "enum", b"enum", "fixed32", b"fixed32", "fixed64", b"fixed64", "float", b"float", "ignore", b"ignore", "int32", b"int32", "int64", b"int64", "map", b"map", "repeated", b"repeated", "required", b"required", "sfixed32", b"sfixed32", "sfixed64", b"sfixed64", "sint32", b"sint32", "sint64", b"sint64", "string", b"string", "timestamp", b"timestamp", "type", b"type", "uint32", b"uint32", "uint64", b"uint64"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["type", b"type"]) -> typing.Literal["float", "double", "int32", "int64", "uint32", "uint64", "sint32", "sint64", "fixed32", "fixed64", "sfixed32", "sfixed64", "bool", "string", "bytes", "enum", "repeated", "map", "any", "duration", "timestamp"] | None: ...
 
-global___FieldConstraints = FieldConstraints
+global___FieldRules = FieldRules
 
 @typing.final
-class PredefinedConstraints(google.protobuf.message.Message):
-    """PredefinedConstraints are custom constraints that can be re-used with
+class PredefinedRules(google.protobuf.message.Message):
+    """PredefinedRules are custom rules that can be re-used with
     multiple fields.
     """
 
@@ -674,10 +741,10 @@ class PredefinedConstraints(google.protobuf.message.Message):
 
     CEL_FIELD_NUMBER: builtins.int
     @property
-    def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Constraint]:
+    def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
         """`cel` is a repeated field used to represent a textual expression
-        in the Common Expression Language (CEL) syntax. For more information on
-        CEL, [see our documentation](https://github.com/bufbuild/protovalidate/blob/main/docs/cel.md).
+        in the Common Expression Language (CEL) syntax. For more information,
+        [see our documentation](https://buf.build/docs/protovalidate/schemas/predefined-rules/).
 
         ```proto
         message MyMessage {
@@ -694,15 +761,15 @@ class PredefinedConstraints(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        cel: collections.abc.Iterable[global___Constraint] | None = ...,
+        cel: collections.abc.Iterable[global___Rule] | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing.Literal["cel", b"cel"]) -> None: ...
 
-global___PredefinedConstraints = PredefinedConstraints
+global___PredefinedRules = PredefinedRules
 
 @typing.final
 class FloatRules(google.protobuf.message.Message):
-    """FloatRules describes the constraints applied to `float` values. These
+    """FloatRules describes the rules applied to `float` values. These
     rules may also be applied to the `google.protobuf.FloatValue` Well-Known-Type.
     """
 
@@ -813,14 +880,14 @@ class FloatRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
         message MyFloat {
           float value = 1 [
             (buf.validate.field).float.example = 1.0,
-            (buf.validate.field).float.example = "Infinity"
+            (buf.validate.field).float.example = inf
           ];
         }
         ```
@@ -849,7 +916,7 @@ global___FloatRules = FloatRules
 
 @typing.final
 class DoubleRules(google.protobuf.message.Message):
-    """DoubleRules describes the constraints applied to `double` values. These
+    """DoubleRules describes the rules applied to `double` values. These
     rules may also be applied to the `google.protobuf.DoubleValue` Well-Known-Type.
     """
 
@@ -960,14 +1027,14 @@ class DoubleRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
         message MyDouble {
           double value = 1 [
             (buf.validate.field).double.example = 1.0,
-            (buf.validate.field).double.example = "Infinity"
+            (buf.validate.field).double.example = inf
           ];
         }
         ```
@@ -996,7 +1063,7 @@ global___DoubleRules = DoubleRules
 
 @typing.final
 class Int32Rules(google.protobuf.message.Message):
-    """Int32Rules describes the constraints applied to `int32` values. These
+    """Int32Rules describes the rules applied to `int32` values. These
     rules may also be applied to the `google.protobuf.Int32Value` Well-Known-Type.
     """
 
@@ -1102,7 +1169,7 @@ class Int32Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1137,7 +1204,7 @@ global___Int32Rules = Int32Rules
 
 @typing.final
 class Int64Rules(google.protobuf.message.Message):
-    """Int64Rules describes the constraints applied to `int64` values. These
+    """Int64Rules describes the rules applied to `int64` values. These
     rules may also be applied to the `google.protobuf.Int64Value` Well-Known-Type.
     """
 
@@ -1243,7 +1310,7 @@ class Int64Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1278,7 +1345,7 @@ global___Int64Rules = Int64Rules
 
 @typing.final
 class UInt32Rules(google.protobuf.message.Message):
-    """UInt32Rules describes the constraints applied to `uint32` values. These
+    """UInt32Rules describes the rules applied to `uint32` values. These
     rules may also be applied to the `google.protobuf.UInt32Value` Well-Known-Type.
     """
 
@@ -1384,7 +1451,7 @@ class UInt32Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1419,7 +1486,7 @@ global___UInt32Rules = UInt32Rules
 
 @typing.final
 class UInt64Rules(google.protobuf.message.Message):
-    """UInt64Rules describes the constraints applied to `uint64` values. These
+    """UInt64Rules describes the rules applied to `uint64` values. These
     rules may also be applied to the `google.protobuf.UInt64Value` Well-Known-Type.
     """
 
@@ -1525,7 +1592,7 @@ class UInt64Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1560,7 +1627,7 @@ global___UInt64Rules = UInt64Rules
 
 @typing.final
 class SInt32Rules(google.protobuf.message.Message):
-    """SInt32Rules describes the constraints applied to `sint32` values."""
+    """SInt32Rules describes the rules applied to `sint32` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1664,7 +1731,7 @@ class SInt32Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1699,7 +1766,7 @@ global___SInt32Rules = SInt32Rules
 
 @typing.final
 class SInt64Rules(google.protobuf.message.Message):
-    """SInt64Rules describes the constraints applied to `sint64` values."""
+    """SInt64Rules describes the rules applied to `sint64` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1803,7 +1870,7 @@ class SInt64Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1838,7 +1905,7 @@ global___SInt64Rules = SInt64Rules
 
 @typing.final
 class Fixed32Rules(google.protobuf.message.Message):
-    """Fixed32Rules describes the constraints applied to `fixed32` values."""
+    """Fixed32Rules describes the rules applied to `fixed32` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1942,7 +2009,7 @@ class Fixed32Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -1977,7 +2044,7 @@ global___Fixed32Rules = Fixed32Rules
 
 @typing.final
 class Fixed64Rules(google.protobuf.message.Message):
-    """Fixed64Rules describes the constraints applied to `fixed64` values."""
+    """Fixed64Rules describes the rules applied to `fixed64` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2081,7 +2148,7 @@ class Fixed64Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -2116,7 +2183,7 @@ global___Fixed64Rules = Fixed64Rules
 
 @typing.final
 class SFixed32Rules(google.protobuf.message.Message):
-    """SFixed32Rules describes the constraints applied to `fixed32` values."""
+    """SFixed32Rules describes the rules applied to `fixed32` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2220,7 +2287,7 @@ class SFixed32Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -2255,7 +2322,7 @@ global___SFixed32Rules = SFixed32Rules
 
 @typing.final
 class SFixed64Rules(google.protobuf.message.Message):
-    """SFixed64Rules describes the constraints applied to `fixed64` values."""
+    """SFixed64Rules describes the rules applied to `fixed64` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2359,7 +2426,7 @@ class SFixed64Rules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -2394,7 +2461,7 @@ global___SFixed64Rules = SFixed64Rules
 
 @typing.final
 class BoolRules(google.protobuf.message.Message):
-    """BoolRules describes the constraints applied to `bool` values. These rules
+    """BoolRules describes the rules applied to `bool` values. These rules
     may also be applied to the `google.protobuf.BoolValue` Well-Known-Type.
     """
 
@@ -2416,7 +2483,7 @@ class BoolRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -2442,7 +2509,7 @@ global___BoolRules = BoolRules
 
 @typing.final
 class StringRules(google.protobuf.message.Message):
-    """StringRules describes the constraints applied to `string` values These
+    """StringRules describes the rules applied to `string` values These
     rules may also be applied to the `google.protobuf.StringValue` Well-Known-Type.
     """
 
@@ -2632,8 +2699,14 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     email: builtins.bool
-    """`email` specifies that the field value must be a valid email address
-    (addr-spec only) as defined by [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1).
+    """`email` specifies that the field value must be a valid email address, for
+    example "foo@example.com".
+
+    Conforms to the definition for a valid email address from the [HTML standard](https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address).
+    Note that this standard willfully deviates from [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322),
+    which allows many unexpected forms of email addresses and will easily match
+    a typographical error.
+
     If the field value isn't a valid email address, an error message will be generated.
 
     ```proto
@@ -2644,10 +2717,18 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     hostname: builtins.bool
-    """`hostname` specifies that the field value must be a valid
-    hostname as defined by [RFC 1034](https://datatracker.ietf.org/doc/html/rfc1034#section-3.5). This constraint doesn't support
-    internationalized domain names (IDNs). If the field value isn't a
-    valid hostname, an error message will be generated.
+    """`hostname` specifies that the field value must be a valid hostname, for
+    example "foo.example.com".
+
+    A valid hostname follows the rules below:
+    - The name consists of one or more labels, separated by a dot (".").
+    - Each label can be 1 to 63 alphanumeric characters.
+    - A label can contain hyphens ("-"), but must not start or end with a hyphen.
+    - The right-most label must not be digits only.
+    - The name can have a trailing dot—for example, "foo.example.com.".
+    - The name can be 253 characters at most, excluding the optional trailing dot.
+
+    If the field value isn't a valid hostname, an error message will be generated.
 
     ```proto
     message MyString {
@@ -2657,8 +2738,15 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     ip: builtins.bool
-    """`ip` specifies that the field value must be a valid IP
-    (v4 or v6) address, without surrounding square brackets for IPv6 addresses.
+    """`ip` specifies that the field value must be a valid IP (v4 or v6) address.
+
+    IPv4 addresses are expected in the dotted decimal format—for example, "192.168.5.21".
+    IPv6 addresses are expected in their text representation—for example, "::1",
+    or "2001:0DB8:ABCD:0012::0".
+
+    Both formats are well-defined in the internet standard [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986).
+    Zone identifiers for IPv6 addresses (for example, "fe80::a%en1") are supported.
+
     If the field value isn't a valid IP address, an error message will be
     generated.
 
@@ -2670,9 +2758,9 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     ipv4: builtins.bool
-    """`ipv4` specifies that the field value must be a valid IPv4
-    address. If the field value isn't a valid IPv4 address, an error message
-    will be generated.
+    """`ipv4` specifies that the field value must be a valid IPv4 address—for
+    example "192.168.5.21". If the field value isn't a valid IPv4 address, an
+    error message will be generated.
 
     ```proto
     message MyString {
@@ -2682,9 +2770,9 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     ipv6: builtins.bool
-    """`ipv6` specifies that the field value must be a valid
-    IPv6 address, without surrounding square brackets. If the field value is
-    not a valid IPv6 address, an error message will be generated.
+    """`ipv6` specifies that the field value must be a valid IPv6 address—for
+    example "::1", or "d7a:115c:a1e0:ab12:4843:cd96:626b:430b". If the field
+    value is not a valid IPv6 address, an error message will be generated.
 
     ```proto
     message MyString {
@@ -2694,8 +2782,11 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     uri: builtins.bool
-    """`uri` specifies that the field value must be a valid URI as defined by
-    [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986#section-3).
+    """`uri` specifies that the field value must be a valid URI, for example
+    "https://example.com/foo/bar?baz=quux#frag".
+
+    URI is defined in the internet standard [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986).
+    Zone Identifiers in IPv6 address literals are supported ([RFC 6874](https://datatracker.ietf.org/doc/html/rfc6874)).
 
     If the field value isn't a valid URI, an error message will be generated.
 
@@ -2707,11 +2798,13 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     uri_ref: builtins.bool
-    """`uri_ref` specifies that the field value must be a valid URI Reference as
-    defined by [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986#section-4.1).
+    """`uri_ref` specifies that the field value must be a valid URI Reference—either
+    a URI such as "https://example.com/foo/bar?baz=quux#frag", or a Relative
+    Reference such as "./foo/bar?query".
 
-    A URI Reference is either a [URI](https://datatracker.ietf.org/doc/html/rfc3986#section-3),
-    or a [Relative Reference](https://datatracker.ietf.org/doc/html/rfc3986#section-4.2).
+    URI, URI Reference, and Relative Reference are defined in the internet
+    standard [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986). Zone
+    Identifiers in IPv6 address literals are supported ([RFC 6874](https://datatracker.ietf.org/doc/html/rfc6874)).
 
     If the field value isn't a valid URI Reference, an error message will be
     generated.
@@ -2725,10 +2818,9 @@ class StringRules(google.protobuf.message.Message):
     """
     address: builtins.bool
     """`address` specifies that the field value must be either a valid hostname
-    as defined by [RFC 1034](https://datatracker.ietf.org/doc/html/rfc1034#section-3.5)
-    (which doesn't support internationalized domain names or IDNs) or a valid
-    IP (v4 or v6). If the field value isn't a valid hostname or IP, an error
-    message will be generated.
+    (for example, "example.com"), or a valid IP (v4 or v6) address (for example,
+    "192.168.0.1", or "::1"). If the field value isn't a valid hostname or IP,
+    an error message will be generated.
 
     ```proto
     message MyString {
@@ -2763,10 +2855,10 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     ip_with_prefixlen: builtins.bool
-    """`ip_with_prefixlen` specifies that the field value must be a valid IP (v4 or v6)
-    address with prefix length. If the field value isn't a valid IP with prefix
-    length, an error message will be generated.
-
+    """`ip_with_prefixlen` specifies that the field value must be a valid IP
+    (v4 or v6) address with prefix length—for example, "192.168.5.21/16" or
+    "2001:0DB8:ABCD:0012::F1/64". If the field value isn't a valid IP with
+    prefix length, an error message will be generated.
 
     ```proto
     message MyString {
@@ -2777,9 +2869,9 @@ class StringRules(google.protobuf.message.Message):
     """
     ipv4_with_prefixlen: builtins.bool
     """`ipv4_with_prefixlen` specifies that the field value must be a valid
-    IPv4 address with prefix.
-    If the field value isn't a valid IPv4 address with prefix length,
-    an error message will be generated.
+    IPv4 address with prefix length—for example, "192.168.5.21/16". If the
+    field value isn't a valid IPv4 address with prefix length, an error
+    message will be generated.
 
     ```proto
     message MyString {
@@ -2790,7 +2882,7 @@ class StringRules(google.protobuf.message.Message):
     """
     ipv6_with_prefixlen: builtins.bool
     """`ipv6_with_prefixlen` specifies that the field value must be a valid
-    IPv6 address with prefix length.
+    IPv6 address with prefix length—for example, "2001:0DB8:ABCD:0012::F1/64".
     If the field value is not a valid IPv6 address with prefix length,
     an error message will be generated.
 
@@ -2802,10 +2894,15 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     ip_prefix: builtins.bool
-    """`ip_prefix` specifies that the field value must be a valid IP (v4 or v6) prefix.
+    """`ip_prefix` specifies that the field value must be a valid IP (v4 or v6)
+    prefix—for example, "192.168.0.0/16" or "2001:0DB8:ABCD:0012::0/64".
+
+    The prefix must have all zeros for the unmasked bits. For example,
+    "2001:0DB8:ABCD:0012::0/64" designates the left-most 64 bits for the
+    prefix, and the remaining 64 bits must be zero.
+
     If the field value isn't a valid IP prefix, an error message will be
-    generated. The prefix must have all zeros for the masked bits of the prefix (e.g.,
-    `127.0.0.0/16`, not `127.0.0.1/16`).
+    generated.
 
     ```proto
     message MyString {
@@ -2816,9 +2913,14 @@ class StringRules(google.protobuf.message.Message):
     """
     ipv4_prefix: builtins.bool
     """`ipv4_prefix` specifies that the field value must be a valid IPv4
-    prefix. If the field value isn't a valid IPv4 prefix, an error message
-    will be generated. The prefix must have all zeros for the masked bits of
-    the prefix (e.g., `127.0.0.0/16`, not `127.0.0.1/16`).
+    prefix, for example "192.168.0.0/16".
+
+    The prefix must have all zeros for the unmasked bits. For example,
+    "192.168.0.0/16" designates the left-most 16 bits for the prefix,
+    and the remaining 16 bits must be zero.
+
+    If the field value isn't a valid IPv4 prefix, an error message
+    will be generated.
 
     ```proto
     message MyString {
@@ -2828,10 +2930,15 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     ipv6_prefix: builtins.bool
-    """`ipv6_prefix` specifies that the field value must be a valid IPv6 prefix.
+    """`ipv6_prefix` specifies that the field value must be a valid IPv6 prefix—for
+    example, "2001:0DB8:ABCD:0012::0/64".
+
+    The prefix must have all zeros for the unmasked bits. For example,
+    "2001:0DB8:ABCD:0012::0/64" designates the left-most 64 bits for the
+    prefix, and the remaining 64 bits must be zero.
+
     If the field value is not a valid IPv6 prefix, an error message will be
-    generated. The prefix must have all zeros for the masked bits of the prefix
-    (e.g., `2001:db8::/48`, not `2001:db8::1/48`).
+    generated.
 
     ```proto
     message MyString {
@@ -2841,10 +2948,16 @@ class StringRules(google.protobuf.message.Message):
     ```
     """
     host_and_port: builtins.bool
-    """`host_and_port` specifies the field value must be a valid host and port
-    pair. The host must be a valid hostname or IP address while the port
-    must be in the range of 0-65535, inclusive. IPv6 addresses must be delimited
-    with square brackets (e.g., `[::1]:1234`).
+    """`host_and_port` specifies that the field value must be valid host/port
+    pair—for example, "example.com:8080".
+
+    The host can be one of:
+    - An IPv4 address in dotted decimal format—for example, "192.168.5.21".
+    - An IPv6 address enclosed in square brackets—for example, "[2001:0DB8:ABCD:0012::F1]".
+    - A hostname—for example, "example.com".
+
+    The port is separated by a colon. It must be non-empty, with a decimal number
+    in the range of 0-65535, inclusive.
     """
     well_known_regex: global___KnownRegex.ValueType
     """`well_known_regex` specifies a common well-known pattern
@@ -2898,7 +3011,7 @@ class StringRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -2956,7 +3069,7 @@ global___StringRules = StringRules
 
 @typing.final
 class BytesRules(google.protobuf.message.Message):
-    """BytesRules describe the constraints applied to `bytes` values. These rules
+    """BytesRules describe the rules applied to `bytes` values. These rules
     may also be applied to the `google.protobuf.BytesValue` Well-Known-Type.
     """
 
@@ -3074,7 +3187,7 @@ class BytesRules(google.protobuf.message.Message):
     """
     ip: builtins.bool
     """`ip` ensures that the field `value` is a valid IP address (v4 or v6) in byte format.
-    If the field value doesn't meet this constraint, an error message is generated.
+    If the field value doesn't meet this rule, an error message is generated.
 
     ```proto
     message MyBytes {
@@ -3085,7 +3198,7 @@ class BytesRules(google.protobuf.message.Message):
     """
     ipv4: builtins.bool
     """`ipv4` ensures that the field `value` is a valid IPv4 address in byte format.
-    If the field value doesn't meet this constraint, an error message is generated.
+    If the field value doesn't meet this rule, an error message is generated.
 
     ```proto
     message MyBytes {
@@ -3096,7 +3209,7 @@ class BytesRules(google.protobuf.message.Message):
     """
     ipv6: builtins.bool
     """`ipv6` ensures that the field `value` is a valid IPv6 address in byte format.
-    If the field value doesn't meet this constraint, an error message is generated.
+    If the field value doesn't meet this rule, an error message is generated.
     ```proto
     message MyBytes {
       // value must be a valid IPv6 address
@@ -3122,7 +3235,7 @@ class BytesRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -3160,7 +3273,7 @@ global___BytesRules = BytesRules
 
 @typing.final
 class EnumRules(google.protobuf.message.Message):
-    """EnumRules describe the constraints applied to `enum` values."""
+    """EnumRules describe the rules applied to `enum` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -3226,7 +3339,7 @@ class EnumRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -3258,7 +3371,7 @@ global___EnumRules = EnumRules
 
 @typing.final
 class RepeatedRules(google.protobuf.message.Message):
-    """RepeatedRules describe the constraints applied to `repeated` values."""
+    """RepeatedRules describe the rules applied to `repeated` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -3294,7 +3407,7 @@ class RepeatedRules(google.protobuf.message.Message):
     """
     unique: builtins.bool
     """`unique` indicates that all elements in this field must
-    be unique. This constraint is strictly applicable to scalar and enum
+    be unique. This rule is strictly applicable to scalar and enum
     types, with message types not being supported.
 
     ```proto
@@ -3305,14 +3418,17 @@ class RepeatedRules(google.protobuf.message.Message):
     ```
     """
     @property
-    def items(self) -> global___FieldConstraints:
-        """`items` details the constraints to be applied to each item
+    def items(self) -> global___FieldRules:
+        """`items` details the rules to be applied to each item
         in the field. Even for repeated message fields, validation is executed
         against each item unless skip is explicitly specified.
 
+        Note that repeated items are always considered populated. The `required`
+        rule does not apply.
+
         ```proto
         message MyRepeated {
-          // The items in the field `value` must follow the specified constraints.
+          // The items in the field `value` must follow the specified rules.
           repeated string value = 1 [(buf.validate.field).repeated.items = {
             string: {
               min_len: 3
@@ -3329,7 +3445,7 @@ class RepeatedRules(google.protobuf.message.Message):
         min_items: builtins.int | None = ...,
         max_items: builtins.int | None = ...,
         unique: builtins.bool | None = ...,
-        items: global___FieldConstraints | None = ...,
+        items: global___FieldRules | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["items", b"items", "max_items", b"max_items", "min_items", b"min_items", "unique", b"unique"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["items", b"items", "max_items", b"max_items", "min_items", b"min_items", "unique", b"unique"]) -> None: ...
@@ -3338,7 +3454,7 @@ global___RepeatedRules = RepeatedRules
 
 @typing.final
 class MapRules(google.protobuf.message.Message):
-    """MapRules describe the constraints applied to `map` values."""
+    """MapRules describe the rules applied to `map` values."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -3369,12 +3485,15 @@ class MapRules(google.protobuf.message.Message):
     ```
     """
     @property
-    def keys(self) -> global___FieldConstraints:
-        """Specifies the constraints to be applied to each key in the field.
+    def keys(self) -> global___FieldRules:
+        """Specifies the rules to be applied to each key in the field.
+
+        Note that map keys are always considered populated. The `required`
+        rule does not apply.
 
         ```proto
         message MyMap {
-          // The keys in the field `value` must follow the specified constraints.
+          // The keys in the field `value` must follow the specified rules.
           map<string, string> value = 1 [(buf.validate.field).map.keys = {
             string: {
               min_len: 3
@@ -3386,14 +3505,17 @@ class MapRules(google.protobuf.message.Message):
         """
 
     @property
-    def values(self) -> global___FieldConstraints:
-        """Specifies the constraints to be applied to the value of each key in the
+    def values(self) -> global___FieldRules:
+        """Specifies the rules to be applied to the value of each key in the
         field. Message values will still have their validations evaluated unless
         skip is specified here.
 
+        Note that map values are always considered populated. The `required`
+        rule does not apply.
+
         ```proto
         message MyMap {
-          // The values in the field `value` must follow the specified constraints.
+          // The values in the field `value` must follow the specified rules.
           map<string, string> value = 1 [(buf.validate.field).map.values = {
             string: {
               min_len: 5
@@ -3409,8 +3531,8 @@ class MapRules(google.protobuf.message.Message):
         *,
         min_pairs: builtins.int | None = ...,
         max_pairs: builtins.int | None = ...,
-        keys: global___FieldConstraints | None = ...,
-        values: global___FieldConstraints | None = ...,
+        keys: global___FieldRules | None = ...,
+        values: global___FieldRules | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["keys", b"keys", "max_pairs", b"max_pairs", "min_pairs", b"min_pairs", "values", b"values"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["keys", b"keys", "max_pairs", b"max_pairs", "min_pairs", b"min_pairs", "values", b"values"]) -> None: ...
@@ -3419,7 +3541,7 @@ global___MapRules = MapRules
 
 @typing.final
 class AnyRules(google.protobuf.message.Message):
-    """AnyRules describe constraints applied exclusively to the `google.protobuf.Any` well-known type."""
+    """AnyRules describe rules applied exclusively to the `google.protobuf.Any` well-known type."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -3431,8 +3553,10 @@ class AnyRules(google.protobuf.message.Message):
 
         ```proto
         message MyAny {
-          // The field `value` must not have a `type_url` equal to any of the specified values.
-          google.protobuf.Any value = 1 [(buf.validate.field).any.not_in = ["type.googleapis.com/ForbiddenType1", "type.googleapis.com/ForbiddenType2"]];
+          //  The `value` field must not have a `type_url` equal to any of the specified values.
+          google.protobuf.Any value = 1 [(buf.validate.field).any = {
+              not_in: ["type.googleapis.com/ForbiddenType1", "type.googleapis.com/ForbiddenType2"]
+          }];
         }
         ```
         """
@@ -3448,7 +3572,7 @@ global___AnyRules = AnyRules
 
 @typing.final
 class DurationRules(google.protobuf.message.Message):
-    """DurationRules describe the constraints applied exclusively to the `google.protobuf.Duration` well-known type."""
+    """DurationRules describe the rules applied exclusively to the `google.protobuf.Duration` well-known type."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -3564,7 +3688,7 @@ class DurationRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.duration_pb2.Duration]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -3599,7 +3723,7 @@ global___DurationRules = DurationRules
 
 @typing.final
 class TimestampRules(google.protobuf.message.Message):
-    """TimestampRules describe the constraints applied exclusively to the `google.protobuf.Timestamp` well-known type."""
+    """TimestampRules describe the rules applied exclusively to the `google.protobuf.Timestamp` well-known type."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -3727,7 +3851,7 @@ class TimestampRules(google.protobuf.message.Message):
     @property
     def example(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.timestamp_pb2.Timestamp]:
         """`example` specifies values that the field may have. These values SHOULD
-        conform to other constraints. `example` values will not impact validation
+        conform to other rules. `example` values will not impact validation
         but may be used as helpful guidance on how to populate the given field.
 
         ```proto
@@ -3765,7 +3889,7 @@ global___TimestampRules = TimestampRules
 @typing.final
 class Violations(google.protobuf.message.Message):
     """`Violations` is a collection of `Violation` messages. This message type is returned by
-    protovalidate when a proto message fails to meet the requirements set by the `Constraint` validation rules.
+    Protovalidate when a proto message fails to meet the requirements set by the `Rule` validation rules.
     Each individual violation is represented by a `Violation` message.
     """
 
@@ -3788,15 +3912,46 @@ global___Violations = Violations
 @typing.final
 class Violation(google.protobuf.message.Message):
     """`Violation` represents a single instance where a validation rule, expressed
-    as a `Constraint`, was not met. It provides information about the field that
-    caused the violation, the specific constraint that wasn't fulfilled, and a
+    as a `Rule`, was not met. It provides information about the field that
+    caused the violation, the specific rule that wasn't fulfilled, and a
     human-readable error message.
+
+    For example, consider the following message:
+
+    ```proto
+    message User {
+        int32 age = 1 [(buf.validate.field).cel = {
+            id: "user.age",
+            expression: "this < 18 ? 'User must be at least 18 years old' : ''",
+        }];
+    }
+    ```
+
+    It could produce the following violation:
 
     ```json
     {
-      "fieldPath": "bar",
-      "constraintId": "foo.bar",
-      "message": "bar must be greater than 0"
+      "ruleId": "user.age",
+      "message": "User must be at least 18 years old",
+      "field": {
+        "elements": [
+          {
+            "fieldNumber": 1,
+            "fieldName": "age",
+            "fieldType": "TYPE_INT32"
+          }
+        ]
+      },
+      "rule": {
+        "elements": [
+          {
+            "fieldNumber": 23,
+            "fieldName": "cel",
+            "fieldType": "TYPE_MESSAGE",
+            "index": "0"
+          }
+        ]
+      }
     }
     ```
     """
@@ -3805,16 +3960,16 @@ class Violation(google.protobuf.message.Message):
 
     FIELD_FIELD_NUMBER: builtins.int
     RULE_FIELD_NUMBER: builtins.int
-    CONSTRAINT_ID_FIELD_NUMBER: builtins.int
+    RULE_ID_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
     FOR_KEY_FIELD_NUMBER: builtins.int
-    constraint_id: builtins.str
-    """`constraint_id` is the unique identifier of the `Constraint` that was not fulfilled.
-    This is the same `id` that was specified in the `Constraint` message, allowing easy tracing of which rule was violated.
+    rule_id: builtins.str
+    """`rule_id` is the unique identifier of the `Rule` that was not fulfilled.
+    This is the same `id` that was specified in the `Rule` message, allowing easy tracing of which rule was violated.
     """
     message: builtins.str
     """`message` is a human-readable error message that describes the nature of the violation.
-    This can be the default error message from the violated `Constraint`, or it can be a custom message that gives more context about the violation.
+    This can be the default error message from the violated `Rule`, or it can be a custom message that gives more context about the violation.
     """
     for_key: builtins.bool
     """`for_key` indicates whether the violation was caused by a map key, rather than a value."""
@@ -3843,9 +3998,9 @@ class Violation(google.protobuf.message.Message):
 
     @property
     def rule(self) -> global___FieldPath:
-        """`rule` is a machine-readable path that points to the specific constraint rule that failed validation.
-        This will be a nested field starting from the FieldConstraints of the field that failed validation.
-        For custom constraints, this will provide the path of the constraint, e.g. `cel[0]`.
+        """`rule` is a machine-readable path that points to the specific rule that failed validation.
+        This will be a nested field starting from the FieldRules of the field that failed validation.
+        For custom rules, this will provide the path of the rule, e.g. `cel[0]`.
 
         For example, consider the following message:
 
@@ -3853,7 +4008,7 @@ class Violation(google.protobuf.message.Message):
         message Message {
           bool a = 1 [(buf.validate.field).required = true];
           bool b = 2 [(buf.validate.field).cel = {
-            id: "custom_constraint",
+            id: "custom_rule",
             expression: "!this ? 'b must be true': ''"
           }]
         }
@@ -3878,12 +4033,12 @@ class Violation(google.protobuf.message.Message):
         *,
         field: global___FieldPath | None = ...,
         rule: global___FieldPath | None = ...,
-        constraint_id: builtins.str | None = ...,
+        rule_id: builtins.str | None = ...,
         message: builtins.str | None = ...,
         for_key: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["constraint_id", b"constraint_id", "field", b"field", "for_key", b"for_key", "message", b"message", "rule", b"rule"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["constraint_id", b"constraint_id", "field", b"field", "for_key", b"for_key", "message", b"message", "rule", b"rule"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["field", b"field", "for_key", b"for_key", "message", b"message", "rule", b"rule", "rule_id", b"rule_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["field", b"field", "for_key", b"for_key", "message", b"message", "rule", b"rule", "rule_id", b"rule_id"]) -> None: ...
 
 global___Violation = Violation
 
@@ -3993,20 +4148,20 @@ MESSAGE_FIELD_NUMBER: builtins.int
 ONEOF_FIELD_NUMBER: builtins.int
 FIELD_FIELD_NUMBER: builtins.int
 PREDEFINED_FIELD_NUMBER: builtins.int
-message: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.MessageOptions, global___MessageConstraints]
+message: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.MessageOptions, global___MessageRules]
 """Rules specify the validations to be performed on this message. By default,
 no validation is performed against a message.
 """
-oneof: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.OneofOptions, global___OneofConstraints]
+oneof: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.OneofOptions, global___OneofRules]
 """Rules specify the validations to be performed on this oneof. By default,
 no validation is performed against a oneof.
 """
-field: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.FieldOptions, global___FieldConstraints]
+field: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.FieldOptions, global___FieldRules]
 """Rules specify the validations to be performed on this field. By default,
 no validation is performed against a field.
 """
-predefined: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.FieldOptions, global___PredefinedConstraints]
-"""Specifies predefined rules. When extending a standard constraint message,
+predefined: google.protobuf.internal.extension_dict._ExtensionFieldDescriptor[google.protobuf.descriptor_pb2.FieldOptions, global___PredefinedRules]
+"""Specifies predefined rules. When extending a standard rule message,
 this adds additional CEL expressions that apply when the extension is used.
 
 ```proto
