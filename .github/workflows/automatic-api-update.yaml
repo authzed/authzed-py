@@ -8,7 +8,7 @@ jobs:
     name: "Create PR for API update"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v4"
+      - uses: "actions/checkout@v5"
       - uses: "actions/setup-node@v4"
       - name: "Update Buf Script"
         id: "buf-update"

@@ -9,7 +9,7 @@ jobs:
     name: "Build & Publish"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v4"
+      - uses: "actions/checkout@v5"
       - name: "Install Poetry"
         uses: "snok/install-poetry@v1"
       - uses: "actions/setup-python@v5"
