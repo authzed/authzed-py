@@ -43,141 +43,83 @@ class _Ignore:
 class _IgnoreEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Ignore.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     IGNORE_UNSPECIFIED: _Ignore.ValueType  # 0
-    """Validation is only skipped if it's an unpopulated nullable field.
+    """Ignore rules if the field tracks presence and is unset. This is the default
+    behavior.
+
+    In proto3, only message fields, members of a Protobuf `oneof`, and fields
+    with the `optional` label track presence. Consequently, the following fields
+    are always validated, whether a value is set or not:
 
     ```proto
     syntax="proto3";
 
-    message Request {
-      // The uri rule applies to any value, including the empty string.
-      string foo = 1 [
-        (buf.validate.field).string.uri = true
+    message RulesApply {
+      string email = 1 [
+        (buf.validate.field).string.email = true
       ];
-
-      // The uri rule only applies if the field is set, including if it's
-      // set to the empty string.
-      optional string bar = 2 [
-        (buf.validate.field).string.uri = true
+      int32 age = 2 [
+        (buf.validate.field).int32.gt = 0
       ];
-
-      // The min_items rule always applies, even if the list is empty.
-      repeated string baz = 3 [
-        (buf.validate.field).repeated.min_items = 3
+      repeated string labels = 3 [
+        (buf.validate.field).repeated.min_items = 1
       ];
+    }
+    ```
 
-      // The custom CEL rule applies only if the field is set, including if
-      // it's the "zero" value of that message.
-      SomeMessage quux = 4 [
+    In contrast, the following fields track presence, and are only validated if
+    a value is set:
+
+    ```proto
+    syntax="proto3";
+
+    message RulesApplyIfSet {
+      optional string email = 1 [
+        (buf.validate.field).string.email = true
+      ];
+      oneof ref {
+        string reference = 2 [
+          (buf.validate.field).string.uuid = true
+        ];
+        string name = 3 [
+          (buf.validate.field).string.min_len = 4
+        ];
+      }
+      SomeMessage msg = 4 [
         (buf.validate.field).cel = {/* ... */}
       ];
     }
     ```
+
+    To ensure that such a field is set, add the `required` rule.
+
+    To learn which fields track presence, see the
+    [Field Presence cheat sheet](https://protobuf.dev/programming-guides/field_presence/#cheat).
     """
-    IGNORE_IF_UNPOPULATED: _Ignore.ValueType  # 1
-    """Validation is skipped if the field is unpopulated. This rule is redundant
-    if the field is already nullable.
+    IGNORE_IF_ZERO_VALUE: _Ignore.ValueType  # 1
+    """Ignore rules if the field is unset, or set to the zero value.
 
-    ```proto
-    syntax="proto3
+    The zero value depends on the field type:
+    - For strings, the zero value is the empty string.
+    - For bytes, the zero value is empty bytes.
+    - For bool, the zero value is false.
+    - For numeric types, the zero value is zero.
+    - For enums, the zero value is the first defined enum value.
+    - For repeated fields, the zero is an empty list.
+    - For map fields, the zero is an empty map.
+    - For message fields, absence of the message (typically a null-value) is considered zero value.
 
-    message Request {
-      // The uri rule applies only if the value is not the empty string.
-      string foo = 1 [
-        (buf.validate.field).string.uri = true,
-        (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-      ];
-
-      // IGNORE_IF_UNPOPULATED is equivalent to IGNORE_UNSPECIFIED in this
-      // case: the uri rule only applies if the field is set, including if
-      // it's set to the empty string.
-      optional string bar = 2 [
-        (buf.validate.field).string.uri = true,
-        (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-      ];
-
-      // The min_items rule only applies if the list has at least one item.
-      repeated string baz = 3 [
-        (buf.validate.field).repeated.min_items = 3,
-        (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-      ];
-
-      // IGNORE_IF_UNPOPULATED is equivalent to IGNORE_UNSPECIFIED in this
-      // case: the custom CEL rule applies only if the field is set, including
-      // if it's the "zero" value of that message.
-      SomeMessage quux = 4 [
-        (buf.validate.field).cel = {/* ... */},
-        (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-      ];
-    }
-    ```
-    """
-    IGNORE_IF_DEFAULT_VALUE: _Ignore.ValueType  # 2
-    """Validation is skipped if the field is unpopulated or if it is a nullable
-    field populated with its default value. This is typically the zero or
-    empty value, but proto2 scalars support custom defaults. For messages, the
-    default is a non-null message with all its fields unpopulated.
-
-    ```proto
-    syntax="proto3
-
-    message Request {
-      // IGNORE_IF_DEFAULT_VALUE is equivalent to IGNORE_IF_UNPOPULATED in
-      // this case; the uri rule applies only if the value is not the empty
-      // string.
-      string foo = 1 [
-        (buf.validate.field).string.uri = true,
-        (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-      ];
-
-      // The uri rule only applies if the field is set to a value other than
-      // the empty string.
-      optional string bar = 2 [
-        (buf.validate.field).string.uri = true,
-        (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-      ];
-
-      // IGNORE_IF_DEFAULT_VALUE is equivalent to IGNORE_IF_UNPOPULATED in
-      // this case; the min_items rule only applies if the list has at least
-      // one item.
-      repeated string baz = 3 [
-        (buf.validate.field).repeated.min_items = 3,
-        (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-      ];
-
-      // The custom CEL rule only applies if the field is set to a value other
-      // than an empty message (i.e., fields are unpopulated).
-      SomeMessage quux = 4 [
-        (buf.validate.field).cel = {/* ... */},
-        (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-      ];
-    }
-    ```
-
-    This rule is affected by proto2 custom default values:
-
-    ```proto
-    syntax="proto2";
-
-    message Request {
-      // The gt rule only applies if the field is set and it's value is not
-      the default (i.e., not -42). The rule even applies if the field is set
-      to zero since the default value differs.
-      optional int32 value = 1 [
-        default = -42,
-        (buf.validate.field).int32.gt = 0,
-        (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-      ];
-    }
+    For fields that track presence (e.g. adding the `optional` label in proto3),
+    this a no-op and behavior is the same as the default `IGNORE_UNSPECIFIED`.
     """
     IGNORE_ALWAYS: _Ignore.ValueType  # 3
-    """The validation rules of this field will be skipped and not evaluated. This
-    is useful for situations that necessitate turning off the rules of a field
-    containing a message that may not make sense in the current context, or to
-    temporarily disable rules during development.
+    """Always ignore rules, including the `required` rule.
+
+    This is useful for ignoring the rules of a referenced message, or to
+    temporarily ignore rules during development.
 
     ```proto
     message MyMessage {
-      // The field's rules will always be ignored, including any validation's
+      // The field's rules will always be ignored, including any validations
       // on value's fields.
       MyOtherMessage value = 1 [
         (buf.validate.field).ignore = IGNORE_ALWAYS];
@@ -186,146 +128,88 @@ class _IgnoreEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     """
 
 class Ignore(_Ignore, metaclass=_IgnoreEnumTypeWrapper):
-    """Specifies how FieldRules.ignore behaves. See the documentation for
-    FieldRules.required for definitions of "populated" and "nullable".
+    """Specifies how `FieldRules.ignore` behaves, depending on the field's value, and
+    whether the field tracks presence.
     """
 
 IGNORE_UNSPECIFIED: Ignore.ValueType  # 0
-"""Validation is only skipped if it's an unpopulated nullable field.
+"""Ignore rules if the field tracks presence and is unset. This is the default
+behavior.
+
+In proto3, only message fields, members of a Protobuf `oneof`, and fields
+with the `optional` label track presence. Consequently, the following fields
+are always validated, whether a value is set or not:
 
 ```proto
 syntax="proto3";
 
-message Request {
-  // The uri rule applies to any value, including the empty string.
-  string foo = 1 [
-    (buf.validate.field).string.uri = true
+message RulesApply {
+  string email = 1 [
+    (buf.validate.field).string.email = true
   ];
-
-  // The uri rule only applies if the field is set, including if it's
-  // set to the empty string.
-  optional string bar = 2 [
-    (buf.validate.field).string.uri = true
+  int32 age = 2 [
+    (buf.validate.field).int32.gt = 0
   ];
-
-  // The min_items rule always applies, even if the list is empty.
-  repeated string baz = 3 [
-    (buf.validate.field).repeated.min_items = 3
+  repeated string labels = 3 [
+    (buf.validate.field).repeated.min_items = 1
   ];
+}
+```
 
-  // The custom CEL rule applies only if the field is set, including if
-  // it's the "zero" value of that message.
-  SomeMessage quux = 4 [
+In contrast, the following fields track presence, and are only validated if
+a value is set:
+
+```proto
+syntax="proto3";
+
+message RulesApplyIfSet {
+  optional string email = 1 [
+    (buf.validate.field).string.email = true
+  ];
+  oneof ref {
+    string reference = 2 [
+      (buf.validate.field).string.uuid = true
+    ];
+    string name = 3 [
+      (buf.validate.field).string.min_len = 4
+    ];
+  }
+  SomeMessage msg = 4 [
     (buf.validate.field).cel = {/* ... */}
   ];
 }
 ```
+
+To ensure that such a field is set, add the `required` rule.
+
+To learn which fields track presence, see the
+[Field Presence cheat sheet](https://protobuf.dev/programming-guides/field_presence/#cheat).
 """
-IGNORE_IF_UNPOPULATED: Ignore.ValueType  # 1
-"""Validation is skipped if the field is unpopulated. This rule is redundant
-if the field is already nullable.
+IGNORE_IF_ZERO_VALUE: Ignore.ValueType  # 1
+"""Ignore rules if the field is unset, or set to the zero value.
 
-```proto
-syntax="proto3
+The zero value depends on the field type:
+- For strings, the zero value is the empty string.
+- For bytes, the zero value is empty bytes.
+- For bool, the zero value is false.
+- For numeric types, the zero value is zero.
+- For enums, the zero value is the first defined enum value.
+- For repeated fields, the zero is an empty list.
+- For map fields, the zero is an empty map.
+- For message fields, absence of the message (typically a null-value) is considered zero value.
 
-message Request {
-  // The uri rule applies only if the value is not the empty string.
-  string foo = 1 [
-    (buf.validate.field).string.uri = true,
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
-
-  // IGNORE_IF_UNPOPULATED is equivalent to IGNORE_UNSPECIFIED in this
-  // case: the uri rule only applies if the field is set, including if
-  // it's set to the empty string.
-  optional string bar = 2 [
-    (buf.validate.field).string.uri = true,
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
-
-  // The min_items rule only applies if the list has at least one item.
-  repeated string baz = 3 [
-    (buf.validate.field).repeated.min_items = 3,
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
-
-  // IGNORE_IF_UNPOPULATED is equivalent to IGNORE_UNSPECIFIED in this
-  // case: the custom CEL rule applies only if the field is set, including
-  // if it's the "zero" value of that message.
-  SomeMessage quux = 4 [
-    (buf.validate.field).cel = {/* ... */},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
-}
-```
-"""
-IGNORE_IF_DEFAULT_VALUE: Ignore.ValueType  # 2
-"""Validation is skipped if the field is unpopulated or if it is a nullable
-field populated with its default value. This is typically the zero or
-empty value, but proto2 scalars support custom defaults. For messages, the
-default is a non-null message with all its fields unpopulated.
-
-```proto
-syntax="proto3
-
-message Request {
-  // IGNORE_IF_DEFAULT_VALUE is equivalent to IGNORE_IF_UNPOPULATED in
-  // this case; the uri rule applies only if the value is not the empty
-  // string.
-  string foo = 1 [
-    (buf.validate.field).string.uri = true,
-    (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-  ];
-
-  // The uri rule only applies if the field is set to a value other than
-  // the empty string.
-  optional string bar = 2 [
-    (buf.validate.field).string.uri = true,
-    (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-  ];
-
-  // IGNORE_IF_DEFAULT_VALUE is equivalent to IGNORE_IF_UNPOPULATED in
-  // this case; the min_items rule only applies if the list has at least
-  // one item.
-  repeated string baz = 3 [
-    (buf.validate.field).repeated.min_items = 3,
-    (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-  ];
-
-  // The custom CEL rule only applies if the field is set to a value other
-  // than an empty message (i.e., fields are unpopulated).
-  SomeMessage quux = 4 [
-    (buf.validate.field).cel = {/* ... */},
-    (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-  ];
-}
-```
-
-This rule is affected by proto2 custom default values:
-
-```proto
-syntax="proto2";
-
-message Request {
-  // The gt rule only applies if the field is set and it's value is not
-  the default (i.e., not -42). The rule even applies if the field is set
-  to zero since the default value differs.
-  optional int32 value = 1 [
-    default = -42,
-    (buf.validate.field).int32.gt = 0,
-    (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE
-  ];
-}
+For fields that track presence (e.g. adding the `optional` label in proto3),
+this a no-op and behavior is the same as the default `IGNORE_UNSPECIFIED`.
 """
 IGNORE_ALWAYS: Ignore.ValueType  # 3
-"""The validation rules of this field will be skipped and not evaluated. This
-is useful for situations that necessitate turning off the rules of a field
-containing a message that may not make sense in the current context, or to
-temporarily disable rules during development.
+"""Always ignore rules, including the `required` rule.
+
+This is useful for ignoring the rules of a referenced message, or to
+temporarily ignore rules during development.
 
 ```proto
 message MyMessage {
-  // The field's rules will always be ignored, including any validation's
+  // The field's rules will always be ignored, including any validations
   // on value's fields.
   MyOtherMessage value = 1 [
     (buf.validate.field).ignore = IGNORE_ALWAYS];
@@ -416,20 +300,8 @@ class MessageRules(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    DISABLED_FIELD_NUMBER: builtins.int
     CEL_FIELD_NUMBER: builtins.int
     ONEOF_FIELD_NUMBER: builtins.int
-    disabled: builtins.bool
-    """`disabled` is a boolean flag that, when set to true, nullifies any validation rules for this message.
-    This includes any fields within the message that would otherwise support validation.
-
-    ```proto
-    message MyMessage {
-      // validation will be bypassed for this message
-      option (buf.validate.message).disabled = true;
-    }
-    ```
-    """
     @property
     def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
         """`cel` is a repeated field of type Rule. Each Rule specifies a validation rule to be applied to this message.
@@ -470,7 +342,7 @@ class MessageRules(google.protobuf.message.Message):
              silently ignored when unmarshalling, with only the last field being set when
              unmarshalling completes.
 
-        Note that adding a field to a `oneof` will also set the IGNORE_IF_UNPOPULATED on the fields. This means
+        Note that adding a field to a `oneof` will also set the IGNORE_IF_ZERO_VALUE on the fields. This means
         only the field that is set will be validated and the unset fields are not validated according to the field rules.
         This behavior can be overridden by setting `ignore` against a field.
 
@@ -491,12 +363,10 @@ class MessageRules(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        disabled: builtins.bool | None = ...,
         cel: collections.abc.Iterable[global___Rule] | None = ...,
         oneof: collections.abc.Iterable[global___MessageOneofRule] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["disabled", b"disabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cel", b"cel", "disabled", b"disabled", "oneof", b"oneof"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cel", b"cel", "oneof", b"oneof"]) -> None: ...
 
 global___MessageRules = MessageRules
 
@@ -536,9 +406,8 @@ class OneofRules(google.protobuf.message.Message):
 
     REQUIRED_FIELD_NUMBER: builtins.int
     required: builtins.bool
-    """If `required` is true, exactly one field of the oneof must be present. A
-    validation error is returned if no fields in the oneof are present. The
-    field itself may still be a default value; further rules
+    """If `required` is true, exactly one field of the oneof must be set. A
+    validation error is returned if no fields in the oneof are set. Further rules
     should be placed on the fields themselves to ensure they are valid values,
     such as `min_len` or `gt`.
 
@@ -597,36 +466,67 @@ class FieldRules(google.protobuf.message.Message):
     DURATION_FIELD_NUMBER: builtins.int
     TIMESTAMP_FIELD_NUMBER: builtins.int
     required: builtins.bool
-    """If `required` is true, the field must be populated. A populated field can be
-    described as "serialized in the wire format," which includes:
-
-    - the following "nullable" fields must be explicitly set to be considered populated:
-      - singular message fields (whose fields may be unpopulated/default values)
-      - member fields of a oneof (may be their default value)
-      - proto3 optional fields (may be their default value)
-      - proto2 scalar fields (both optional and required)
-    - proto3 scalar fields must be non-zero to be considered populated
-    - repeated and map fields must be non-empty to be considered populated
-    - map keys/values and repeated items are always considered populated
+    """If `required` is true, the field must be set. A validation error is returned
+    if the field is not set.
 
     ```proto
-    message MyMessage {
-      // The field `value` must be set to a non-null value.
-      optional MyOtherMessage value = 1 [(buf.validate.field).required = true];
+    syntax="proto3";
+
+    message FieldsWithPresence {
+      // Requires any string to be set, including the empty string.
+      optional string link = 1 [
+        (buf.validate.field).required = true
+      ];
+      // Requires true or false to be set.
+      optional bool disabled = 2 [
+        (buf.validate.field).required = true
+      ];
+      // Requires a message to be set, including the empty message.
+      SomeMessage msg = 4 [
+        (buf.validate.field).required = true
+      ];
     }
     ```
+
+    All fields in the example above track presence. By default, Protovalidate
+    ignores rules on those fields if no value is set. `required` ensures that
+    the fields are set and valid.
+
+    Fields that don't track presence are always validated by Protovalidate,
+    whether they are set or not. It is not necessary to add `required`:
+
+    ```proto
+    syntax="proto3";
+
+    message FieldsWithoutPresence {
+      // `string.email` always applies, even to an empty string.
+      string link = 1 [
+        (buf.validate.field).string.email = true
+      ];
+      // `repeated.min_items` always applies, even to an empty list.
+      repeated string labels = 4 [
+        (buf.validate.field).repeated.min_items = 1
+      ];
+    }
+    ```
+
+    To learn which fields track presence, see the
+    [Field Presence cheat sheet](https://protobuf.dev/programming-guides/field_presence/#cheat).
+
+    Note: While field rules can be applied to repeated items, map keys, and map
+    values, the elements are always considered to be set. Consequently,
+    specifying `repeated.items.required` is redundant.
     """
     ignore: global___Ignore.ValueType
-    """Skip validation on the field if its value matches the specified criteria.
-    See Ignore enum for details.
+    """Ignore validation rules on the field if its value matches the specified
+    criteria. See the `Ignore` enum for details.
 
     ```proto
     message UpdateRequest {
-      // The uri rule only applies if the field is populated and not an empty
-      // string.
-      optional string url = 1 [
-        (buf.validate.field).ignore = IGNORE_IF_DEFAULT_VALUE,
-        (buf.validate.field).string.uri = true,
+      // The uri rule only applies if the field is not an empty string.
+      string url = 1 [
+        (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE,
+        (buf.validate.field).string.uri = true
       ];
     }
     ```
@@ -3421,10 +3321,7 @@ class RepeatedRules(google.protobuf.message.Message):
     def items(self) -> global___FieldRules:
         """`items` details the rules to be applied to each item
         in the field. Even for repeated message fields, validation is executed
-        against each item unless skip is explicitly specified.
-
-        Note that repeated items are always considered populated. The `required`
-        rule does not apply.
+        against each item unless `ignore` is specified.
 
         ```proto
         message MyRepeated {
@@ -3437,6 +3334,9 @@ class RepeatedRules(google.protobuf.message.Message):
           }];
         }
         ```
+
+        Note that the `required` rule does not apply. Repeated items
+        cannot be unset.
         """
 
     def __init__(
@@ -3488,9 +3388,6 @@ class MapRules(google.protobuf.message.Message):
     def keys(self) -> global___FieldRules:
         """Specifies the rules to be applied to each key in the field.
 
-        Note that map keys are always considered populated. The `required`
-        rule does not apply.
-
         ```proto
         message MyMap {
           // The keys in the field `value` must follow the specified rules.
@@ -3502,16 +3399,15 @@ class MapRules(google.protobuf.message.Message):
           }];
         }
         ```
+
+        Note that the `required` rule does not apply. Map keys cannot be unset.
         """
 
     @property
     def values(self) -> global___FieldRules:
         """Specifies the rules to be applied to the value of each key in the
         field. Message values will still have their validations evaluated unless
-        skip is specified here.
-
-        Note that map values are always considered populated. The `required`
-        rule does not apply.
+        `ignore` is specified.
 
         ```proto
         message MyMap {
@@ -3524,6 +3420,7 @@ class MapRules(google.protobuf.message.Message):
           }];
         }
         ```
+        Note that the `required` rule does not apply. Map values cannot be unset.
         """
 
     def __init__(

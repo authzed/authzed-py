@@ -5,7 +5,9 @@ isort:skip_file
 
 import authzed.api.v1.core_pb2
 import builtins
+import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import sys
@@ -352,3 +354,62 @@ class BreakingSchemaChange(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["change_at", b"change_at"]) -> None: ...
 
 global___BreakingSchemaChange = BreakingSchemaChange
+
+@typing.final
+class DownloadPermissionSetsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    OPTIONAL_AT_REVISION_FIELD_NUMBER: builtins.int
+    @property
+    def optional_at_revision(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """optional_at_revision is a specific revision to download; for now this will
+        just validate that it matches the backing store if provided.
+        """
+
+    def __init__(
+        self,
+        *,
+        optional_at_revision: authzed.api.v1.core_pb2.ZedToken | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_at_revision", b"optional_at_revision"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["optional_at_revision", b"optional_at_revision"]) -> None: ...
+
+global___DownloadPermissionSetsRequest = DownloadPermissionSetsRequest
+
+@typing.final
+class File(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    URL_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """name is the filename of the downloadable file"""
+    url: builtins.str
+    """url is the download URL for the file (typically a signed S3 URL)"""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        url: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "url", b"url"]) -> None: ...
+
+global___File = File
+
+@typing.final
+class DownloadPermissionSetsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FILES_FIELD_NUMBER: builtins.int
+    @property
+    def files(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___File]:
+        """files contains the list of downloadable files with their URLs"""
+
+    def __init__(
+        self,
+        *,
+        files: collections.abc.Iterable[global___File] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["files", b"files"]) -> None: ...
+
+global___DownloadPermissionSetsResponse = DownloadPermissionSetsResponse

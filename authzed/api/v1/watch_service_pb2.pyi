@@ -9,16 +9,43 @@ import builtins
 import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.struct_pb2
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _WatchKind:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _WatchKindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WatchKind.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    WATCH_KIND_UNSPECIFIED: _WatchKind.ValueType  # 0
+    """Default, just relationship updates (for backwards compatibility)"""
+    WATCH_KIND_INCLUDE_RELATIONSHIP_UPDATES: _WatchKind.ValueType  # 1
+    WATCH_KIND_INCLUDE_SCHEMA_UPDATES: _WatchKind.ValueType  # 2
+    WATCH_KIND_INCLUDE_CHECKPOINTS: _WatchKind.ValueType  # 3
+
+class WatchKind(_WatchKind, metaclass=_WatchKindEnumTypeWrapper): ...
+
+WATCH_KIND_UNSPECIFIED: WatchKind.ValueType  # 0
+"""Default, just relationship updates (for backwards compatibility)"""
+WATCH_KIND_INCLUDE_RELATIONSHIP_UPDATES: WatchKind.ValueType  # 1
+WATCH_KIND_INCLUDE_SCHEMA_UPDATES: WatchKind.ValueType  # 2
+WATCH_KIND_INCLUDE_CHECKPOINTS: WatchKind.ValueType  # 3
+global___WatchKind = WatchKind
+
 @typing.final
 class WatchRequest(google.protobuf.message.Message):
-    """WatchRequest specifies the object definitions for which we want to start
-    watching mutations, and an optional start snapshot for when to start
+    """WatchRequest specifies what mutations to watch for, and an optional start snapshot for when to start
     watching.
     """
 
@@ -27,9 +54,10 @@ class WatchRequest(google.protobuf.message.Message):
     OPTIONAL_OBJECT_TYPES_FIELD_NUMBER: builtins.int
     OPTIONAL_START_CURSOR_FIELD_NUMBER: builtins.int
     OPTIONAL_RELATIONSHIP_FILTERS_FIELD_NUMBER: builtins.int
+    OPTIONAL_UPDATE_KINDS_FIELD_NUMBER: builtins.int
     @property
     def optional_object_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """optional_object_types is a filter of resource object types to watch for changes.
+        """optional_object_types is a filter of resource object types to watch for relationship changes.
         If specified, only changes to the specified object types will be returned and
         optional_relationship_filters cannot be used.
         """
@@ -54,22 +82,27 @@ class WatchRequest(google.protobuf.message.Message):
         If specified, optional_object_types cannot be used.
         """
 
+    @property
+    def optional_update_kinds(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___WatchKind.ValueType]:
+        """optional_update_kinds, if specified, indicates what kinds of mutations to include."""
+
     def __init__(
         self,
         *,
         optional_object_types: collections.abc.Iterable[builtins.str] | None = ...,
         optional_start_cursor: authzed.api.v1.core_pb2.ZedToken | None = ...,
         optional_relationship_filters: collections.abc.Iterable[authzed.api.v1.permission_service_pb2.RelationshipFilter] | None = ...,
+        optional_update_kinds: collections.abc.Iterable[global___WatchKind.ValueType] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["optional_start_cursor", b"optional_start_cursor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["optional_object_types", b"optional_object_types", "optional_relationship_filters", b"optional_relationship_filters", "optional_start_cursor", b"optional_start_cursor"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["optional_object_types", b"optional_object_types", "optional_relationship_filters", b"optional_relationship_filters", "optional_start_cursor", b"optional_start_cursor", "optional_update_kinds", b"optional_update_kinds"]) -> None: ...
 
 global___WatchRequest = WatchRequest
 
 @typing.final
 class WatchResponse(google.protobuf.message.Message):
-    """WatchResponse contains all tuple modification events in ascending
-    timestamp order, from the requested start snapshot to a snapshot
+    """WatchResponse contains all mutation events in ascending timestamp order,
+    from the requested start snapshot to a snapshot
     encoded in the watch response. The client can use the snapshot to resume
     watching where the previous watch response left off.
     """
@@ -79,6 +112,15 @@ class WatchResponse(google.protobuf.message.Message):
     UPDATES_FIELD_NUMBER: builtins.int
     CHANGES_THROUGH_FIELD_NUMBER: builtins.int
     OPTIONAL_TRANSACTION_METADATA_FIELD_NUMBER: builtins.int
+    SCHEMA_UPDATED_FIELD_NUMBER: builtins.int
+    IS_CHECKPOINT_FIELD_NUMBER: builtins.int
+    schema_updated: builtins.bool
+    """schema_updated, if true, indicates that the schema was changed in this revision."""
+    is_checkpoint: builtins.bool
+    """is_checkpoint, if true, indicates that a checkpoint was reached.
+    A checkpoint indicates that the server guarantees that the client
+    will not observe any changes at a revision below or equal to the revision in this response.
+    """
     @property
     def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.RelationshipUpdate]:
         """updates are the RelationshipUpdate events that have occurred since the
@@ -105,8 +147,10 @@ class WatchResponse(google.protobuf.message.Message):
         updates: collections.abc.Iterable[authzed.api.v1.core_pb2.RelationshipUpdate] | None = ...,
         changes_through: authzed.api.v1.core_pb2.ZedToken | None = ...,
         optional_transaction_metadata: google.protobuf.struct_pb2.Struct | None = ...,
+        schema_updated: builtins.bool = ...,
+        is_checkpoint: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["changes_through", b"changes_through", "optional_transaction_metadata", b"optional_transaction_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["changes_through", b"changes_through", "optional_transaction_metadata", b"optional_transaction_metadata", "updates", b"updates"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["changes_through", b"changes_through", "is_checkpoint", b"is_checkpoint", "optional_transaction_metadata", b"optional_transaction_metadata", "schema_updated", b"schema_updated", "updates", b"updates"]) -> None: ...
 
 global___WatchResponse = WatchResponse
