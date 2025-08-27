@@ -74,32 +74,21 @@ class ExperimentalServiceServicer(object):
     """
 
     def BulkImportRelationships(self, request_iterator, context):
-        """BulkImportRelationships is a faster path to writing a large number of
-        relationships at once. It is both batched and streaming. For maximum
-        performance, the caller should attempt to write relationships in as close
-        to relationship sort order as possible: (resource.object_type,
-        resource.object_id, relation, subject.object.object_type,
-        subject.object.object_id, subject.optional_relation)
-
-        EXPERIMENTAL
-        https://github.com/authzed/spicedb/issues/1303
+        """DEPRECATED: Promoted to ImportBulkRelationships in the stable API.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BulkExportRelationships(self, request, context):
-        """BulkExportRelationships is the fastest path available to exporting
-        relationships from the server. It is resumable, and will return results
-        in an order determined by the server.
+        """DEPRECATED: Promoted to ExportBulkRelationships in the stable API.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BulkCheckPermission(self, request, context):
-        """NOTE: BulkCheckPermission has been promoted to the stable API as "CheckBulkPermission" and the
-        API will be removed from experimental in a future release.
+        """DEPRECATED: Promoted to CheckBulkPermission in the stable API.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

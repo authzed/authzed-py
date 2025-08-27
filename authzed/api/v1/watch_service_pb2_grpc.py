@@ -25,7 +25,9 @@ class WatchServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Watch(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Watch returns a stream of events that occurred in the datastore in ascending timestamp order.
+        The events can be relationship updates, schema updates, or checkpoints.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')

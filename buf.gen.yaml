@@ -11,7 +11,7 @@ plugins:
     out: "."
 inputs:
   # NOTE: this references a variant of 1.41.0 that includes the protovalidate code.
-  - module: "buf.build/authzed/api:use-protovalidate-instead-of-protoc-gen-validate"
+  - module: "buf.build/authzed/api:v1.45.0"
   # NOTE: this brings in definitions that protovalidate-python depends on that may or may not
   # have been provided by the `include_imports` logic from the generation of our library.
   - module: "buf.build/bufbuild/protovalidate"
