@@ -6,6 +6,13 @@ on:  # yamllint disable-line rule:truthy
       - "main"
   pull_request:
     branches: ["*"]
+    types:
+      # NOTE: these are the defaults
+      - "opened"
+      - "synchronize"
+      - "reopened"
+      # NOTE: we add this to let the conversion from draft trigger the workflows
+      - "ready_for_review"
 jobs:
   lint:
     name: "Format & Lint"
