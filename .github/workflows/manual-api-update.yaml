@@ -1,6 +1,6 @@
 ---
 name: "Update for API change"
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       buftag:

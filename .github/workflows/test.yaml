@@ -6,6 +6,13 @@ on:
       - "main"
   pull_request:
     branches: ["*"]
+    types:
+      # NOTE: these are the defaults
+      - "opened"
+      - "synchronize"
+      - "reopened"
+      # NOTE: we add this to let the conversion from draft trigger the workflows
+      - "ready_for_review"
 env:
   GRPC_VERSION: "1.68"
   BUF_VERSION: "1.30.0"

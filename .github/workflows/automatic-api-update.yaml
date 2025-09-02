@@ -1,6 +1,6 @@
 ---
 name: "Called update for API change"
-on:
+on:  # yamllint disable-line rule:truthy
   repository_dispatch:
     types: ["api_update"]
 jobs:
