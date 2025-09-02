@@ -24,6 +24,11 @@ class WatchPermissionSetsServiceStub(object):
                 request_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsRequest.SerializeToString,
                 response_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsResponse.FromString,
                 _registered_method=True)
+        self.DownloadPermissionSets = channel.unary_unary(
+                '/authzed.api.materialize.v0.WatchPermissionSetsService/DownloadPermissionSets',
+                request_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.DownloadPermissionSetsRequest.SerializeToString,
+                response_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.DownloadPermissionSetsResponse.FromString,
+                _registered_method=True)
 
 
 class WatchPermissionSetsServiceServicer(object):
@@ -84,6 +89,16 @@ class WatchPermissionSetsServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DownloadPermissionSets(self, request, context):
+        """DownloadPermissionSets returns URLs to download permission sets data as Avro files.
+        This provides an alternative to LookupPermissionSets for customers who need to download
+        large datasets efficiently. The returned URLs point to compressed Avro files containing
+        the permission sets data in a normalized format.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_WatchPermissionSetsServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -96,6 +111,11 @@ def add_WatchPermissionSetsServiceServicer_to_server(servicer, server):
                     servicer.LookupPermissionSets,
                     request_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsRequest.FromString,
                     response_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsResponse.SerializeToString,
+            ),
+            'DownloadPermissionSets': grpc.unary_unary_rpc_method_handler(
+                    servicer.DownloadPermissionSets,
+                    request_deserializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.DownloadPermissionSetsRequest.FromString,
+                    response_serializer=authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.DownloadPermissionSetsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -152,6 +172,33 @@ class WatchPermissionSetsService(object):
             '/authzed.api.materialize.v0.WatchPermissionSetsService/LookupPermissionSets',
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsRequest.SerializeToString,
             authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.LookupPermissionSetsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DownloadPermissionSets(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/authzed.api.materialize.v0.WatchPermissionSetsService/DownloadPermissionSets',
+            authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.DownloadPermissionSetsRequest.SerializeToString,
+            authzed_dot_api_dot_materialize_dot_v0_dot_watchpermissionsets__pb2.DownloadPermissionSetsResponse.FromString,
             options,
             channel_credentials,
             insecure,
