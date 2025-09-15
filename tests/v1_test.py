@@ -328,7 +328,7 @@ async def test_bulk_export_import(client):
 
     # do bulk import
     reqs = [BulkImportRelationshipsRequest(relationships=rels)]
-    import_rels = await maybe_await(empty_client.BulkImportRelationships(((req for req in reqs))))
+    import_rels = await maybe_await(empty_client.BulkImportRelationships((req for req in reqs)))
     assert import_rels.num_loaded == 4
 
     # validate all relationships were imported
