@@ -10,12 +10,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v5"
-      - name: "Install Poetry"
-        uses: "snok/install-poetry@v1"
-      - uses: "actions/setup-python@v6"
-        with:
-          python-version: "3.11"
-          cache: 'poetry'
+      - uses: "astral-sh/setup-uv@v6"
       # This gives us a version number without the release prefix
       - name: "Write release version"
         run: |
@@ -23,9 +18,9 @@ jobs:
           echo Version: $VERSION
           echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: "Set the release number in pyproject.toml"
-        run: "poetry version -s $VERSION"
+        run: "uv version $VERSION"
       - name: "Build wheel and source tarball"
-        run: "poetry build"
+        run: "uv build"
       - name: "Publish"
         uses: "pypa/gh-action-pypi-publish@release/v1"
         with:

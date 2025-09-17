@@ -69,28 +69,27 @@ If you have already authored a commit that is missing the signed-off, you can am
 
 ### Adding and updating dependencies
 
-This project uses [Poetry] for managing dependencies.
-By default, Poetry will create a [virtualenv] for you.
-Optionally, we recommend using [pyenv] if you need to manage Python versions as well as virtualenvs.
+This project uses [uv](https://docs.astral.sh/uv/) for managing dependencies.
 
-Adding a new dependency can be done with `poetry add` command:
+Adding a new dependency can be done with `uv add` command:
 
 ```sh
-poetry add library
+uv add library
 ```
 
-Updating all dependencies can be done with `poetry update` command:
+Updating all dependencies can be done with `uv sync` command:
 
 ```sh
-poetry update
+uv sync
 ```
 
-For more instructions, see the [Poetry documentation].
+Running a command (like `mypy` or `pytest`) can be done with `uv run`:
 
-[poetry]: https://python-poetry.org
-[virtualenv]: https://virtualenv.pypa.io/en/latest/
-[pyenv]: https://github.com/pyenv/pyenv
-[poetry documentation]: https://python-poetry.org/docs/cli
+```sh
+uv run pytest
+```
+
+For more instructions, see the [uv documentation](https://docs.astral.sh/uv/).
 
 ### Updating generated Protobuf code
 
@@ -109,18 +108,20 @@ You can regenerate the code by executing `buf.gen.yaml`:
 
 ### Running the Unit tests
 
-1. `poetry install --with dev`
 1. `docker run -d -p 50051:50051 -p 50052:50052 --entrypoint spicedb quay.io/authzed/spicedb:latest-debug serve-testing` (or pick a specific version of the spicedb server as appropriate)
-1. `poetry run pytest -vv .`
+1. `uv run pytest -vv .`
 
 ### Passing the linters
 
 See the [lint workflow](/.github/workflows/lint.yaml) for updated steps, but it should look something like this:
 
 ```sh
-poetry install --with dev
-poetry shell
-find . -name "*.py" | grep -v "_pb2" | xargs pyflakes
-black .
-find . -name "*.py" | grep -v "_pb2" | xargs isort
+uv run ruff
+```
+
+Alternatively, install `ruf` globally and then run directly:
+
+```sh
+pipx install ruff
+ruff
 ```

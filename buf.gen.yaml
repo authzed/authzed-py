@@ -3,12 +3,12 @@ version: "v2"
 plugins:
   - remote: "buf.build/protocolbuffers/python:v28.3"
     include_imports: true
-    out: "."
+    out: "src"
   - remote: "buf.build/grpc/python:v1.67.1"
-    out: "."
+    out: "src"
   - remote: "buf.build/community/nipunn1313-mypy:v3.6.0"
     include_imports: true
-    out: "."
+    out: "src"
 inputs:
   # NOTE: this references a variant of 1.41.0 that includes the protovalidate code.
   - module: "buf.build/authzed/api:v1.45.0"

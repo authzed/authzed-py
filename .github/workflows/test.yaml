@@ -1,6 +1,6 @@
 ---
 name: "Test"
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - "main"
@@ -30,22 +30,12 @@ jobs:
           - "3.13"
     steps:
       - uses: "actions/checkout@v5"
-      - uses: "actions/setup-python@v6"
-        with:
-          python-version: "${{ matrix.python-version }}"
-      - name: "Setup Python Environment"
-        run: "pip install -U pip virtualenv"
-      - name: "Install Dependencies"
-        run: |
-          virtualenv ~/.cache/virtualenv/authzedpy
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pip install poetry
-          poetry env info
-          poetry install
       - uses: "authzed/action-spicedb@v1"
         with:
           version: "latest"
-      - name: "Pytest"
-        run: |
-          source ~/.cache/virtualenv/authzedpy/bin/activate
-          pytest -vv
+      - name: "Install the latest version of uv and set the python version"
+        uses: "astral-sh/setup-uv@v6"
+        with:
+          python-version: "${{ matrix.python-version }}"
+      - name: "Run tests"
+        run: "uv run --frozen pytest"
