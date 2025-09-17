@@ -8,6 +8,11 @@ jobs:
   publish:
     name: "Build & Publish"
     runs-on: "ubuntu-latest"
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: "pypi"
+    permissions:
+      # IMPORTANT: this permission is mandatory for Trusted Publishing
+      id-token: "write"
     steps:
       - uses: "actions/checkout@v5"
       - uses: "astral-sh/setup-uv@v6"
@@ -23,5 +28,3 @@ jobs:
         run: "uv build"
       - name: "Publish"
         uses: "pypa/gh-action-pypi-publish@release/v1"
-        with:
-          password: "${{ secrets.PYPI_API_TOKEN }}"
