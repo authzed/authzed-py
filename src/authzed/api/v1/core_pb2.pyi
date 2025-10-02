@@ -142,8 +142,9 @@ global___ObjectReference = ObjectReference
 
 @typing.final
 class ZedToken(google.protobuf.message.Message):
-    """ZedToken is used to provide causality metadata between Write and Check
-    requests.
+    """ZedToken represents a point in time, or a "revision" in SpiceDB.
+    It is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)
+    and can also be used to start watching for changes from a specific point in time.
 
     See the authzed.api.v1.Consistency message for more information.
     """
