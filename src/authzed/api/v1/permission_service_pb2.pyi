@@ -362,7 +362,9 @@ class WriteRelationshipsResponse(google.protobuf.message.Message):
 
     WRITTEN_AT_FIELD_NUMBER: builtins.int
     @property
-    def written_at(self) -> authzed.api.v1.core_pb2.ZedToken: ...
+    def written_at(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """written_at is the revision at which the relationships were written or deleted."""
+
     def __init__(
         self,
         *,

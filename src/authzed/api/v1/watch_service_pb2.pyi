@@ -45,7 +45,7 @@ global___WatchKind = WatchKind
 
 @typing.final
 class WatchRequest(google.protobuf.message.Message):
-    """WatchRequest specifies what mutations to watch for, and an optional start snapshot for when to start
+    """WatchRequest specifies what mutations to watch for, and an optional start point for when to start
     watching.
     """
 
@@ -66,9 +66,7 @@ class WatchRequest(google.protobuf.message.Message):
     def optional_start_cursor(self) -> authzed.api.v1.core_pb2.ZedToken:
         """optional_start_cursor is the ZedToken holding the point-in-time at
         which to start watching for changes.
-        If not specified, the watch will begin at the current head revision
-        of the datastore, returning any updates that occur after the caller
-        makes the request.
+        If not specified, the watch will start from the current SpiceDB revision time of the request ("head revision").
         Note that if this cursor references a point-in-time containing data
         that has been garbage collected, an error will be returned.
         """
@@ -84,7 +82,10 @@ class WatchRequest(google.protobuf.message.Message):
 
     @property
     def optional_update_kinds(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___WatchKind.ValueType]:
-        """optional_update_kinds, if specified, indicates what kinds of mutations to include."""
+        """optional_update_kinds, if specified, indicates what kinds of mutations to include.
+        If your SpiceDB instance is running behind a proxy that aborts idle connections,
+        we recommend including Checkpoints to keep the stream alive even when there are no changes.
+        """
 
     def __init__(
         self,
@@ -101,10 +102,10 @@ global___WatchRequest = WatchRequest
 
 @typing.final
 class WatchResponse(google.protobuf.message.Message):
-    """WatchResponse contains all mutation events in ascending timestamp order,
-    from the requested start snapshot to a snapshot
-    encoded in the watch response. The client can use the snapshot to resume
-    watching where the previous watch response left off.
+    """WatchResponse contains all mutation events in ascending timestamp order.
+    This excludes relationships that were deleted because they expired.
+    The response includes a field that can be used to resume
+    watching from that point.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -114,6 +115,7 @@ class WatchResponse(google.protobuf.message.Message):
     OPTIONAL_TRANSACTION_METADATA_FIELD_NUMBER: builtins.int
     SCHEMA_UPDATED_FIELD_NUMBER: builtins.int
     IS_CHECKPOINT_FIELD_NUMBER: builtins.int
+    FULL_REVISION_METADATA_FIELD_NUMBER: builtins.int
     schema_updated: builtins.bool
     """schema_updated, if true, indicates that the schema was changed in this revision."""
     is_checkpoint: builtins.bool
@@ -124,7 +126,7 @@ class WatchResponse(google.protobuf.message.Message):
     @property
     def updates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.v1.core_pb2.RelationshipUpdate]:
         """updates are the RelationshipUpdate events that have occurred since the
-        last watch response.
+        call was made, or since the point in time specified by changes_through.
         """
 
     @property
@@ -138,7 +140,16 @@ class WatchResponse(google.protobuf.message.Message):
     def optional_transaction_metadata(self) -> google.protobuf.struct_pb2.Struct:
         """optional_transaction_metadata is an optional field that returns the transaction metadata
         given to SpiceDB during the transaction that produced the changes in this response.
-        This field may not exist if no transaction metadata was provided.
+        This field may not exist if no transaction metadata was provided, or if multiple pieces
+        of metadata were found during the transaction (in which case it is ambiguous which to return).
+        """
+
+    @property
+    def full_revision_metadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.struct_pb2.Struct]:
+        """full_revision_metadata contains all transaction metadata given to SpiceDB during the
+        revision that produced the changes in this response. Some datastores (such as CockroachDB)
+        can "merge" multiple transactions into a single revision (if the changes occurred concurrently),
+        so this field is a list of all transaction metadata seen during the revision.
         """
 
     def __init__(
@@ -149,8 +160,9 @@ class WatchResponse(google.protobuf.message.Message):
         optional_transaction_metadata: google.protobuf.struct_pb2.Struct | None = ...,
         schema_updated: builtins.bool = ...,
         is_checkpoint: builtins.bool = ...,
+        full_revision_metadata: collections.abc.Iterable[google.protobuf.struct_pb2.Struct] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["changes_through", b"changes_through", "optional_transaction_metadata", b"optional_transaction_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["changes_through", b"changes_through", "is_checkpoint", b"is_checkpoint", "optional_transaction_metadata", b"optional_transaction_metadata", "schema_updated", b"schema_updated", "updates", b"updates"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["changes_through", b"changes_through", "full_revision_metadata", b"full_revision_metadata", "is_checkpoint", b"is_checkpoint", "optional_transaction_metadata", b"optional_transaction_metadata", "schema_updated", b"schema_updated", "updates", b"updates"]) -> None: ...
 
 global___WatchResponse = WatchResponse
