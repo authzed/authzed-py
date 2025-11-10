@@ -15,7 +15,8 @@ Developers create a schema that models their permissions requirements and use a 
 
 Supported client API versions:
 
-- [v1](https://docs.authzed.com/reference/api#authzedapiv1)
+- [v1](https://docs.authzed.com/reference/api#authzedapiv1) - Core SpiceDB API for permissions checks, schema management, and relationship operations
+- [materialize/v0](https://buf.build/authzed/api/docs/main:authzed.api.materialize.v0) - Materialize API for building materialized permission views
 
 You can find more info on each API on the [Authzed API reference documentation].
 Additionally, Protobuf API documentation can be found on the [Buf Registry Authzed API repository].
@@ -114,3 +115,12 @@ client = InsecureClient(
     "my super secret token"
 )
 ```
+
+## Materialize API
+
+The authzed-py supports Authzed Materialize API.
+The Materialize API allows you to build and maintain materialized views of your permissions data in your own systems for high-performance lookups.
+
+Learn more in the **[Materialize API Quickstart Guide]** that can be found the examples directory.
+
+[Materialize API Quickstart Guide]: /examples/materialize/QUICKSTART.md
