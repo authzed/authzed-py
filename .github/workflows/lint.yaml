@@ -23,7 +23,7 @@ jobs:
           - "3.10"
       fail-fast: false
     steps:
-      - uses: "actions/checkout@v5"
+      - uses: "actions/checkout@v6"
       - uses: "bewuethr/yamllint-action@v1.3.0"
         with:
           config-file: ".yamllint"
@@ -46,13 +46,13 @@ jobs:
       matrix:
         language: ["python"]
     steps:
-      - uses: "actions/checkout@v5"
+      - uses: "actions/checkout@v6"
       - uses: "authzed/actions/codeql@main"
   trivy:
     name: "Analyze with Trivy"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v5"
+      - uses: "actions/checkout@v6"
       - name: "Run Trivy vulnerability scanner"
         uses: "aquasecurity/trivy-action@master"
         with:
@@ -72,7 +72,7 @@ jobs:
     name: "Type Check with Mypy"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v5"
+      - uses: "actions/checkout@v6"
       - uses: "astral-sh/setup-uv@v7"
       - name: "mypy"
         run: "uv run --frozen mypy src/authzed"
