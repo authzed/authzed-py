@@ -43,6 +43,7 @@ jobs:
           # This is how we ensure that workflows run
           draft: "always-true"
           title: "Update API to ${{ inputs.buftag }}"
+          commit-message: "chore: update api version"
           base: "main"
           branch: "api-change/${{ inputs.buftag }}"
           token: "${{ secrets.GITHUB_TOKEN }}"

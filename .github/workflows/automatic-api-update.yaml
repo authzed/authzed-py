@@ -39,6 +39,7 @@ jobs:
           # This is how we ensure that workflows run
           draft: "always-true"
           title: "Update API to ${{ github.event.client_payload.BUFTAG }}"
+          commit-message: "chore: update api version"
           branch: "api-change/${{ github.event.client_payload.BUFTAG }}"
           base: "main"
           token: "${{ secrets.GITHUB_TOKEN }}"
