@@ -201,24 +201,29 @@ async def test_caveated_check(client):
     assert "likes" in resp.partial_caveat_info.missing_required_context
 
 
-async def write_transaction_metadata(client):
-    response = await client.WriteRelationships(
-        WriteRelationshipsRequest(
-            updates=[
-                # Emilia is a Writer on Post 1
-                RelationshipUpdate(
-                    operation=RelationshipUpdate.Operation.OPERATION_CREATE,
-                    relationship=Relationship(
-                        resource=ObjectReference(object_type="post", object_id="1"),
-                        relation="writer",
-                        subject=SubjectReference(
-                            object=ObjectReference(object_type="user", object_id="emilia")
+async def test_write_transaction_metadata(client):
+    await write_test_schema(client)
+    metadata = Struct()
+    metadata.update({"foo": "bar"})
+    response = await maybe_await(
+        client.WriteRelationships(
+            WriteRelationshipsRequest(
+                updates=[
+                    # Emilia is a Writer on Post 1
+                    RelationshipUpdate(
+                        operation=RelationshipUpdate.Operation.OPERATION_CREATE,
+                        relationship=Relationship(
+                            resource=ObjectReference(object_type="post", object_id="1"),
+                            relation="writer",
+                            subject=SubjectReference(
+                                object=ObjectReference(object_type="user", object_id="emilia")
+                            ),
                         ),
                     ),
-                ),
-            ],
-            # We're asserting that this works.
-            optional_transaction_metadata=Struct({"foo": "bar"}),
+                ],
+                # We're asserting that this works.
+                optional_transaction_metadata=metadata,
+            )
         )
     )
     assert response.written_at
