@@ -2,6 +2,7 @@
 name = "authzed"
 version = "0.0.0"
 description = "Client library for SpiceDB."
+license = "Apache-2.0"
 authors = [{ name = "Authzed", email = "support@authzed.com" }]
 requires-python = ">=3.9,<4"
 readme = "README.md"
