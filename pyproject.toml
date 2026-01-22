@@ -4,8 +4,16 @@ version = "0.0.0"
 description = "Client library for SpiceDB."
 license = "Apache-2.0"
 authors = [{ name = "Authzed", email = "support@authzed.com" }]
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10,<4"
 readme = "README.md"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
 dependencies = [
   "grpcio~=1.63",
   "protobuf>=5.26,<7",
