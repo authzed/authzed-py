@@ -25,7 +25,7 @@ dependencies = [
 [dependency-groups]
 dev = [
   "grpc-stubs~=1.53",
-  "grpcio-tools>=1.63,<1.77",
+  "grpcio-tools>=1.63,<1.79",
   "mypy==1.19.1",
   "mypy-protobuf==5.0.0",
   "mock>=5.1.0,<6",
@@ -33,11 +33,11 @@ dev = [
   "pytest-asyncio>=0.21,<1.4",
   "types-protobuf>=5.26,<7.0",
   "typing-extensions>=3.7.4,<5",
-  "ruff>=0.13.0,<0.15",
+  "ruff>=0.13.0,<0.16",
 ]
 
 [build-system]
-requires = ["uv_build>=0.8.15,<0.10.0"]
+requires = ["uv_build>=0.8.15,<0.11.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
