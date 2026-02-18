@@ -45,13 +45,13 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "grpc-stubs", specifier = "~=1.53" },
-    { name = "grpcio-tools", specifier = ">=1.63,<1.77" },
+    { name = "grpcio-tools", specifier = ">=1.63,<1.79" },
     { name = "mock", specifier = ">=5.1.0,<6" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "mypy-protobuf", specifier = "==5.0.0" },
     { name = "pytest", specifier = ">=7.1.3,<10.0.0" },
     { name = "pytest-asyncio", specifier = ">=0.21,<1.4" },
-    { name = "ruff", specifier = ">=0.13.0,<0.15" },
+    { name = "ruff", specifier = ">=0.13.0,<0.16" },
     { name = "types-protobuf", specifier = ">=5.26,<7.0" },
     { name = "typing-extensions", specifier = ">=3.7.4,<5" },
 ]
