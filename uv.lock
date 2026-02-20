@@ -16,6 +16,10 @@ dependencies = [
     { name = "grpc-interceptor" },
     { name = "grpcio" },
     { name = "protobuf" },
+]
+
+[package.optional-dependencies]
+validation = [
     { name = "protovalidate" },
 ]
 
@@ -26,6 +30,7 @@ dev = [
     { name = "mock" },
     { name = "mypy" },
     { name = "mypy-protobuf" },
+    { name = "protovalidate" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "ruff" },
@@ -39,8 +44,9 @@ requires-dist = [
     { name = "grpc-interceptor", specifier = ">=0.15.4,<0.16" },
     { name = "grpcio", specifier = "~=1.63" },
     { name = "protobuf", specifier = ">=5.26,<7" },
-    { name = "protovalidate", specifier = ">=0.7.1,<1.2.0" },
+    { name = "protovalidate", marker = "extra == 'validation'", specifier = ">=0.7.1,<1.2.0" },
 ]
+provides-extras = ["validation"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -49,6 +55,7 @@ dev = [
     { name = "mock", specifier = ">=5.1.0,<6" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "mypy-protobuf", specifier = "==5.0.0" },
+    { name = "protovalidate", specifier = ">=0.7.1,<1.2.0" },
     { name = "pytest", specifier = ">=7.1.3,<10.0.0" },
     { name = "pytest-asyncio", specifier = ">=0.21,<1.4" },
     { name = "ruff", specifier = ">=0.13.0,<0.16" },
