@@ -19,11 +19,16 @@ dependencies = [
   "protobuf>=5.26,<7",
   "grpc-interceptor>=0.15.4,<0.16",
   "googleapis-common-protos>=1.65.0,<2",
+]
+
+[project.optional-dependencies]
+validation = [
   "protovalidate>=0.7.1,<1.2.0",
 ]
 
 [dependency-groups]
 dev = [
+  "protovalidate>=0.7.1,<1.2.0",
   "grpc-stubs~=1.53",
   "grpcio-tools>=1.63,<1.79",
   "mypy==1.19.1",
