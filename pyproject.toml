@@ -16,7 +16,7 @@ classifiers = [
 ]
 dependencies = [
   "grpcio~=1.63",
-  "protobuf>=5.26,<7",
+  "protobuf>=5.26,<8",
   "grpc-interceptor>=0.15.4,<0.16",
   "googleapis-common-protos>=1.65.0,<2",
 ]
