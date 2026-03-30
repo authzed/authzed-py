@@ -51,7 +51,6 @@ build-backend = "uv_build"
 module-name = [
   "authzed",
   "buf",
-  "google",
   "grpcutil",
   "protoc_gen_openapiv2",
   "validate",
