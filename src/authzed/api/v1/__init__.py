@@ -96,6 +96,7 @@ class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub,
         self.init_stubs(channel)
 
     def init_stubs(self, channel):
+        self._channel = channel
         SchemaServiceStub.__init__(self, channel)
         PermissionsServiceStub.__init__(self, channel)
         ExperimentalServiceStub.__init__(self, channel)
@@ -110,6 +111,21 @@ class Client(SchemaServiceStub, PermissionsServiceStub, ExperimentalServiceStub,
 
         return channelfn(target, credentials, options, compression)
 
+    def close(self):
+        """
+        Close the underlying gRPC channel.
+
+        For async channels (``grpc.aio.Channel``), this returns a coroutine that
+        must be awaited; the caller is expected to ``await client.close()``.
+        For sync channels (``grpc.Channel``), the channel is closed
+        synchronously and ``None`` is returned.
+
+        Closing the channel cancels in-flight RPCs and prevents new RPCs from
+        being issued through this client. Calling ``close`` more than once is
+        safe.
+        """
+        return self._channel.close()
+
 
 class AsyncClient(Client):
     """
@@ -120,6 +136,16 @@ class AsyncClient(Client):
         channel = grpc.aio.secure_channel(target, credentials, options, compression)
         self.init_stubs(channel)
 
+    async def close(self, grace=None):
+        """
+        Close the underlying async gRPC channel.
+
+        ``grace`` is forwarded to ``grpc.aio.Channel.close``; when set, the
+        channel waits up to ``grace`` seconds for pending RPCs to finish
+        before cancelling them.
+        """
+        await self._channel.close(grace)
+
 
 class SyncClient(Client):
     """
@@ -129,6 +155,10 @@ class SyncClient(Client):
     def __init__(self, target, credentials, options=None, compression=None):
         channel = grpc.secure_channel(target, credentials, options, compression)
         self.init_stubs(channel)
+
+    def close(self):
+        """Close the underlying sync gRPC channel."""
+        self._channel.close()
 
 
 class TokenAuthorization(ClientInterceptor):
