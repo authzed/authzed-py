@@ -3,6 +3,7 @@
 isort:skip_file
 """
 
+import authzed.api.materialize.v0.watchpermissions_pb2
 import authzed.api.v1.core_pb2
 import builtins
 import collections.abc
@@ -10,6 +11,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import google.protobuf.timestamp_pb2
 import sys
 import typing
 
@@ -341,17 +343,23 @@ class BreakingSchemaChange(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     CHANGE_AT_FIELD_NUMBER: builtins.int
+    AFFECTED_PERMISSIONS_FIELD_NUMBER: builtins.int
     @property
     def change_at(self) -> authzed.api.v1.core_pb2.ZedToken:
         """change_at is the revision at which a breaking schema event has happened."""
+
+    @property
+    def affected_permissions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[authzed.api.materialize.v0.watchpermissions_pb2.WatchedPermission]:
+        """affected_permissions lists all the watched permissions that were directly affected by the breaking schema change."""
 
     def __init__(
         self,
         *,
         change_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
+        affected_permissions: collections.abc.Iterable[authzed.api.materialize.v0.watchpermissions_pb2.WatchedPermission] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["change_at", b"change_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["change_at", b"change_at"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["affected_permissions", b"affected_permissions", "change_at", b"change_at"]) -> None: ...
 
 global___BreakingSchemaChange = BreakingSchemaChange
 
@@ -401,15 +409,32 @@ class DownloadPermissionSetsResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     FILES_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    AT_REVISION_FIELD_NUMBER: builtins.int
     @property
     def files(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___File]:
         """files contains the list of downloadable files with their URLs"""
+
+    @property
+    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+        """timestamp represents the time associated with the returned data revision."""
+
+    @property
+    def at_revision(self) -> authzed.api.v1.core_pb2.ZedToken:
+        """at_revision is the snapshot revision the returned files were produced at,
+        encoded as a ZedToken. Consumers should pass this token to
+        WatchPermissionSets as optional_starting_after to resume the stream
+        immediately after the snapshot without leaving gaps in event history.
+        """
 
     def __init__(
         self,
         *,
         files: collections.abc.Iterable[global___File] | None = ...,
+        timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        at_revision: authzed.api.v1.core_pb2.ZedToken | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["files", b"files"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["at_revision", b"at_revision", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["at_revision", b"at_revision", "files", b"files", "timestamp", b"timestamp"]) -> None: ...
 
 global___DownloadPermissionSetsResponse = DownloadPermissionSetsResponse
