@@ -3,6 +3,23 @@ from typing import Optional
 import grpc
 
 
+class AuthzedError(Exception):
+    """Unified exception for both sync and async gRPC errors.
+
+    This exception wraps both grpc.RpcError (sync) and grpc.aio.AioRpcError (async)
+    to provide a consistent exception type for error handling.
+    """
+
+    def __init__(self, message: str, grpc_error: grpc.RpcError):
+        super().__init__(message)
+        self.grpc_error = grpc_error
+
+    @classmethod
+    def from_grpc_error(cls, error: grpc.RpcError) -> "AuthzedError":
+        """Create an AuthzedError from a gRPC error."""
+        return cls(str(error), error)
+
+
 def bearer_token_credentials(token: str, certChain: Optional[bytes] = None):
     """
     gRPC credentials for a service that requires a Bearer Token.
