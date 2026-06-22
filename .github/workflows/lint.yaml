@@ -23,7 +23,7 @@ jobs:
           - "3.10"
       fail-fast: false
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
       - uses: "bewuethr/yamllint-action@v1.3.0"
         with:
           config-file: ".yamllint"
@@ -46,13 +46,13 @@ jobs:
       matrix:
         language: ["python"]
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
       - uses: "authzed/actions/codeql@main"
   trivy:
     name: "Analyze with Trivy"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
       - name: "Run Trivy vulnerability scanner"
         uses: "aquasecurity/trivy-action@master"
         with:
@@ -72,7 +72,7 @@ jobs:
     name: "Type Check with Mypy"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
       - uses: "astral-sh/setup-uv@v7"
       - name: "mypy"
         run: "uv run --frozen mypy src/authzed"
@@ -82,5 +82,5 @@ jobs:
     runs-on: "depot-ubuntu-24.04-small"
     if: "github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened' || github.event.action == 'edited')"
     steps:
-      - uses: "actions/checkout@v6"
-      - uses: "webiny/action-conventional-commits@v1.3.1"
+      - uses: "actions/checkout@v7"
+      - uses: "webiny/action-conventional-commits@v1.4.2"
