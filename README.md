@@ -52,6 +52,25 @@ pip install authzed
 [Python Package Index]: https://pypi.org/project/authzed
 [pip]: https://pip.pypa.io
 
+#### Upgrading from v1.23.0 through v1.24.3
+
+Releases v1.23.0 through v1.24.3 (and the earlier v1.22.2 release candidates) bundled modules in the `google` namespace that are also provided by the `googleapis-common-protos` package; v1.24.4 and later no longer do.
+Because of this, upgrading from one of those releases deletes files that `googleapis-common-protos` needs, resulting in errors such as:
+
+```
+ImportError: cannot import name 'annotations_pb2' from 'google.api' (unknown location)
+```
+
+If you see this error after upgrading, reinstall `googleapis-common-protos` to restore the missing files:
+
+```sh
+pip install --force-reinstall --no-deps googleapis-common-protos
+```
+
+If you use another package manager, use its equivalent reinstall command (with [uv], `uv pip install --reinstall-package googleapis-common-protos googleapis-common-protos`) or recreate your virtual environment.
+
+[uv]: https://docs.astral.sh/uv/
+
 ### Initializing a client
 
 With the exception of [gRPC] utility functions found in `grpcutil`, everything required to connect and make API calls is located in a module respective to API version.
