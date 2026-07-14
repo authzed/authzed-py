@@ -427,6 +427,19 @@ class _ErrorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._En
           }
         }
     """
+    ERROR_REASON_DATASTORE_NOT_MIGRATED: _ErrorReason.ValueType  # 30
+    """The request failed because the datastore has not been migrated.
+    This typically indicates that the `spicedb datastore migrate` command
+    has not been run against the backing database.
+
+    Example of an ErrorInfo:
+
+        {
+          "reason": "ERROR_REASON_DATASTORE_NOT_MIGRATED",
+          "domain": "authzed.com",
+          "metadata": {}
+        }
+    """
 
 class ErrorReason(_ErrorReason, metaclass=_ErrorReasonEnumTypeWrapper):
     """Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -836,6 +849,19 @@ Example of an ErrorInfo:
         "metadata_byte_size": "1024",
         "maximum_allowed_metadata_byte_size": "512",
       }
+    }
+"""
+ERROR_REASON_DATASTORE_NOT_MIGRATED: ErrorReason.ValueType  # 30
+"""The request failed because the datastore has not been migrated.
+This typically indicates that the `spicedb datastore migrate` command
+has not been run against the backing database.
+
+Example of an ErrorInfo:
+
+    {
+      "reason": "ERROR_REASON_DATASTORE_NOT_MIGRATED",
+      "domain": "authzed.com",
+      "metadata": {}
     }
 """
 global___ErrorReason = ErrorReason

@@ -24,7 +24,7 @@ message User {
 
 These rules are enforced at runtime by language-specific libraries.
 See the [developer quickstart](https://protovalidate.com/quickstart/) to get started, or go directly to the runtime library for your language:
-[Go](https://github.com/bufbuild/protovalidate-go)
+[Go](https://github.com/bufbuild/protovalidate-go),
 [JavaScript/TypeScript](https://github.com/bufbuild/protovalidate-es),
 [Java](https://github.com/bufbuild/protovalidate-java),
 [Python](https://github.com/bufbuild/protovalidate-python),
@@ -355,7 +355,7 @@ class MessageRules(google.protobuf.message.Message):
           // The field `foo` must be greater than 42.
           option (buf.validate.message).cel = {
             id: "my_message.value",
-            message: "value must be greater than 42",
+            message: "must be greater than 42",
             expression: "this.foo > 42",
           };
           optional int32 foo = 1;
@@ -611,7 +611,7 @@ class FieldRules(google.protobuf.message.Message):
           // The field `value` must be greater than 42.
           optional int32 value = 1 [(buf.validate.field).cel = {
             id: "my_message.value",
-            message: "value must be greater than 42",
+            message: "must be greater than 42",
             expression: "this > 42",
           }];
         }
@@ -724,7 +724,7 @@ class PredefinedRules(google.protobuf.message.Message):
           // The field `value` must be greater than 42.
           optional int32 value = 1 [(buf.validate.predefined).cel = {
             id: "my_message.value",
-            message: "value must be greater than 42",
+            message: "must be greater than 42",
             expression: "this > 42",
           }];
         }
@@ -775,7 +775,7 @@ class FloatRules(google.protobuf.message.Message):
 
     ```proto
     message MyFloat {
-      // value must be less than 10.0
+      // must be less than 10.0
       float value = 1 [(buf.validate.field).float.lt = 10.0];
     }
     ```
@@ -787,7 +787,7 @@ class FloatRules(google.protobuf.message.Message):
 
     ```proto
     message MyFloat {
-      // value must be less than or equal to 10.0
+      // must be less than or equal to 10.0
       float value = 1 [(buf.validate.field).float.lte = 10.0];
     }
     ```
@@ -801,13 +801,13 @@ class FloatRules(google.protobuf.message.Message):
 
     ```proto
     message MyFloat {
-      // value must be greater than 5.0 [float.gt]
+      // must be greater than 5.0 [float.gt]
       float value = 1 [(buf.validate.field).float.gt = 5.0];
 
-      // value must be greater than 5 and less than 10.0 [float.gt_lt]
+      // must be greater than 5 and less than 10.0 [float.gt_lt]
       float other_value = 2 [(buf.validate.field).float = { gt: 5.0, lt: 10.0 }];
 
-      // value must be greater than 10 or less than 5.0 [float.gt_lt_exclusive]
+      // must be greater than 10 or less than 5.0 [float.gt_lt_exclusive]
       float another_value = 3 [(buf.validate.field).float = { gt: 10.0, lt: 5.0 }];
     }
     ```
@@ -821,13 +821,13 @@ class FloatRules(google.protobuf.message.Message):
 
     ```proto
     message MyFloat {
-      // value must be greater than or equal to 5.0 [float.gte]
+      // must be greater than or equal to 5.0 [float.gte]
       float value = 1 [(buf.validate.field).float.gte = 5.0];
 
-      // value must be greater than or equal to 5.0 and less than 10.0 [float.gte_lt]
+      // must be greater than or equal to 5.0 and less than 10.0 [float.gte_lt]
       float other_value = 2 [(buf.validate.field).float = { gte: 5.0, lt: 10.0 }];
 
-      // value must be greater than or equal to 10.0 or less than 5.0 [float.gte_lt_exclusive]
+      // must be greater than or equal to 10.0 or less than 5.0 [float.gte_lt_exclusive]
       float another_value = 3 [(buf.validate.field).float = { gte: 10.0, lt: 5.0 }];
     }
     ```
@@ -838,7 +838,7 @@ class FloatRules(google.protobuf.message.Message):
     """
     @property
     def not_in(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
-        """`in` requires the field value to not be equal to any of the specified
+        """`not_in` requires the field value to not be equal to any of the specified
         values. If the field value is one of the specified values, an error
         message is generated.
 
@@ -922,7 +922,7 @@ class DoubleRules(google.protobuf.message.Message):
 
     ```proto
     message MyDouble {
-      // value must be less than 10.0
+      // must be less than 10.0
       double value = 1 [(buf.validate.field).double.lt = 10.0];
     }
     ```
@@ -934,7 +934,7 @@ class DoubleRules(google.protobuf.message.Message):
 
     ```proto
     message MyDouble {
-      // value must be less than or equal to 10.0
+      // must be less than or equal to 10.0
       double value = 1 [(buf.validate.field).double.lte = 10.0];
     }
     ```
@@ -948,13 +948,13 @@ class DoubleRules(google.protobuf.message.Message):
 
     ```proto
     message MyDouble {
-      // value must be greater than 5.0 [double.gt]
+      // must be greater than 5.0 [double.gt]
       double value = 1 [(buf.validate.field).double.gt = 5.0];
 
-      // value must be greater than 5 and less than 10.0 [double.gt_lt]
+      // must be greater than 5 and less than 10.0 [double.gt_lt]
       double other_value = 2 [(buf.validate.field).double = { gt: 5.0, lt: 10.0 }];
 
-      // value must be greater than 10 or less than 5.0 [double.gt_lt_exclusive]
+      // must be greater than 10 or less than 5.0 [double.gt_lt_exclusive]
       double another_value = 3 [(buf.validate.field).double = { gt: 10.0, lt: 5.0 }];
     }
     ```
@@ -968,13 +968,13 @@ class DoubleRules(google.protobuf.message.Message):
 
     ```proto
     message MyDouble {
-      // value must be greater than or equal to 5.0 [double.gte]
+      // must be greater than or equal to 5.0 [double.gte]
       double value = 1 [(buf.validate.field).double.gte = 5.0];
 
-      // value must be greater than or equal to 5.0 and less than 10.0 [double.gte_lt]
+      // must be greater than or equal to 5.0 and less than 10.0 [double.gte_lt]
       double other_value = 2 [(buf.validate.field).double = { gte: 5.0, lt: 10.0 }];
 
-      // value must be greater than or equal to 10.0 or less than 5.0 [double.gte_lt_exclusive]
+      // must be greater than or equal to 10.0 or less than 5.0 [double.gte_lt_exclusive]
       double another_value = 3 [(buf.validate.field).double = { gte: 10.0, lt: 5.0 }];
     }
     ```
@@ -1068,7 +1068,7 @@ class Int32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt32 {
-      // value must be less than 10
+      // must be less than 10
       int32 value = 1 [(buf.validate.field).int32.lt = 10];
     }
     ```
@@ -1080,7 +1080,7 @@ class Int32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt32 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       int32 value = 1 [(buf.validate.field).int32.lte = 10];
     }
     ```
@@ -1094,13 +1094,13 @@ class Int32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt32 {
-      // value must be greater than 5 [int32.gt]
+      // must be greater than 5 [int32.gt]
       int32 value = 1 [(buf.validate.field).int32.gt = 5];
 
-      // value must be greater than 5 and less than 10 [int32.gt_lt]
+      // must be greater than 5 and less than 10 [int32.gt_lt]
       int32 other_value = 2 [(buf.validate.field).int32 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [int32.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [int32.gt_lt_exclusive]
       int32 another_value = 3 [(buf.validate.field).int32 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1114,13 +1114,13 @@ class Int32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt32 {
-      // value must be greater than or equal to 5 [int32.gte]
+      // must be greater than or equal to 5 [int32.gte]
       int32 value = 1 [(buf.validate.field).int32.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [int32.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [int32.gte_lt]
       int32 other_value = 2 [(buf.validate.field).int32 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [int32.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [int32.gte_lt_exclusive]
       int32 another_value = 3 [(buf.validate.field).int32 = { gte: 10, lt: 5 }];
     }
     ```
@@ -1209,7 +1209,7 @@ class Int64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt64 {
-      // value must be less than 10
+      // must be less than 10
       int64 value = 1 [(buf.validate.field).int64.lt = 10];
     }
     ```
@@ -1221,7 +1221,7 @@ class Int64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt64 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       int64 value = 1 [(buf.validate.field).int64.lte = 10];
     }
     ```
@@ -1235,13 +1235,13 @@ class Int64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt64 {
-      // value must be greater than 5 [int64.gt]
+      // must be greater than 5 [int64.gt]
       int64 value = 1 [(buf.validate.field).int64.gt = 5];
 
-      // value must be greater than 5 and less than 10 [int64.gt_lt]
+      // must be greater than 5 and less than 10 [int64.gt_lt]
       int64 other_value = 2 [(buf.validate.field).int64 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [int64.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [int64.gt_lt_exclusive]
       int64 another_value = 3 [(buf.validate.field).int64 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1255,13 +1255,13 @@ class Int64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyInt64 {
-      // value must be greater than or equal to 5 [int64.gte]
+      // must be greater than or equal to 5 [int64.gte]
       int64 value = 1 [(buf.validate.field).int64.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [int64.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [int64.gte_lt]
       int64 other_value = 2 [(buf.validate.field).int64 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [int64.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [int64.gte_lt_exclusive]
       int64 another_value = 3 [(buf.validate.field).int64 = { gte: 10, lt: 5 }];
     }
     ```
@@ -1350,7 +1350,7 @@ class UInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt32 {
-      // value must be less than 10
+      // must be less than 10
       uint32 value = 1 [(buf.validate.field).uint32.lt = 10];
     }
     ```
@@ -1362,7 +1362,7 @@ class UInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt32 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       uint32 value = 1 [(buf.validate.field).uint32.lte = 10];
     }
     ```
@@ -1376,13 +1376,13 @@ class UInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt32 {
-      // value must be greater than 5 [uint32.gt]
+      // must be greater than 5 [uint32.gt]
       uint32 value = 1 [(buf.validate.field).uint32.gt = 5];
 
-      // value must be greater than 5 and less than 10 [uint32.gt_lt]
+      // must be greater than 5 and less than 10 [uint32.gt_lt]
       uint32 other_value = 2 [(buf.validate.field).uint32 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [uint32.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [uint32.gt_lt_exclusive]
       uint32 another_value = 3 [(buf.validate.field).uint32 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1396,13 +1396,13 @@ class UInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt32 {
-      // value must be greater than or equal to 5 [uint32.gte]
+      // must be greater than or equal to 5 [uint32.gte]
       uint32 value = 1 [(buf.validate.field).uint32.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [uint32.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [uint32.gte_lt]
       uint32 other_value = 2 [(buf.validate.field).uint32 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [uint32.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [uint32.gte_lt_exclusive]
       uint32 another_value = 3 [(buf.validate.field).uint32 = { gte: 10, lt: 5 }];
     }
     ```
@@ -1491,7 +1491,7 @@ class UInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt64 {
-      // value must be less than 10
+      // must be less than 10
       uint64 value = 1 [(buf.validate.field).uint64.lt = 10];
     }
     ```
@@ -1503,7 +1503,7 @@ class UInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt64 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       uint64 value = 1 [(buf.validate.field).uint64.lte = 10];
     }
     ```
@@ -1517,13 +1517,13 @@ class UInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt64 {
-      // value must be greater than 5 [uint64.gt]
+      // must be greater than 5 [uint64.gt]
       uint64 value = 1 [(buf.validate.field).uint64.gt = 5];
 
-      // value must be greater than 5 and less than 10 [uint64.gt_lt]
+      // must be greater than 5 and less than 10 [uint64.gt_lt]
       uint64 other_value = 2 [(buf.validate.field).uint64 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [uint64.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [uint64.gt_lt_exclusive]
       uint64 another_value = 3 [(buf.validate.field).uint64 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1537,13 +1537,13 @@ class UInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyUInt64 {
-      // value must be greater than or equal to 5 [uint64.gte]
+      // must be greater than or equal to 5 [uint64.gte]
       uint64 value = 1 [(buf.validate.field).uint64.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [uint64.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [uint64.gte_lt]
       uint64 other_value = 2 [(buf.validate.field).uint64 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [uint64.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [uint64.gte_lt_exclusive]
       uint64 another_value = 3 [(buf.validate.field).uint64 = { gte: 10, lt: 5 }];
     }
     ```
@@ -1630,7 +1630,7 @@ class SInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt32 {
-      // value must be less than 10
+      // must be less than 10
       sint32 value = 1 [(buf.validate.field).sint32.lt = 10];
     }
     ```
@@ -1642,7 +1642,7 @@ class SInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt32 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       sint32 value = 1 [(buf.validate.field).sint32.lte = 10];
     }
     ```
@@ -1656,13 +1656,13 @@ class SInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt32 {
-      // value must be greater than 5 [sint32.gt]
+      // must be greater than 5 [sint32.gt]
       sint32 value = 1 [(buf.validate.field).sint32.gt = 5];
 
-      // value must be greater than 5 and less than 10 [sint32.gt_lt]
+      // must be greater than 5 and less than 10 [sint32.gt_lt]
       sint32 other_value = 2 [(buf.validate.field).sint32 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [sint32.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [sint32.gt_lt_exclusive]
       sint32 another_value = 3 [(buf.validate.field).sint32 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1676,13 +1676,13 @@ class SInt32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt32 {
-     // value must be greater than or equal to 5 [sint32.gte]
+     // must be greater than or equal to 5 [sint32.gte]
      sint32 value = 1 [(buf.validate.field).sint32.gte = 5];
 
-     // value must be greater than or equal to 5 and less than 10 [sint32.gte_lt]
+     // must be greater than or equal to 5 and less than 10 [sint32.gte_lt]
      sint32 other_value = 2 [(buf.validate.field).sint32 = { gte: 5, lt: 10 }];
 
-     // value must be greater than or equal to 10 or less than 5 [sint32.gte_lt_exclusive]
+     // must be greater than or equal to 10 or less than 5 [sint32.gte_lt_exclusive]
      sint32 another_value = 3 [(buf.validate.field).sint32 = { gte: 10, lt: 5 }];
     }
     ```
@@ -1769,7 +1769,7 @@ class SInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt64 {
-      // value must be less than 10
+      // must be less than 10
       sint64 value = 1 [(buf.validate.field).sint64.lt = 10];
     }
     ```
@@ -1781,7 +1781,7 @@ class SInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt64 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       sint64 value = 1 [(buf.validate.field).sint64.lte = 10];
     }
     ```
@@ -1795,13 +1795,13 @@ class SInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt64 {
-      // value must be greater than 5 [sint64.gt]
+      // must be greater than 5 [sint64.gt]
       sint64 value = 1 [(buf.validate.field).sint64.gt = 5];
 
-      // value must be greater than 5 and less than 10 [sint64.gt_lt]
+      // must be greater than 5 and less than 10 [sint64.gt_lt]
       sint64 other_value = 2 [(buf.validate.field).sint64 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [sint64.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [sint64.gt_lt_exclusive]
       sint64 another_value = 3 [(buf.validate.field).sint64 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1815,13 +1815,13 @@ class SInt64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySInt64 {
-      // value must be greater than or equal to 5 [sint64.gte]
+      // must be greater than or equal to 5 [sint64.gte]
       sint64 value = 1 [(buf.validate.field).sint64.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [sint64.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [sint64.gte_lt]
       sint64 other_value = 2 [(buf.validate.field).sint64 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [sint64.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [sint64.gte_lt_exclusive]
       sint64 another_value = 3 [(buf.validate.field).sint64 = { gte: 10, lt: 5 }];
     }
     ```
@@ -1908,7 +1908,7 @@ class Fixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed32 {
-      // value must be less than 10
+      // must be less than 10
       fixed32 value = 1 [(buf.validate.field).fixed32.lt = 10];
     }
     ```
@@ -1920,7 +1920,7 @@ class Fixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed32 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       fixed32 value = 1 [(buf.validate.field).fixed32.lte = 10];
     }
     ```
@@ -1934,13 +1934,13 @@ class Fixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed32 {
-      // value must be greater than 5 [fixed32.gt]
+      // must be greater than 5 [fixed32.gt]
       fixed32 value = 1 [(buf.validate.field).fixed32.gt = 5];
 
-      // value must be greater than 5 and less than 10 [fixed32.gt_lt]
+      // must be greater than 5 and less than 10 [fixed32.gt_lt]
       fixed32 other_value = 2 [(buf.validate.field).fixed32 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [fixed32.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [fixed32.gt_lt_exclusive]
       fixed32 another_value = 3 [(buf.validate.field).fixed32 = { gt: 10, lt: 5 }];
     }
     ```
@@ -1954,13 +1954,13 @@ class Fixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed32 {
-      // value must be greater than or equal to 5 [fixed32.gte]
+      // must be greater than or equal to 5 [fixed32.gte]
       fixed32 value = 1 [(buf.validate.field).fixed32.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [fixed32.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [fixed32.gte_lt]
       fixed32 other_value = 2 [(buf.validate.field).fixed32 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [fixed32.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [fixed32.gte_lt_exclusive]
       fixed32 another_value = 3 [(buf.validate.field).fixed32 = { gte: 10, lt: 5 }];
     }
     ```
@@ -2047,7 +2047,7 @@ class Fixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed64 {
-      // value must be less than 10
+      // must be less than 10
       fixed64 value = 1 [(buf.validate.field).fixed64.lt = 10];
     }
     ```
@@ -2059,7 +2059,7 @@ class Fixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed64 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       fixed64 value = 1 [(buf.validate.field).fixed64.lte = 10];
     }
     ```
@@ -2073,13 +2073,13 @@ class Fixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed64 {
-      // value must be greater than 5 [fixed64.gt]
+      // must be greater than 5 [fixed64.gt]
       fixed64 value = 1 [(buf.validate.field).fixed64.gt = 5];
 
-      // value must be greater than 5 and less than 10 [fixed64.gt_lt]
+      // must be greater than 5 and less than 10 [fixed64.gt_lt]
       fixed64 other_value = 2 [(buf.validate.field).fixed64 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [fixed64.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [fixed64.gt_lt_exclusive]
       fixed64 another_value = 3 [(buf.validate.field).fixed64 = { gt: 10, lt: 5 }];
     }
     ```
@@ -2093,13 +2093,13 @@ class Fixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MyFixed64 {
-      // value must be greater than or equal to 5 [fixed64.gte]
+      // must be greater than or equal to 5 [fixed64.gte]
       fixed64 value = 1 [(buf.validate.field).fixed64.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [fixed64.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [fixed64.gte_lt]
       fixed64 other_value = 2 [(buf.validate.field).fixed64 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [fixed64.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [fixed64.gte_lt_exclusive]
       fixed64 another_value = 3 [(buf.validate.field).fixed64 = { gte: 10, lt: 5 }];
     }
     ```
@@ -2186,7 +2186,7 @@ class SFixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed32 {
-      // value must be less than 10
+      // must be less than 10
       sfixed32 value = 1 [(buf.validate.field).sfixed32.lt = 10];
     }
     ```
@@ -2198,7 +2198,7 @@ class SFixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed32 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       sfixed32 value = 1 [(buf.validate.field).sfixed32.lte = 10];
     }
     ```
@@ -2212,13 +2212,13 @@ class SFixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed32 {
-      // value must be greater than 5 [sfixed32.gt]
+      // must be greater than 5 [sfixed32.gt]
       sfixed32 value = 1 [(buf.validate.field).sfixed32.gt = 5];
 
-      // value must be greater than 5 and less than 10 [sfixed32.gt_lt]
+      // must be greater than 5 and less than 10 [sfixed32.gt_lt]
       sfixed32 other_value = 2 [(buf.validate.field).sfixed32 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [sfixed32.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [sfixed32.gt_lt_exclusive]
       sfixed32 another_value = 3 [(buf.validate.field).sfixed32 = { gt: 10, lt: 5 }];
     }
     ```
@@ -2232,13 +2232,13 @@ class SFixed32Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed32 {
-      // value must be greater than or equal to 5 [sfixed32.gte]
+      // must be greater than or equal to 5 [sfixed32.gte]
       sfixed32 value = 1 [(buf.validate.field).sfixed32.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [sfixed32.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [sfixed32.gte_lt]
       sfixed32 other_value = 2 [(buf.validate.field).sfixed32 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [sfixed32.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [sfixed32.gte_lt_exclusive]
       sfixed32 another_value = 3 [(buf.validate.field).sfixed32 = { gte: 10, lt: 5 }];
     }
     ```
@@ -2325,7 +2325,7 @@ class SFixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed64 {
-      // value must be less than 10
+      // must be less than 10
       sfixed64 value = 1 [(buf.validate.field).sfixed64.lt = 10];
     }
     ```
@@ -2337,7 +2337,7 @@ class SFixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed64 {
-      // value must be less than or equal to 10
+      // must be less than or equal to 10
       sfixed64 value = 1 [(buf.validate.field).sfixed64.lte = 10];
     }
     ```
@@ -2351,13 +2351,13 @@ class SFixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed64 {
-      // value must be greater than 5 [sfixed64.gt]
+      // must be greater than 5 [sfixed64.gt]
       sfixed64 value = 1 [(buf.validate.field).sfixed64.gt = 5];
 
-      // value must be greater than 5 and less than 10 [sfixed64.gt_lt]
+      // must be greater than 5 and less than 10 [sfixed64.gt_lt]
       sfixed64 other_value = 2 [(buf.validate.field).sfixed64 = { gt: 5, lt: 10 }];
 
-      // value must be greater than 10 or less than 5 [sfixed64.gt_lt_exclusive]
+      // must be greater than 10 or less than 5 [sfixed64.gt_lt_exclusive]
       sfixed64 another_value = 3 [(buf.validate.field).sfixed64 = { gt: 10, lt: 5 }];
     }
     ```
@@ -2371,13 +2371,13 @@ class SFixed64Rules(google.protobuf.message.Message):
 
     ```proto
     message MySFixed64 {
-      // value must be greater than or equal to 5 [sfixed64.gte]
+      // must be greater than or equal to 5 [sfixed64.gte]
       sfixed64 value = 1 [(buf.validate.field).sfixed64.gte = 5];
 
-      // value must be greater than or equal to 5 and less than 10 [sfixed64.gte_lt]
+      // must be greater than or equal to 5 and less than 10 [sfixed64.gte_lt]
       sfixed64 other_value = 2 [(buf.validate.field).sfixed64 = { gte: 5, lt: 10 }];
 
-      // value must be greater than or equal to 10 or less than 5 [sfixed64.gte_lt_exclusive]
+      // must be greater than or equal to 10 or less than 5 [sfixed64.gte_lt_exclusive]
       sfixed64 another_value = 3 [(buf.validate.field).sfixed64 = { gte: 10, lt: 5 }];
     }
     ```
@@ -2520,6 +2520,8 @@ class StringRules(google.protobuf.message.Message):
     IPV6_PREFIX_FIELD_NUMBER: builtins.int
     HOST_AND_PORT_FIELD_NUMBER: builtins.int
     ULID_FIELD_NUMBER: builtins.int
+    PROTOBUF_FQN_FIELD_NUMBER: builtins.int
+    PROTOBUF_DOT_FQN_FIELD_NUMBER: builtins.int
     WELL_KNOWN_REGEX_FIELD_NUMBER: builtins.int
     STRICT_FIELD_NUMBER: builtins.int
     EXAMPLE_FIELD_NUMBER: builtins.int
@@ -2685,7 +2687,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid email address
+      // must be a valid email address
       string value = 1 [(buf.validate.field).string.email = true];
     }
     ```
@@ -2706,7 +2708,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid hostname
+      // must be a valid hostname
       string value = 1 [(buf.validate.field).string.hostname = true];
     }
     ```
@@ -2726,7 +2728,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IP address
+      // must be a valid IP address
       string value = 1 [(buf.validate.field).string.ip = true];
     }
     ```
@@ -2738,7 +2740,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IPv4 address
+      // must be a valid IPv4 address
       string value = 1 [(buf.validate.field).string.ipv4 = true];
     }
     ```
@@ -2750,7 +2752,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IPv6 address
+      // must be a valid IPv6 address
       string value = 1 [(buf.validate.field).string.ipv6 = true];
     }
     ```
@@ -2766,7 +2768,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid URI
+      // must be a valid URI
       string value = 1 [(buf.validate.field).string.uri = true];
     }
     ```
@@ -2785,7 +2787,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid URI Reference
+      // must be a valid URI Reference
       string value = 1 [(buf.validate.field).string.uri_ref = true];
     }
     ```
@@ -2798,7 +2800,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid hostname, or ip address
+      // must be a valid hostname, or ip address
       string value = 1 [(buf.validate.field).string.address = true];
     }
     ```
@@ -2810,7 +2812,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid UUID
+      // must be a valid UUID
       string value = 1 [(buf.validate.field).string.uuid = true];
     }
     ```
@@ -2823,7 +2825,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid trimmed UUID
+      // must be a valid trimmed UUID
       string value = 1 [(buf.validate.field).string.tuuid = true];
     }
     ```
@@ -2836,7 +2838,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IP with prefix length
+      // must be a valid IP with prefix length
        string value = 1 [(buf.validate.field).string.ip_with_prefixlen = true];
     }
     ```
@@ -2849,7 +2851,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IPv4 address with prefix length
+      // must be a valid IPv4 address with prefix length
        string value = 1 [(buf.validate.field).string.ipv4_with_prefixlen = true];
     }
     ```
@@ -2862,7 +2864,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IPv6 address prefix length
+      // must be a valid IPv6 address prefix length
        string value = 1 [(buf.validate.field).string.ipv6_with_prefixlen = true];
     }
     ```
@@ -2880,7 +2882,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IP prefix
+      // must be a valid IP prefix
        string value = 1 [(buf.validate.field).string.ip_prefix = true];
     }
     ```
@@ -2898,7 +2900,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IPv4 prefix
+      // must be a valid IPv4 prefix
        string value = 1 [(buf.validate.field).string.ipv4_prefix = true];
     }
     ```
@@ -2916,13 +2918,13 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid IPv6 prefix
+      // must be a valid IPv6 prefix
        string value = 1 [(buf.validate.field).string.ipv6_prefix = true];
     }
     ```
     """
     host_and_port: builtins.bool
-    """`host_and_port` specifies that the field value must be valid host/port
+    """`host_and_port` specifies that the field value must be a valid host/port
     pair—for example, "example.com:8080".
 
     The host can be one of:
@@ -2940,8 +2942,60 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid ULID
+      // must be a valid ULID
       string value = 1 [(buf.validate.field).string.ulid = true];
+    }
+    ```
+    """
+    protobuf_fqn: builtins.bool
+    """`protobuf_fqn` specifies that the field value must be a valid fully-qualified
+    Protobuf name as defined by the [Protobuf Language Specification](https://protobuf.com/docs/language-spec).
+
+    A fully-qualified Protobuf name is a dot-separated list of Protobuf identifiers,
+    where each identifier starts with a letter or underscore and is followed by zero or
+    more letters, underscores, or digits.
+
+    Examples: "buf.validate", "google.protobuf.Timestamp", "my_package.MyMessage".
+
+    Note: historically, fully-qualified Protobuf names were represented with a leading
+    dot (for example, ".buf.validate.StringRules"). Modern Protobuf does not use the
+    leading dot, and most fully-qualified names are represented without it. Use
+    `protobuf_dot_fqn` if a leading dot is required.
+
+    If the field value isn't a valid fully-qualified Protobuf name, an error message
+    will be generated.
+
+    ```proto
+    message MyString {
+      // value must be a valid fully-qualified Protobuf name
+      string value = 1 [(buf.validate.field).string.protobuf_fqn = true];
+    }
+    ```
+    """
+    protobuf_dot_fqn: builtins.bool
+    """`protobuf_dot_fqn` specifies that the field value must be a valid fully-qualified
+    Protobuf name with a leading dot, as defined by the
+    [Protobuf Language Specification](https://protobuf.com/docs/language-spec).
+
+    A fully-qualified Protobuf name with a leading dot is a dot followed by a
+    dot-separated list of Protobuf identifiers, where each identifier starts with a
+    letter or underscore and is followed by zero or more letters, underscores, or
+    digits.
+
+    Examples: ".buf.validate", ".google.protobuf.Timestamp", ".my_package.MyMessage".
+
+    Note: this is the historical representation of fully-qualified Protobuf names,
+    where a leading dot denotes an absolute reference. Modern Protobuf does not use
+    the leading dot, and most fully-qualified names are represented without it. Most
+    users will want to use `protobuf_fqn` instead.
+
+    If the field value isn't a valid fully-qualified Protobuf name with a leading dot,
+    an error message will be generated.
+
+    ```proto
+    message MyString {
+      // value must be a valid fully-qualified Protobuf name with a leading dot
+      string value = 1 [(buf.validate.field).string.protobuf_dot_fqn = true];
     }
     ```
     """
@@ -2952,7 +3006,7 @@ class StringRules(google.protobuf.message.Message):
 
     ```proto
     message MyString {
-      // value must be a valid HTTP header value
+      // must be a valid HTTP header value
       string value = 1 [(buf.validate.field).string.well_known_regex = KNOWN_REGEX_HTTP_HEADER_VALUE];
     }
     ```
@@ -3044,13 +3098,15 @@ class StringRules(google.protobuf.message.Message):
         ipv6_prefix: builtins.bool | None = ...,
         host_and_port: builtins.bool | None = ...,
         ulid: builtins.bool | None = ...,
+        protobuf_fqn: builtins.bool | None = ...,
+        protobuf_dot_fqn: builtins.bool | None = ...,
         well_known_regex: global___KnownRegex.ValueType | None = ...,
         strict: builtins.bool | None = ...,
         example: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["address", b"address", "const", b"const", "contains", b"contains", "email", b"email", "host_and_port", b"host_and_port", "hostname", b"hostname", "ip", b"ip", "ip_prefix", b"ip_prefix", "ip_with_prefixlen", b"ip_with_prefixlen", "ipv4", b"ipv4", "ipv4_prefix", b"ipv4_prefix", "ipv4_with_prefixlen", b"ipv4_with_prefixlen", "ipv6", b"ipv6", "ipv6_prefix", b"ipv6_prefix", "ipv6_with_prefixlen", b"ipv6_with_prefixlen", "len", b"len", "len_bytes", b"len_bytes", "max_bytes", b"max_bytes", "max_len", b"max_len", "min_bytes", b"min_bytes", "min_len", b"min_len", "not_contains", b"not_contains", "pattern", b"pattern", "prefix", b"prefix", "strict", b"strict", "suffix", b"suffix", "tuuid", b"tuuid", "ulid", b"ulid", "uri", b"uri", "uri_ref", b"uri_ref", "uuid", b"uuid", "well_known", b"well_known", "well_known_regex", b"well_known_regex"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["address", b"address", "const", b"const", "contains", b"contains", "email", b"email", "example", b"example", "host_and_port", b"host_and_port", "hostname", b"hostname", "in", b"in", "ip", b"ip", "ip_prefix", b"ip_prefix", "ip_with_prefixlen", b"ip_with_prefixlen", "ipv4", b"ipv4", "ipv4_prefix", b"ipv4_prefix", "ipv4_with_prefixlen", b"ipv4_with_prefixlen", "ipv6", b"ipv6", "ipv6_prefix", b"ipv6_prefix", "ipv6_with_prefixlen", b"ipv6_with_prefixlen", "len", b"len", "len_bytes", b"len_bytes", "max_bytes", b"max_bytes", "max_len", b"max_len", "min_bytes", b"min_bytes", "min_len", b"min_len", "not_contains", b"not_contains", "not_in", b"not_in", "pattern", b"pattern", "prefix", b"prefix", "strict", b"strict", "suffix", b"suffix", "tuuid", b"tuuid", "ulid", b"ulid", "uri", b"uri", "uri_ref", b"uri_ref", "uuid", b"uuid", "well_known", b"well_known", "well_known_regex", b"well_known_regex"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["well_known", b"well_known"]) -> typing.Literal["email", "hostname", "ip", "ipv4", "ipv6", "uri", "uri_ref", "address", "uuid", "tuuid", "ip_with_prefixlen", "ipv4_with_prefixlen", "ipv6_with_prefixlen", "ip_prefix", "ipv4_prefix", "ipv6_prefix", "host_and_port", "ulid", "well_known_regex"] | None: ...
+    def HasField(self, field_name: typing.Literal["address", b"address", "const", b"const", "contains", b"contains", "email", b"email", "host_and_port", b"host_and_port", "hostname", b"hostname", "ip", b"ip", "ip_prefix", b"ip_prefix", "ip_with_prefixlen", b"ip_with_prefixlen", "ipv4", b"ipv4", "ipv4_prefix", b"ipv4_prefix", "ipv4_with_prefixlen", b"ipv4_with_prefixlen", "ipv6", b"ipv6", "ipv6_prefix", b"ipv6_prefix", "ipv6_with_prefixlen", b"ipv6_with_prefixlen", "len", b"len", "len_bytes", b"len_bytes", "max_bytes", b"max_bytes", "max_len", b"max_len", "min_bytes", b"min_bytes", "min_len", b"min_len", "not_contains", b"not_contains", "pattern", b"pattern", "prefix", b"prefix", "protobuf_dot_fqn", b"protobuf_dot_fqn", "protobuf_fqn", b"protobuf_fqn", "strict", b"strict", "suffix", b"suffix", "tuuid", b"tuuid", "ulid", b"ulid", "uri", b"uri", "uri_ref", b"uri_ref", "uuid", b"uuid", "well_known", b"well_known", "well_known_regex", b"well_known_regex"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["address", b"address", "const", b"const", "contains", b"contains", "email", b"email", "example", b"example", "host_and_port", b"host_and_port", "hostname", b"hostname", "in", b"in", "ip", b"ip", "ip_prefix", b"ip_prefix", "ip_with_prefixlen", b"ip_with_prefixlen", "ipv4", b"ipv4", "ipv4_prefix", b"ipv4_prefix", "ipv4_with_prefixlen", b"ipv4_with_prefixlen", "ipv6", b"ipv6", "ipv6_prefix", b"ipv6_prefix", "ipv6_with_prefixlen", b"ipv6_with_prefixlen", "len", b"len", "len_bytes", b"len_bytes", "max_bytes", b"max_bytes", "max_len", b"max_len", "min_bytes", b"min_bytes", "min_len", b"min_len", "not_contains", b"not_contains", "not_in", b"not_in", "pattern", b"pattern", "prefix", b"prefix", "protobuf_dot_fqn", b"protobuf_dot_fqn", "protobuf_fqn", b"protobuf_fqn", "strict", b"strict", "suffix", b"suffix", "tuuid", b"tuuid", "ulid", b"ulid", "uri", b"uri", "uri_ref", b"uri_ref", "uuid", b"uuid", "well_known", b"well_known", "well_known_regex", b"well_known_regex"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["well_known", b"well_known"]) -> typing.Literal["email", "hostname", "ip", "ipv4", "ipv6", "uri", "uri_ref", "address", "uuid", "tuuid", "ip_with_prefixlen", "ipv4_with_prefixlen", "ipv6_with_prefixlen", "ip_prefix", "ipv4_prefix", "ipv6_prefix", "host_and_port", "ulid", "protobuf_fqn", "protobuf_dot_fqn", "well_known_regex"] | None: ...
 
 global___StringRules = StringRules
 
@@ -3083,7 +3139,7 @@ class BytesRules(google.protobuf.message.Message):
 
     ```proto
     message MyBytes {
-      // value must be "\\x01\\x02\\x03\\x04"
+      // must be "\\x01\\x02\\x03\\x04"
       bytes value = 1 [(buf.validate.field).bytes.const = "\\x01\\x02\\x03\\x04"];
     }
     ```
@@ -3118,7 +3174,7 @@ class BytesRules(google.protobuf.message.Message):
 
     ```proto
     message MyBytes {
-      // value must be at most 6 bytes.
+      // must be at most 6 bytes.
       optional bytes value = 1 [(buf.validate.field).bytes.max_len = 6];
     }
     ```
@@ -3179,7 +3235,7 @@ class BytesRules(google.protobuf.message.Message):
 
     ```proto
     message MyBytes {
-      // value must be a valid IP address
+      // must be a valid IP address
       optional bytes value = 1 [(buf.validate.field).bytes.ip = true];
     }
     ```
@@ -3190,7 +3246,7 @@ class BytesRules(google.protobuf.message.Message):
 
     ```proto
     message MyBytes {
-      // value must be a valid IPv4 address
+      // must be a valid IPv4 address
       optional bytes value = 1 [(buf.validate.field).bytes.ipv4 = true];
     }
     ```
@@ -3200,21 +3256,20 @@ class BytesRules(google.protobuf.message.Message):
     If the field value doesn't meet this rule, an error message is generated.
     ```proto
     message MyBytes {
-      // value must be a valid IPv6 address
+      // must be a valid IPv6 address
       optional bytes value = 1 [(buf.validate.field).bytes.ipv6 = true];
     }
     ```
     """
     uuid: builtins.bool
-    """`uuid` ensures that the field `value` encodes the 128-bit UUID data as
-    defined by [RFC 4122](https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.2).
-    The field must contain exactly 16 bytes
-    representing the UUID. If the field value isn't a valid UUID, an error
-    message will be generated.
+    """`uuid` ensures that the field value encodes 128-bit UUID data as defined
+    by [RFC 4122](https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.2).
+    The field must contain exactly 16 bytes representing the UUID. If the
+    field value isn't a valid UUID, an error message will be generated.
 
     ```proto
     message MyBytes {
-      // value must be a valid UUID
+      // must be a valid UUID
       optional bytes value = 1 [(buf.validate.field).bytes.uuid = true];
     }
     ```
@@ -3549,7 +3604,7 @@ class AnyRules(google.protobuf.message.Message):
     NOT_IN_FIELD_NUMBER: builtins.int
     @property
     def not_in(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """requires the field's type_url to be not equal to any of the specified values. If it matches any of the specified values, an error message is generated.
+        """`not_in` requires the field's type_url to be not equal to any of the specified values. If it matches any of the specified values, an error message is generated.
 
         ```proto
         message MyAny {
@@ -3606,7 +3661,7 @@ class DurationRules(google.protobuf.message.Message):
 
         ```proto
         message MyDuration {
-          // value must be less than 5s
+          // must be less than 5s
           google.protobuf.Duration value = 1 [(buf.validate.field).duration.lt = "5s"];
         }
         ```
@@ -3620,7 +3675,7 @@ class DurationRules(google.protobuf.message.Message):
 
         ```proto
         message MyDuration {
-          // value must be less than or equal to 10s
+          // must be less than or equal to 10s
           google.protobuf.Duration value = 1 [(buf.validate.field).duration.lte = "10s"];
         }
         ```
@@ -3813,7 +3868,7 @@ class TimestampRules(google.protobuf.message.Message):
 
     ```proto
     message MyTimestamp {
-     // value must be less than now
+     // must be less than now
       google.protobuf.Timestamp created_at = 1 [(buf.validate.field).timestamp.lt_now = true];
     }
     ```
@@ -3823,7 +3878,7 @@ class TimestampRules(google.protobuf.message.Message):
 
     ```proto
     message MyTimestamp {
-      // value must be greater than now
+      // must be greater than now
       google.protobuf.Timestamp created_at = 1 [(buf.validate.field).timestamp.gt_now = true];
     }
     ```
@@ -3842,19 +3897,19 @@ class TimestampRules(google.protobuf.message.Message):
 
     @property
     def lt(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """requires the duration field value to be less than the specified value (field < value). If the field value doesn't meet the required conditions, an error message is generated.
+        """`lt` requires the timestamp field value to be less than the specified value (field < value). If the field value doesn't meet the required conditions, an error message is generated.
 
         ```proto
-        message MyDuration {
-          // duration must be less than 'P3D' [duration.lt]
-          google.protobuf.Duration value = 1 [(buf.validate.field).duration.lt = { seconds: 259200 }];
+        message MyTimestamp {
+          // timestamp must be less than '2023-01-01T00:00:00Z' [timestamp.lt]
+          google.protobuf.Timestamp value = 1 [(buf.validate.field).timestamp.lt = { seconds: 1672444800 }];
         }
         ```
         """
 
     @property
     def lte(self) -> google.protobuf.timestamp_pb2.Timestamp:
-        """requires the timestamp field value to be less than or equal to the specified value (field <= value). If the field value doesn't meet the required conditions, an error message is generated.
+        """`lte` requires the timestamp field value to be less than or equal to the specified value (field <= value). If the field value doesn't meet the required conditions, an error message is generated.
 
         ```proto
         message MyTimestamp {
@@ -3914,7 +3969,7 @@ class TimestampRules(google.protobuf.message.Message):
 
         ```proto
         message MyTimestamp {
-          // value must be within 1 hour of now
+          // must be within 1 hour of now
           google.protobuf.Timestamp created_at = 1 [(buf.validate.field).timestamp.within = {seconds: 3600}];
         }
         ```
@@ -4240,7 +4295,7 @@ this adds additional CEL expressions that apply when the extension is used.
 extend buf.validate.Int32Rules {
   bool is_zero [(buf.validate.predefined).cel = {
     id: "int32.is_zero",
-    message: "value must be zero",
+    message: "must be zero",
     expression: "!rule || this == 0",
   }];
 }

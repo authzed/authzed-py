@@ -31,15 +31,37 @@ class _LookupPermissionship:
 class _LookupPermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_LookupPermissionship.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     LOOKUP_PERMISSIONSHIP_UNSPECIFIED: _LookupPermissionship.ValueType  # 0
+    """LOOKUP_PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or
+    relied upon. Servers should not return this value.
+    """
     LOOKUP_PERMISSIONSHIP_HAS_PERMISSION: _LookupPermissionship.ValueType  # 1
+    """LOOKUP_PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has permission
+    on the resource with no missing caveat context.
+    """
     LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION: _LookupPermissionship.ValueType  # 2
+    """LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has
+    permission on the resource, but only if a caveat condition is met. The
+    `partial_caveat_info` field in the response should contain the missing context
+    fields that must be provided to fully evaluate the caveat.
+    """
 
 class LookupPermissionship(_LookupPermissionship, metaclass=_LookupPermissionshipEnumTypeWrapper):
     """LookupPermissionship represents whether a Lookup response was partially evaluated or not"""
 
 LOOKUP_PERMISSIONSHIP_UNSPECIFIED: LookupPermissionship.ValueType  # 0
+"""LOOKUP_PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or
+relied upon. Servers should not return this value.
+"""
 LOOKUP_PERMISSIONSHIP_HAS_PERMISSION: LookupPermissionship.ValueType  # 1
+"""LOOKUP_PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has permission
+on the resource with no missing caveat context.
+"""
 LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION: LookupPermissionship.ValueType  # 2
+"""LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has
+permission on the resource, but only if a caveat condition is met. The
+`partial_caveat_info` field in the response should contain the missing context
+fields that must be provided to fully evaluate the caveat.
+"""
 global___LookupPermissionship = LookupPermissionship
 
 @typing.final
@@ -550,15 +572,43 @@ class CheckPermissionResponse(google.protobuf.message.Message):
     class _PermissionshipEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CheckPermissionResponse._Permissionship.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PERMISSIONSHIP_UNSPECIFIED: CheckPermissionResponse._Permissionship.ValueType  # 0
+        """PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or
+        relied upon. Servers should not return this value.
+        """
         PERMISSIONSHIP_NO_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 1
+        """PERMISSIONSHIP_NO_PERMISSION indicates that the subject does not have the
+        requested permission on the resource.
+        """
         PERMISSIONSHIP_HAS_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 2
+        """PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has the requested
+        permission on the resource.
+        """
         PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckPermissionResponse._Permissionship.ValueType  # 3
+        """PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has the
+        requested permission on the resource, but only if a caveat condition is met.
+        The `partial_caveat_info` field in the response should contain the missing
+        context fields that must be provided to fully evaluate the caveat.
+        """
 
     class Permissionship(_Permissionship, metaclass=_PermissionshipEnumTypeWrapper): ...
     PERMISSIONSHIP_UNSPECIFIED: CheckPermissionResponse.Permissionship.ValueType  # 0
+    """PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or
+    relied upon. Servers should not return this value.
+    """
     PERMISSIONSHIP_NO_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 1
+    """PERMISSIONSHIP_NO_PERMISSION indicates that the subject does not have the
+    requested permission on the resource.
+    """
     PERMISSIONSHIP_HAS_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 2
+    """PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has the requested
+    permission on the resource.
+    """
     PERMISSIONSHIP_CONDITIONAL_PERMISSION: CheckPermissionResponse.Permissionship.ValueType  # 3
+    """PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has the
+    requested permission on the resource, but only if a caveat condition is met.
+    The `partial_caveat_info` field in the response should contain the missing
+    context fields that must be provided to fully evaluate the caveat.
+    """
 
     CHECKED_AT_FIELD_NUMBER: builtins.int
     PERMISSIONSHIP_FIELD_NUMBER: builtins.int
@@ -821,6 +871,7 @@ class LookupResourcesRequest(google.protobuf.message.Message):
     CONTEXT_FIELD_NUMBER: builtins.int
     OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
     OPTIONAL_CURSOR_FIELD_NUMBER: builtins.int
+    WITH_DEBUG_FIELD_NUMBER: builtins.int
     resource_object_type: builtins.str
     """resource_object_type is the type of resource object for which the IDs will
     be returned.
@@ -834,6 +885,13 @@ class LookupResourcesRequest(google.protobuf.message.Message):
     before the stream is closed on the server side. By default, the stream will continue
     resolving resources until exhausted or the stream is closed due to the client or a
     network issue.
+    """
+    with_debug: builtins.bool
+    """
+    with_debug, if true, indicates that the response should return debug information
+    if present and available. For now, ONLY enables debugging of maximum recursion depth
+    errors, with additional context being returned in error details, but this may be
+    extended in the future.
     """
     @property
     def consistency(self) -> global___Consistency: ...
@@ -861,9 +919,10 @@ class LookupResourcesRequest(google.protobuf.message.Message):
         context: google.protobuf.struct_pb2.Struct | None = ...,
         optional_limit: builtins.int = ...,
         optional_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
+        with_debug: builtins.bool = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["consistency", b"consistency", "context", b"context", "optional_cursor", b"optional_cursor", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "context", b"context", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["consistency", b"consistency", "context", b"context", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "permission", b"permission", "resource_object_type", b"resource_object_type", "subject", b"subject", "with_debug", b"with_debug"]) -> None: ...
 
 global___LookupResourcesRequest = LookupResourcesRequest
 
@@ -978,9 +1037,8 @@ class LookupSubjectsRequest(google.protobuf.message.Message):
 
     @property
     def optional_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
-        """optional_cursor is currently unimplemented for LookupSubjects
-        and will be ignored as of SpiceDB version 1.40.1. This will
-        be implemented in a future version of SpiceDB.
+        """optional_cursor is not currently supported for LookupSubjects and this
+        field will be ignored. Cursoring support will be added in a future version.
         """
 
     def __init__(
