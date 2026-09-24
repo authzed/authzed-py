@@ -27,7 +27,7 @@ See the [developer quickstart](https://protovalidate.com/quickstart/) to get sta
 [Go](https://github.com/bufbuild/protovalidate-go),
 [JavaScript/TypeScript](https://github.com/bufbuild/protovalidate-es),
 [Java](https://github.com/bufbuild/protovalidate-java),
-[Python](https://github.com/bufbuild/protovalidate-python),
+[Python](https://github.com/bufbuild/protovalidate-py),
 or [C++](https://github.com/bufbuild/protovalidate-cc).
 """
 
@@ -263,7 +263,7 @@ class Rule(google.protobuf.message.Message):
     """`Rule` represents a validation rule written in the Common Expression
     Language (CEL) syntax. Each Rule includes a unique identifier, an
     optional error message, and the CEL expression to evaluate. For more
-    information, [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
+    information, [see our documentation](https://protovalidate.com/schemas/custom-rules/).
 
     ```proto
     message Foo {
@@ -330,7 +330,7 @@ class MessageRules(google.protobuf.message.Message):
         simpler syntax when defining CEL Rules where `id` and `message` derived from the `expression`. `id` will
         be same as the `expression`.
 
-        For more information, [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
+        For more information, [see our documentation](https://protovalidate.com/schemas/custom-rules/).
 
         ```proto
         message MyMessage {
@@ -347,7 +347,7 @@ class MessageRules(google.protobuf.message.Message):
     def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
         """`cel` is a repeated field of type Rule. Each Rule specifies a validation rule to be applied to this message.
         These rules are written in Common Expression Language (CEL) syntax. For more information,
-        [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
+        [see our documentation](https://protovalidate.com/schemas/custom-rules/).
 
 
         ```proto
@@ -590,7 +590,7 @@ class FieldRules(google.protobuf.message.Message):
         simpler syntax when defining CEL Rules where `id` and `message` derived from the `expression`. `id` will
         be same as the `expression`.
 
-        For more information, [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
+        For more information, [see our documentation](https://protovalidate.com/schemas/custom-rules/).
 
         ```proto
         message MyMessage {
@@ -604,7 +604,7 @@ class FieldRules(google.protobuf.message.Message):
     def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
         """`cel` is a repeated field used to represent a textual expression
         in the Common Expression Language (CEL) syntax. For more information,
-        [see our documentation](https://buf.build/docs/protovalidate/schemas/custom-rules/).
+        [see our documentation](https://protovalidate.com/schemas/custom-rules/).
 
         ```proto
         message MyMessage {
@@ -717,7 +717,7 @@ class PredefinedRules(google.protobuf.message.Message):
     def cel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Rule]:
         """`cel` is a repeated field used to represent a textual expression
         in the Common Expression Language (CEL) syntax. For more information,
-        [see our documentation](https://buf.build/docs/protovalidate/schemas/predefined-rules/).
+        [see our documentation](https://protovalidate.com/schemas/predefined-rules/).
 
         ```proto
         message MyMessage {
@@ -1572,7 +1572,7 @@ class UInt64Rules(google.protobuf.message.Message):
         message MyUInt64 {
           uint64 value = 1 [
             (buf.validate.field).uint64.example = 1,
-            (buf.validate.field).uint64.example = -10
+            (buf.validate.field).uint64.example = 10
           ];
         }
         ```
@@ -2462,8 +2462,8 @@ class BoolRules(google.protobuf.message.Message):
         ```proto
         message MyBool {
           bool value = 1 [
-            (buf.validate.field).bool.example = 1,
-            (buf.validate.field).bool.example = 2
+            (buf.validate.field).bool.example = true,
+            (buf.validate.field).bool.example = false
           ];
         }
         ```
@@ -3043,7 +3043,7 @@ class StringRules(google.protobuf.message.Message):
         ```proto
         message MyString {
           // value must not be in list ["orange", "grape"]
-          string value = 1 [(buf.validate.field).string.not_in = "orange", (buf.validate.field).string.not_in = "grape"];
+          string value = 1 [(buf.validate.field).string = { not_in: ["orange", "grape"] }];
         }
         ```
         """
@@ -3284,7 +3284,7 @@ class BytesRules(google.protobuf.message.Message):
         ```proto
         message MyBytes {
           // value must not in ["\\x01\\x02", "\\x02\\x03", "\\x03\\x04"]
-          optional bytes value = 1 [(buf.validate.field).bytes.not_in = {"\\x01\\x02", "\\x02\\x03", "\\x03\\x04"}];
+          optional bytes value = 1 [(buf.validate.field).bytes = { not_in: ["\\x01\\x02", "\\x02\\x03", "\\x03\\x04"] }];
         }
         ```
         """
@@ -3408,8 +3408,10 @@ class EnumRules(google.protobuf.message.Message):
         }
 
         message MyMessage {
+          MyEnum value = 1 [
             (buf.validate.field).enum.example = 1,
             (buf.validate.field).enum.example = 2
+          ];
         }
         ```
         """
@@ -3648,7 +3650,7 @@ class DurationRules(google.protobuf.message.Message):
         ```proto
         message MyDuration {
           // value must equal 5s
-          google.protobuf.Duration value = 1 [(buf.validate.field).duration.const = "5s"];
+          google.protobuf.Duration value = 1 [(buf.validate.field).duration.const = { seconds: 5 }];
         }
         ```
         """
@@ -3662,7 +3664,7 @@ class DurationRules(google.protobuf.message.Message):
         ```proto
         message MyDuration {
           // must be less than 5s
-          google.protobuf.Duration value = 1 [(buf.validate.field).duration.lt = "5s"];
+          google.protobuf.Duration value = 1 [(buf.validate.field).duration.lt = { seconds: 5 }];
         }
         ```
         """
@@ -3676,7 +3678,7 @@ class DurationRules(google.protobuf.message.Message):
         ```proto
         message MyDuration {
           // must be less than or equal to 10s
-          google.protobuf.Duration value = 1 [(buf.validate.field).duration.lte = "10s"];
+          google.protobuf.Duration value = 1 [(buf.validate.field).duration.lte = { seconds: 10 }];
         }
         ```
         """
@@ -3735,7 +3737,9 @@ class DurationRules(google.protobuf.message.Message):
         ```proto
         message MyDuration {
           // value must not be in list [1s, 2s, 3s]
-          google.protobuf.Duration value = 1 [(buf.validate.field).duration.not_in = ["1s", "2s", "3s"]];
+          google.protobuf.Duration value = 1 [(buf.validate.field).duration = {
+            not_in: [{ seconds: 1 }, { seconds: 2 }, { seconds: 3 }]
+          }];
         }
         ```
         """
@@ -3750,7 +3754,7 @@ class DurationRules(google.protobuf.message.Message):
         message MyDuration {
           google.protobuf.Duration value = 1 [
             (buf.validate.field).duration.example = { seconds: 1 },
-            (buf.validate.field).duration.example = { seconds: 2 },
+            (buf.validate.field).duration.example = { seconds: 2 }
           ];
         }
         ```
@@ -3830,7 +3834,7 @@ class FieldMaskRules(google.protobuf.message.Message):
         message MyFieldMask {
           google.protobuf.FieldMask value = 1 [
             (buf.validate.field).field_mask.example = { paths: ["a", "b"] },
-            (buf.validate.field).field_mask.example = { paths: ["c.a", "d"] },
+            (buf.validate.field).field_mask.example = { paths: ["c.a", "d"] }
           ];
         }
         ```
@@ -3985,7 +3989,7 @@ class TimestampRules(google.protobuf.message.Message):
         message MyTimestamp {
           google.protobuf.Timestamp value = 1 [
             (buf.validate.field).timestamp.example = { seconds: 1672444800 },
-            (buf.validate.field).timestamp.example = { seconds: 1672531200 },
+            (buf.validate.field).timestamp.example = { seconds: 1672531200 }
           ];
         }
         ```
@@ -4137,7 +4141,7 @@ class Violation(google.protobuf.message.Message):
           bool b = 2 [(buf.validate.field).cel = {
             id: "custom_rule",
             expression: "!this ? 'b must be true': ''"
-          }]
+          }];
         }
         ```
 
@@ -4293,7 +4297,7 @@ this adds additional CEL expressions that apply when the extension is used.
 
 ```proto
 extend buf.validate.Int32Rules {
-  bool is_zero [(buf.validate.predefined).cel = {
+  bool is_zero = 1001 [(buf.validate.predefined).cel = {
     id: "int32.is_zero",
     message: "must be zero",
     expression: "!rule || this == 0",
