@@ -1,4 +1,4 @@
-from typing import Any, Optional, Sequence, Tuple
+from typing import Any, Awaitable, Optional, Sequence, Tuple, Union
 
 import grpc
 
@@ -42,6 +42,7 @@ class Client(WatchPermissionsServiceStub, WatchPermissionSetsServiceStub):
         options: Optional[Sequence[Tuple[str, Any]]] = None,
         compression: Optional[grpc.Compression] = None,
     ) -> None: ...
+    def close(self) -> Union[None, Awaitable[None]]: ...
 
 class SyncClient(WatchPermissionsServiceStub, WatchPermissionSetsServiceStub):
     def __init__(
@@ -51,6 +52,7 @@ class SyncClient(WatchPermissionsServiceStub, WatchPermissionSetsServiceStub):
         options: Optional[Sequence[Tuple[str, Any]]] = None,
         compression: Optional[grpc.Compression] = None,
     ) -> None: ...
+    def close(self) -> None: ...
 
 class AsyncClient(WatchPermissionsServiceStub, WatchPermissionSetsServiceStub):
     def __init__(
@@ -60,6 +62,7 @@ class AsyncClient(WatchPermissionsServiceStub, WatchPermissionSetsServiceStub):
         options: Optional[Sequence[Tuple[str, Any]]] = None,
         compression: Optional[grpc.Compression] = None,
     ) -> None: ...
+    async def close(self, grace: Optional[float] = None) -> None: ...
 
 class InsecureClient(Client):
     def __init__(
