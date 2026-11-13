@@ -2,6 +2,17 @@ from typing import Optional
 
 import grpc
 
+# Unified exception type for catching errors from both the sync and async
+# clients. grpc.aio.AioRpcError (raised by the async client) already subclasses
+# grpc.RpcError (raised by the sync client), so a single ``except AuthzedError``
+# catches errors from either:
+#
+#     try:
+#         client.CheckPermission(...)
+#     except AuthzedError as err:
+#         ...
+AuthzedError = grpc.RpcError
+
 
 def bearer_token_credentials(token: str, certChain: Optional[bytes] = None):
     """
