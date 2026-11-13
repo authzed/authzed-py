@@ -413,6 +413,7 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
     OPTIONAL_LIMIT_FIELD_NUMBER: builtins.int
     OPTIONAL_ALLOW_PARTIAL_DELETIONS_FIELD_NUMBER: builtins.int
     OPTIONAL_TRANSACTION_METADATA_FIELD_NUMBER: builtins.int
+    OPTIONAL_CURSOR_FIELD_NUMBER: builtins.int
     optional_limit: builtins.int
     """optional_limit, if non-zero, specifies the limit on the number of relationships to be deleted.
     If there are more matching relationships found to be deleted than the limit specified here,
@@ -437,6 +438,19 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
         this transaction.
         """
 
+    @property
+    def optional_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """optional_cursor, if specified, indicates the cursor after which deletion should resume. It is used to
+        continue a batched, partial deletion where a previous call left off, by passing back the
+        after_result_cursor returned on the previous DeleteRelationshipsResponse.
+
+        A cursor allows a large deletion to be performed as a series of calls without re-examining the
+        relationships already deleted by earlier calls. It therefore requires optional_limit and
+        optional_allow_partial_deletions to be set, and is only supported by datastores whose deletion can be
+        ordered and resumed; datastores that do not support cursored deletion will return an error if a cursor
+        is provided.
+        """
+
     def __init__(
         self,
         *,
@@ -445,9 +459,10 @@ class DeleteRelationshipsRequest(google.protobuf.message.Message):
         optional_limit: builtins.int = ...,
         optional_allow_partial_deletions: builtins.bool = ...,
         optional_transaction_metadata: google.protobuf.struct_pb2.Struct | None = ...,
+        optional_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["optional_transaction_metadata", b"optional_transaction_metadata", "relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["optional_allow_partial_deletions", b"optional_allow_partial_deletions", "optional_limit", b"optional_limit", "optional_preconditions", b"optional_preconditions", "optional_transaction_metadata", b"optional_transaction_metadata", "relationship_filter", b"relationship_filter"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_cursor", b"optional_cursor", "optional_transaction_metadata", b"optional_transaction_metadata", "relationship_filter", b"relationship_filter"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["optional_allow_partial_deletions", b"optional_allow_partial_deletions", "optional_cursor", b"optional_cursor", "optional_limit", b"optional_limit", "optional_preconditions", b"optional_preconditions", "optional_transaction_metadata", b"optional_transaction_metadata", "relationship_filter", b"relationship_filter"]) -> None: ...
 
 global___DeleteRelationshipsRequest = DeleteRelationshipsRequest
 
@@ -489,6 +504,7 @@ class DeleteRelationshipsResponse(google.protobuf.message.Message):
     DELETED_AT_FIELD_NUMBER: builtins.int
     DELETION_PROGRESS_FIELD_NUMBER: builtins.int
     RELATIONSHIPS_DELETED_COUNT_FIELD_NUMBER: builtins.int
+    AFTER_RESULT_CURSOR_FIELD_NUMBER: builtins.int
     deletion_progress: global___DeleteRelationshipsResponse.DeletionProgress.ValueType
     """deletion_progress is an enumeration of the possible outcomes that occurred when attempting to delete the specified relationships."""
     relationships_deleted_count: builtins.int
@@ -497,15 +513,25 @@ class DeleteRelationshipsResponse(google.protobuf.message.Message):
     def deleted_at(self) -> authzed.api.v1.core_pb2.ZedToken:
         """deleted_at is the revision at which the relationships were deleted."""
 
+    @property
+    def after_result_cursor(self) -> authzed.api.v1.core_pb2.Cursor:
+        """after_result_cursor holds a cursor that can be used to resume the deletion after the relationships
+        deleted by this call, by supplying it as the optional_cursor on a subsequent DeleteRelationshipsRequest.
+
+        It is populated only when deletion_progress is DELETION_PROGRESS_PARTIAL and the datastore supports
+        cursored deletion; it is unset once DELETION_PROGRESS_COMPLETE is returned.
+        """
+
     def __init__(
         self,
         *,
         deleted_at: authzed.api.v1.core_pb2.ZedToken | None = ...,
         deletion_progress: global___DeleteRelationshipsResponse.DeletionProgress.ValueType = ...,
         relationships_deleted_count: builtins.int = ...,
+        after_result_cursor: authzed.api.v1.core_pb2.Cursor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["deleted_at", b"deleted_at"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deleted_at", b"deleted_at", "deletion_progress", b"deletion_progress", "relationships_deleted_count", b"relationships_deleted_count"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["after_result_cursor", b"after_result_cursor", "deleted_at", b"deleted_at"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["after_result_cursor", b"after_result_cursor", "deleted_at", b"deleted_at", "deletion_progress", b"deletion_progress", "relationships_deleted_count", b"relationships_deleted_count"]) -> None: ...
 
 global___DeleteRelationshipsResponse = DeleteRelationshipsResponse
 
