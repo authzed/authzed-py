@@ -128,6 +128,11 @@ class PermissionsServiceServicer(object):
     def LookupResources(self, request, context):
         """LookupResources returns all the resources of a given type that a subject
         can access whether via a computed permission or relation membership.
+
+        Results are streamed and **not guaranteed to be unique**: the same resource
+        may be returned more than once (for example via caveated/conditional
+        results, or when a limit is set), possibly with differing permissionship.
+        Callers that require uniqueness should deduplicate results.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -136,6 +141,10 @@ class PermissionsServiceServicer(object):
     def LookupSubjects(self, request, context):
         """LookupSubjects returns all the subjects of a given type that
         have access whether via a computed permission or relation membership.
+
+        Results are streamed and **not guaranteed to be unique**: the same subject
+        may be returned more than once, possibly with differing permissionship.
+        Callers that require uniqueness should deduplicate results.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
